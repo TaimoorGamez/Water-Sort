@@ -1,4 +1,6 @@
 using UnityEngine;
+using Core.Events;
+using Core.Variables;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -13,6 +15,10 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] Vector3 LeftRotation, RightRotation;
         [SerializeField] CapsuleCollider TubeCollider;
         [SerializeField] CapHandler TubeCap;
+        [SerializeField] SOInterger DoingUndo, IsHiddenLevel, CompletedTubes;
+        [SerializeField] WaterSortingUndoManager UndoManager;
+        [SerializeField] SOWaterTube OpenTube;
+        [SerializeField] SOEvents CheckCompleteEvent;
 
         List<Coroutine> _drinkingRotine = new List<Coroutine>();
         TubeHandler _senderTube;
@@ -28,25 +34,25 @@ namespace Core.GamePlay.WaterSort
 
         private void OnMouseDown()
         {
-            if (!GameManager.instance.doingUndo)
+            if (DoingUndo.Value == 0)
             {
-                if (GameManager.instance.openTube == null && !IsBussy && !_isDrinkingWater && !MyLiquid.IsEmpty())
+                if (OpenTube.Tube == null && !IsBussy && !_isDrinkingWater && !MyLiquid.IsEmpty())
                 {
                     TubeState(true);
-                    GameManager.instance.openTube = this;
+                    OpenTube.Tube = this;
                 }
                 else
                 {
-                    if (GameManager.instance.openTube == this && !IsBussy)
+                    if (OpenTube.Tube == this && !IsBussy)
                     {
-                        GameManager.instance.openTube = null;
+                        OpenTube.Tube = null;
                         MoveBackIn();
                     }
                     else
                     {
-                        if (!IsBussy && GameManager.instance.openTube != null)
+                        if (!IsBussy && OpenTube.Tube != null)
                         {
-                            _senderTube = GameManager.instance.openTube;
+                            _senderTube = OpenTube.Tube;
                             if (MyLiquid.WaterColors.Count < 1)
                             {
                                 DrinkWater();
@@ -57,8 +63,8 @@ namespace Core.GamePlay.WaterSort
                             }
                             else
                             {
-                                GameManager.instance.openTube.MoveBackIn();
-                                GameManager.instance.openTube = null;
+                                OpenTube.Tube.MoveBackIn();
+                                OpenTube.Tube = null;
                             }
                         }
                     }
@@ -77,7 +83,7 @@ namespace Core.GamePlay.WaterSort
             IsBussy = true;
             _isDrinkingWater = true;
             _senderTube.IsBussy = true;
-            GameManager.instance.openTube = null;
+            OpenTube.Tube = null;
             _drinkingRotine.Add(StartCoroutine(ChangingWater(_senderTube)));
         }
 
@@ -87,7 +93,7 @@ namespace Core.GamePlay.WaterSort
             _isDrinkingWater = true;
             senderTube.IsBussy = true;
             _colorsToUndo = liquidLayers;
-            GameManager.instance.openTube = null;
+            OpenTube.Tube = null;
             _drinkingRotine.Add(StartCoroutine(ChangingWater(senderTube)));
         }
 
@@ -106,14 +112,14 @@ namespace Core.GamePlay.WaterSort
             {
                 LeanTween.rotate(senderTube.gameObject, rotationDirection, 0.1f).setOnComplete(() =>
                 {
-                    if (MyLiquid.WaterColors.Count < totalLiquidLayers - 1 && !GameManager.instance.doingUndo)
+                    if (MyLiquid.WaterColors.Count < totalLiquidLayers - 1 && DoingUndo.Value == 0)
                     {
                         int sameColors = 1;
                         for (int i = senderTube.MyLiquid.WaterColors.Count - 1; i > 0; i--)
                         {
                             if (senderTube.MyLiquid.WaterColors[i] == senderTube.MyLiquid.WaterColors[i - 1])
                             {
-                                if (GameManager.instance.hidenLvl)
+                                if (IsHiddenLevel.Value == 1)
                                 {
                                     if(!senderTube.MyLiquid.GetHidenColor(i - 1))
                                     sameColors++;
@@ -142,7 +148,7 @@ namespace Core.GamePlay.WaterSort
                         }
                     }
 
-                    if (GameManager.instance.doingUndo)
+                    if (DoingUndo.Value == 1)
                     {
                         colorsToAdd = _colorsToUndo;
                     }
@@ -153,16 +159,16 @@ namespace Core.GamePlay.WaterSort
             });
             yield return new WaitForSeconds(1.1f);
 
-            if (!GameManager.instance.doingUndo)
+            if (DoingUndo.Value == 0)
             {
-                GameManager.instance.AddUndo(senderTube, this, colorsToAdd);
+                UndoManager.AddUndo(senderTube, this, colorsToAdd);
             }
             else
             {
-                GameManager.instance.doingUndo = false;
+                DoingUndo.Value = 0;
             }
             senderTube.MoveBackIn();
-            if (GameManager.instance.hidenLvl)
+            if (IsHiddenLevel.Value == 1)
             {
                 senderTube.CheckHiddenColor();
             }
@@ -187,7 +193,7 @@ namespace Core.GamePlay.WaterSort
                 {
                     _alreadyAddedToCompleted = true;
                     TubeCollider.enabled = false;
-                    if (GameManager.instance.hidenLvl)
+                    if (IsHiddenLevel.Value == 1)
                     {
                         MyLiquid.RevelFullTube();
                     }
@@ -201,8 +207,8 @@ namespace Core.GamePlay.WaterSort
             yield return new WaitForSeconds(0.5f);
             TubeCap.PlayCelebration(MyLiquid.CurrentTopColor);
             yield return new WaitForSeconds(1.2f);
-            GameManager.instance.completedTubes++;
-            GameManager.instance.CheckComplete();
+            CompletedTubes.Value ++;
+            CheckCompleteEvent.InvokeEvent();
             if (_celebrationRotine != null)
             {
                 StopCoroutine(_celebrationRotine);
@@ -219,7 +225,7 @@ namespace Core.GamePlay.WaterSort
             if (_tubeCompleted)
             {
                 _tubeCompleted = false;
-                GameManager.instance.completedTubes--;
+                CompletedTubes.Value--;
                 _alreadyAddedToCompleted = false;
                 TubeCap.HideCap();
                 TubeCollider.enabled = true;

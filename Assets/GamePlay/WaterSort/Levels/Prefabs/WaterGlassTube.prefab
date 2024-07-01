@@ -222,6 +222,12 @@ MonoBehaviour:
   RightRotation: {x: 0, y: 60, z: 125}
   TubeCollider: {fileID: 6283564428832381689}
   TubeCap: {fileID: 1416333214214427342}
+  DoingUndo: {fileID: 11400000, guid: 8ce11c0323610f44d8bca007bba7cd74, type: 2}
+  IsHiddenLevel: {fileID: 11400000, guid: 0379e96a375797544890b5b505768ff9, type: 2}
+  CompletedTubes: {fileID: 11400000, guid: 5fb94964db162b54085794074b40bdfc, type: 2}
+  UndoManager: {fileID: 11400000, guid: 2f7253435691c6c49b0adc4816a71bb8, type: 2}
+  OpenTube: {fileID: 11400000, guid: bf474ece7744e9b479539f42878ff194, type: 2}
+  CheckCompleteEvent: {fileID: 11400000, guid: 2c37a8d1a87a967478aac7aad7856195, type: 2}
 --- !u!136 &6283564428832381689
 CapsuleCollider:
   m_ObjectHideFlags: 0

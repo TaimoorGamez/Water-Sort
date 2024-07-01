@@ -8,9 +8,8 @@ namespace Core.GamePlay.WaterSort
 {
     public class GameManager : MonoBehaviour
     {
-        public static GameManager instance;
-        public TubeHandler openTube = null;
-        public bool doingUndo = false, hidenLvl = false;
+        public TubeHandler OpenTube = null;
+        public bool DoingUndo = false, hidenLvl = false;
         public int completedTubes = 0;
 
         [SerializeField] Color[] allColours;
@@ -30,14 +29,6 @@ namespace Core.GamePlay.WaterSort
 
         void Start()
         {
-            if (instance != null && instance != this)
-            {
-                Destroy(this.gameObject);
-            }
-            else
-            {
-                instance = this;
-            }
             OnNextBtnClick();
         }
 
@@ -107,17 +98,17 @@ namespace Core.GamePlay.WaterSort
 
         public void OnUndoBtnClick()
         {
-            if (_undoMoves.Count > 0 && !doingUndo)
+            if (_undoMoves.Count > 0 && !DoingUndo)
             {
-                doingUndo = true;
+                DoingUndo = true;
                 UndoData lastUndo = new UndoData();
                 lastUndo = _undoMoves.Pop();
-                if (openTube != null)
+                if (OpenTube != null)
                 {
-                    openTube.MoveBackIn();
+                    OpenTube.MoveBackIn();
                 }
-                openTube = lastUndo.GetterTube;
-                openTube.RemoveFromCompleted();
+                OpenTube = lastUndo.GetterTube;
+                OpenTube.RemoveFromCompleted();
                 lastUndo.SenderTube.UndoWater(lastUndo.GetterTube, lastUndo.LiquidLayers);
             }
         }

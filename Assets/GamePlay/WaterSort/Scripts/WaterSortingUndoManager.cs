@@ -1,15 +1,19 @@
 using UnityEngine;
+using Core.Events;
 using Core.Variables;
 using System.Collections.Generic;
 
 namespace Core.GamePlay.WaterSort
 {
-    [CreateAssetMenu(fileName = "Undo", menuName = "ScriptableObjects/WaterSort/Undo")]
-    public class WaterSortingUndo : ScriptableObject
+    [CreateAssetMenu(fileName = "UndoManager", menuName = "ScriptableObjects/WaterSort/UndoManager")]
+    public class WaterSortingUndoManager : ScriptableObject
     {
         [SerializeField] SOInterger DoingUndo;
         [SerializeField] SOWaterTube OpenTube;
+        [SerializeField] SOEvents UndoEvent;
+
         Stack<UndoData> _undoMoves = new Stack<UndoData>();
+
         public void AddUndo(TubeHandler senderTube, TubeHandler getterTube, int liquidLayers)
         {
             UndoData newUndo = new UndoData();
@@ -17,6 +21,16 @@ namespace Core.GamePlay.WaterSort
             newUndo.GetterTube = getterTube;
             newUndo.LiquidLayers = liquidLayers;
             _undoMoves.Push(newUndo);
+        }
+
+        private void OnEnable()
+        {
+            UndoEvent.EventHandler += OnUndoBtnClick;
+        }
+
+        private void OnDisable()
+        {
+            UndoEvent.EventHandler -= OnUndoBtnClick;
         }
 
         void OnUndoBtnClick()
