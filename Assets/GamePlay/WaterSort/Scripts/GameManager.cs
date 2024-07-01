@@ -38,6 +38,7 @@ namespace Core.GamePlay.WaterSort
             {
                 instance = this;
             }
+            OnNextBtnClick();
         }
 
         public void OnNextBtnClick()
@@ -118,14 +119,6 @@ namespace Core.GamePlay.WaterSort
                 openTube = lastUndo.GetterTube;
                 openTube.RemoveFromCompleted();
                 lastUndo.SenderTube.UndoWater(lastUndo.GetterTube, lastUndo.LiquidLayers);
-            }
-        }
-
-        public void UndoComplete()
-        {
-            if (doingUndo)
-            {
-                doingUndo = false;
             }
         }
 
