@@ -1,0 +1,100 @@
+using UnityEngine;
+using Core.Variables;
+using Core.DB.Variables;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace Core.GamePlay.WaterSort
+{
+    public class WaterSortLevelInit : MonoBehaviour
+    {
+        [SerializeField] DBInt LvlNum;
+        [SerializeField] SOInterger IsHiddenLevel, TotalTubes;
+        [SerializeField] TubeHandler TubePrefab;
+        [SerializeField] Vector3[] TubePositions;
+        [SerializeField] Color[] AllColours;
+
+        List<TubeHandler> _levelTubes = new List<TubeHandler>();
+        int _instantiatedLvl;
+        int[] tubesInlvl = { 7, 8, 9 };
+        Coroutine lvlMakingRotine;
+
+        public void InitNewLevel()
+        {
+            _levelTubes.Clear();
+            foreach (Transform child in transform)
+            {
+                Destroy(child.gameObject);
+            }
+            if (LvlNum.Value % 5 == 0)
+            {
+                IsHiddenLevel.Value = 1;
+            }
+            else if (IsHiddenLevel.Value == 1)
+            {
+                IsHiddenLevel.Value = 0;
+            }
+
+            if (LvlNum.Value < 5)
+            {
+                Instantiate(Resources.Load("Levels/lvl " + LvlNum.Value.ToString()), transform);
+                _instantiatedLvl = LvlNum.Value;
+            }
+            else if (LvlNum.Value < 8)
+            {
+                TotalTubes.Value = LvlNum.Value + 2;
+                _instantiatedLvl = LvlNum.Value;
+                lvlMakingRotine = StartCoroutine(GenerateLvl());
+            }
+            else
+            {
+                int randomNum = Random.Range(0, 3);
+                TotalTubes.Value = tubesInlvl[randomNum];
+                _instantiatedLvl = randomNum + 5;
+                lvlMakingRotine = StartCoroutine(GenerateLvl());
+            }
+        }
+        private IEnumerator GenerateLvl()
+        {
+            for (int t = 0; t < TotalTubes.Value; t++)
+            {
+                TubeHandler newTube = Instantiate(TubePrefab, transform);
+                newTube.transform.position = TubePositions[t];
+                if (t < _instantiatedLvl)
+                { _levelTubes.Add(newTube); }
+            }
+            yield return new WaitForSeconds(0.25f);
+            for (int l = 0; l < _instantiatedLvl; l++)
+            {
+                for (int b = 0; b < 4; b++)
+                {
+                    int tubeNum = Random.Range(0, _levelTubes.Count);
+
+                    if (_levelTubes[tubeNum].MyLiquid.WaterColors.Count < 4)
+                    {
+                        if (IsHiddenLevel.Value == 1)
+                        {
+                            _levelTubes[tubeNum].MyLiquid.SetHidenColour(AllColours[l]);
+                        }
+                        else
+                        {
+                            _levelTubes[tubeNum].MyLiquid.SetColor(AllColours[l]);
+                        }
+                    }
+                    yield return new WaitForSeconds(0.01f);
+                    if (_levelTubes[tubeNum].MyLiquid.WaterColors.Count == 4)
+                    {
+                        _levelTubes[tubeNum].WaterAdded();
+                        _levelTubes.RemoveAt(tubeNum);
+                    }
+                }
+            }
+            yield return new WaitForSeconds(0.75f);
+            if (lvlMakingRotine != null)
+            {
+                StopCoroutine(lvlMakingRotine);
+            }
+        }
+
+    }
+}

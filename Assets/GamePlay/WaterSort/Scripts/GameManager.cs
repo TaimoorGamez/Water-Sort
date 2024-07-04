@@ -27,11 +27,6 @@ namespace Core.GamePlay.WaterSort
         List<TubeHandler> _levelTubes = new List<TubeHandler>();
         Stack<UndoData> _undoMoves = new Stack<UndoData>();
 
-        void Start()
-        {
-            OnNextBtnClick();
-        }
-
         public void OnNextBtnClick()
         {
             if (!onceClicked)

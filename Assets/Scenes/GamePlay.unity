@@ -216,7 +216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &290105121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,8 +229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfdef3c0ec5fb6c48a00dcc3d2e0fb0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openTube: {fileID: 0}
-  doingUndo: 0
+  OpenTube: {fileID: 0}
+  DoingUndo: 0
   hidenLvl: 0
   completedTubes: 0
   allColours:
@@ -1564,8 +1564,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1199090505}
+  - component: {fileID: 1199090506}
+  - component: {fileID: 1199090507}
   m_Layer: 0
-  m_Name: Level
+  m_Name: WaterSort Levels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1586,6 +1588,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1199090506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199090504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62991d59217c38f42bd0224c32a6a932, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelMaker: {fileID: 1199090507}
+  CompletedTubes: {fileID: 11400000, guid: 5fb94964db162b54085794074b40bdfc, type: 2}
+  LvlNum: {fileID: 11400000, guid: bad89b7dfd4fe324eaaacf6e970340af, type: 2}
+--- !u!114 &1199090507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199090504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc3ea379d98f12345968c5e37ea4d09a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LvlNum: {fileID: 11400000, guid: bad89b7dfd4fe324eaaacf6e970340af, type: 2}
+  IsHiddenLevel: {fileID: 11400000, guid: 0379e96a375797544890b5b505768ff9, type: 2}
+  TotalTubes: {fileID: 11400000, guid: 39f879ba23d3864439a0a89183852dde, type: 2}
+  TubePrefab: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+  TubePositions:
+  - {x: -1, y: 4, z: 0}
+  - {x: 1, y: 4, z: 0}
+  - {x: 0, y: 4, z: 0}
+  - {x: -2, y: 4, z: 0}
+  - {x: 2, y: 4, z: 0}
+  - {x: -1, y: -0.3, z: 0}
+  - {x: 1, y: -0.3, z: 0}
+  - {x: 0, y: -0.3, z: 0}
+  - {x: -2, y: -0.3, z: 0}
+  - {x: 2, y: -0.3, z: 0}
+  AllColours:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 1, g: 1, b: 0, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}
+  - {r: 0, g: 1, b: 1, a: 1}
+  - {r: 0.6666667, g: 0, b: 1, a: 1}
+  - {r: 1, g: 0, b: 1, a: 1}
 --- !u!1 &1444670378
 GameObject:
   m_ObjectHideFlags: 0
