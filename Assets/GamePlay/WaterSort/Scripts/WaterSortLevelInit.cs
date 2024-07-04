@@ -1,4 +1,5 @@
 using UnityEngine;
+using Core.Events;
 using Core.Variables;
 using Core.DB.Variables;
 using System.Collections;
@@ -9,17 +10,27 @@ namespace Core.GamePlay.WaterSort
     public class WaterSortLevelInit : MonoBehaviour
     {
         [SerializeField] DBInt LvlNum;
-        [SerializeField] SOInterger IsHiddenLevel, TotalTubes;
+        [SerializeField] SOInterger IsHiddenLevel, TotalTubes, CurrentLvl;
+        [SerializeField] SOEvents InitLevelEvent;
         [SerializeField] TubeHandler TubePrefab;
         [SerializeField] Vector3[] TubePositions;
         [SerializeField] Color[] AllColours;
 
         List<TubeHandler> _levelTubes = new List<TubeHandler>();
-        int _instantiatedLvl;
         int[] tubesInlvl = { 7, 8, 9 };
         Coroutine lvlMakingRotine;
 
-        public void InitNewLevel()
+        private void OnEnable()
+        {
+            InitLevelEvent.EventHandler += InitNewLevel;
+        }
+
+        private void OnDisable()
+        {
+            InitLevelEvent.EventHandler -= InitNewLevel;
+        }
+
+        void InitNewLevel()
         {
             _levelTubes.Clear();
             foreach (Transform child in transform)
@@ -37,34 +48,35 @@ namespace Core.GamePlay.WaterSort
 
             if (LvlNum.Value < 5)
             {
-                Instantiate(Resources.Load("Levels/lvl " + LvlNum.Value.ToString()), transform);
-                _instantiatedLvl = LvlNum.Value;
+                Instantiate(Resources.Load("WaterSortLevels/lvl " + LvlNum.Value.ToString()), transform);
+                CurrentLvl.Value = LvlNum.Value;
             }
             else if (LvlNum.Value < 8)
             {
                 TotalTubes.Value = LvlNum.Value + 2;
-                _instantiatedLvl = LvlNum.Value;
+                CurrentLvl.Value = LvlNum.Value;
                 lvlMakingRotine = StartCoroutine(GenerateLvl());
             }
             else
             {
                 int randomNum = Random.Range(0, 3);
                 TotalTubes.Value = tubesInlvl[randomNum];
-                _instantiatedLvl = randomNum + 5;
+                CurrentLvl.Value = randomNum + 5;
                 lvlMakingRotine = StartCoroutine(GenerateLvl());
             }
         }
-        private IEnumerator GenerateLvl()
+
+        IEnumerator GenerateLvl()
         {
             for (int t = 0; t < TotalTubes.Value; t++)
             {
                 TubeHandler newTube = Instantiate(TubePrefab, transform);
                 newTube.transform.position = TubePositions[t];
-                if (t < _instantiatedLvl)
+                if (t < CurrentLvl.Value)
                 { _levelTubes.Add(newTube); }
             }
             yield return new WaitForSeconds(0.25f);
-            for (int l = 0; l < _instantiatedLvl; l++)
+            for (int l = 0; l < CurrentLvl.Value; l++)
             {
                 for (int b = 0; b < 4; b++)
                 {

@@ -7,19 +7,12 @@ namespace Core.GamePlay.WaterSort
     public class WaterSortLevelManager : MonoBehaviour
     {
         [SerializeField] WaterSortLevelInit LevelMaker;
-        [SerializeField] SOInterger CompletedTubes;
+        [SerializeField] SOInterger CompletedTubes, CurrrentLvl;
         [SerializeField] DBInt LvlNum;
-
-        int _curentLvl;
-
-        private void Start()
-        {
-            LevelMaker.InitNewLevel();
-        }
 
         void CheckComplete()
         {
-            if (CompletedTubes.Value == _curentLvl)
+            if (CompletedTubes.Value == CurrrentLvl.Value)
             {
                 LvlNum.Value++;
                 CompletedTubes.Value = 0;
