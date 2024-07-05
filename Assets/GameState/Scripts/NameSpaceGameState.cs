@@ -6,13 +6,13 @@ namespace Core.States
     {
         [SerializeField] protected GameObject StateViewPrefab;
 
-        protected GameObject stateView;
+        protected GameObject _stateScreen;
 
         public virtual void ActiveCurrentState(Transform parent)
         {
-            if (stateView == null)
+            if (_stateScreen == null)
             {
-                stateView = Instantiate(StateViewPrefab, parent);
+                _stateScreen = Instantiate(StateViewPrefab, parent);
             }
             else
             {
@@ -27,8 +27,8 @@ namespace Core.States
 
         public virtual void DestroyCurrentState()
         {
-            if (stateView != null)
-                Destroy(stateView);
+            if (_stateScreen != null)
+                Destroy(_stateScreen);
         }
 
         protected virtual void ShowStateAgain()

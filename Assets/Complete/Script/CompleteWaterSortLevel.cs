@@ -11,7 +11,7 @@ namespace Core.States
 
         public override void DeActiveCurrentState()
         {
-
+            _stateScreen.SetActive(false);
         }
 
         public override void DestroyCurrentState()
@@ -21,7 +21,7 @@ namespace Core.States
 
         protected override void ShowStateAgain()
         {
-
+            _stateScreen.SetActive(true);
         }
     }
 }
