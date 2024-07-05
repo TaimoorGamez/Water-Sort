@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 263c214676a7b4244984af8a5cdcc97c, type: 3}
-  m_Name: lvlNum
+  m_Script: {fileID: 11500000, guid: 14d17bc15e4abaf4c8be3aa598c60062, type: 3}
+  m_Name: UPHandScale
   m_EditorClassIdentifier: 
-  CurrentValue: 1
-  DefaultValue: 1
-  ResetDefault: 1
-  PrefName: lvlNum
+  TargetObj: {fileID: 0}
+  TargetAction: {x: 0.7, y: 0.7, z: 0}
+  Duration: 0.25
+  CurrentEaseType: 1
+  IsLoop: 0
+  StateAfterComplete: 1

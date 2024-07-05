@@ -23,7 +23,7 @@ namespace Core.GamePlay.WaterSort
         List<Coroutine> _drinkingRotine = new List<Coroutine>();
         TubeHandler _senderTube;
         Vector3 _orignalPos;
-        int totalLiquidLayers = 4, _colorsToUndo = 1;
+        int _totalLiquidLayers = 4, _colorsToUndo = 1;
         bool _isDrinkingWater = false, _tubeCompleted = false, _alreadyAddedToCompleted = false;
         Coroutine _celebrationRotine;
 
@@ -57,7 +57,7 @@ namespace Core.GamePlay.WaterSort
                             {
                                 DrinkWater();
                             }
-                            else if (MyLiquid.WaterColors.Count < totalLiquidLayers && _senderTube.MyLiquid.CurrentTopColor == MyLiquid.CurrentTopColor)
+                            else if (MyLiquid.WaterColors.Count < _totalLiquidLayers && _senderTube.MyLiquid.CurrentTopColor == MyLiquid.CurrentTopColor)
                             {
                                 DrinkWater();
                             }
@@ -112,7 +112,7 @@ namespace Core.GamePlay.WaterSort
             {
                 LeanTween.rotate(senderTube.gameObject, rotationDirection, 0.1f).setOnComplete(() =>
                 {
-                    if (MyLiquid.WaterColors.Count < totalLiquidLayers - 1 && DoingUndo.Value == 0)
+                    if (MyLiquid.WaterColors.Count < _totalLiquidLayers - 1 && DoingUndo.Value == 0)
                     {
                         int sameColors = 1;
                         for (int i = senderTube.MyLiquid.WaterColors.Count - 1; i > 0; i--)
@@ -136,7 +136,7 @@ namespace Core.GamePlay.WaterSort
                         }
                         if (sameColors > 1)
                         {
-                            int remaingLayers = totalLiquidLayers - MyLiquid.WaterColors.Count;
+                            int remaingLayers = _totalLiquidLayers - MyLiquid.WaterColors.Count;
                             if (sameColors <= remaingLayers)
                             {
                                 colorsToAdd = sameColors;
@@ -178,10 +178,10 @@ namespace Core.GamePlay.WaterSort
         public void WaterAdded()
         {
             _isDrinkingWater = false;
-            if (MyLiquid.WaterColors.Count == totalLiquidLayers)
+            if (MyLiquid.WaterColors.Count == _totalLiquidLayers)
             {
                 _tubeCompleted = true;
-                for (int i = totalLiquidLayers - 1; i > 0; i--)
+                for (int i = _totalLiquidLayers - 1; i > 0; i--)
                 {
                     if (MyLiquid.WaterColors[i] != MyLiquid.WaterColors[i - 1])
                     {

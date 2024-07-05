@@ -1,0 +1,48 @@
+using UnityEngine;
+using System.Collections;
+
+namespace Core.GamePlay.WaterSort
+{
+    public class WaterSortTutorialOne : MonoBehaviour
+    {
+        [SerializeField] CapsuleCollider MyCollider, OtherCollider;
+        [SerializeField] WaterColor MyLiquid;
+        [SerializeField] GameObject HandObj;
+        [SerializeField] Color CurrentColor;
+        [SerializeField] int TubeCounter;
+
+        private void Start()
+        {
+            StartCoroutine(SetColors());
+        }
+
+        IEnumerator SetColors()
+        {
+            yield return new WaitForSeconds(0.5f);
+            for (int c=0; c<2; c++)
+            {
+                MyLiquid.SetColor(CurrentColor);
+                yield return new WaitForSeconds(0.1f);
+            }
+            if (TubeCounter == 1)
+            {
+                MyCollider.enabled = true;
+            }
+        }
+
+        private void OnMouseDown()
+        {
+            if (TubeCounter == 1)
+            {
+                MyCollider.enabled = false;
+                OtherCollider.enabled = true;
+                LeanTween.moveX(HandObj,1.6f,1);
+            }
+            else if (TubeCounter == 2)
+            {
+                MyCollider.enabled = false;
+                HandObj.SetActive(false);
+            }
+        }
+    }
+}
