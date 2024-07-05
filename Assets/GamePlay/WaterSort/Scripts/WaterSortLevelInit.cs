@@ -10,8 +10,8 @@ namespace Core.GamePlay.WaterSort
     public class WaterSortLevelInit : MonoBehaviour
     {
         [SerializeField] DBInt LvlNum;
-        [SerializeField] SOInterger IsHiddenLevel, TotalTubes, CurrentLvl;
-        [SerializeField] SOEvents InitLevelEvent;
+        [SerializeField] SOInterger IsHiddenLevel, CurrentLvl;
+        [SerializeField] SOEvents InitLevelEvent, ExtraTubeEvent;
         [SerializeField] TubeHandler TubePrefab;
         [SerializeField] Vector3[] TubePositions;
         [SerializeField] Color[] AllColours;
@@ -19,15 +19,18 @@ namespace Core.GamePlay.WaterSort
         List<TubeHandler> _levelTubes = new List<TubeHandler>();
         int[] tubesInlvl = { 7, 8, 9 };
         Coroutine lvlMakingRotine;
+        int _totalTubes = 4;
 
         private void OnEnable()
         {
             InitLevelEvent.EventHandler += InitNewLevel;
+            ExtraTubeEvent.EventHandler += OnAddTubeClick;
         }
 
         private void OnDisable()
         {
             InitLevelEvent.EventHandler -= InitNewLevel;
+            ExtraTubeEvent.EventHandler -= OnAddTubeClick;
         }
 
         void InitNewLevel()
@@ -53,14 +56,14 @@ namespace Core.GamePlay.WaterSort
             }
             else if (LvlNum.Value < 8)
             {
-                TotalTubes.Value = LvlNum.Value + 2;
+                _totalTubes = LvlNum.Value + 2;
                 CurrentLvl.Value = LvlNum.Value;
                 lvlMakingRotine = StartCoroutine(GenerateLvl());
             }
             else
             {
                 int randomNum = Random.Range(0, 3);
-                TotalTubes.Value = tubesInlvl[randomNum];
+                _totalTubes = tubesInlvl[randomNum];
                 CurrentLvl.Value = randomNum + 5;
                 lvlMakingRotine = StartCoroutine(GenerateLvl());
             }
@@ -68,7 +71,7 @@ namespace Core.GamePlay.WaterSort
 
         IEnumerator GenerateLvl()
         {
-            for (int t = 0; t < TotalTubes.Value; t++)
+            for (int t = 0; t < _totalTubes; t++)
             {
                 TubeHandler newTube = Instantiate(TubePrefab, transform);
                 newTube.transform.position = TubePositions[t];
@@ -108,5 +111,15 @@ namespace Core.GamePlay.WaterSort
             }
         }
 
+
+        void OnAddTubeClick()
+        {
+            if (_totalTubes < 10)
+            {
+                TubeHandler newTube = Instantiate(TubePrefab, transform);
+                newTube.transform.position = TubePositions[_totalTubes];
+                _totalTubes++;
+            }
+        }
     }
 }

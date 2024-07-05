@@ -4,8 +4,7 @@ using System.Collections;
 
 namespace Core.GamePlay.WaterSort
 {
-    public class WaterSortTutorialTwo
-        : MonoBehaviour
+    public class WaterSortTutorialTwo : MonoBehaviour
     {
         [SerializeField] CapsuleCollider MyCollider, SecondCollider, ThirdCollider;
         [SerializeField] WaterColor MyLiquid, OtherLiquid;
