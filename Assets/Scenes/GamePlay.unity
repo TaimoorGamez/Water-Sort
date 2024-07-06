@@ -667,63 +667,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 35, y: 0, z: 0}
---- !u!1001 &607815025
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4285636554344014926, guid: 7716a52a7c2c2394c8f1861b0dfded8c, type: 3}
-      propertyPath: m_Name
-      value: lvl 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5115798769448170881, guid: 7716a52a7c2c2394c8f1861b0dfded8c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5115798769448170881, guid: 7716a52a7c2c2394c8f1861b0dfded8c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5115798769448170881, guid: 7716a52a7c2c2394c8f1861b0dfded8c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5115798769448170881, guid: 7716a52a7c2c2394c8f1861b0dfded8c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5115798769448170881, guid: 7716a52a7c2c2394c8f1861b0dfded8c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5115798769448170881, guid: 7716a52a7c2c2394c8f1861b0dfded8c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5115798769448170881, guid: 7716a52a7c2c2394c8f1861b0dfded8c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5115798769448170881, guid: 7716a52a7c2c2394c8f1861b0dfded8c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5115798769448170881, guid: 7716a52a7c2c2394c8f1861b0dfded8c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5115798769448170881, guid: 7716a52a7c2c2394c8f1861b0dfded8c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7716a52a7c2c2394c8f1861b0dfded8c, type: 3}
 --- !u!1 &724720254
 GameObject:
   m_ObjectHideFlags: 0
@@ -896,8 +839,10 @@ MonoBehaviour:
   LvlNum: {fileID: 11400000, guid: bad89b7dfd4fe324eaaacf6e970340af, type: 2}
   IsHiddenLevel: {fileID: 11400000, guid: 0379e96a375797544890b5b505768ff9, type: 2}
   CurrentLvl: {fileID: 11400000, guid: 619fe066546f4a1468e58d2c6fff0e67, type: 2}
+  CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
   InitLevelEvent: {fileID: 11400000, guid: 30e22fa3534f8ae429ac3af2c42b6b5c, type: 2}
   ExtraTubeEvent: {fileID: 11400000, guid: 144ef759d9080de4684f554d27c681d9, type: 2}
+  SwipeColorsModeEvent: {fileID: 11400000, guid: 9781b632e66a3704aa915400af187d35, type: 2}
   TubePrefab: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
   TubePositions:
   - {x: -1, y: 4, z: 0}
@@ -912,12 +857,12 @@ MonoBehaviour:
   - {x: 2, y: -0.3, z: 0}
   AllColours:
   - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
   - {r: 1, g: 1, b: 0, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
+  - {r: 0, g: 1, b: 0, a: 1}
   - {r: 0, g: 1, b: 1, a: 1}
-  - {r: 0.6666667, g: 0, b: 1, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}
   - {r: 1, g: 0, b: 1, a: 1}
+  - {r: 0.5882353, g: 0, b: 1, a: 1}
 --- !u!1 &1444670378
 GameObject:
   m_ObjectHideFlags: 0
@@ -1028,7 +973,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1444670378}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75460134b32094c4e8111c8f1a72f66c, type: 3}
   m_Name: 
@@ -1394,4 +1339,3 @@ SceneRoots:
   - {fileID: 290105122}
   - {fileID: 328826149}
   - {fileID: 489903959}
-  - {fileID: 607815025}

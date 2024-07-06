@@ -6,9 +6,9 @@ using System.Collections.Generic;
 namespace Core.GamePlay.WaterSort
 {
     [CreateAssetMenu(fileName = "UndoManager", menuName = "ScriptableObjects/WaterSort/UndoManager")]
-    public class WaterSortingUndoManager : ScriptableObject
+    public class UndoManager : ScriptableObject
     {
-        [SerializeField] SOInterger DoingUndo;
+        [SerializeField] SOInterger DoingUndo, UsingAnyFeature;
         [SerializeField] SOWaterTube OpenTube;
         [SerializeField] SOEvents UndoEvent;
 
@@ -35,9 +35,10 @@ namespace Core.GamePlay.WaterSort
 
         void OnUndoBtnClick()
         {
-            if (_undoMoves.Count > 0 && DoingUndo.Value == 0)
+            if (_undoMoves.Count > 0 && DoingUndo.Value == 0 && UsingAnyFeature.Value == 0)
             {
                 DoingUndo.Value = 1;
+                UsingAnyFeature.Value = 1;
                 UndoData lastUndo = new UndoData();
                 lastUndo = _undoMoves.Pop();
                 if (OpenTube.Tube != null)

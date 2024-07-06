@@ -15,8 +15,9 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] Vector3 LeftRotation, RightRotation;
         [SerializeField] CapsuleCollider TubeCollider;
         [SerializeField] CapHandler TubeCap;
-        [SerializeField] SOInterger DoingUndo, IsHiddenLevel, CompletedTubes;
-        [SerializeField] WaterSortingUndoManager UndoManager;
+        [SerializeField] SOInterger DoingUndo, IsHiddenLevel, CompletedTubes, IsSwaping, CanPlay, UsingAnyFeature;
+        [SerializeField] UndoManager UndoManager;
+        [SerializeField] ColorSwiper SwapingManager;
         [SerializeField] SOWaterTube OpenTube;
         [SerializeField] SOEvents CheckCompleteEvent;
 
@@ -34,7 +35,7 @@ namespace Core.GamePlay.WaterSort
 
         private void OnMouseDown()
         {
-            if (DoingUndo.Value == 0)
+            if (DoingUndo.Value == 0 && IsSwaping.Value == 0 && CanPlay.Value == 1)
             {
                 if (OpenTube.Tube == null && !IsBussy && !_isDrinkingWater && !MyLiquid.IsEmpty())
                 {
@@ -69,6 +70,10 @@ namespace Core.GamePlay.WaterSort
                         }
                     }
                 }
+            }
+            else if (IsSwaping.Value == 1)
+            {
+                SwapingManager.AddTubeForSwaping(this);
             }
         }
 
@@ -166,6 +171,7 @@ namespace Core.GamePlay.WaterSort
             else
             {
                 DoingUndo.Value = 0;
+                UsingAnyFeature.Value = 0;
             }
             senderTube.MoveBackIn();
             if (IsHiddenLevel.Value == 1)

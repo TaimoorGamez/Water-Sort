@@ -57,6 +57,21 @@ namespace Core.GamePlay.WaterSort
             MySkin.SetPropertyBlock(_propBlock);
             WaterLineEndPos.localPosition += new Vector3(0, _waterPosIncrement, 0);
         }
+
+        public void SwapeColor(Color currentColor)
+        {
+            CurrentTopColor = currentColor;
+
+            _propBlock.SetColor("_Color" + WaterColors.Count.ToString(), currentColor);
+            // Apply the material property block to the renderer
+            MySkin.SetPropertyBlock(_propBlock);
+            // Set transparency property in the material property block
+            _propBlock.SetFloat("_TransparencyRange", _eachLiquidLayerHeight * WaterColors.Count);
+
+            // Apply the material property block to the renderer
+            MySkin.SetPropertyBlock(_propBlock);
+            WaterLineEndPos.localPosition += new Vector3(0, _waterPosIncrement, 0);
+        }
         public void AddColor(Color currentColor, int layers)
         {
             for (int c = 0; c < layers; c++)

@@ -225,7 +225,11 @@ MonoBehaviour:
   DoingUndo: {fileID: 11400000, guid: 8ce11c0323610f44d8bca007bba7cd74, type: 2}
   IsHiddenLevel: {fileID: 11400000, guid: 0379e96a375797544890b5b505768ff9, type: 2}
   CompletedTubes: {fileID: 11400000, guid: 5fb94964db162b54085794074b40bdfc, type: 2}
+  IsSwaping: {fileID: 11400000, guid: 3237d1914975aed4fb5ca302095f1b6b, type: 2}
+  CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
+  UsingAnyFeature: {fileID: 11400000, guid: ee976038d1a51e14684dc2c2bb35a697, type: 2}
   UndoManager: {fileID: 11400000, guid: 2f7253435691c6c49b0adc4816a71bb8, type: 2}
+  SwapingManager: {fileID: 11400000, guid: ac9798af573253a47be19aa6271d169a, type: 2}
   OpenTube: {fileID: 11400000, guid: bf474ece7744e9b479539f42878ff194, type: 2}
   CheckCompleteEvent: {fileID: 11400000, guid: 2c37a8d1a87a967478aac7aad7856195, type: 2}
 --- !u!136 &6283564428832381689

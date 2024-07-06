@@ -10,5 +10,10 @@ namespace Core.Animations.LT
             ltAnimation = LeanTween.scale(TargetObj, TargetAction, Duration);
             base.PlayAnimation();
         }
+
+        public override void CancleAnimation()
+        {
+            base.CancleAnimation();
+        }
     }
 }

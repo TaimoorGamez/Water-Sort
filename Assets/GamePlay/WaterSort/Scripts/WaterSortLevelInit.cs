@@ -10,8 +10,8 @@ namespace Core.GamePlay.WaterSort
     public class WaterSortLevelInit : MonoBehaviour
     {
         [SerializeField] DBInt LvlNum;
-        [SerializeField] SOInterger IsHiddenLevel, CurrentLvl;
-        [SerializeField] SOEvents InitLevelEvent, ExtraTubeEvent;
+        [SerializeField] SOInterger IsHiddenLevel, CurrentLvl, CanPlay;
+        [SerializeField] SOEvents InitLevelEvent, ExtraTubeEvent, SwipeColorsModeEvent;
         [SerializeField] TubeHandler TubePrefab;
         [SerializeField] Vector3[] TubePositions;
         [SerializeField] Color[] AllColours;
@@ -35,6 +35,7 @@ namespace Core.GamePlay.WaterSort
 
         void InitNewLevel()
         {
+            CanPlay.Value = 0;
             _levelTubes.Clear();
             foreach (Transform child in transform)
             {
@@ -104,7 +105,9 @@ namespace Core.GamePlay.WaterSort
                     }
                 }
             }
-            yield return new WaitForSeconds(0.75f);
+            yield return new WaitForSeconds(0.1f);
+            SwipeColorsModeEvent.InvokeEvent();
+            CanPlay.Value = 1;
             if (lvlMakingRotine != null)
             {
                 StopCoroutine(lvlMakingRotine);

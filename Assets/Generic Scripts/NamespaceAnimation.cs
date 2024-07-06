@@ -28,6 +28,15 @@ namespace Core.Animations.LT
 
             ltAnimation.setOnComplete(() => TargetObj.SetActive(StateAfterComplete));
         }
+
+        public virtual void CancleAnimation()
+        {
+            if (ltAnimation != null)
+            {
+                LeanTween.cancel(ltAnimation.id); // Cancel by ID
+                ltAnimation = null; // Optionally set to null to avoid accidental reuse
+            }
+        }
     }
 }
 

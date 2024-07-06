@@ -1,10 +1,16 @@
 using UnityEngine;
+using Core.Events;
+using Core.Variables;
+using Core.Animations.LT;
 using System.Collections;
 
 namespace Core.GamePlay.WaterSort
 {
     public class WaterSortTutorialThree : MonoBehaviour
     {
+        [SerializeField] SOLeanTween ScaleDownButton;
+        [SerializeField] SOEvents SwipeColorsModeEvent;
+        [SerializeField] SOInterger CanPlay;
         [SerializeField] WaterColor FirstLiquid, SecondLiquid, ThirdLiquid;
         [SerializeField] GameObject HandObj, ExtraTube, InfoText;
         [SerializeField] Color[] CurrentColors;
@@ -14,6 +20,7 @@ namespace Core.GamePlay.WaterSort
         private void Start()
         {
             StartCoroutine(SetColors());
+            ScaleDownButton.TargetObj = this.gameObject;
         }
 
         IEnumerator SetColors()
@@ -44,14 +51,21 @@ namespace Core.GamePlay.WaterSort
                 ThirdLiquid.SetColor(CurrentColors[_colorIndex]);
                 yield return new WaitForSeconds(0.1f);
             }
+            SwipeColorsModeEvent.InvokeEvent();
+            CanPlay.Value = 1;
+            HandObj.SetActive(true);
         }
 
         private void OnMouseDown()
         {
-            ExtraTube.SetActive(true);
-            HandObj.SetActive(false);
-            InfoText.SetActive(true);
-            Destroy(gameObject);
+            if (CanPlay.Value == 1)
+            {
+                ScaleDownButton.PlayAnimation();
+                ExtraTube.SetActive(true);
+                HandObj.SetActive(false);
+                InfoText.SetActive(true);
+                Destroy(gameObject);
+            }
         }
     }
 }
