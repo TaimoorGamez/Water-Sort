@@ -12,7 +12,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] SOInterger CanPlay;
         [SerializeField] CapsuleCollider MyCollider, SecondCollider, ThirdCollider;
         [SerializeField] WaterColor MyLiquid, OtherLiquid;
-        [SerializeField] GameObject HandObj, UndoButton;
+        [SerializeField] GameObject HandObj, UndoButton, LockObj;
         [SerializeField] Color[] CurrentColors;
         [SerializeField] bool IsUndoBtn, ExtraTube;
         [SerializeField] SOEvents UndoEvent, SwipeColorsModeEvent;
@@ -67,6 +67,7 @@ namespace Core.GamePlay.WaterSort
                     if (_isFirstClick)
                     {
                         _isFirstClick = false;
+                        LeanTween.moveLocalY(LockObj, -1, 1).setEase(LeanTweenType.easeInBack).setOnComplete(() => { LockObj.SetActive(false); });
                         HandObj.SetActive(false);
                         MyCollider.enabled = true;
                         SecondCollider.enabled = true;
@@ -77,12 +78,13 @@ namespace Core.GamePlay.WaterSort
                 {
                     _isFirstClick = false;
                     MyCollider.enabled = false;
-                    Invoke(nameof(ShowUndoBtn), 0.75f);
+                    Invoke(nameof(ShowUndoBtn), 1.5f);
                 }
                 else if (_isFirstClick)
                 {
                     _isFirstClick = false;
                     MyCollider.enabled = false;
+                    LeanTween.moveLocalY(LockObj, -1, 1).setEase(LeanTweenType.easeInBack).setOnComplete(() => { LockObj.SetActive(false); });
                     LeanTween.moveX(HandObj, 1.6f, 0.35f).setEase(LeanTweenType.easeInOutBack);
                     ThirdCollider.enabled = true;
                 }

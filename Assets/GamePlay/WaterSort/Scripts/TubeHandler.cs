@@ -94,6 +94,8 @@ namespace Core.GamePlay.WaterSort
 
         public void UndoWater(TubeHandler senderTube, int liquidLayers)
         {
+            Debug.Log("Here97");
+            Debug.Log(senderTube);
             IsBussy = true;
             _isDrinkingWater = true;
             senderTube.IsBussy = true;
@@ -113,12 +115,17 @@ namespace Core.GamePlay.WaterSort
                 rotationDirection = RightRotation;
             }
             int colorsToAdd = 1;
+            Debug.Log("Here109");
             LeanTween.move(senderTube.gameObject, tubePosition, 0.1f).setOnComplete(() =>
             {
+                Debug.Log("Here121");
+                Debug.Log(senderTube.gameObject);
                 LeanTween.rotate(senderTube.gameObject, rotationDirection, 0.1f).setOnComplete(() =>
                 {
+                    Debug.Log("Here122");
                     if (MyLiquid.WaterColors.Count < _totalLiquidLayers - 1 && DoingUndo.Value == 0)
                     {
+                        Debug.Log("Here126");
                         int sameColors = 1;
                         for (int i = senderTube.MyLiquid.WaterColors.Count - 1; i > 0; i--)
                         {
@@ -157,6 +164,7 @@ namespace Core.GamePlay.WaterSort
                     {
                         colorsToAdd = _colorsToUndo;
                     }
+                    Debug.Log("Here162");
                     MyLiquid.AddColor(senderTube.MyLiquid.CurrentTopColor, colorsToAdd);
                     senderTube.MyLiquid.RemoveColor(colorsToAdd);
                     IsBussy = false;

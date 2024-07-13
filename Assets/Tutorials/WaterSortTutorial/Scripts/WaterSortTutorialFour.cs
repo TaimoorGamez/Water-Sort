@@ -13,7 +13,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] SOInterger CanPlay, IsSwaping, UsingAnyFeature;
         [SerializeField] CapsuleCollider ColliderOne, ColliderTwo, ColliderThree, ColliderFour, ColliderFive;
         [SerializeField] WaterColor FirstLiquid, SecondLiquid, ThirdLiquid, ForthLiquid;
-        [SerializeField] GameObject HandObj;
+        [SerializeField] GameObject HandObj, LockOne, LockTwo;
         [SerializeField] Color[] CurrentColors;
         [SerializeField] bool IsSwipButton, IsFirstTube, IsLastTube;
 
@@ -86,6 +86,7 @@ namespace Core.GamePlay.WaterSort
                     if (_isFirstClick)
                     {
                         _isFirstClick = false;
+                        LeanTween.moveLocalY(LockOne, -1, 1).setEase(LeanTweenType.easeInBack).setOnComplete(() => { LockOne.SetActive(false); });
                         LeanTween.move(HandObj, new Vector3(2.6f, 4, 0), 0.35f).setEase(LeanTweenType.easeInOutBack);
                         ColliderThree.enabled = true;
                     }
@@ -95,6 +96,7 @@ namespace Core.GamePlay.WaterSort
                     if (_isFirstClick)
                     {
                         _isFirstClick = false;
+                        LeanTween.moveLocalY(LockOne, -1, 1).setEase(LeanTweenType.easeInBack).setOnComplete(() => { LockOne.SetActive(false); });
                         LeanTween.moveX(HandObj, -0.35f, 0.35f).setEase(LeanTweenType.easeInOutBack);
                         ColliderThree.enabled = false;
                         ColliderTwo.enabled = true;
@@ -106,6 +108,8 @@ namespace Core.GamePlay.WaterSort
                     if (_isFirstClick)
                     {
                         _isFirstClick = false;
+                        LeanTween.moveLocalY(LockOne, -1, 1).setEase(LeanTweenType.easeInBack).setOnComplete(() => { LockOne.SetActive(false); });
+                        LeanTween.moveLocalY(LockTwo, -1, 1).setEase(LeanTweenType.easeInBack).setOnComplete(() => { LockTwo.SetActive(false); });
                         Destroy(HandObj);
                         ColliderOne.enabled = true;
                         ColliderTwo.enabled = true;

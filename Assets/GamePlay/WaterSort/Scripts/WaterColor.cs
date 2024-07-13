@@ -74,6 +74,9 @@ namespace Core.GamePlay.WaterSort
         }
         public void AddColor(Color currentColor, int layers)
         {
+            Debug.Log("Here77");
+            Debug.Log(currentColor);
+            Debug.Log(layers);
             for (int c = 0; c < layers; c++)
             {
                 WaterColors.Add(currentColor);
@@ -96,9 +99,11 @@ namespace Core.GamePlay.WaterSort
             _transparencyRotine = StartCoroutine(SmoothlyChangeTransparency(_eachLiquidLayerHeight * WaterColors.Count));
             _posRotine = StartCoroutine(ChangePosition(GetTargetPosition(WaterColors.Count)));
             WaterDorpParticle.Play();
+            Debug.Log("Here1022");
         }
         private Vector3 GetTargetPosition(int waterColorCount)
         {
+            Debug.Log("Here106");
             if (waterColorCount < 1 || waterColorCount > 4)
             {
                 return TubePos.TransformPoint(WaterStartPosition.localPosition); ; // Return start position as fallback
@@ -134,6 +139,7 @@ namespace Core.GamePlay.WaterSort
 
         IEnumerator SmoothlyChangeTransparency(float targetTransparency)
         {
+            Debug.Log("Here141");
             float startTransparency = _propBlock.GetFloat("_TransparencyRange");
             float elapsedTime = 0f;
 

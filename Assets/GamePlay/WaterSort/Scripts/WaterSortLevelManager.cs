@@ -27,6 +27,7 @@ namespace Core.GamePlay.WaterSort
         {
             if (CompletedTubes.Value == CurrrentLvl.Value)
             {
+                Debug.Log("Here");
                 ChangeStateEvent.InvokeEvent(3);
                 LvlNum.Value++;
                 CompletedTubes.Value = 0;

@@ -35,6 +35,7 @@ namespace Core.GamePlay.WaterSort
 
         void OnUndoBtnClick()
         {
+            Debug.Log("Here38");
             if (_undoMoves.Count > 0 && DoingUndo.Value == 0 && UsingAnyFeature.Value == 0)
             {
                 DoingUndo.Value = 1;
@@ -48,6 +49,7 @@ namespace Core.GamePlay.WaterSort
                 OpenTube.Tube = lastUndo.GetterTube;
                 OpenTube.Tube.RemoveFromCompleted();
                 lastUndo.SenderTube.UndoWater(lastUndo.GetterTube, lastUndo.LiquidLayers);
+                Debug.Log("Here52");
             }
         }
     }
