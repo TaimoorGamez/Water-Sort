@@ -1,6 +1,7 @@
 using UnityEngine;
 using Core.Events;
 using Core.DB.Variables;
+using Core.GamePlay.WaterSort;
 
 namespace Core.Screen
 {
@@ -8,6 +9,7 @@ namespace Core.Screen
     {
         [SerializeField] DBInt LvlNum;
         [SerializeField] SOIntegerEvents ChangeStateEvent;
+        [SerializeField] WaterSortLevelManager LvlManager;
 
         int _tutorialLevels = 5;
 
@@ -21,6 +23,8 @@ namespace Core.Screen
             {
                 ChangeStateEvent.InvokeEvent(2);
             }
+
+            LvlManager.AfterEnable();
         }
     }
 }

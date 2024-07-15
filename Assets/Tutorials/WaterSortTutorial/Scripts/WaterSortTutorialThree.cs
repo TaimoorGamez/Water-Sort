@@ -51,7 +51,7 @@ namespace Core.GamePlay.WaterSort
                 ThirdLiquid.SetColor(CurrentColors[_colorIndex]);
                 yield return new WaitForSeconds(0.1f);
             }
-            SwipeColorsModeEvent.InvokeEvent();
+            SwipeColorsModeEvent.InvokeSOEvent();
             CanPlay.Value = 1;
             HandObj.SetActive(true);
         }

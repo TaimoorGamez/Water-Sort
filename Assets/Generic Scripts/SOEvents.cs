@@ -7,10 +7,10 @@ namespace Core.Events
     {
         public GameEvent EventHandler;
 
-        public void InvokeEvent()
+        public void InvokeSOEvent()
         {
             EventHandler?.Invoke();
-            Debug.Log("Here13");
+            //Debug.Log("Here13");
         }
     }
 }

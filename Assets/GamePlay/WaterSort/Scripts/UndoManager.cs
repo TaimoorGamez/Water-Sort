@@ -11,7 +11,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] SOInterger DoingUndo, UsingAnyFeature, CanPlay;
         [SerializeField] SOWaterTube OpenTube;
         [SerializeField] SOEvents UndoEvent;
-        [SerializeField] SOIntegerEvents ToastMsgEvent;
+        [SerializeField] SOIntegerEvents ToastMsgEvent, ChangeStateEvent;
 
         Stack<UndoData> _undoMoves = new Stack<UndoData>();
 
@@ -28,18 +28,29 @@ namespace Core.GamePlay.WaterSort
         private void OnEnable()
         {
             UndoEvent.EventHandler += OnUndoBtnClick;
+            ChangeStateEvent.EventHandler += RestForNewLevel;
         }
 
         private void OnDisable()
         {
             UndoEvent.EventHandler -= OnUndoBtnClick;
+            ChangeStateEvent.EventHandler -= RestForNewLevel;
+        }
+
+        void RestForNewLevel(int state)
+        {
+            if (state == 2)
+            {
+                _undoMoves.Clear();
+            }
         }
 
         void OnUndoBtnClick()
         {
-            //Debug.Log("Here38");
+            //Debug.Log(_undoMoves.Count);
             if (_undoMoves.Count > 0 && DoingUndo.Value == 0 && UsingAnyFeature.Value == 0 && CanPlay.Value == 1)
             {
+                //Debug.Log("here " + _undoMoves.Count);
                 DoingUndo.Value = 1;
                 UsingAnyFeature.Value = 1;
                 UndoData lastMove = new UndoData();

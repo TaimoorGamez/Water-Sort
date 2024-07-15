@@ -31,7 +31,7 @@ namespace Core.GamePlay.WaterSort
             if (TubeCounter == 1)
             {
                 MyCollider.enabled = true;
-                SwipeColorsModeEvent.InvokeEvent();
+                SwipeColorsModeEvent.InvokeSOEvent();
                 CanPlay.Value = 1;
                 HandObj.SetActive(true);
             }

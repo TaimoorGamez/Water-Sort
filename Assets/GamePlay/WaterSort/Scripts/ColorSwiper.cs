@@ -58,7 +58,7 @@ namespace Core.GamePlay.WaterSort
             }
 
             SwapingTubes.Clear();
-            SwipeColorsModeEvent.InvokeEvent();
+            SwipeColorsModeEvent.InvokeSOEvent();
             IsSwaping.Value = 0;
             UsingAnyFeature.Value = 0;
         }

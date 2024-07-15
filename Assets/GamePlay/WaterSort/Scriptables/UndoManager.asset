@@ -18,3 +18,4 @@ MonoBehaviour:
   OpenTube: {fileID: 11400000, guid: bf474ece7744e9b479539f42878ff194, type: 2}
   UndoEvent: {fileID: 11400000, guid: ff7fa43f0f31602409df525ffc36b629, type: 2}
   ToastMsgEvent: {fileID: 11400000, guid: 206e032d1b187244f94f744674e5f04e, type: 2}
+  ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}

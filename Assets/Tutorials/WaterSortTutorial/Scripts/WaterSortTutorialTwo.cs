@@ -49,7 +49,7 @@ namespace Core.GamePlay.WaterSort
                 OtherLiquid.SetColor(CurrentColors[_colorIndex]);
                 yield return new WaitForSeconds(0.1f);
             }
-            SwipeColorsModeEvent.InvokeEvent();
+            SwipeColorsModeEvent.InvokeSOEvent();
             MyCollider.enabled = true;
             CanPlay.Value = 1;
             HandObj.SetActive(true);
@@ -63,7 +63,7 @@ namespace Core.GamePlay.WaterSort
                 {
                     ScaleUpButton.CancleAnimation();
                     ScaleDownButton.PlayAnimation();
-                    UndoEvent.InvokeEvent();
+                    UndoEvent.InvokeSOEvent();
                     if (_isFirstClick)
                     {
                         _isFirstClick = false;

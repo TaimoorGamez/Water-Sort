@@ -10,7 +10,7 @@ namespace Core.Screen
 
         private void OnEnable()
         {
-            InitLevelEvent.InvokeEvent();
+            InitLevelEvent.InvokeSOEvent();
             SwipeColorsModeEvent.EventHandler += SwitchSwipeColorsMode;
             SwipeColorsModePanel.SetActive(true);
         }

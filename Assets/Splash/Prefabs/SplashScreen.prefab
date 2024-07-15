@@ -90,3 +90,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LvlNum: {fileID: 11400000, guid: bad89b7dfd4fe324eaaacf6e970340af, type: 2}
   ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
+  LvlManager: {fileID: 11400000, guid: 0082d5d61d85e074da8dc340e8f3e788, type: 2}

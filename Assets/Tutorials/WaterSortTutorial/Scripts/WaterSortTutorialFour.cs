@@ -67,7 +67,7 @@ namespace Core.GamePlay.WaterSort
                 }
                 ForthLiquid.SetColor(CurrentColors[_colorIndex]);
             }
-            SwipeColorsModeEvent.InvokeEvent();
+            SwipeColorsModeEvent.InvokeSOEvent();
             CanPlay.Value = 1;
             HandObj.SetActive(true);
         }
@@ -81,7 +81,7 @@ namespace Core.GamePlay.WaterSort
                     ScaleUpButton.CancleAnimation();
                     ScaleDownButton.PlayAnimation();
                     UsingAnyFeature.Value = 1;
-                    SwipeColorsModeEvent.InvokeEvent();
+                    SwipeColorsModeEvent.InvokeSOEvent();
                     IsSwaping.Value = 1;
                     if (_isFirstClick)
                     {

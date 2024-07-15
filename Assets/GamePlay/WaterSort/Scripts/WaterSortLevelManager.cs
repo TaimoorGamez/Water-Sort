@@ -13,17 +13,18 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] SOEvents CheckCompleteEvent;
         [SerializeField] SOIntegerEvents ChangeStateEvent;
 
-        private void OnEnable()
+        public void AfterEnable()
         {
             CheckCompleteEvent.EventHandler = CheckComplete;
+            //Debug.Log("Here23");
         }
 
         void CheckComplete()
         {
-            Debug.Log("Here27");
+            //Debug.Log("Here27");
             if (CompletedTubes.Value == CurrrentLvl.Value)
             {
-                Debug.Log("Here30");
+                //Debug.Log("Here30");
                 CanPlay.Value = 0;
                 ChangeStateEvent.InvokeEvent(3);
                 LvlNum.Value++;

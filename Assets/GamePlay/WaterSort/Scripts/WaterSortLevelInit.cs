@@ -106,7 +106,7 @@ namespace Core.GamePlay.WaterSort
                 }
             }
             yield return new WaitForSeconds(0.1f);
-            SwipeColorsModeEvent.InvokeEvent();
+            SwipeColorsModeEvent.InvokeSOEvent();
             CanPlay.Value = 1;
             if (lvlMakingRotine != null)
             {

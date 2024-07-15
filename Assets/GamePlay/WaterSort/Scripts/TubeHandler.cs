@@ -217,10 +217,14 @@ namespace Core.GamePlay.WaterSort
         {
             yield return new WaitForSeconds(0.5f);
             TubeCap.PlayCelebration(MyLiquid.CurrentTopColor);
-            yield return new WaitForSeconds(1.2f);
+            yield return new WaitForSeconds(1);
             CompletedTubes.Value ++;
-            CheckCompleteEvent.InvokeEvent();
-            Debug.Log("Here223");
+            CheckCompleteEvent.InvokeSOEvent();
+            if (_celebrationRotine != null)
+            {
+                StopCoroutine(_celebrationRotine);
+            }
+            //Debug.Log("Here223");
         }
 
         public void CheckHiddenColor()
@@ -230,13 +234,14 @@ namespace Core.GamePlay.WaterSort
 
         public void RemoveFromCompleted()
         {
-            if (_tubeCompleted)
+            if (_tubeCompleted && _alreadyAddedToCompleted)
             {
+                //Debug.Log("Here239");
                 _tubeCompleted = false;
                 CompletedTubes.Value--;
                 _alreadyAddedToCompleted = false;
-                TubeCap.HideCap();
                 TubeCollider.enabled = true;
+                TubeCap.HideCap();
             }
         }
 
