@@ -8,26 +8,23 @@ namespace Core.GamePlay.WaterSort
     [CreateAssetMenu(fileName = "LevelManager", menuName = "ScriptableObjects/WaterSort/LevelManager")]
     public class WaterSortLevelManager : ScriptableObject
     {
-        [SerializeField] SOInterger CompletedTubes, CurrrentLvl;
+        [SerializeField] SOInterger CompletedTubes, CurrrentLvl, CanPlay;
         [SerializeField] DBInt LvlNum;
         [SerializeField] SOEvents CheckCompleteEvent;
         [SerializeField] SOIntegerEvents ChangeStateEvent;
 
         private void OnEnable()
         {
-            CheckCompleteEvent.EventHandler += CheckComplete;
-        }
-
-        private void OnDisable()
-        {
-            CheckCompleteEvent.EventHandler -= CheckComplete;
+            CheckCompleteEvent.EventHandler = CheckComplete;
         }
 
         void CheckComplete()
         {
+            Debug.Log("Here27");
             if (CompletedTubes.Value == CurrrentLvl.Value)
             {
-                Debug.Log("Here");
+                Debug.Log("Here30");
+                CanPlay.Value = 0;
                 ChangeStateEvent.InvokeEvent(3);
                 LvlNum.Value++;
                 CompletedTubes.Value = 0;

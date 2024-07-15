@@ -117,7 +117,7 @@ namespace Core.GamePlay.WaterSort
 
         void OnAddTubeClick()
         {
-            if (_totalTubes < 10)
+            if (_totalTubes < 10 && CanPlay.Value==1)
             {
                 TubeHandler newTube = Instantiate(TubePrefab, transform);
                 newTube.transform.position = TubePositions[_totalTubes];

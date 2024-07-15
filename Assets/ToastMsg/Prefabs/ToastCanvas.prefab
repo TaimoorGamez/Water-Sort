@@ -119,6 +119,7 @@ MonoBehaviour:
   ToastMsgs:
   - Can not Select Empty Tube
   - Colors Are Same
+  - No Move Available To Undo
 --- !u!1 &2537257690940891550
 GameObject:
   m_ObjectHideFlags: 0

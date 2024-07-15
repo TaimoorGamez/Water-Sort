@@ -71,7 +71,7 @@ namespace Core.GamePlay.WaterSort
                     }
                 }
             }
-            else if (IsSwaping.Value == 1)
+            else if (IsSwaping.Value == 1 && CanPlay.Value == 1)
             {
                 SwapingManager.AddTubeForSwaping(this);
             }
@@ -94,8 +94,8 @@ namespace Core.GamePlay.WaterSort
 
         public void UndoWater(TubeHandler senderTube, int liquidLayers)
         {
-            Debug.Log("Here97");
-            Debug.Log(senderTube);
+            //Debug.Log("Here97");
+            //Debug.Log(senderTube);
             IsBussy = true;
             _isDrinkingWater = true;
             senderTube.IsBussy = true;
@@ -115,78 +115,75 @@ namespace Core.GamePlay.WaterSort
                 rotationDirection = RightRotation;
             }
             int colorsToAdd = 1;
-            Debug.Log("Here109");
-            LeanTween.move(senderTube.gameObject, tubePosition, 0.1f).setOnComplete(() =>
+            //Debug.Log("Here109");
+            LeanTween.move(senderTube.gameObject, tubePosition, 0.1f);
+            LeanTween.rotate(senderTube.gameObject, rotationDirection, 0.1f).setOnComplete(() =>
             {
-                Debug.Log("Here121");
-                Debug.Log(senderTube.gameObject);
-                LeanTween.rotate(senderTube.gameObject, rotationDirection, 0.1f).setOnComplete(() =>
+                if (MyLiquid.WaterColors.Count < _totalLiquidLayers - 1 && DoingUndo.Value == 0)
                 {
-                    Debug.Log("Here122");
-                    if (MyLiquid.WaterColors.Count < _totalLiquidLayers - 1 && DoingUndo.Value == 0)
+                    int sameColors = 1;
+                    for (int i = senderTube.MyLiquid.WaterColors.Count - 1; i > 0; i--)
                     {
-                        Debug.Log("Here126");
-                        int sameColors = 1;
-                        for (int i = senderTube.MyLiquid.WaterColors.Count - 1; i > 0; i--)
+                        if (senderTube.MyLiquid.WaterColors[i] == senderTube.MyLiquid.WaterColors[i - 1])
                         {
-                            if (senderTube.MyLiquid.WaterColors[i] == senderTube.MyLiquid.WaterColors[i - 1])
+                            if (IsHiddenLevel.Value == 1)
                             {
-                                if (IsHiddenLevel.Value == 1)
-                                {
-                                    if(!senderTube.MyLiquid.GetHidenColor(i - 1))
+                                if (!senderTube.MyLiquid.GetHidenColor(i - 1))
                                     sameColors++;
-                                }
-                                else
-                                {
-                                    sameColors++;
-                                }
                             }
                             else
                             {
-                                break;
+                                sameColors++;
                             }
                         }
-                        if (sameColors > 1)
+                        else
                         {
-                            int remaingLayers = _totalLiquidLayers - MyLiquid.WaterColors.Count;
-                            if (sameColors <= remaingLayers)
-                            {
-                                colorsToAdd = sameColors;
-                            }
-                            else
-                            {
-                                colorsToAdd = remaingLayers;
-                            }
+                            break;
                         }
                     }
+                    if (sameColors > 1)
+                    {
+                        int remaingLayers = _totalLiquidLayers - MyLiquid.WaterColors.Count;
+                        if (sameColors <= remaingLayers)
+                        {
+                            colorsToAdd = sameColors;
+                        }
+                        else
+                        {
+                            colorsToAdd = remaingLayers;
+                        }
+                    }
+                }
 
-                    if (DoingUndo.Value == 1)
-                    {
-                        colorsToAdd = _colorsToUndo;
-                    }
-                    Debug.Log("Here162");
-                    MyLiquid.AddColor(senderTube.MyLiquid.CurrentTopColor, colorsToAdd);
-                    senderTube.MyLiquid.RemoveColor(colorsToAdd);
-                    IsBussy = false;
-                });
+                if (DoingUndo.Value == 1)
+                {
+                    colorsToAdd = _colorsToUndo;
+                }
+                //Debug.Log("Here162");
+                //Debug.Log(colorsToAdd);
+                MyLiquid.AddColor(senderTube.MyLiquid.CurrentTopColor, colorsToAdd);
+                senderTube.MyLiquid.RemoveColor(colorsToAdd);
+                if (DoingUndo.Value == 0)
+                {
+                    UndoManager.AddUndo(senderTube, this, colorsToAdd);
+                }
+                IsBussy = false;
             });
-            yield return new WaitForSeconds(1.1f);
-
-            if (DoingUndo.Value == 0)
-            {
-                UndoManager.AddUndo(senderTube, this, colorsToAdd);
-            }
-            else
-            {
-                DoingUndo.Value = 0;
-                UsingAnyFeature.Value = 0;
-            }
-            senderTube.MoveBackIn();
+            yield return new WaitForSeconds(1f);
+            senderTube.TubeState(false);
             if (IsHiddenLevel.Value == 1)
             {
                 senderTube.CheckHiddenColor();
             }
             WaterAdded();
+            yield return new WaitForSeconds(0.5f);
+            senderTube.IsBussy = false;
+            if (DoingUndo.Value == 1)
+            {
+                yield return new WaitForSeconds(0.5f);
+                DoingUndo.Value = 0;
+                UsingAnyFeature.Value = 0;
+            }
         }
 
         public void WaterAdded()
@@ -223,10 +220,7 @@ namespace Core.GamePlay.WaterSort
             yield return new WaitForSeconds(1.2f);
             CompletedTubes.Value ++;
             CheckCompleteEvent.InvokeEvent();
-            if (_celebrationRotine != null)
-            {
-                StopCoroutine(_celebrationRotine);
-            }
+            Debug.Log("Here223");
         }
 
         public void CheckHiddenColor()
@@ -254,8 +248,8 @@ namespace Core.GamePlay.WaterSort
             }
             else
             {
-                LeanTween.moveLocal(gameObject, _orignalPos, 0.1f);
-                LeanTween.rotateLocal(gameObject, Vector3.zero, 0.1f);
+                LeanTween.moveLocal(gameObject, _orignalPos, 0.05f);
+                LeanTween.rotateLocal(gameObject, Vector3.zero, 0.05f).setOnComplete(()=> transform.position = _orignalPos );
             }
         }
 

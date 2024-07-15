@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DoingUndo: {fileID: 11400000, guid: 8ce11c0323610f44d8bca007bba7cd74, type: 2}
   UsingAnyFeature: {fileID: 11400000, guid: ee976038d1a51e14684dc2c2bb35a697, type: 2}
+  CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
   OpenTube: {fileID: 11400000, guid: bf474ece7744e9b479539f42878ff194, type: 2}
   UndoEvent: {fileID: 11400000, guid: ff7fa43f0f31602409df525ffc36b629, type: 2}
+  ToastMsgEvent: {fileID: 11400000, guid: 206e032d1b187244f94f744674e5f04e, type: 2}

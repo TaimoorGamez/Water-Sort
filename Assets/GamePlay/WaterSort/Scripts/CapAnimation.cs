@@ -68,10 +68,6 @@ namespace Core.GamePlay.WaterSort
 
         private void OnDisable()
         {
-            _propBlock.SetColor("_Color", Color.white);
-            _propBlock.SetFloat("_FillAmount", 0);
-            MySkin.SetPropertyBlock(_propBlock);
-
             if (_animationRotine != null)
             {
                 StopCoroutine(_animationRotine);

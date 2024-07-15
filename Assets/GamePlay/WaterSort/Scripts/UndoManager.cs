@@ -8,14 +8,16 @@ namespace Core.GamePlay.WaterSort
     [CreateAssetMenu(fileName = "UndoManager", menuName = "ScriptableObjects/WaterSort/UndoManager")]
     public class UndoManager : ScriptableObject
     {
-        [SerializeField] SOInterger DoingUndo, UsingAnyFeature;
+        [SerializeField] SOInterger DoingUndo, UsingAnyFeature, CanPlay;
         [SerializeField] SOWaterTube OpenTube;
         [SerializeField] SOEvents UndoEvent;
+        [SerializeField] SOIntegerEvents ToastMsgEvent;
 
         Stack<UndoData> _undoMoves = new Stack<UndoData>();
 
         public void AddUndo(TubeHandler senderTube, TubeHandler getterTube, int liquidLayers)
         {
+            //Debug.Log(liquidLayers);
             UndoData newUndo = new UndoData();
             newUndo.SenderTube = senderTube;
             newUndo.GetterTube = getterTube;
@@ -35,21 +37,31 @@ namespace Core.GamePlay.WaterSort
 
         void OnUndoBtnClick()
         {
-            Debug.Log("Here38");
-            if (_undoMoves.Count > 0 && DoingUndo.Value == 0 && UsingAnyFeature.Value == 0)
+            //Debug.Log("Here38");
+            if (_undoMoves.Count > 0 && DoingUndo.Value == 0 && UsingAnyFeature.Value == 0 && CanPlay.Value == 1)
             {
                 DoingUndo.Value = 1;
                 UsingAnyFeature.Value = 1;
-                UndoData lastUndo = new UndoData();
-                lastUndo = _undoMoves.Pop();
-                if (OpenTube.Tube != null)
+                UndoData lastMove = new UndoData();
+                lastMove = _undoMoves.Pop();
+                if (!lastMove.GetterTube.IsBussy && !lastMove.SenderTube.IsBussy)
                 {
-                    OpenTube.Tube.MoveBackIn();
+                    if (OpenTube.Tube != null)
+                    {
+                        OpenTube.Tube.MoveBackIn();
+                    }
+                    OpenTube.Tube = lastMove.GetterTube;
+                    OpenTube.Tube.RemoveFromCompleted();
+                    lastMove.SenderTube.UndoWater(lastMove.GetterTube, lastMove.LiquidLayers);
                 }
-                OpenTube.Tube = lastUndo.GetterTube;
-                OpenTube.Tube.RemoveFromCompleted();
-                lastUndo.SenderTube.UndoWater(lastUndo.GetterTube, lastUndo.LiquidLayers);
-                Debug.Log("Here52");
+                else
+                {
+                    _undoMoves.Push(lastMove);
+                }
+            }
+            else if (_undoMoves.Count < 1)
+            {
+                ToastMsgEvent.InvokeEvent(2);
             }
         }
     }
