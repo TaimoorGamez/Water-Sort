@@ -9,7 +9,8 @@ namespace Core.Animations.LT
 {
     public class SOLeanTween : ScriptableObject
     {
-        [SerializeField] public GameObject TargetObj;
+        public GameObject TargetObj { get; set; }
+
         [SerializeField] protected Vector3 TargetAction;
         [SerializeField] protected float Duration;
         [SerializeField] protected LeanTweenType CurrentEaseType = LeanTweenType.linear;

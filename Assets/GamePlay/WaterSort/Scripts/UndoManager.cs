@@ -8,15 +8,16 @@ namespace Core.GamePlay.WaterSort
     [CreateAssetMenu(fileName = "UndoManager", menuName = "ScriptableObjects/WaterSort/UndoManager")]
     public class UndoManager : ScriptableObject
     {
-        [SerializeField] SOInterger DoingUndo, UsingAnyFeature, CanPlay;
+        [SerializeField] SOInterger DoingUndo, UsingAnyFeature, CanPlay, GamePlayStateIndex;
         [SerializeField] SOWaterTube OpenTube;
-        [SerializeField] SOEvents UndoEvent;
+        [SerializeField] SOEvents UndoEvent, UpdateMovesEvent;
         [SerializeField] SOIntegerEvents ToastMsgEvent, ChangeStateEvent;
 
         Stack<UndoData> _undoMoves = new Stack<UndoData>();
 
         public void AddUndo(TubeHandler senderTube, TubeHandler getterTube, int liquidLayers)
         {
+            UpdateMovesEvent.InvokeSOEvent();
             //Debug.Log(liquidLayers);
             UndoData newUndo = new UndoData();
             newUndo.SenderTube = senderTube;
@@ -39,7 +40,7 @@ namespace Core.GamePlay.WaterSort
 
         void RestForNewLevel(int state)
         {
-            if (state == 2)
+            if (state == GamePlayStateIndex.Value)
             {
                 _undoMoves.Clear();
             }

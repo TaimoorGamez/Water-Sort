@@ -1,29 +1,70 @@
 using UnityEngine;
 using Core.Events;
+using UnityEngine.UI;
+using Core.Variables;
+using Core.DB.Variables;
 
 namespace Core.Screen
 {
     public class WaterSortGameScreen : MonoBehaviour
     {
-        [SerializeField] GameObject SwipeColorsModePanel;
-        [SerializeField] SOEvents InitLevelEvent, SwipeColorsModeEvent;
+        [SerializeField] GameObject SwipeColorsModePanel, PowerButtons;
+        [SerializeField] SOEvents InitLevelEvent, SwipeColorsModeEvent, UpdateMovesEvent;
+        [SerializeField] SOIntegerEvents ChangeStateEvent;
+        [SerializeField] Text LevelNumText, MovesText, CashText;
+        [SerializeField] DBInt LvlNum;
+        [SerializeField] SOInterger TotalMoves, CanPlay, LevelFailStateIndex;
 
         private void OnEnable()
         {
-            InitLevelEvent.InvokeSOEvent();
             SwipeColorsModeEvent.EventHandler += SwitchSwipeColorsMode;
-            SwipeColorsModePanel.SetActive(true);
+            UpdateMovesEvent.EventHandler += UpdateMovesText;
         }
 
         private void OnDisable()
         {
             SwipeColorsModeEvent.EventHandler -= SwitchSwipeColorsMode;
+            UpdateMovesEvent.EventHandler -= UpdateMovesText;
+        }
+
+        private void Start()
+        {
+            InitLevelEvent.InvokeSOEvent();
+            LevelNumText.text = "LEVEL: " + LvlNum.Value.ToString();
+            if (LvlNum.Value < 5)
+            {
+                PowerButtons.SetActive(false);
+            }
+            else
+            {
+                PowerButtons.SetActive(true);
+            }
+
         }
 
         void SwitchSwipeColorsMode()
         {
+            if (LvlNum.Value > 5)
+            {
+                MovesText.text = "MOVE: " + TotalMoves.Value.ToString();
+            }
             SwipeColorsModePanel.SetActive(!SwipeColorsModePanel.activeInHierarchy);
         }
         
+
+        void UpdateMovesText()
+        {
+            if (LvlNum.Value > 5)
+            {
+                TotalMoves.Value--;
+                MovesText.text = "MOVE: " + TotalMoves.Value.ToString();
+            }
+
+            if (TotalMoves.Value < 1)
+            {
+                CanPlay.Value = 0;
+                ChangeStateEvent.InvokeEvent(LevelFailStateIndex.Value);
+            }
+        }
     }
 }

@@ -15,16 +15,12 @@ namespace Core.ToastMsg
 
         private void OnEnable()
         {
-            ToastMsgEvent.EventHandler += ShowToastMsg;
-        }
-
-        private void OnDisable()
-        {
-            ToastMsgEvent.EventHandler -= ShowToastMsg;
+            ToastMsgEvent.EventHandler = ShowToastMsg;
         }
 
         void ShowToastMsg(int toastNum)
         {
+            //Debug.Log("Here");
             if (_oldMsgScreen == null)
             {
                 _oldMsgScreen = Instantiate(ToastMsgPrefab);
