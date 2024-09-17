@@ -10,8 +10,8 @@ namespace Core.GamePlay.WaterSort
     {
         [SerializeField] SOInterger DoingUndo, UsingAnyFeature, CanPlay, GamePlayStateIndex;
         [SerializeField] SOWaterTube OpenTube;
-        [SerializeField] SOEvents UndoEvent, UpdateMovesEvent;
-        [SerializeField] SOIntegerEvents ToastMsgEvent, ChangeStateEvent;
+        [SerializeField] SOEvents UndoEvent, UpdateMovesEvent, InitLevelEvent, RestartLevelEvent;
+        [SerializeField] SOIntegerEvents ToastMsgEvent;
 
         Stack<UndoData> _undoMoves = new Stack<UndoData>();
 
@@ -29,21 +29,20 @@ namespace Core.GamePlay.WaterSort
         private void OnEnable()
         {
             UndoEvent.EventHandler += OnUndoBtnClick;
-            ChangeStateEvent.EventHandler += RestForNewLevel;
+            RestartLevelEvent.EventHandler += RestForNewLevel;
+            InitLevelEvent.EventHandler += RestForNewLevel;
         }
 
         private void OnDisable()
         {
             UndoEvent.EventHandler -= OnUndoBtnClick;
-            ChangeStateEvent.EventHandler -= RestForNewLevel;
+            RestartLevelEvent.EventHandler -= RestForNewLevel;
+            InitLevelEvent.EventHandler -= RestForNewLevel;
         }
 
-        void RestForNewLevel(int state)
+        void RestForNewLevel()
         {
-            if (state == GamePlayStateIndex.Value)
-            {
-                _undoMoves.Clear();
-            }
+            _undoMoves.Clear();
         }
 
         void OnUndoBtnClick()

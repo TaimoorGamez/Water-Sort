@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5f3c3c7bee1ec5042971ead7558cd859
+guid: f30f78c69a65c554f81d197f83f677b6
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Montserrat
+  - Berkshire Swash
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

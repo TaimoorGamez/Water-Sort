@@ -1,6 +1,7 @@
+using TMPro;
 using UnityEngine;
 using Core.Events;
-using UnityEngine.UI;
+using Core.Economy;
 using Core.Variables;
 using Core.DB.Variables;
 
@@ -11,9 +12,11 @@ namespace Core.Screen
         [SerializeField] GameObject SwipeColorsModePanel, PowerButtons;
         [SerializeField] SOEvents InitLevelEvent, SwipeColorsModeEvent, UpdateMovesEvent;
         [SerializeField] SOIntegerEvents ChangeStateEvent;
-        [SerializeField] Text LevelNumText, MovesText, CashText;
+        [SerializeField] TextMeshProUGUI LevelNumText, MovesText, CashText;
         [SerializeField] DBInt LvlNum;
         [SerializeField] SOInterger TotalMoves, CanPlay, LevelFailStateIndex;
+        [SerializeField] CoreEconomy Coins;
+
 
         private void OnEnable()
         {
@@ -39,7 +42,7 @@ namespace Core.Screen
             {
                 PowerButtons.SetActive(true);
             }
-
+            CashText.text = Coins.Amount.ToString();
         }
 
         void SwitchSwipeColorsMode()

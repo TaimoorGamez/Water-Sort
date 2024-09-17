@@ -68,6 +68,7 @@ namespace Core.GamePlay.WaterSort
 
         private void OnDisable()
         {
+            //LeanTween.kill
             if (_animationRotine != null)
             {
                 StopCoroutine(_animationRotine);

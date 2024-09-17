@@ -13,7 +13,7 @@ namespace Core.GamePlay.WaterSort
 
         public void HideCap()
         {
-                MyAnimation.gameObject.SetActive(false);
+           MyAnimation.gameObject.SetActive(false);
         }
     }
 }
