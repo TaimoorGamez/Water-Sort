@@ -8,8 +8,8 @@ namespace Core.GamePlay.WaterSort
     public class WaterSortTutorialOne : MonoBehaviour
     {
         [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
-        [SerializeField] SOEvents SwipeColorsModeEvent;
         [SerializeField] SOIntegerEvents ChangeStateEvent;
+        [SerializeField] SOEvents SwipeColorsModeEvent;
         [SerializeField] CapsuleCollider MyCollider, OtherCollider;
         [SerializeField] WaterColor MyLiquid;
         [SerializeField] GameObject HandObj, InfoTextObj;

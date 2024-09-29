@@ -20,9 +20,10 @@ namespace Core.GamePlay.WaterSort
 
         int _colorIndex = 0;
         bool _isFirstClick = true;
+
         private void OnEnable()
         {
-            if (UndoBtn != null)
+            if (IsUndoBtn)
             {
                 ChangeStateEvent.EventHandler += HideInfoText;
                 UndoBtn.onClick.AddListener(TutorialUndoButton);
@@ -31,7 +32,7 @@ namespace Core.GamePlay.WaterSort
 
         private void OnDisable()
         {
-            if (UndoBtn != null)
+            if (IsUndoBtn)
             {
                 ChangeStateEvent.EventHandler -= HideInfoText;
                 UndoBtn.onClick.RemoveListener(TutorialUndoButton);
@@ -82,7 +83,7 @@ namespace Core.GamePlay.WaterSort
                 {
                     _isFirstClick = false;
                     MyCollider.enabled = false;
-                    LeanTween.moveX(HandObj, 1.6f, 0.35f).setEase(LeanTweenType.easeInOutBack);
+                    LeanTween.moveLocalX(HandObj, 135f, 0.35f).setEase(LeanTweenType.easeInOutBack);
                     ThirdCollider.enabled = true;
                 }
             }
@@ -103,7 +104,8 @@ namespace Core.GamePlay.WaterSort
 
         void ShowUndoBtn()
         {
-            LeanTween.move(HandObj, new Vector3(0.5f, -1.15f, 0), 0.35f).setEase(LeanTweenType.easeInOutBack);
+            InfoTextObj.SetActive(true);
+            LeanTween.moveLocal(HandObj, new Vector3(175f, -530f, 0), 0.35f).setEase(LeanTweenType.easeInOutBack);
             UndoBtn.gameObject.SetActive(true);
         }
 

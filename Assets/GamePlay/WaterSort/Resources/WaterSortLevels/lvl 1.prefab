@@ -282,7 +282,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -467,8 +467,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
   LevelCompleteStateIndex: {fileID: 11400000, guid: 372a4013c41549545822b875f34f8aa3, type: 2}
-  SwipeColorsModeEvent: {fileID: 0}
   ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
+  SwipeColorsModeEvent: {fileID: 0}
   MyCollider: {fileID: 5689097667442833815}
   OtherCollider: {fileID: 4482935990998450793}
   MyLiquid: {fileID: 830052978875078152}
@@ -728,8 +728,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
   LevelCompleteStateIndex: {fileID: 11400000, guid: 372a4013c41549545822b875f34f8aa3, type: 2}
-  SwipeColorsModeEvent: {fileID: 11400000, guid: 9781b632e66a3704aa915400af187d35, type: 2}
   ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
+  SwipeColorsModeEvent: {fileID: 11400000, guid: 9781b632e66a3704aa915400af187d35, type: 2}
   MyCollider: {fileID: 4482935990998450793}
   OtherCollider: {fileID: 5689097667442833815}
   MyLiquid: {fileID: 8881620109633957366}

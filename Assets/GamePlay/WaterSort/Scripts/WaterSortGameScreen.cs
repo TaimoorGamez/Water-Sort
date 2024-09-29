@@ -48,7 +48,7 @@ namespace Core.Screen
         {
             if (LvlNum.Value > 5)
             {
-                MovesText.text = "MOVE: " + TotalMoves.Value.ToString();
+                MovesText.text = TotalMoves.Value.ToString();
             }
             SwipeColorsModePanel.SetActive(!SwipeColorsModePanel.activeInHierarchy);
         }
@@ -59,7 +59,7 @@ namespace Core.Screen
             if (LvlNum.Value > 5)
             {
                 TotalMoves.Value--;
-                MovesText.text = "MOVE: " + TotalMoves.Value.ToString();
+                MovesText.text = TotalMoves.Value.ToString();
             }
 
             if (TotalMoves.Value < 1)

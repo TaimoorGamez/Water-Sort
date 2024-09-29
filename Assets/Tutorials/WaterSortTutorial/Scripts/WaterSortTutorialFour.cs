@@ -1,32 +1,49 @@
 using UnityEngine;
 using Core.Events;
+using UnityEngine.UI;
 using Core.Variables;
-using Core.Animations.LT;
 using System.Collections;
 
 namespace Core.GamePlay.WaterSort
 {
     public class WaterSortTutorialFour : MonoBehaviour
     {
-        [SerializeField] SOLeanTween ScaleDownButton, ScaleUpButton;
         [SerializeField] SOEvents SwipeColorsModeEvent;
-        [SerializeField] SOInterger CanPlay, IsSwaping, UsingAnyFeature;
+        [SerializeField] SOInterger CanPlay, IsSwaping, UsingAnyFeature, LevelCompleteStateIndex;
+        [SerializeField] SOIntegerEvents ChangeStateEvent;
         [SerializeField] CapsuleCollider ColliderOne, ColliderTwo, ColliderThree, ColliderFour, ColliderFive;
         [SerializeField] WaterColor FirstLiquid, SecondLiquid, ThirdLiquid, ForthLiquid;
-        [SerializeField] GameObject HandObj;
+        [SerializeField] GameObject HandObj, InfoTextObj;
+        [SerializeField] Button SwapeBtn;
         [SerializeField] Color[] CurrentColors;
         [SerializeField] bool IsSwipButton, IsFirstTube, IsLastTube;
 
         int _colorIndex = 0;
         bool _isFirstClick = true;
 
+        private void OnEnable()
+        {
+            if (IsSwipButton)
+            {
+                ChangeStateEvent.EventHandler += HideInfoText;
+                SwapeBtn.onClick.AddListener(SwapeColor);
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (IsSwipButton)
+            {
+                ChangeStateEvent.EventHandler -= HideInfoText;
+                SwapeBtn.onClick.RemoveListener(SwapeColor);
+            }
+        }
+
         private void Start()
         {
             if (IsSwipButton)
             { 
                 StartCoroutine(SetColors());
-                ScaleDownButton.TargetObj = this.gameObject;
-                ScaleUpButton.TargetObj = this.gameObject;
             }
         }
 
@@ -76,26 +93,12 @@ namespace Core.GamePlay.WaterSort
         {
             if (CanPlay.Value == 1)
             {
-                if (IsSwipButton && UsingAnyFeature.Value == 0 && IsSwaping.Value == 0)
-                {
-                    ScaleUpButton.CancleAnimation();
-                    ScaleDownButton.PlayAnimation();
-                    UsingAnyFeature.Value = 1;
-                    SwipeColorsModeEvent.InvokeSOEvent();
-                    IsSwaping.Value = 1;
-                    if (_isFirstClick)
-                    {
-                        _isFirstClick = false;
-                        LeanTween.move(HandObj, new Vector3(2.6f, 4, 0), 0.35f).setEase(LeanTweenType.easeInOutBack);
-                        ColliderThree.enabled = true;
-                    }
-                }
-                else if (IsFirstTube)
+                if (IsFirstTube)
                 {
                     if (_isFirstClick)
                     {
                         _isFirstClick = false;
-                        LeanTween.moveX(HandObj, -0.35f, 0.35f).setEase(LeanTweenType.easeInOutBack);
+                        LeanTween.moveLocalX(HandObj, -45f, 0.35f).setEase(LeanTweenType.easeInOutBack);
                         ColliderThree.enabled = false;
                         ColliderTwo.enabled = true;
                         enabled = false;
@@ -117,13 +120,26 @@ namespace Core.GamePlay.WaterSort
             }
         }
 
-        private void OnMouseUp()
+        void SwapeColor()
         {
-            if (IsSwipButton)
+            if (UsingAnyFeature.Value == 0 && IsSwaping.Value == 0)
             {
-                ScaleDownButton.CancleAnimation();
-                ScaleUpButton.PlayAnimation();
+                UsingAnyFeature.Value = 1;
+                SwipeColorsModeEvent.InvokeSOEvent();
+                IsSwaping.Value = 1;
+                if (_isFirstClick)
+                {
+                    _isFirstClick = false;
+                    LeanTween.moveLocal(HandObj, new Vector3(225, 150, 0), 0.35f).setEase(LeanTweenType.easeInOutBack);
+                    ColliderThree.enabled = true;
+                }
             }
+        }
+
+        void HideInfoText(int stateNum)
+        {
+            if (LevelCompleteStateIndex.Value == stateNum)
+                InfoTextObj.SetActive(false);
         }
     }
 }

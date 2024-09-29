@@ -1,26 +1,38 @@
 using UnityEngine;
 using Core.Events;
+using UnityEngine.UI;
 using Core.Variables;
-using Core.Animations.LT;
 using System.Collections;
 
 namespace Core.GamePlay.WaterSort
 {
     public class WaterSortTutorialThree : MonoBehaviour
     {
-        [SerializeField] SOLeanTween ScaleDownButton;
         [SerializeField] SOEvents SwipeColorsModeEvent;
-        [SerializeField] SOInterger CanPlay;
+        [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
+        [SerializeField] SOIntegerEvents ChangeStateEvent;
+        [SerializeField] Button ExtraTubeBtn;
         [SerializeField] WaterColor FirstLiquid, SecondLiquid, ThirdLiquid;
-        [SerializeField] GameObject HandObj, ExtraTube, InfoText;
+        [SerializeField] GameObject HandObj, ExtraTube, InfoText, InfoTextObj;
         [SerializeField] Color[] CurrentColors;
 
         int _colorIndex = 0;
 
+        private void OnEnable()
+        {
+            ChangeStateEvent.EventHandler += HideInfoText;
+            ExtraTubeBtn.onClick.AddListener(AddTubbe);
+        }
+
+        private void OnDisable()
+        {
+            ChangeStateEvent.EventHandler -= HideInfoText;
+            ExtraTubeBtn.onClick.RemoveListener(AddTubbe);
+        }
+
         private void Start()
         {
             StartCoroutine(SetColors());
-            ScaleDownButton.TargetObj = this.gameObject;
         }
 
         IEnumerator SetColors()
@@ -56,16 +68,21 @@ namespace Core.GamePlay.WaterSort
             HandObj.SetActive(true);
         }
 
-        private void OnMouseDown()
+        void AddTubbe()
         {
             if (CanPlay.Value == 1)
             {
-                ScaleDownButton.PlayAnimation();
                 ExtraTube.SetActive(true);
                 HandObj.SetActive(false);
                 InfoText.SetActive(true);
-                Destroy(gameObject);
+                Destroy(ExtraTubeBtn.gameObject);
             }
+        }
+
+        void HideInfoText(int stateNum)
+        {
+            if (LevelCompleteStateIndex.Value == stateNum)
+                InfoTextObj.SetActive(false);
         }
     }
 }
