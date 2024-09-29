@@ -12,7 +12,7 @@ namespace Core.Screen
         [SerializeField] GameObject SwipeColorsModePanel, PowerButtons;
         [SerializeField] SOEvents InitLevelEvent, SwipeColorsModeEvent, UpdateMovesEvent;
         [SerializeField] SOIntegerEvents ChangeStateEvent;
-        [SerializeField] TextMeshProUGUI LevelNumText, MovesText, CashText;
+        [SerializeField] TextMeshProUGUI MovesText, CashText;
         [SerializeField] DBInt LvlNum;
         [SerializeField] SOInterger TotalMoves, CanPlay, LevelFailStateIndex;
         [SerializeField] CoreEconomy Coins;
@@ -33,7 +33,6 @@ namespace Core.Screen
         private void Start()
         {
             InitLevelEvent.InvokeSOEvent();
-            LevelNumText.text = "LEVEL: " + LvlNum.Value.ToString();
             if (LvlNum.Value < 5)
             {
                 PowerButtons.SetActive(false);

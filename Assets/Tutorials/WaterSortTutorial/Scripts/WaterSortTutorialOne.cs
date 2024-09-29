@@ -11,7 +11,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] SOEvents SwipeColorsModeEvent;
         [SerializeField] CapsuleCollider MyCollider, OtherCollider;
         [SerializeField] WaterColor MyLiquid;
-        [SerializeField] GameObject HandObj, LockObj;
+        [SerializeField] GameObject HandObj;
         [SerializeField] Color CurrentColor;
         [SerializeField] int TubeCounter;
 
@@ -44,7 +44,6 @@ namespace Core.GamePlay.WaterSort
                 if (TubeCounter == 1)
                 {
                     MyCollider.enabled = false;
-                    LeanTween.moveLocalY(LockObj, -1, 1).setEase(LeanTweenType.easeInBack).setOnComplete(()=> { LockObj.SetActive(false); });
                     OtherCollider.enabled = true;
                     LeanTween.moveX(HandObj, 1.6f, 0.35f).setEase(LeanTweenType.easeInOutBack);
                 }
