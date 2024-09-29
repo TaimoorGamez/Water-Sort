@@ -7,13 +7,24 @@ namespace Core.GamePlay.WaterSort
 {
     public class WaterSortTutorialOne : MonoBehaviour
     {
-        [SerializeField] SOInterger CanPlay;
+        [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
         [SerializeField] SOEvents SwipeColorsModeEvent;
+        [SerializeField] SOIntegerEvents ChangeStateEvent;
         [SerializeField] CapsuleCollider MyCollider, OtherCollider;
         [SerializeField] WaterColor MyLiquid;
-        [SerializeField] GameObject HandObj;
+        [SerializeField] GameObject HandObj, InfoTextObj;
         [SerializeField] Color CurrentColor;
         [SerializeField] int TubeCounter;
+
+        private void OnEnable()
+        {
+            ChangeStateEvent.EventHandler += HideInfoText;
+        }
+
+        private void OnDisable()
+        {
+            ChangeStateEvent.EventHandler -= HideInfoText;
+        }
 
         private void Start()
         {
@@ -45,7 +56,7 @@ namespace Core.GamePlay.WaterSort
                 {
                     MyCollider.enabled = false;
                     OtherCollider.enabled = true;
-                    LeanTween.moveX(HandObj, 1.6f, 0.35f).setEase(LeanTweenType.easeInOutBack);
+                    LeanTween.moveLocalX(HandObj, 130f, 0.35f).setEase(LeanTweenType.easeInOutBack);
                 }
                 else if (TubeCounter == 2)
                 {
@@ -53,6 +64,12 @@ namespace Core.GamePlay.WaterSort
                     HandObj.SetActive(false);
                 }
             }
+        }
+
+        void HideInfoText(int stateNum)
+        {
+            if (LevelCompleteStateIndex.Value == stateNum)
+                InfoTextObj.SetActive(false);
         }
     }
 }

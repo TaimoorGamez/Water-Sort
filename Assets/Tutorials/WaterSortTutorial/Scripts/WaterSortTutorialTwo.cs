@@ -1,34 +1,47 @@
 using UnityEngine;
 using Core.Events;
+using UnityEngine.UI;
 using Core.Variables;
-using Core.Animations.LT;
 using System.Collections;
 
 namespace Core.GamePlay.WaterSort
 {
     public class WaterSortTutorialTwo : MonoBehaviour
     {
-        [SerializeField] SOLeanTween ScaleDownButton, ScaleUpButton;
-        [SerializeField] SOInterger CanPlay;
+        [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
+        [SerializeField] SOEvents UndoEvent, SwipeColorsModeEvent;
+        [SerializeField] SOIntegerEvents ChangeStateEvent;
+        [SerializeField] Button UndoBtn;
         [SerializeField] CapsuleCollider MyCollider, SecondCollider, ThirdCollider;
         [SerializeField] WaterColor MyLiquid, OtherLiquid;
-        [SerializeField] GameObject HandObj, UndoButton;
+        [SerializeField] GameObject HandObj, InfoTextObj;
         [SerializeField] Color[] CurrentColors;
         [SerializeField] bool IsUndoBtn, ExtraTube;
-        [SerializeField] SOEvents UndoEvent, SwipeColorsModeEvent;
 
         int _colorIndex = 0;
         bool _isFirstClick = true;
+        private void OnEnable()
+        {
+            if (UndoBtn != null)
+            {
+                ChangeStateEvent.EventHandler += HideInfoText;
+                UndoBtn.onClick.AddListener(TutorialUndoButton);
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (UndoBtn != null)
+            {
+                ChangeStateEvent.EventHandler -= HideInfoText;
+                UndoBtn.onClick.RemoveListener(TutorialUndoButton);
+            }
+        }
 
         private void Start()
         {
             if (!IsUndoBtn && !ExtraTube)
             { StartCoroutine(SetColors()); }
-            else if (IsUndoBtn)
-            {
-                ScaleDownButton.TargetObj = this.gameObject;
-                ScaleUpButton.TargetObj = this.gameObject;
-            }
         }
 
         IEnumerator SetColors()
@@ -55,25 +68,11 @@ namespace Core.GamePlay.WaterSort
             HandObj.SetActive(true);
         }
 
-        private void OnMouseDown()
+        void OnMouseDown()
         {
             if (CanPlay.Value == 1)
             {
-                if (IsUndoBtn)
-                {
-                    ScaleUpButton.CancleAnimation();
-                    ScaleDownButton.PlayAnimation();
-                    UndoEvent.InvokeSOEvent();
-                    if (_isFirstClick)
-                    {
-                        _isFirstClick = false;
-                        HandObj.SetActive(false);
-                        MyCollider.enabled = true;
-                        SecondCollider.enabled = true;
-                        ThirdCollider.enabled = true;
-                    }
-                }
-                else if (ExtraTube && _isFirstClick)
+                if (ExtraTube && _isFirstClick)
                 {
                     _isFirstClick = false;
                     MyCollider.enabled = false;
@@ -89,19 +88,29 @@ namespace Core.GamePlay.WaterSort
             }
         }
 
-        private void OnMouseUp()
+        void TutorialUndoButton()
         {
-            if (IsUndoBtn)
+            UndoEvent.InvokeSOEvent();
+            if (_isFirstClick)
             {
-                ScaleDownButton.CancleAnimation();
-                ScaleUpButton.PlayAnimation();
+                _isFirstClick = false;
+                HandObj.SetActive(false);
+                MyCollider.enabled = true;
+                SecondCollider.enabled = true;
+                ThirdCollider.enabled = true;
             }
         }
 
         void ShowUndoBtn()
         {
             LeanTween.move(HandObj, new Vector3(0.5f, -1.15f, 0), 0.35f).setEase(LeanTweenType.easeInOutBack);
-            UndoButton.SetActive(true);
+            UndoBtn.gameObject.SetActive(true);
+        }
+
+        void HideInfoText(int stateNum)
+        {
+            if (LevelCompleteStateIndex.Value == stateNum)
+                InfoTextObj.SetActive(false);
         }
     }
 }
