@@ -3,10 +3,10 @@ using Core.Events;
 using Core.Variables;
 using Core.DB.Variables;
 
-namespace Core.GamePlay.WaterSort
+namespace Core.GamePlay
 {
     [CreateAssetMenu(fileName = "LevelManager", menuName = "ScriptableObjects/WaterSort/LevelManager")]
-    public class WaterSortLevelManager : ScriptableObject
+    public class LevelManager : ScriptableObject
     {
         [SerializeField] SOInterger CompletedTubes, CurrrentLvl, CanPlay, LevelCompleteStateIndex;
         [SerializeField] DBInt LvlNum;
