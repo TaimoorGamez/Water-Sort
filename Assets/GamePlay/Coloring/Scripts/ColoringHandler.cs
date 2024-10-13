@@ -13,6 +13,7 @@ namespace Core.GamePlay.Coloring
 
         Coroutine _movingRotine;
         Vector2 _brushOffset;
+        [SerializeField] float _speed = 5;
 
         public void OnBeginDrag()
         {
@@ -39,13 +40,15 @@ namespace Core.GamePlay.Coloring
 
         IEnumerator MovingCorotine() 
         {
-            float waiting = 0.01f;
+            float waiting = 0.01f; 
+            Vector2 targetPosition;
 
             while (IsDragging.Value == 1)
             {
                 Vector2 screenPosition = Input.mousePosition;
                 RectTransformUtility.ScreenPointToLocalPointInRectangle(BrushTransform, screenPosition, null, out Vector2 localPoint);
-                BrushTransform.localPosition = localPoint + _brushOffset;
+                targetPosition = localPoint + _brushOffset;
+                BrushTransform.localPosition = Vector2.Lerp(BrushTransform.localPosition, targetPosition, _speed * Time.deltaTime);
                 BurshPosition.Value = BrushTransform.localPosition;
                 yield return new WaitForSeconds(waiting);
             }

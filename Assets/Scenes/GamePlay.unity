@@ -1010,6 +1010,7 @@ MonoBehaviour:
   BurshPosition: {fileID: 11400000, guid: 86ace9d4d6641e042a631d24e25ab2ff, type: 2}
   ColoringPart: {fileID: 266531112}
   BrushTransform: {fileID: 216854298}
+  _speed: 2
 --- !u!1 &786727619
 GameObject:
   m_ObjectHideFlags: 0
