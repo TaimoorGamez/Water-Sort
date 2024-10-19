@@ -10,24 +10,24 @@ namespace Core.GamePlay.Coloring
         [SerializeField] SOVector BurshPosition;
         [SerializeField] ColorFilling ColoringPart;
         [SerializeField] RectTransform BrushTransform;
-        [SerializeField] Vector2Int VerticalRange, HorizontalRange;
+        [SerializeField] Vector2Int VerticalRange, HorizontalRange; // Use these for boundary clamping
 
-        Coroutine _movingRotine;
-        Vector2 _brushOffset;
-        [SerializeField] float _speed = 5;
+        float _speed = 500;
+        Coroutine _movingRoutine;
+        RectTransform _canvasTransform;
         Camera _currentCamera;
+
+        private void Start()
+        {
+            _currentCamera = Camera.main;
+            _canvasTransform = GetComponentInParent<Canvas>().transform as RectTransform;
+        }
 
         public void OnBeginDrag()
         {
-            // Get the initial screen position and calculate the brush offset
-            Vector2 screenPosition = Input.mousePosition;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(BrushTransform, screenPosition, null, out Vector2 localPoint);
-            _brushOffset = BrushTransform.localPosition - (Vector3)localPoint;
-
             // Start the coloring coroutine
-            _currentCamera = Camera.main;
             IsDragging.Value = 1;
-            _movingRotine = StartCoroutine(MovingCorotine());
+            _movingRoutine = StartCoroutine(MovingRoutine());
             ColoringPart.StartColoring();
         }
 
@@ -35,47 +35,33 @@ namespace Core.GamePlay.Coloring
         {
             IsDragging.Value = 0;
             ColoringPart.StopColoring();
-            if (_movingRotine != null)
+            if (_movingRoutine != null)
             {
-                StopCoroutine(_movingRotine);
+                StopCoroutine(_movingRoutine);
             }
         }
 
-        IEnumerator MovingCorotine()
+        IEnumerator MovingRoutine()
         {
             float waiting = 0.01f;
-            Vector2 lastMousePosition = Input.mousePosition; // Store the initial mouse position
-            Vector2 initialBrushPosition = BrushTransform.localPosition; // Store the initial brush position
-
-            // Calculate the initial offset between the brush and the mouse
-            Vector2 initialOffset = initialBrushPosition - lastMousePosition;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasTransform, Input.mousePosition, _currentCamera, out Vector2 initialPoint);
+            Vector2 initialOffset = BrushTransform.anchoredPosition - initialPoint;
 
             while (IsDragging.Value == 1)
             {
-                // Get the current mouse position
-                Vector2 currentMousePosition = Input.mousePosition;
+                // Convert screen position to local position relative to the RectTransform
+                RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvasTransform, Input.mousePosition, _currentCamera, out Vector2 localPoint);
 
-                // Calculate the distance the mouse has moved
-                Vector2 mouseDelta = currentMousePosition - lastMousePosition;
-                lastMousePosition = currentMousePosition; // Update the last mouse position
 
-                // Calculate the new position for the brush based on the mouse movement (delta)
-                Vector2 targetBrushPosition = BrushTransform.localPosition + (Vector3)mouseDelta;
+                // Calculate target position with initial offset
+                Vector2 targetPosition = localPoint + initialOffset;
 
-                // Maintain the initial offset between the brush and the mouse
-                targetBrushPosition = currentMousePosition - initialOffset;
+                // Clamp the position within defined boundaries
+                float clampedX = Mathf.Clamp(targetPosition.x, HorizontalRange.x, HorizontalRange.y);
+                float clampedY = Mathf.Clamp(targetPosition.y, VerticalRange.x, VerticalRange.y);
 
-                // Check screen boundaries to ensure the brush stays within the screen
-                Vector2 clampedPosition = new Vector2(
-                    Mathf.Clamp(targetBrushPosition.x, HorizontalRange.x, HorizontalRange.y),
-                    Mathf.Clamp(targetBrushPosition.y, VerticalRange.x, VerticalRange.y)
-                );
-
-                // Move the brush smoothly towards the new clamped position
-                BrushTransform.localPosition = Vector3.MoveTowards(BrushTransform.localPosition, clampedPosition, _speed * Time.deltaTime);
-
-                // Update the brush position variable
-                BurshPosition.Value = BrushTransform.localPosition;
+                // Update only X and Y positions while keeping Z unchanged
+                BrushTransform.anchoredPosition = Vector2.MoveTowards(BrushTransform.anchoredPosition, new Vector2(clampedX, clampedY), _speed * Time.deltaTime);
 
                 yield return new WaitForSeconds(waiting);
             }
