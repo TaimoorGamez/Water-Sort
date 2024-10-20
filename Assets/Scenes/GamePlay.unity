@@ -266,7 +266,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 216854297}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -333,7 +333,7 @@ MonoBehaviour:
   CurrentColor: {fileID: 11400000, guid: 2fed6872c6a33cb40accd289f78eb6eb, type: 2}
   BurshPosition: {fileID: 11400000, guid: 86ace9d4d6641e042a631d24e25ab2ff, type: 2}
   IsDragging: {fileID: 11400000, guid: 338da1a63205f714d814b54b68f72f24, type: 2}
-  RawImage: {fileID: 266531113}
+  ColoringPart: {fileID: 266531113}
 --- !u!114 &266531113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1046,7 +1046,6 @@ MonoBehaviour:
   BrushTransform: {fileID: 216854298}
   VerticalRange: {x: -300, y: 300}
   HorizontalRange: {x: -200, y: 200}
-  _speed: 350
 --- !u!1 &786727619
 GameObject:
   m_ObjectHideFlags: 0

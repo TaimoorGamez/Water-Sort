@@ -5,10 +5,10 @@ namespace Core.Variables
     [CreateAssetMenu(fileName = "SOColor", menuName = "ScriptableObjects/Variables/Colors")]
     public class SOColor : ScriptableObject
     {
-        [SerializeField] Color CurrentValue, DefaultValue;
+        [SerializeField] Color32 CurrentValue, DefaultValue;
         [SerializeField] bool ResetDefault = true;
 
-        public Color Value
+        public Color32 Value
         {
             get => CurrentValue;
             set
