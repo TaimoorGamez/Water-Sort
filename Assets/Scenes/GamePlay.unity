@@ -330,9 +330,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce9f4521d39a63e42a3740d732c74b2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentColor: {fileID: 11400000, guid: 2fed6872c6a33cb40accd289f78eb6eb, type: 2}
-  BurshPosition: {fileID: 11400000, guid: 86ace9d4d6641e042a631d24e25ab2ff, type: 2}
-  IsDragging: {fileID: 11400000, guid: 338da1a63205f714d814b54b68f72f24, type: 2}
   ColoringPart: {fileID: 266531113}
 --- !u!114 &266531113
 MonoBehaviour:
@@ -932,7 +929,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &553503333
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1040,8 +1037,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e436ff83a49b96549bd523d1a4202c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDragging: {fileID: 11400000, guid: 338da1a63205f714d814b54b68f72f24, type: 2}
-  BurshPosition: {fileID: 11400000, guid: 86ace9d4d6641e042a631d24e25ab2ff, type: 2}
+  CurrentColor: {fileID: 11400000, guid: 2fed6872c6a33cb40accd289f78eb6eb, type: 2}
   ColoringPart: {fileID: 266531112}
   BrushTransform: {fileID: 216854298}
   VerticalRange: {x: -300, y: 300}

@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8214005513cce374f97de7dcce0693cc, type: 3}
   m_Name: CurrrentColor
   m_EditorClassIdentifier: 
-  CurrentValue: {r: 0, g: 0, b: 0, a: 0}
-  DefaultValue: {r: 0, g: 0, b: 0, a: 0}
+  CurrentValue:
+    serializedVersion: 2
+    rgba: 4292793286
+  DefaultValue:
+    serializedVersion: 2
+    rgba: 4292793286
   ResetDefault: 1

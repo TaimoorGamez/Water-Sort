@@ -11,13 +11,12 @@ namespace Core.GamePlay.Coloring
         [SerializeField] RectTransform BrushTransform;
         [SerializeField] Vector2Int VerticalRange, HorizontalRange; // Use these for boundary clamping
 
-        float _speed = 500, _brushSize = 25;
+        float _speed = 5, _brushSize = 25, _alphaThreshold = 0.1f;
         bool _isDragging = false;
         Coroutine _movingRoutine;
         RectTransform _coloringParTransform;
         Camera _currentCamera;
         Texture2D _partTexture;
-        byte _alphaThreshold = 50;
 
         private void Start()
         {
@@ -60,7 +59,7 @@ namespace Core.GamePlay.Coloring
                 float clampedY = Mathf.Clamp(targetPosition.y, VerticalRange.x, VerticalRange.y);
 
                 // Update BrushTransform position
-                BrushTransform.anchoredPosition = new Vector2(clampedX, clampedY);
+                BrushTransform.anchoredPosition = Vector2.Lerp(BrushTransform.anchoredPosition, new Vector2(clampedX, clampedY), _speed * Time.deltaTime);
 
                 // Convert BrushTransform position to UV coordinates (0-1 range in texture space)
                 Vector2 brushUV = new Vector2(
