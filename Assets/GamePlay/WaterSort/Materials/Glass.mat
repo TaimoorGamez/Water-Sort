@@ -15,7 +15,7 @@ Material:
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
-  m_DoubleSidedGI: 0
+  m_DoubleSidedGI: 1
   m_CustomRenderQueue: 3000
   stringTagMap:
     RenderType: Transparent
@@ -98,7 +98,7 @@ Material:
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _Cull: 2
+    - _Cull: 0
     - _Cutoff: 0
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
@@ -120,7 +120,7 @@ Material:
     - _Refraction: 0
     - _SampleGI: 0
     - _Shininess: 0
-    - _Smoothness: 0.5
+    - _Smoothness: 0.7
     - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
     - _SpecSource: 0
@@ -131,9 +131,9 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 0.39215687}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 0.19607843}
     - _Base_Color: {r: 0.42942327, g: 0.4688574, b: 0.4716981, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 0.39215687}
+    - _Color: {r: 1, g: 1, b: 1, a: 0.19607843}
     - _Edge_Tint: {r: 0.6901961, g: 0.76862746, b: 0.87058824, a: 1}
     - _EmissionColor: {r: 1, g: 0.8820755, b: 0.8820755, a: 1}
     - _GlassColor: {r: 0, g: 0.86945343, b: 1, a: 0}
