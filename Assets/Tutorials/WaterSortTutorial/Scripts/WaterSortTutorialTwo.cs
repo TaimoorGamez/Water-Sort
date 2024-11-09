@@ -13,7 +13,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] SOIntegerEvents ChangeStateEvent;
         [SerializeField] Button UndoBtn;
         [SerializeField] CapsuleCollider MyCollider, SecondCollider, ThirdCollider;
-        [SerializeField] WaterColor MyLiquid, OtherLiquid;
+        [SerializeField] Liquid MyLiquid, OtherLiquid;
         [SerializeField] GameObject HandObj, InfoTextObj;
         [SerializeField] Color[] CurrentColors;
         [SerializeField] bool IsUndoBtn, ExtraTube;

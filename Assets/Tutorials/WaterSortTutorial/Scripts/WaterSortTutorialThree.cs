@@ -12,7 +12,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
         [SerializeField] SOIntegerEvents ChangeStateEvent;
         [SerializeField] Button ExtraTubeBtn;
-        [SerializeField] WaterColor FirstLiquid, SecondLiquid, ThirdLiquid;
+        [SerializeField] Liquid FirstLiquid, SecondLiquid, ThirdLiquid;
         [SerializeField] GameObject HandObj, ExtraTube, InfoText, InfoTextObj;
         [SerializeField] Color[] CurrentColors;
 

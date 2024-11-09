@@ -20,7 +20,7 @@ namespace Core.GamePlay.WaterSort
         {
             if (SwapingTubes.Count < 2)
             {
-                if (tube.MyLiquid.WaterColors.Count > 0)
+                if (tube.WaterColors.Count > 0)
                 {
                     if (SwapingTubes.Count < 1)
                     {
@@ -47,11 +47,11 @@ namespace Core.GamePlay.WaterSort
             TubeScaleDownTween.TargetObj = SwapingTubes[0].gameObject;
             TubeScaleDownTween.PlayAnimation();
 
-            if (SwapingTubes[0].MyLiquid.CurrentTopColor != SwapingTubes[1].MyLiquid.CurrentTopColor)
+            if (SwapingTubes[0].CurrentColor != SwapingTubes[1].CurrentColor)
             {
-                Color oneColor = SwapingTubes[0].MyLiquid.CurrentTopColor;
-                SwapingTubes[0].MyLiquid.SwapeColor(SwapingTubes[1].MyLiquid.CurrentTopColor);
-                SwapingTubes[1].MyLiquid.SwapeColor(oneColor);
+                Color oneColor = SwapingTubes[0].CurrentColor;
+                SwapingTubes[0].SwapeColor(SwapingTubes[1].CurrentColor);
+                SwapingTubes[1].SwapeColor(oneColor);
             }
             else
             {

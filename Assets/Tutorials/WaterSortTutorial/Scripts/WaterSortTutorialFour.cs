@@ -12,7 +12,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] SOInterger CanPlay, IsSwaping, UsingAnyFeature, LevelCompleteStateIndex;
         [SerializeField] SOIntegerEvents ChangeStateEvent;
         [SerializeField] CapsuleCollider ColliderOne, ColliderTwo, ColliderThree, ColliderFour, ColliderFive;
-        [SerializeField] WaterColor FirstLiquid, SecondLiquid, ThirdLiquid, ForthLiquid;
+        [SerializeField] Liquid FirstLiquid, SecondLiquid, ThirdLiquid, ForthLiquid;
         [SerializeField] GameObject HandObj, InfoTextObj;
         [SerializeField] Button SwapeBtn;
         [SerializeField] Color[] CurrentColors;

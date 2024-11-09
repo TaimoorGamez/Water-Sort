@@ -11,7 +11,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] SOIntegerEvents ChangeStateEvent;
         [SerializeField] SOEvents SwipeColorsModeEvent;
         [SerializeField] CapsuleCollider MyCollider, OtherCollider;
-        [SerializeField] WaterColor MyLiquid;
+        [SerializeField] Liquid MyLiquid;
         [SerializeField] GameObject HandObj, InfoTextObj;
         [SerializeField] Color CurrentColor;
         [SerializeField] int TubeCounter;

@@ -130,6 +130,7 @@ Material:
     - _HideRange: 0
     - _HideRangeMax: 0
     - _HideRangeMin: 1
+    - _HidenRange: 0
     - _LayerHeight: 1
     - _LightinerFactor: 0.1
     - _LightningFactor: 0.35
@@ -151,7 +152,7 @@ Material:
     - _RotationSpeed: 1
     - _SampleGI: 0
     - _Shininess: 1
-    - _Smoothness: 0
+    - _Smoothness: 1
     - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
     - _SpecSource: 0
@@ -195,6 +196,7 @@ Material:
     - _FillColor: {r: 1, g: 0, b: 0, a: 1}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 0}
     - _GlassColor: {r: 1, g: 0, b: 0, a: 1}
+    - _HidenColor: {r: 0.25490198, g: 0.25490198, b: 0.25490198, a: 1}
     - _InsideColor: {r: 0, g: 0.5, b: 0, a: 1}
     - _Layer1Color: {r: 1, g: 0, b: 0, a: 1}
     - _Layer2Color: {r: 0, g: 0.48158765, b: 1, a: 1}

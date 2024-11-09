@@ -8,9 +8,12 @@ namespace Core.GamePlay.WaterSort
 {
     public class TubeHandler : MonoBehaviour
     {
-        public WaterColor MyLiquid;
         public bool IsBussy = false;
+        public List<Color> WaterColors = new List<Color>();
+        public Color CurrentColor;
 
+
+        [SerializeField] LineRenderer WaterLine;
         [SerializeField] Transform OutPosOne, OutPosTwo;
         [SerializeField] Vector3 LeftRotation, RightRotation;
         [SerializeField] CapsuleCollider TubeCollider;
@@ -20,6 +23,8 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] ColorSwiper SwapingManager;
         [SerializeField] SOWaterTube OpenTube;
         [SerializeField] SOEvents CheckCompleteEvent;
+        [SerializeField] Liquid[] MyLiquid;
+        [SerializeField] GameObject[] HidenMarks;
 
         List<Coroutine> _drinkingRotine = new List<Coroutine>();
         TubeHandler _senderTube;
@@ -31,13 +36,41 @@ namespace Core.GamePlay.WaterSort
         private void Start()
         {
             _orignalPos = transform.position;
+            //WaterLine.SetPosition(0, TubePos.TransformPoint(WaterStartPosition.localPosition));
+            //WaterLine.SetPosition(1, TubePos.TransformPoint(WaterLineEndPos.localPosition));
+        }
+        public void SetHidenColour(Color currentColor)
+        {
+            //if (WaterColors.Count < _totalLayyers - 1)
+            //{
+            //    //HidenMarks[WaterColors.Count].gameObject.SetActive(true);
+            //    QustionMark.transform.position += new Vector3(0, QustionMarkPositions[WaterColors.Count], 0);
+            //    QustionMark.SetActive(true);
+            //}
+            //SetColor(currentColor);
+        }
+
+        public void SetColor(Color currentColor)
+        {
+            // Set the color properties in the material property block
+            //WaterColors.Add(currentColor);
+            //_propBlock.SetColor("_Color" + WaterColors.Count.ToString(), currentColor);
+            // Apply the material property block to the renderer
+            //MySkin.SetPropertyBlock(_propBlock);
+            CurrentColor = currentColor;
+            // Set transparency property in the material property block
+            //_propBlock.SetFloat("_TransparencyRange", _eachLiquidLayerHeight * WaterColors.Count);
+
+            // Apply the material property block to the renderer
+            //MySkin.SetPropertyBlock(_propBlock);
+            //WaterLineEndPos.localPosition += new Vector3(0, _waterPosIncrement, 0);
         }
 
         private void OnMouseDown()
         {
             if (DoingUndo.Value == 0 && IsSwaping.Value == 0 && CanPlay.Value == 1)
             {
-                if (OpenTube.Tube == null && !IsBussy && !_isDrinkingWater && !MyLiquid.IsEmpty())
+                if (OpenTube.Tube == null && !IsBussy && !_isDrinkingWater && WaterColors.Count > 0)
                 {
                     TubeState(true);
                     OpenTube.Tube = this;
@@ -54,11 +87,11 @@ namespace Core.GamePlay.WaterSort
                         if (!IsBussy && OpenTube.Tube != null)
                         {
                             _senderTube = OpenTube.Tube;
-                            if (MyLiquid.WaterColors.Count < 1)
+                            if (WaterColors.Count < 1)
                             {
                                 DrinkWater();
                             }
-                            else if (MyLiquid.WaterColors.Count < _totalLiquidLayers && _senderTube.MyLiquid.CurrentTopColor == MyLiquid.CurrentTopColor)
+                            else if (WaterColors.Count < _totalLiquidLayers && _senderTube.CurrentColor == CurrentColor)
                             {
                                 DrinkWater();
                             }
@@ -119,16 +152,16 @@ namespace Core.GamePlay.WaterSort
             LeanTween.move(senderTube.gameObject, tubePosition, 0.1f);
             LeanTween.rotate(senderTube.gameObject, rotationDirection, 0.1f).setOnComplete(() =>
             {
-                if (MyLiquid.WaterColors.Count < _totalLiquidLayers - 1 && DoingUndo.Value == 0)
+                if (WaterColors.Count < _totalLiquidLayers - 1 && DoingUndo.Value == 0)
                 {
                     int sameColors = 1;
-                    for (int i = senderTube.MyLiquid.WaterColors.Count - 1; i > 0; i--)
+                    for (int i = senderTube.WaterColors.Count - 1; i > 0; i--)
                     {
-                        if (senderTube.MyLiquid.WaterColors[i] == senderTube.MyLiquid.WaterColors[i - 1])
+                        if (senderTube.WaterColors[i] == senderTube.WaterColors[i - 1])
                         {
                             if (IsHiddenLevel.Value == 1)
                             {
-                                if (!senderTube.MyLiquid.GetHidenColor(i - 1))
+                                if (!senderTube.GetHidenColor(i - 1))
                                     sameColors++;
                             }
                             else
@@ -143,7 +176,7 @@ namespace Core.GamePlay.WaterSort
                     }
                     if (sameColors > 1)
                     {
-                        int remaingLayers = _totalLiquidLayers - MyLiquid.WaterColors.Count;
+                        int remaingLayers = _totalLiquidLayers - WaterColors.Count;
                         if (sameColors <= remaingLayers)
                         {
                             colorsToAdd = sameColors;
@@ -161,8 +194,8 @@ namespace Core.GamePlay.WaterSort
                 }
                 //Debug.Log("Here162");
                 //Debug.Log(colorsToAdd);
-                MyLiquid.AddColor(senderTube.MyLiquid.CurrentTopColor, colorsToAdd);
-                senderTube.MyLiquid.RemoveColor(colorsToAdd);
+                AddColor(senderTube.CurrentColor, colorsToAdd);
+                senderTube.RemoveColor(colorsToAdd);
                 if (DoingUndo.Value == 0)
                 {
                     UndoManager.AddUndo(senderTube, this, colorsToAdd);
@@ -189,12 +222,12 @@ namespace Core.GamePlay.WaterSort
         public void WaterAdded()
         {
             _isDrinkingWater = false;
-            if (MyLiquid.WaterColors.Count == _totalLiquidLayers)
+            if (WaterColors.Count == _totalLiquidLayers)
             {
                 _tubeCompleted = true;
                 for (int i = _totalLiquidLayers - 1; i > 0; i--)
                 {
-                    if (MyLiquid.WaterColors[i] != MyLiquid.WaterColors[i - 1])
+                    if (WaterColors[i] != WaterColors[i - 1])
                     {
                         _tubeCompleted = false;
                         break;
@@ -206,7 +239,7 @@ namespace Core.GamePlay.WaterSort
                     TubeCollider.enabled = false;
                     if (IsHiddenLevel.Value == 1)
                     {
-                        MyLiquid.RevelFullTube();
+                        RevelFullTube();
                     }
                     _celebrationRotine = StartCoroutine(CelebrationOnComplete());
                 }
@@ -216,7 +249,7 @@ namespace Core.GamePlay.WaterSort
         IEnumerator CelebrationOnComplete()
         {
             yield return new WaitForSeconds(0.5f);
-            TubeCap.PlayCelebration(MyLiquid.CurrentTopColor);
+            TubeCap.PlayCelebration(CurrentColor);
             yield return new WaitForSeconds(1);
             CompletedTubes.Value ++;
             CheckCompleteEvent.InvokeSOEvent();
@@ -229,7 +262,7 @@ namespace Core.GamePlay.WaterSort
 
         public void CheckHiddenColor()
         {
-            MyLiquid.RevelColour();
+            RevelColour();
         }
 
         public void RemoveFromCompleted()
@@ -244,6 +277,46 @@ namespace Core.GamePlay.WaterSort
                 TubeCap.HideCap();
             }
         }
+        public void RemoveColor(int layers)
+        {
+            //for (int c = 0; c < layers; c++)
+            //{
+            //    WaterColors.RemoveAt(WaterColors.Count - 1);
+            //    if (WaterColors.Count > 0)
+            //    {
+            //        CurrentColor = WaterColors[WaterColors.Count - 1];
+            //    }
+            //    else
+            //    {
+            //        CurrentColor = Color.black;
+            //    }
+            //}
+            //StartCoroutine(SmoothlyChangeTransparency(_eachLiquidLayerHeight * WaterColors.Count));
+            ////WaterLineEndPos.localPosition -= new Vector3(0, _waterPosIncrement, 0);
+            //if (layers < 2)
+            //{
+            //    TubeAnimation.Play("FixDrop " + WaterColors.Count.ToString());
+            //}
+            //else
+            //{
+            //    TubeAnimation.Play("Dropping " + WaterColors.Count.ToString());
+            //}
+        }
+        public void SwapeColor(Color currentColor)
+        {
+            //WaterColors.RemoveAt(WaterColors.Count - 1);
+            //CurrentColor = currentColor;
+            ////WaterColors.Add(currentColor);
+            //_propBlock.SetColor("_Color" + WaterColors.Count.ToString(), currentColor);
+            //// Apply the material property block to the renderer
+            //MySkin.SetPropertyBlock(_propBlock);
+            //// Set transparency property in the material property block
+            //_propBlock.SetFloat("_TransparencyRange", _eachLiquidLayerHeight * WaterColors.Count);
+
+            // Apply the material property block to the renderer
+            //MySkin.SetPropertyBlock(_propBlock);
+            //WaterLineEndPos.localPosition += new Vector3(0, _waterPosIncrement, 0);
+        }
 
         void TubeState(bool state)
         {
@@ -256,6 +329,68 @@ namespace Core.GamePlay.WaterSort
                 LeanTween.moveLocal(gameObject, _orignalPos, 0.05f);
                 LeanTween.rotateLocal(gameObject, Vector3.zero, 0.05f).setOnComplete(()=> transform.position = _orignalPos );
             }
+        }
+
+        void AddColor(Color currentColor, int layers)
+        {
+            //    for (int c = 0; c < layers; c++)
+            //    {
+            //        WaterColors.Add(currentColor);
+            //        _propBlock.SetColor("_Color" + WaterColors.Count.ToString(), currentColor);
+            //        MySkin.SetPropertyBlock(_propBlock);
+            //    }
+            //    CurrentColor = currentColor;
+            //    _propBlock.SetColor("_Color", currentColor);
+            //    //WaterLine.GetComponent<Renderer>().SetPropertyBlock(_propBlock);
+            //    Renderer waterDropRenderer = WaterDorpParticle.GetComponent<Renderer>();
+            //    if (waterDropRenderer != null)
+            //    {
+            //        waterDropRenderer.SetPropertyBlock(_propBlock);
+            //    }
+            //    //WaterLine.gameObject.SetActive(true);
+            //    if (_transparencyRotine != null)
+            //    {
+            //        StopCoroutine(_transparencyRotine);
+            //    }
+            //    _transparencyRotine = StartCoroutine(SmoothlyChangeTransparency(_eachLiquidLayerHeight * WaterColors.Count));
+            //    //_posRotine = StartCoroutine(ChangePosition(GetTargetPosition(WaterColors.Count)));
+            //    WaterDorpParticle.Play();
+        }
+
+        void RevelColour()
+        {
+            //if (WaterColors.Count > 0)
+            //{
+            //    HidenMarks[WaterColors.Count - 1].SetActive(false);
+            //}
+
+            //if (WaterColors.Count > 1)
+            //{
+            //    LeanTween.moveLocalZ(QustionMark, QustionMarkPositions[WaterColors.Count - 2], QustionMarkMovemenTime);
+            //}
+            //else
+            //{
+            //    QustionMark.SetActive(false);
+            //}
+        }
+
+        void RevelFullTube()
+        {
+            //QustionMark.SetActive(false);
+            //foreach (GameObject obj in HidenMarks)
+            //{
+            //    obj.SetActive(false);
+            //}
+        }
+
+        bool GetHidenColor(int i)
+        {
+            return HidenMarks[i].gameObject.activeInHierarchy;
+        }
+
+        bool IsEmpty()
+        {
+            return (WaterColors.Count > 0) ? false : true;
         }
 
         private void OnDisable()

@@ -99,20 +99,20 @@ namespace Core.GamePlay.WaterSort
                 {
                     int tubeNum = Random.Range(0, _levelTubes.Count);
 
-                    if (_levelTubes[tubeNum].MyLiquid.WaterColors.Count < _maxColorsInTube)
+                    if (_levelTubes[tubeNum].WaterColors.Count < _maxColorsInTube)
                     {
                         if (IsHiddenLevel.Value == 1)
                         {
-                            _levelTubes[tubeNum].MyLiquid.SetHidenColour(AllColours[l]);
+                            _levelTubes[tubeNum].SetHidenColour(AllColours[l]);
                         }
                         else
                         {
-                            _levelTubes[tubeNum].MyLiquid.SetColor(AllColours[l]);
+                            _levelTubes[tubeNum].SetColor(AllColours[l]);
                         }
                        
                     }
                     yield return new WaitForSeconds(0.01f);
-                    if (_levelTubes[tubeNum].MyLiquid.WaterColors.Count == _maxColorsInTube)
+                    if (_levelTubes[tubeNum].WaterColors.Count == _maxColorsInTube)
                     {
                         _levelTubes[tubeNum].WaterAdded();
                         _levelTubes.RemoveAt(tubeNum);
@@ -122,7 +122,7 @@ namespace Core.GamePlay.WaterSort
             yield return new WaitForSeconds(0.1f);
             for (int c=0; c< tempTubes.Count; c++)
             {
-                foreach (Color col in tempTubes[c].MyLiquid.WaterColors)
+                foreach (Color col in tempTubes[c].WaterColors)
                 {
                     _currentLevelColors[c].Add(col);
                 }
@@ -164,11 +164,11 @@ namespace Core.GamePlay.WaterSort
                     {
                         if (IsHiddenLevel.Value == 1)
                         {
-                            newTube.MyLiquid.SetHidenColour(tubeColors[c]);
+                            newTube.SetHidenColour(tubeColors[c]);
                         }
                         else
                         {
-                            newTube.MyLiquid.SetColor(tubeColors[c]);
+                            newTube.SetColor(tubeColors[c]);
                         }
                         yield return new WaitForSeconds(0.01f);
                     }
