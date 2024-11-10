@@ -12,57 +12,52 @@ namespace Core.GamePlay.WaterSort
         public List<Color> WaterColors = new List<Color>();
         public Color CurrentColor;
 
-
-        [SerializeField] LineRenderer WaterLine;
-        [SerializeField] Transform OutPosOne, OutPosTwo;
-        [SerializeField] Vector3 LeftRotation, RightRotation;
-        [SerializeField] CapsuleCollider TubeCollider;
-        [SerializeField] CapHandler TubeCap;
         [SerializeField] SOInterger DoingUndo, IsHiddenLevel, CompletedTubes, IsSwaping, CanPlay, UsingAnyFeature;
         [SerializeField] UndoManager UndoManager;
         [SerializeField] ColorSwiper SwapingManager;
         [SerializeField] SOWaterTube OpenTube;
         [SerializeField] SOEvents CheckCompleteEvent;
+        [SerializeField] ParticleSystem WaveParticle, DropsParticle;
+        [SerializeField] LineRenderer WaterLine;
+        [SerializeField] Vector3 LeftPosition, LeftRotation, RightPosition, RightRotation;
+        [SerializeField] CapsuleCollider TubeCollider;
+        [SerializeField] CapHandler TubeCap;
         [SerializeField] Liquid[] MyLiquid;
         [SerializeField] GameObject[] HidenMarks;
+        [SerializeField] ParticleSystemRenderer WaveRenderer, DropsRenderer;
+
 
         List<Coroutine> _drinkingRotine = new List<Coroutine>();
         TubeHandler _senderTube;
         Vector3 _orignalPos;
         int _totalLiquidLayers = 4, _colorsToUndo = 1;
         bool _isDrinkingWater = false, _tubeCompleted = false, _alreadyAddedToCompleted = false;
-        Coroutine _celebrationRotine;
+        Coroutine _celebrationRotine, _addingRotine, _removingRotine;
+        MaterialPropertyBlock _propBlock;
 
         private void Start()
         {
             _orignalPos = transform.position;
+            _propBlock = new MaterialPropertyBlock();
             //WaterLine.SetPosition(0, TubePos.TransformPoint(WaterStartPosition.localPosition));
             //WaterLine.SetPosition(1, TubePos.TransformPoint(WaterLineEndPos.localPosition));
         }
+
         public void SetHidenColour(Color currentColor)
         {
-            //if (WaterColors.Count < _totalLayyers - 1)
-            //{
-            //    //HidenMarks[WaterColors.Count].gameObject.SetActive(true);
-            //    QustionMark.transform.position += new Vector3(0, QustionMarkPositions[WaterColors.Count], 0);
-            //    QustionMark.SetActive(true);
-            //}
-            //SetColor(currentColor);
+            if (WaterColors.Count < _totalLiquidLayers - 1)
+            {
+                MyLiquid[WaterColors.Count].SetHidenColour();
+                HidenMarks[WaterColors.Count].gameObject.SetActive(true);
+            }
+            SetColor(currentColor);
         }
 
         public void SetColor(Color currentColor)
         {
-            // Set the color properties in the material property block
-            //WaterColors.Add(currentColor);
-            //_propBlock.SetColor("_Color" + WaterColors.Count.ToString(), currentColor);
-            // Apply the material property block to the renderer
-            //MySkin.SetPropertyBlock(_propBlock);
+            MyLiquid[WaterColors.Count].SetColor(currentColor);
+            WaterColors.Add(currentColor);
             CurrentColor = currentColor;
-            // Set transparency property in the material property block
-            //_propBlock.SetFloat("_TransparencyRange", _eachLiquidLayerHeight * WaterColors.Count);
-
-            // Apply the material property block to the renderer
-            //MySkin.SetPropertyBlock(_propBlock);
             //WaterLineEndPos.localPosition += new Vector3(0, _waterPosIncrement, 0);
         }
 
@@ -140,11 +135,11 @@ namespace Core.GamePlay.WaterSort
         private IEnumerator ChangingWater(TubeHandler senderTube)
         {
             int randomDirection = Random.Range(0, 2);
-            Vector3 tubePosition = OutPosOne.position;
+            Vector3 tubePosition = LeftPosition;
             Vector3 rotationDirection = LeftRotation;
             if (randomDirection == 0)
             {
-                tubePosition = OutPosTwo.position;
+                tubePosition = RightPosition;
                 rotationDirection = RightRotation;
             }
             int colorsToAdd = 1;
@@ -221,6 +216,7 @@ namespace Core.GamePlay.WaterSort
 
         public void WaterAdded()
         {
+            WaterLine.gameObject.SetActive(false);
             _isDrinkingWater = false;
             if (WaterColors.Count == _totalLiquidLayers)
             {
@@ -322,10 +318,26 @@ namespace Core.GamePlay.WaterSort
         {
             if (state)
             {
+                MyLiquid[WaterColors.Count-1].SetGlow(true);
+                for(int c = 1; c < WaterColors.Count; c++)
+                {
+                    if (WaterColors[c] == WaterColors[c-1])
+                    {
+                        MyLiquid[c - 1].SetGlow(true);
+                    }
+                }
                 LeanTween.moveLocalY(gameObject, _orignalPos.y + 0.5f, 0.1f);
             }
             else
             {
+                MyLiquid[WaterColors.Count-1].SetGlow(false);
+                for (int c = 1; c < WaterColors.Count; c++)
+                {
+                    if (WaterColors[c] == WaterColors[c - 1])
+                    {
+                        MyLiquid[c- 1].SetGlow(false);
+                    }
+                }
                 LeanTween.moveLocal(gameObject, _orignalPos, 0.05f);
                 LeanTween.rotateLocal(gameObject, Vector3.zero, 0.05f).setOnComplete(()=> transform.position = _orignalPos );
             }
@@ -333,28 +345,28 @@ namespace Core.GamePlay.WaterSort
 
         void AddColor(Color currentColor, int layers)
         {
-            //    for (int c = 0; c < layers; c++)
-            //    {
-            //        WaterColors.Add(currentColor);
-            //        _propBlock.SetColor("_Color" + WaterColors.Count.ToString(), currentColor);
-            //        MySkin.SetPropertyBlock(_propBlock);
-            //    }
-            //    CurrentColor = currentColor;
-            //    _propBlock.SetColor("_Color", currentColor);
-            //    //WaterLine.GetComponent<Renderer>().SetPropertyBlock(_propBlock);
-            //    Renderer waterDropRenderer = WaterDorpParticle.GetComponent<Renderer>();
-            //    if (waterDropRenderer != null)
-            //    {
-            //        waterDropRenderer.SetPropertyBlock(_propBlock);
-            //    }
-            //    //WaterLine.gameObject.SetActive(true);
-            //    if (_transparencyRotine != null)
-            //    {
-            //        StopCoroutine(_transparencyRotine);
-            //    }
-            //    _transparencyRotine = StartCoroutine(SmoothlyChangeTransparency(_eachLiquidLayerHeight * WaterColors.Count));
-            //    //_posRotine = StartCoroutine(ChangePosition(GetTargetPosition(WaterColors.Count)));
-            //    WaterDorpParticle.Play();
+            _propBlock.SetColor("_BaseColor", currentColor);
+            WaterLine.SetPropertyBlock(_propBlock);
+            WaveRenderer.SetPropertyBlock(_propBlock);
+            DropsRenderer.SetPropertyBlock(_propBlock);
+            WaterLine.gameObject.SetActive(true); 
+            CurrentColor = currentColor;
+            _addingRotine = StartCoroutine(ColorAdddingRotine(currentColor,layers));
+        }
+
+        IEnumerator ColorAdddingRotine(Color currentColor, int layers)
+        {
+            for (int c = 1; c <= layers; c++)
+            {
+                MyLiquid[WaterColors.Count].SmoothlyAddColor(currentColor, 1/layers);
+                WaterColors.Add(currentColor);
+                yield return new WaitForSeconds(1/layers);
+            }
+
+            if (_addingRotine != null)
+            {
+                StopCoroutine( _addingRotine );
+            }
         }
 
         void RevelColour()

@@ -159,10 +159,10 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 5
     - _Surface: 1
-    - _TansparencyRange: 1
+    - _TansparencyRange: 0
     - _Thickness: 0.064
     - _Threshold: 0
-    - _TransparencyRange: 1
+    - _TransparencyRange: 0
     - _Transparency_Range: 1
     - _UVSec: 0
     - _VertexThreshold: 1
