@@ -19,7 +19,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] SOEvents CheckCompleteEvent;
         [SerializeField] ParticleSystem WaveParticle, DropsParticle;
         [SerializeField] LineRenderer WaterLine;
-        [SerializeField] Vector3 LeftPosition, LeftRotation, RightPosition, RightRotation;
+        [SerializeField] Transform AnchorPos1, AnchorPos2;
         [SerializeField] CapsuleCollider TubeCollider;
         [SerializeField] CapHandler TubeCap;
         [SerializeField] Liquid[] MyLiquid;
@@ -135,17 +135,15 @@ namespace Core.GamePlay.WaterSort
         private IEnumerator ChangingWater(TubeHandler senderTube)
         {
             int randomDirection = Random.Range(0, 2);
-            Vector3 tubePosition = LeftPosition;
-            Vector3 rotationDirection = LeftRotation;
+            Transform anchorPos = AnchorPos1;
             if (randomDirection == 0)
             {
-                tubePosition = RightPosition;
-                rotationDirection = RightRotation;
+                anchorPos = AnchorPos2;
             }
             int colorsToAdd = 1;
             //Debug.Log("Here109");
-            LeanTween.move(senderTube.gameObject, tubePosition, 0.1f);
-            LeanTween.rotate(senderTube.gameObject, rotationDirection, 0.1f).setOnComplete(() =>
+            LeanTween.move(senderTube.gameObject, anchorPos.position, 0.1f);
+            LeanTween.rotate(senderTube.gameObject, anchorPos.eulerAngles, 0.1f).setOnComplete(() =>
             {
                 if (WaterColors.Count < _totalLiquidLayers - 1 && DoingUndo.Value == 0)
                 {
@@ -318,19 +316,23 @@ namespace Core.GamePlay.WaterSort
         {
             if (state)
             {
-                MyLiquid[WaterColors.Count-1].SetGlow(true);
-                for(int c = 1; c < WaterColors.Count; c++)
+                MyLiquid[WaterColors.Count-1].SetGlow(true); 
+                for (int c = 1; c < WaterColors.Count; c++)
                 {
                     if (WaterColors[c] == WaterColors[c-1])
                     {
                         MyLiquid[c - 1].SetGlow(true);
                     }
                 }
+                _propBlock.SetColor("_BaseColor", CurrentColor);
+                WaveRenderer.SetPropertyBlock(_propBlock);
+                WaveParticle.Play();
                 LeanTween.moveLocalY(gameObject, _orignalPos.y + 0.5f, 0.1f);
             }
             else
             {
                 MyLiquid[WaterColors.Count-1].SetGlow(false);
+                WaveParticle.Stop();
                 for (int c = 1; c < WaterColors.Count; c++)
                 {
                     if (WaterColors[c] == WaterColors[c - 1])
@@ -358,9 +360,9 @@ namespace Core.GamePlay.WaterSort
         {
             for (int c = 1; c <= layers; c++)
             {
-                MyLiquid[WaterColors.Count].SmoothlyAddColor(currentColor, 1/layers);
+                StartCoroutine(MyLiquid[WaterColors.Count].SmoothlyAddColor(currentColor, (float)1 / layers));
                 WaterColors.Add(currentColor);
-                yield return new WaitForSeconds(1/layers);
+                yield return new WaitForSeconds((float)1 / layers);
             }
 
             if (_addingRotine != null)
