@@ -11,7 +11,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] SOIntegerEvents ChangeStateEvent;
         [SerializeField] SOEvents SwipeColorsModeEvent;
         [SerializeField] CapsuleCollider MyCollider, OtherCollider;
-        [SerializeField] Liquid MyLiquid;
+        [SerializeField] TubeHandler CurrenTube;
         [SerializeField] GameObject HandObj, InfoTextObj;
         [SerializeField] Color CurrentColor;
         [SerializeField] int TubeCounter;
@@ -36,7 +36,7 @@ namespace Core.GamePlay.WaterSort
             yield return new WaitForSeconds(0.5f);
             for (int c=0; c<2; c++)
             {
-                MyLiquid.SetColor(CurrentColor);
+                CurrenTube.SetColor(CurrentColor);
                 yield return new WaitForSeconds(0.1f);
             }
             if (TubeCounter == 1)

@@ -282,7 +282,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 1
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -377,6 +377,70 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaterGlassTube (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: CurrentColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: CurrentColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: CurrentColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: CurrentColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: ParticlePos.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: WaterColors.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: WaterColors.Array.data[0].a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: WaterColors.Array.data[0].b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: WaterColors.Array.data[0].g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: WaterColors.Array.data[0].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: WaterColors.Array.data[1].a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: WaterColors.Array.data[1].b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: WaterColors.Array.data[1].g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: WaterColors.Array.data[1].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: WaterColors.Array.data[2].a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: WaterColors.Array.data[2].r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6283564428832381689, guid: 780440981a73a0347b6401976879e349, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -427,15 +491,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 780440981a73a0347b6401976879e349, type: 3}
---- !u!114 &830052978875078152 stripped
+--- !u!114 &5277642358569765672 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1316450118960018790, guid: 780440981a73a0347b6401976879e349, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
   m_PrefabInstance: {fileID: 1855492537813001070}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 6885276584550759132}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fb69ddcdb1eb1342bae74ad5ca1676c, type: 3}
+  m_Script: {fileID: 11500000, guid: 381958eafc16ab34aacb70e5efdd0655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!136 &5689097667442833815 stripped
@@ -468,10 +532,10 @@ MonoBehaviour:
   CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
   LevelCompleteStateIndex: {fileID: 11400000, guid: 372a4013c41549545822b875f34f8aa3, type: 2}
   ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
-  SwipeColorsModeEvent: {fileID: 0}
+  SwipeColorsModeEvent: {fileID: 11400000, guid: 9781b632e66a3704aa915400af187d35, type: 2}
   MyCollider: {fileID: 5689097667442833815}
   OtherCollider: {fileID: 4482935990998450793}
-  MyLiquid: {fileID: 830052978875078152}
+  CurrenTube: {fileID: 5277642358569765672}
   HandObj: {fileID: 4061230068927693638}
   InfoTextObj: {fileID: 6643069857099970238}
   CurrentColor: {r: 1, g: 0, b: 0, a: 1}
@@ -664,7 +728,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5065813127947164082, guid: 780440981a73a0347b6401976879e349, type: 3}
       propertyPath: m_Name
-      value: WaterGlassTube
+      value: WaterGlassTube (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: CurrentColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: CurrentColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: CurrentColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: CurrentColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: WaterColors.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: WaterColors.Array.data[0].a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: WaterColors.Array.data[0].b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: WaterColors.Array.data[0].g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: WaterColors.Array.data[0].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: WaterColors.Array.data[1].a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: WaterColors.Array.data[1].r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6283564428832381689, guid: 780440981a73a0347b6401976879e349, type: 3}
       propertyPath: m_Enabled
@@ -732,24 +840,24 @@ MonoBehaviour:
   SwipeColorsModeEvent: {fileID: 11400000, guid: 9781b632e66a3704aa915400af187d35, type: 2}
   MyCollider: {fileID: 4482935990998450793}
   OtherCollider: {fileID: 5689097667442833815}
-  MyLiquid: {fileID: 8881620109633957366}
+  CurrenTube: {fileID: 4177327681466216662}
   HandObj: {fileID: 4061230068927693638}
   InfoTextObj: {fileID: 6643069857099970238}
   CurrentColor: {r: 1, g: 0, b: 0, a: 1}
   TubeCounter: 1
+--- !u!114 &4177327681466216662 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+  m_PrefabInstance: {fileID: 7567492159533963408}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3407043716301340962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 381958eafc16ab34aacb70e5efdd0655, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &4482935990998450793 stripped
 CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 6283564428832381689, guid: 780440981a73a0347b6401976879e349, type: 3}
   m_PrefabInstance: {fileID: 7567492159533963408}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8881620109633957366 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1316450118960018790, guid: 780440981a73a0347b6401976879e349, type: 3}
-  m_PrefabInstance: {fileID: 7567492159533963408}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fb69ddcdb1eb1342bae74ad5ca1676c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

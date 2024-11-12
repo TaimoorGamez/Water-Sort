@@ -41,19 +41,10 @@ namespace Core.GamePlay.WaterSort
             MySkin.SetPropertyBlock(_propBlock);
         }
 
-        public IEnumerator SmoothlyHideColor()
+        public void HideColor()
         {
-            float elapsedTime = 0f, smoothTimer = 0.01f;
-
-            while (elapsedTime < _transparencyChangeDuration)
-            {
-                elapsedTime += smoothTimer;
-                float t = Mathf.Clamp01(elapsedTime / _transparencyChangeDuration);
-                float currentTransparency = Mathf.Lerp(1, 0, t);
-                _propBlock.SetFloat("_TransparencyRange", currentTransparency);
-                MySkin.SetPropertyBlock(_propBlock);
-                yield return new WaitForSeconds(smoothTimer);
-            }
+            _propBlock.SetFloat("_TransparencyRange", 0);
+            MySkin.SetPropertyBlock(_propBlock);
         }
 
         public IEnumerator SmoothlyAddColor(Color currentColor, float duration)

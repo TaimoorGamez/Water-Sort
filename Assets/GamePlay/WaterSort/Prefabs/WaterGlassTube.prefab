@@ -99,6 +99,11 @@ MonoBehaviour:
   WaterLine: {fileID: 6086113648058284376}
   AnchorPos1: {fileID: 2669047898572765166}
   AnchorPos2: {fileID: 737825630789356636}
+  ParticlePos:
+  - {x: 0, y: 0, z: 0.3}
+  - {x: 0, y: 0, z: 0.87}
+  - {x: 0, y: 0, z: 1.45}
+  - {x: 0, y: 0, z: 2.03}
   TubeCollider: {fileID: 6283564428832381689}
   TubeCap: {fileID: 1416333214214427342}
   MyLiquid:
@@ -117,12 +122,12 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5065813127947164082}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.32
+  m_Radius: 0.35
   m_Height: 3
   m_Direction: 1
-  m_Center: {x: 0, y: 1.15, z: 0}
+  m_Center: {x: 0, y: 1.1500001, z: 0}
 --- !u!111 &8526494977704156384
 Animation:
   m_ObjectHideFlags: 0

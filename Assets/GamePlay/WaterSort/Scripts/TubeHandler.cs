@@ -20,11 +20,12 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] ParticleSystem WaveParticle, DropsParticle;
         [SerializeField] LineRenderer WaterLine;
         [SerializeField] Transform AnchorPos1, AnchorPos2;
+        [SerializeField] Vector3[] ParticlePos;
         [SerializeField] CapsuleCollider TubeCollider;
         [SerializeField] CapHandler TubeCap;
         [SerializeField] Liquid[] MyLiquid;
         [SerializeField] GameObject[] HidenMarks;
-        [SerializeField] ParticleSystemRenderer WaveRenderer, DropsRenderer;
+        [SerializeField] Renderer WaveRenderer, DropsRenderer;
 
 
         List<Coroutine> _drinkingRotine = new List<Coroutine>();
@@ -56,6 +57,8 @@ namespace Core.GamePlay.WaterSort
         public void SetColor(Color currentColor)
         {
             MyLiquid[WaterColors.Count].SetColor(currentColor);
+            WaveParticle.transform.localPosition = ParticlePos[WaterColors.Count];
+            DropsParticle.transform.localPosition = ParticlePos[WaterColors.Count];
             WaterColors.Add(currentColor);
             CurrentColor = currentColor;
             //WaterLineEndPos.localPosition += new Vector3(0, _waterPosIncrement, 0);
@@ -273,29 +276,27 @@ namespace Core.GamePlay.WaterSort
         }
         public void RemoveColor(int layers)
         {
-            //for (int c = 0; c < layers; c++)
-            //{
-            //    WaterColors.RemoveAt(WaterColors.Count - 1);
-            //    if (WaterColors.Count > 0)
-            //    {
-            //        CurrentColor = WaterColors[WaterColors.Count - 1];
-            //    }
-            //    else
-            //    {
-            //        CurrentColor = Color.black;
-            //    }
-            //}
-            //StartCoroutine(SmoothlyChangeTransparency(_eachLiquidLayerHeight * WaterColors.Count));
-            ////WaterLineEndPos.localPosition -= new Vector3(0, _waterPosIncrement, 0);
-            //if (layers < 2)
-            //{
-            //    TubeAnimation.Play("FixDrop " + WaterColors.Count.ToString());
-            //}
-            //else
-            //{
-            //    TubeAnimation.Play("Dropping " + WaterColors.Count.ToString());
-            //}
+            _removingRotine = StartCoroutine(ColorRemovingCorotine(layers));
         }
+
+        IEnumerator ColorRemovingCorotine(int layers)
+        {
+            for (int c = 1; c <= layers; c++)
+            {
+                yield return new WaitForSeconds((float)1 / layers);
+                MyLiquid[WaterColors.Count-1].HideColor();
+                WaterColors.RemoveAt(WaterColors.Count - 1);
+            }
+
+            if (WaterColors.Count > 0)
+            { DropsParticle.transform.localPosition = ParticlePos[WaterColors.Count - 1]; }
+
+            if (_removingRotine != null)
+            {
+                StopCoroutine(_removingRotine);
+            }
+        }
+
         public void SwapeColor(Color currentColor)
         {
             //WaterColors.RemoveAt(WaterColors.Count - 1);
@@ -353,17 +354,32 @@ namespace Core.GamePlay.WaterSort
             DropsRenderer.SetPropertyBlock(_propBlock);
             WaterLine.gameObject.SetActive(true); 
             CurrentColor = currentColor;
-            _addingRotine = StartCoroutine(ColorAdddingRotine(currentColor,layers));
+            _addingRotine = StartCoroutine(ColorAdddingCorotine(currentColor,layers));
         }
 
-        IEnumerator ColorAdddingRotine(Color currentColor, int layers)
+        IEnumerator ColorAdddingCorotine(Color currentColor, int layers)
         {
+            float elapsedTime = 0f, duration = (float)1 / layers, smoothTimer = 0.01f;
+            Vector3 startPosition = DropsParticle.transform.localPosition;
+            DropsParticle.Play();
             for (int c = 1; c <= layers; c++)
             {
                 StartCoroutine(MyLiquid[WaterColors.Count].SmoothlyAddColor(currentColor, (float)1 / layers));
+                while (elapsedTime < duration)
+                {
+                    // Interpolate between the start and destination positions
+                    DropsParticle.transform.localPosition = Vector3.Lerp(startPosition, ParticlePos[WaterColors.Count], elapsedTime / duration);
+
+                    // Increase elapsed time
+                    elapsedTime += Time.deltaTime;
+
+                    // Wait for the next frame
+                    yield return new WaitForSeconds(smoothTimer);
+                }
                 WaterColors.Add(currentColor);
-                yield return new WaitForSeconds((float)1 / layers);
             }
+            DropsParticle.Stop();
+            DropsParticle.transform.localPosition = ParticlePos[WaterColors.Count-1];
 
             if (_addingRotine != null)
             {
@@ -419,6 +435,10 @@ namespace Core.GamePlay.WaterSort
             if (_celebrationRotine != null)
             {
                 StopCoroutine(_celebrationRotine);
+            }
+            if (_removingRotine != null)
+            {
+                StopCoroutine(_removingRotine);
             }
         }
     }
