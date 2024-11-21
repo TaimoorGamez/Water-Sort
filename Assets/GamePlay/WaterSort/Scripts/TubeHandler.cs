@@ -26,7 +26,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] Liquid[] MyLiquid;
         [SerializeField] GameObject[] HidenMarks;
         [SerializeField] Renderer WaveRenderer, DropsRenderer;
-
+        [SerializeField] Animation TubeAnimation;
 
         List<Coroutine> _drinkingRotine = new List<Coroutine>();
         TubeHandler _senderTube;
@@ -281,6 +281,8 @@ namespace Core.GamePlay.WaterSort
 
         IEnumerator ColorRemovingCorotine(int layers)
         {
+            WaveParticle.Stop();
+            TubeAnimation.Play("Liquid "+WaterColors.Count+""+layers);
             for (int c = 1; c <= layers; c++)
             {
                 yield return new WaitForSeconds((float)1 / layers);
@@ -294,6 +296,11 @@ namespace Core.GamePlay.WaterSort
             if (_removingRotine != null)
             {
                 StopCoroutine(_removingRotine);
+            }
+            yield return new WaitForSeconds(0.1f);
+            for (int c = 1; c <= layers; c++)
+            {
+                MyLiquid[WaterColors.Count - 1].transform.localScale = Vector3.one;
             }
         }
 

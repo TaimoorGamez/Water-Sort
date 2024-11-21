@@ -17,6 +17,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] Vector3[] TubePositions;
         [SerializeField] Color[] AllColours;
 
+        string _sortingLvlPath = "WaterSortLevels/lvl ", _coloringLvlPath = "ColoringParts/Base Level";
         List<TubeHandler> _levelTubes = new List<TubeHandler>();
         Coroutine lvlMakingRotine;
         int _totalTubes = 0, _maxColorsInTube = 4;
@@ -55,7 +56,7 @@ namespace Core.GamePlay.WaterSort
 
             if (LvlNum.Value < 5)
             {
-                Instantiate(Resources.Load("WaterSortLevels/lvl " + LvlNum.Value.ToString()), transform);
+                Instantiate(Resources.Load(_sortingLvlPath + LvlNum.Value.ToString()), transform);
                 CurrentLvl.Value = LvlNum.Value;
             }
             else if (LvlNum.Value < 8)
