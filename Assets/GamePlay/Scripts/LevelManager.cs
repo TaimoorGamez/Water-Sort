@@ -10,7 +10,7 @@ namespace Core.GamePlay
     {
         [SerializeField] SOInterger CompletedTubes, CurrrentLvl, CanPlay, LevelCompleteStateIndex;
         [SerializeField] DBInt LvlNum;
-        [SerializeField] SOEvents CheckCompleteEvent;
+        [SerializeField] SOEvents CheckCompleteEvent, StartColoringEvent;
         [SerializeField] SOIntegerEvents ChangeStateEvent;
 
         public void AfterEnable()
@@ -25,10 +25,11 @@ namespace Core.GamePlay
             if (CompletedTubes.Value == CurrrentLvl.Value)
             {
                 //Debug.Log("Here30");
-                CanPlay.Value = 0;
-                ChangeStateEvent.InvokeEvent(LevelCompleteStateIndex.Value);
-                LvlNum.Value++;
+                //CanPlay.Value = 0;
+                //ChangeStateEvent.InvokeEvent(LevelCompleteStateIndex.Value);
+                //LvlNum.Value++;
                 CompletedTubes.Value = 0;
+                StartColoringEvent.InvokeSOEvent();
             }
         }
     }

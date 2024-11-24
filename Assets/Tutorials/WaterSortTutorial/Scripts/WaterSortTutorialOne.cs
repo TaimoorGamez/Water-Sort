@@ -1,7 +1,9 @@
 using UnityEngine;
+using DG.Tweening;
 using Core.Events;
 using Core.Variables;
 using System.Collections;
+using Core.GamePlay.Coloring;
 
 namespace Core.GamePlay.WaterSort
 {
@@ -9,21 +11,26 @@ namespace Core.GamePlay.WaterSort
     {
         [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
         [SerializeField] SOIntegerEvents ChangeStateEvent;
-        [SerializeField] SOEvents SwipeColorsModeEvent;
+        [SerializeField] SOEvents SwipeColorsModeEvent, StartColoringEvent;
         [SerializeField] CapsuleCollider MyCollider, OtherCollider;
         [SerializeField] TubeHandler CurrenTube;
         [SerializeField] GameObject HandObj, InfoTextObj;
         [SerializeField] Color CurrentColor;
         [SerializeField] int TubeCounter;
+        [SerializeField] BowlColorHandler BowlObj;
+
+        Vector3 _bowlScale = new Vector3(1.5f,0.1f,1.5f);
 
         private void OnEnable()
         {
             ChangeStateEvent.EventHandler += HideInfoText;
+            StartColoringEvent.EventHandler += ColoringPreparation;
         }
 
         private void OnDisable()
         {
             ChangeStateEvent.EventHandler -= HideInfoText;
+            StartColoringEvent.EventHandler -= ColoringPreparation;
         }
 
         private void Start()
@@ -70,6 +77,22 @@ namespace Core.GamePlay.WaterSort
         {
             if (LevelCompleteStateIndex.Value == stateNum)
                 InfoTextObj.SetActive(false);
+        }
+
+        void ColoringPreparation()
+        {
+            float tweenTime = 1;
+            InfoTextObj.SetActive(false);
+            transform.DOScale(_bowlScale, tweenTime);
+            transform.DOLocalMove(Vector3.zero, tweenTime).OnComplete(()=> {
+                if (CurrenTube.WaterColors.Count>0)
+                {
+                    BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
+                    colorBowl.transform.localPosition = transform.localPosition;
+                    colorBowl.SetColor(CurrenTube.CurrentColor);
+                }
+                Destroy(gameObject);
+            });
         }
     }
 }
