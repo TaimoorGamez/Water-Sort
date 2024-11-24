@@ -13,12 +13,12 @@ namespace Core.Screen
         [SerializeField] SOEvents InitLevelEvent, SwipeColorsModeEvent, UpdateMovesEvent;
         [SerializeField] SOIntegerEvents ChangeStateEvent;
         [SerializeField] TextMeshProUGUI MovesText, CashText;
-        [SerializeField] DBInt LvlNum;
+        [SerializeField] DBInt LvlNum, LvlIndex;
         [SerializeField] SOInterger TotalMoves, CanPlay, LevelFailStateIndex;
         [SerializeField] CoreEconomy Coins;
         [SerializeField] Transform ColoringHolder;
 
-        string _coloringPath = "ColoringPart/Base Level";
+        string _coloringPath = "ColoringPart/lvl ";
 
         private void OnEnable()
         {
@@ -34,7 +34,7 @@ namespace Core.Screen
 
         private void Start()
         {
-            Instantiate(Resources.Load(_coloringPath), ColoringHolder);
+            Instantiate(Resources.Load(_coloringPath + LvlIndex.Value), ColoringHolder);
             InitLevelEvent.InvokeSOEvent();
             if (LvlNum.Value < 5)
             {

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using Core.Events;
@@ -13,9 +14,11 @@ namespace Core.GamePlay.Coloring
         [SerializeField] ColorFilling ColoringPart;
         [SerializeField] RectTransform BrushTransform, ColoringImage;
         [SerializeField] Vector2Int VerticalRange, HorizontalRange;
+        [SerializeField] TextMeshProUGUI InfoText;
+        [SerializeField] string[] InfoMsgs;
 
-        float _speed = 5, _brushSize = 25, _alphaThreshold = 0.1f, _preparationTime = 1;
-        bool _isDragging = false;
+        float _speed = 5, _brushSize = 25, _alphaThreshold = 0.1f, _preparationTime = 1, _coloringScale = 1.25f, _finalPos = 100, _finalScale = 1.5f;
+        bool _canColor = false;
         Coroutine _movingRoutine;
         RectTransform _coloringParTransform;
         Camera _currentCamera;
@@ -29,7 +32,10 @@ namespace Core.GamePlay.Coloring
         private void OnDisable()
         {
             StartColoringEvent.EventHandler -= StartColoring;
-            OnEndDrag();
+            if (_movingRoutine != null)
+            {
+                StopCoroutine(_movingRoutine);
+            }
         }
 
         private void Start()
@@ -37,57 +43,50 @@ namespace Core.GamePlay.Coloring
             _currentCamera = Camera.main;
             _coloringParTransform = ColoringPart.transform as RectTransform;
             _partTexture = ColoringPart.GetCurrenTexture();
-        }
-
-        public void OnBeginDrag()
-        {
-            // Start the coloring coroutine
-            _isDragging = true;
+            _canColor = true;
             _movingRoutine = StartCoroutine(MovingRoutine());
         }
 
-        public void OnEndDrag()
-        {
-            _isDragging = false;
-            if (_movingRoutine != null)
-            {
-                StopCoroutine(_movingRoutine);
-            }
-        }
 
         IEnumerator MovingRoutine()
         {
-            float waiting = 0.01f; 
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(_coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 initialPoint);
-            Vector2 initialOffset = BrushTransform.anchoredPosition - initialPoint;
-            while (_isDragging)
+            float waiting = 0.01f;
+            Vector2 initialOffset = Vector2.zero;
+
+            while (_canColor)
             {
-                // Convert screen position to local position relative to the RectTransform
-                RectTransformUtility.ScreenPointToLocalPointInRectangle(_coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 localPoint);
+                if (Input.GetMouseButtonDown(0))
+                {
+                    RectTransformUtility.ScreenPointToLocalPointInRectangle(_coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 initialPoint);
+                    initialOffset = BrushTransform.anchoredPosition - initialPoint;
+                }
+                if (Input.GetMouseButton(0))
+                { // Convert screen position to local position relative to the RectTransform
+                    RectTransformUtility.ScreenPointToLocalPointInRectangle(_coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 localPoint);
 
-                // Calculate target position with offset (if needed)
-                Vector2 targetPosition = localPoint + initialOffset;
+                    // Calculate target position with offset (if needed)
+                    Vector2 targetPosition = localPoint + initialOffset;
 
-                // Clamp the position within defined boundaries
-                float clampedX = Mathf.Clamp(targetPosition.x, HorizontalRange.x, HorizontalRange.y);
-                float clampedY = Mathf.Clamp(targetPosition.y, VerticalRange.x, VerticalRange.y);
+                    // Clamp the position within defined boundaries
+                    float clampedX = Mathf.Clamp(targetPosition.x, HorizontalRange.x, HorizontalRange.y);
+                    float clampedY = Mathf.Clamp(targetPosition.y, VerticalRange.x, VerticalRange.y);
 
-                // Update BrushTransform position
-                BrushTransform.anchoredPosition = Vector2.Lerp(BrushTransform.anchoredPosition, new Vector2(clampedX, clampedY), _speed * Time.deltaTime);
+                    // Update BrushTransform position
+                    BrushTransform.anchoredPosition = Vector2.Lerp(BrushTransform.anchoredPosition, new Vector2(clampedX, clampedY), _speed * Time.deltaTime);
 
-                // Convert BrushTransform position to UV coordinates (0-1 range in texture space)
-                Vector2 brushUV = new Vector2(
-                    (BrushTransform.anchoredPosition.x - _coloringParTransform.rect.x) / _coloringParTransform.rect.width,
-                    (BrushTransform.anchoredPosition.y - _coloringParTransform.rect.y) / _coloringParTransform.rect.height
-                );
+                    // Convert BrushTransform position to UV coordinates (0-1 range in texture space)
+                    Vector2 brushUV = new Vector2(
+                        (BrushTransform.anchoredPosition.x - _coloringParTransform.rect.x) / _coloringParTransform.rect.width,
+                        (BrushTransform.anchoredPosition.y - _coloringParTransform.rect.y) / _coloringParTransform.rect.height
+                    );
 
-                // Convert UV coordinates to texture pixel coordinates
-                int texX = Mathf.RoundToInt(brushUV.x * _partTexture.width);
-                int texY = Mathf.RoundToInt(brushUV.y * _partTexture.height);
+                    // Convert UV coordinates to texture pixel coordinates
+                    int texX = Mathf.RoundToInt(brushUV.x * _partTexture.width);
+                    int texY = Mathf.RoundToInt(brushUV.y * _partTexture.height);
 
-                // Apply color at the corrected texture coordinates
-                ApplyBrush(texX, texY);
-
+                    // Apply color at the corrected texture coordinates
+                    ApplyBrush(texX, texY);
+                }
                 yield return new WaitForSeconds(waiting);
             }
         }
@@ -121,8 +120,10 @@ namespace Core.GamePlay.Coloring
 
         void StartColoring()
         {
-            ColoringImage.DOScale(1.5f, _preparationTime);
-            ColoringImage.DOAnchorPos(Vector2.zero, _preparationTime);
+            ColoringImage.DOScale(_coloringScale, _preparationTime);
+            ColoringImage.DOAnchorPos(Vector2.zero, _preparationTime).OnComplete(()=> {
+                InfoText.gameObject.SetActive(true);
+            });
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Core.GamePlay.WaterSort
 {
     public class WaterSortLevelInit : MonoBehaviour
     {
-        [SerializeField] DBInt LvlNum, MovesMultiplier;
+        [SerializeField] DBInt LvlNum, LvlIndex, MovesMultiplier;
         [SerializeField] SOInterger IsHiddenLevel, CurrentLvl, CanPlay, TotalMoves, BtnOnceClicked, MainMenuStateIndex;
         [SerializeField] SOEvents InitLevelEvent, ExtraTubeEvent, SwipeColorsModeEvent, RestartLevelEvent;
         [SerializeField] SOIntegerEvents ChangeStateEvent;
@@ -56,7 +56,7 @@ namespace Core.GamePlay.WaterSort
 
             if (LvlNum.Value < 5)
             {
-                Instantiate(Resources.Load(_sortingLvlPath + LvlNum.Value.ToString()), transform);
+                Instantiate(Resources.Load(_sortingLvlPath + LvlNum.Value), transform);
                 CurrentLvl.Value = LvlNum.Value;
             }
             else if (LvlNum.Value < 8)

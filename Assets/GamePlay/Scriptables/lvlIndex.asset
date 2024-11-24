@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8214005513cce374f97de7dcce0693cc, type: 3}
-  m_Name: CurrrentColor
+  m_Script: {fileID: 11500000, guid: 263c214676a7b4244984af8a5cdcc97c, type: 3}
+  m_Name: lvlIndex
   m_EditorClassIdentifier: 
-  CurrentValue:
-    serializedVersion: 2
-    rgba: 4278190080
-  DefaultValue:
-    serializedVersion: 2
-    rgba: 4278190080
+  CurrentValue: 1
+  DefaultValue: 1
   ResetDefault: 1
+  PrefName: lvlIndex
