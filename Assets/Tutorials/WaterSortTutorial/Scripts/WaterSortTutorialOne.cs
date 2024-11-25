@@ -20,6 +20,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] BowlColorHandler BowlObj;
 
         Vector3 _bowlScale = new Vector3(1.5f,0.1f,1.5f);
+        Vector2 _bowlPos = new Vector2(0,-1);
 
         private void OnEnable()
         {
@@ -84,7 +85,7 @@ namespace Core.GamePlay.WaterSort
             float tweenTime = 1;
             InfoTextObj.SetActive(false);
             transform.DOScale(_bowlScale, tweenTime);
-            transform.DOLocalMove(Vector3.zero, tweenTime).OnComplete(()=> {
+            transform.DOLocalMove(_bowlPos, tweenTime).OnComplete(()=> {
                 if (CurrenTube.WaterColors.Count>0)
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);

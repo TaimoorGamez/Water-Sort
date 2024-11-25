@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 using Core.Events;
 using Core.Variables;
@@ -9,44 +10,48 @@ namespace Core.GamePlay.Coloring
 {
     public class ColoringHandler : MonoBehaviour
     {
-        [SerializeField] SOEvents StartColoringEvent;
+        [SerializeField] SOEvents StartColoringEvent, ColorSelectedEvent;
         [SerializeField] SOColor CurrentColor;
-        [SerializeField] ColorFilling ColoringPart;
+        [SerializeField] ColorFilling[] ColoringPart;
         [SerializeField] RectTransform BrushTransform, ColoringImage;
         [SerializeField] Vector2Int VerticalRange, HorizontalRange;
         [SerializeField] TextMeshProUGUI InfoText;
         [SerializeField] string[] InfoMsgs;
+        [SerializeField] GameObject PaintBrush, RefferanceBar;
+        [SerializeField] Image RefferanceImg;
+        [SerializeField] Sprite[] RefferanceSprites;
 
-        float _speed = 5, _brushSize = 25, _alphaThreshold = 0.1f, _preparationTime = 1, _coloringScale = 1.25f, _finalPos = 100, _finalScale = 1.5f;
+        float _speed = 5, _brushSize = 15, _alphaThreshold = 0.1f, _preparationTime = 1, _finalPos = 100, _finalScale = 1.5f;
         bool _canColor = false;
         Coroutine _movingRoutine;
         RectTransform _coloringParTransform;
         Camera _currentCamera;
         Texture2D _partTexture;
+        int _paintingCounter = 0;
 
         private void OnEnable()
         {
             StartColoringEvent.EventHandler += StartColoring;
+            ColorSelectedEvent.EventHandler += ColorSelected;
         }
 
         private void OnDisable()
         {
             StartColoringEvent.EventHandler -= StartColoring;
+            ColorSelectedEvent.EventHandler -= ColorSelected;
+            _canColor = false;
             if (_movingRoutine != null)
             {
                 StopCoroutine(_movingRoutine);
+                _movingRoutine = null;
             }
         }
 
         private void Start()
         {
             _currentCamera = Camera.main;
-            _coloringParTransform = ColoringPart.transform as RectTransform;
-            _partTexture = ColoringPart.GetCurrenTexture();
-            _canColor = true;
-            _movingRoutine = StartCoroutine(MovingRoutine());
+            _coloringParTransform = ColoringPart[_paintingCounter].transform as RectTransform;
         }
-
 
         IEnumerator MovingRoutine()
         {
@@ -59,11 +64,12 @@ namespace Core.GamePlay.Coloring
                 {
                     RectTransformUtility.ScreenPointToLocalPointInRectangle(_coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 initialPoint);
                     initialOffset = BrushTransform.anchoredPosition - initialPoint;
+                    InfoText.gameObject.SetActive(false); 
                 }
+
                 if (Input.GetMouseButton(0))
                 { // Convert screen position to local position relative to the RectTransform
                     RectTransformUtility.ScreenPointToLocalPointInRectangle(_coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 localPoint);
-
                     // Calculate target position with offset (if needed)
                     Vector2 targetPosition = localPoint + initialOffset;
 
@@ -87,10 +93,15 @@ namespace Core.GamePlay.Coloring
                     // Apply color at the corrected texture coordinates
                     ApplyBrush(texX, texY);
                 }
+
+                if (Input.GetMouseButtonUp(0))
+                {
+                    initialOffset = Vector2.zero;
+                    InfoText.gameObject.SetActive(true);
+                }
                 yield return new WaitForSeconds(waiting);
             }
         }
-
 
         void ApplyBrush(int centerX, int centerY)
         {
@@ -120,10 +131,23 @@ namespace Core.GamePlay.Coloring
 
         void StartColoring()
         {
-            ColoringImage.DOScale(_coloringScale, _preparationTime);
+            _partTexture = ColoringPart[_paintingCounter].GetCurrenTexture();
             ColoringImage.DOAnchorPos(Vector2.zero, _preparationTime).OnComplete(()=> {
+                RefferanceImg.sprite = RefferanceSprites[_paintingCounter];
+                PaintBrush.SetActive(true);
                 InfoText.gameObject.SetActive(true);
+                RefferanceBar.SetActive(true);
             });
+        }
+
+        void ColorSelected()
+        {
+            InfoText.text = InfoMsgs[1];
+            if (_movingRoutine == null)
+            {
+                _canColor = true;
+                _movingRoutine = StartCoroutine(MovingRoutine());
+            }
         }
     }
 }

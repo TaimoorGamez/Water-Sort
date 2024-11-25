@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b6681a0752ffc44aa98312a9b16b79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ColorSelectionEvent: {fileID: 11400000, guid: fe2489cc2d4d5e14f9d85776a00266f3, type: 2}
   CurrentColor: {fileID: 11400000, guid: 2fed6872c6a33cb40accd289f78eb6eb, type: 2}
   CurrentBowl: {fileID: 11400000, guid: 5bdb2b9ae995a074b958977cacc85f03, type: 2}
   MySkin: {fileID: 577840799681512718}

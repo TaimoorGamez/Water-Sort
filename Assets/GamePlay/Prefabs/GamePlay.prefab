@@ -680,9 +680,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SwipeColorsModePanel: {fileID: 5658296870264550383}
   PowerButtons: {fileID: 5904127183862769092}
+  TopBar: {fileID: 893510127590977225}
+  RefferanceBar: {fileID: 0}
   InitLevelEvent: {fileID: 11400000, guid: 30e22fa3534f8ae429ac3af2c42b6b5c, type: 2}
   SwipeColorsModeEvent: {fileID: 11400000, guid: 9781b632e66a3704aa915400af187d35, type: 2}
   UpdateMovesEvent: {fileID: 11400000, guid: fe63d3e2311d8fc45b9e575a701d2292, type: 2}
+  StartColoringEvent: {fileID: 11400000, guid: ed751afbb0214de499cef1891112c6d6, type: 2}
   ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
   MovesText: {fileID: 2552334045817676012}
   CashText: {fileID: 6044358937756088614}
@@ -693,6 +696,7 @@ MonoBehaviour:
   LevelFailStateIndex: {fileID: 11400000, guid: 58a28048a36a10746ad0a0b7453ccaa5, type: 2}
   Coins: {fileID: 11400000, guid: 7eda067dffd0e094b883a13ef89857cd, type: 2}
   ColoringHolder: {fileID: 4044495243165485517}
+  RefferanceImg: {fileID: 0}
 --- !u!1 &4492567532703147193
 GameObject:
   m_ObjectHideFlags: 0
