@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 namespace Core.GamePlay.Coloring
 {
@@ -8,6 +9,7 @@ namespace Core.GamePlay.Coloring
         [SerializeField] RawImage ColoringPart;
 
         Texture2D _partTexture;
+        List<int> _coloredPixels = new List<int>();
 
         private void Start()
         {
@@ -23,6 +25,7 @@ namespace Core.GamePlay.Coloring
                 if (originalPixels[i].a > alphaThreshold)
                 {
                     originalPixels[i] = Color.white;
+                    _coloredPixels.Add(i);
                 }
             }
 
@@ -37,5 +40,9 @@ namespace Core.GamePlay.Coloring
             return _partTexture;
         }
 
+        public List<int> GetColoredPixles()
+        {
+            return _coloredPixels;
+        }
     }
 }

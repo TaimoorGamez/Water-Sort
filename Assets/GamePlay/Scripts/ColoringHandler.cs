@@ -1,10 +1,11 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
 using Core.Events;
 using Core.Variables;
+using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Core.GamePlay.Coloring
 {
@@ -17,7 +18,7 @@ namespace Core.GamePlay.Coloring
         [SerializeField] Vector2Int VerticalRange, HorizontalRange;
         [SerializeField] TextMeshProUGUI InfoText;
         [SerializeField] string[] InfoMsgs;
-        [SerializeField] GameObject PaintBrush, RefferanceBar;
+        [SerializeField] GameObject PaintBrush, RefferanceBar, NextBtn;
         [SerializeField] Image RefferanceImg;
         [SerializeField] Sprite[] RefferanceSprites;
 
@@ -27,7 +28,9 @@ namespace Core.GamePlay.Coloring
         RectTransform _coloringParTransform;
         Camera _currentCamera;
         Texture2D _partTexture;
-        int _paintingCounter = 0;
+        int _paintingCounter = 0, _totalPixles = 0;
+        Vector2Int _lastBrushPos = new Vector2Int(-1, -1);
+        List<int> _coloredPixels = new List<int>();
 
         private void OnEnable()
         {
@@ -55,42 +58,39 @@ namespace Core.GamePlay.Coloring
 
         IEnumerator MovingRoutine()
         {
-            float waiting = 0.01f;
             Vector2 initialOffset = Vector2.zero;
 
             while (_canColor)
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    RectTransformUtility.ScreenPointToLocalPointInRectangle(_coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 initialPoint);
+                    RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                        _coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 initialPoint);
                     initialOffset = BrushTransform.anchoredPosition - initialPoint;
-                    InfoText.gameObject.SetActive(false); 
+                    InfoText.gameObject.SetActive(false);
                 }
 
                 if (Input.GetMouseButton(0))
-                { // Convert screen position to local position relative to the RectTransform
-                    RectTransformUtility.ScreenPointToLocalPointInRectangle(_coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 localPoint);
-                    // Calculate target position with offset (if needed)
+                {
+                    RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                        _coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 localPoint);
+
+                    // Calculate and clamp target position
                     Vector2 targetPosition = localPoint + initialOffset;
+                    targetPosition.x = Mathf.Clamp(targetPosition.x, HorizontalRange.x, HorizontalRange.y);
+                    targetPosition.y = Mathf.Clamp(targetPosition.y, VerticalRange.x, VerticalRange.y);
 
-                    // Clamp the position within defined boundaries
-                    float clampedX = Mathf.Clamp(targetPosition.x, HorizontalRange.x, HorizontalRange.y);
-                    float clampedY = Mathf.Clamp(targetPosition.y, VerticalRange.x, VerticalRange.y);
+                    // Smoothly move BrushTransform to the target position
+                    BrushTransform.anchoredPosition = Vector2.Lerp(
+                        BrushTransform.anchoredPosition, targetPosition, _speed * Time.deltaTime);
 
-                    // Update BrushTransform position
-                    BrushTransform.anchoredPosition = Vector2.Lerp(BrushTransform.anchoredPosition, new Vector2(clampedX, clampedY), _speed * Time.deltaTime);
-
-                    // Convert BrushTransform position to UV coordinates (0-1 range in texture space)
+                    // Convert to UV coordinates and apply the brush
                     Vector2 brushUV = new Vector2(
                         (BrushTransform.anchoredPosition.x - _coloringParTransform.rect.x) / _coloringParTransform.rect.width,
-                        (BrushTransform.anchoredPosition.y - _coloringParTransform.rect.y) / _coloringParTransform.rect.height
-                    );
+                        (BrushTransform.anchoredPosition.y - _coloringParTransform.rect.y) / _coloringParTransform.rect.height);
 
-                    // Convert UV coordinates to texture pixel coordinates
                     int texX = Mathf.RoundToInt(brushUV.x * _partTexture.width);
                     int texY = Mathf.RoundToInt(brushUV.y * _partTexture.height);
-
-                    // Apply color at the corrected texture coordinates
                     ApplyBrush(texX, texY);
                 }
 
@@ -99,13 +99,27 @@ namespace Core.GamePlay.Coloring
                     initialOffset = Vector2.zero;
                     InfoText.gameObject.SetActive(true);
                 }
-                yield return new WaitForSeconds(waiting);
+
+                yield return null; // Yield until the next frame
             }
         }
+
 
         void ApplyBrush(int centerX, int centerY)
         {
             int brushRadius = Mathf.RoundToInt(_brushSize);
+
+            // Only update if the brush has moved significantly
+            if (_lastBrushPos == new Vector2Int(centerX, centerY))
+                return;
+
+            _lastBrushPos = new Vector2Int(centerX, centerY);
+
+            // Get all the pixels of the texture
+            Color32[] pixels = _partTexture.GetPixels32();
+            int textureWidth = _partTexture.width;
+
+            int radiusSquared = brushRadius * brushRadius;
 
             for (int y = -brushRadius; y <= brushRadius; y++)
             {
@@ -114,24 +128,41 @@ namespace Core.GamePlay.Coloring
                     int pixelX = centerX + x;
                     int pixelY = centerY + y;
 
-                    // Check if the pixel is inside the circular brush area
-                    if (pixelX >= 0 && pixelX < _partTexture.width && pixelY >= 0 && pixelY < _partTexture.height)
+                    // Calculate squared distance to avoid using Mathf.Sqrt
+                    int distSquared = x * x + y * y;
+                    if (distSquared <= radiusSquared &&
+                        pixelX >= 0 && pixelX < _partTexture.width &&
+                        pixelY >= 0 && pixelY < _partTexture.height)
                     {
-                        float dist = Mathf.Sqrt(x * x + y * y);
-                        if (dist <= brushRadius && _partTexture.GetPixel(pixelX, pixelY).a > _alphaThreshold)
+                        // Calculate the pixel index in the array
+                        int pixelIndex = pixelY * textureWidth + pixelX;
+                        if (_coloredPixels.Contains(pixelIndex))
                         {
-                            _partTexture.SetPixel(pixelX, pixelY, CurrentColor.Value);
+                            pixels[pixelIndex] = CurrentColor.Value;
+                            _coloredPixels.Remove(pixelIndex);
                         }
                     }
                 }
             }
 
-            _partTexture.Apply();
+            // Apply the updated pixels back to the texture
+            _partTexture.SetPixels32(pixels);
+            _partTexture.Apply(); 
+            
+            float remainingPercentage = (_coloredPixels.Count / (float)_totalPixles) * 100;
+            if (remainingPercentage <= 5 && !NextBtn.activeInHierarchy)
+            {
+                NextBtn.SetActive(true);
+            }
         }
+
+
 
         void StartColoring()
         {
             _partTexture = ColoringPart[_paintingCounter].GetCurrenTexture();
+            _coloredPixels = ColoringPart[_paintingCounter].GetColoredPixles();
+            _totalPixles = _coloredPixels.Count;
             ColoringImage.DOAnchorPos(Vector2.zero, _preparationTime).OnComplete(()=> {
                 RefferanceImg.sprite = RefferanceSprites[_paintingCounter];
                 PaintBrush.SetActive(true);
@@ -148,6 +179,11 @@ namespace Core.GamePlay.Coloring
                 _canColor = true;
                 _movingRoutine = StartCoroutine(MovingRoutine());
             }
+        }
+
+        public void OnNextBtnClick()
+        {
+
         }
     }
 }
