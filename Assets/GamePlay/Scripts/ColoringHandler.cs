@@ -30,10 +30,11 @@ namespace Core.GamePlay.Coloring
         RectTransform _coloringParTransform;
         Camera _currentCamera;
         Texture2D _partTexture;
-        int _paintingCounter = 0, _totalPixles = 0, _compoundTextureLength = 500;
+        int _paintingCounter = 0, _totalPixles = 0, _compoundTextureLength = 500, _lastAppliedCenterY = -1, _lastAppliedCenterX = -1;
         Vector2Int _lastBrushPos = new Vector2Int(-1, -1);
         List<int> _coloredPixels = new List<int>();
-        Color32[] _bubblePixles;
+        Color32[] _bubblePixles, _compoundPixels; 
+        const int _bubbleThreshold = 25;
 
         private void OnEnable()
         {
@@ -150,12 +151,12 @@ namespace Core.GamePlay.Coloring
 
             // Apply the updated pixels back to the texture
             _partTexture.SetPixels32(pixels);
-            _partTexture.Apply(); 
-            
+            _partTexture.Apply();
+
             float remainingPercentage = (_coloredPixels.Count / (float)_totalPixles) * 100;
             if (remainingPercentage <= 5 && !NextBtn.activeInHierarchy)
             {
-                NextBtn.SetActive(true); 
+                NextBtn.SetActive(true);
                 _paintingCounter++;
             }
         }
@@ -192,7 +193,7 @@ namespace Core.GamePlay.Coloring
         {
             TouchProtector.SetActive(true);
             NextBtn.SetActive(false);
-            _canColor = false; 
+            _canColor = false;
             PaintBrush.SetActive(false);
             if (_movingRoutine != null)
             {
@@ -206,7 +207,8 @@ namespace Core.GamePlay.Coloring
                 PrepareCompounD();
                 InfoText.text = InfoMsgs[2];
                 InfoText.gameObject.SetActive(true);
-                InfoText.rectTransform.DOAnchorPosY(_infoTextPos, _preparationTime).OnComplete(()=> {
+                InfoText.rectTransform.DOAnchorPosY(_infoTextPos, _preparationTime).OnComplete(() =>
+                {
                     SprayCan.gameObject.SetActive(true);
                     _canSpray = true;
                     _movingRoutine = StartCoroutine(SprayMovingRoutine());
@@ -249,20 +251,20 @@ namespace Core.GamePlay.Coloring
 
         void PrepareCompounD()
         {
-            _partTexture = new Texture2D(_compoundTextureLength, _compoundTextureLength, TextureFormat.RGBA32, false); 
-            Color32[] pixels = _partTexture.GetPixels32();
+            _partTexture = new Texture2D(_compoundTextureLength, _compoundTextureLength, TextureFormat.RGBA32, false);
+            _compoundPixels = _partTexture.GetPixels32();
 
             // Example: Set all pixels to a light color (you can customize this as needed)
             Color32 fillColor = new Color32(0, 0, 0, 0); // Red color for example
 
             // Apply the color to all pixels
-            for (int i = 0; i < pixels.Length; i++)
+            for (int i = 0; i < _compoundPixels.Length; i++)
             {
-                pixels[i] = fillColor;
+                _compoundPixels[i] = fillColor;
             }
 
             // Apply the updated pixels to the texture
-            _partTexture.SetPixels32(pixels);
+            _partTexture.SetPixels32(_compoundPixels);
             _partTexture.Apply();
             CompoundImg.texture = _partTexture;
             CompoundImg.gameObject.SetActive(true);
@@ -274,49 +276,105 @@ namespace Core.GamePlay.Coloring
         {
             Vector2 initialOffset = Vector2.zero;
             float smoothTimer = 0.01f;
+            RectTransform coloringParTransform = CompoundImg.rectTransform;
 
             while (_canSpray)
             {
-                //if (Input.GetMouseButtonDown(0))
-                //{
-                //    RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                //        _coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 initialPoint);
-                //    initialOffset = SprayCan.anchoredPosition - initialPoint;
-                //    InfoText.gameObject.SetActive(false);
-                //}
+                if (Input.GetMouseButtonDown(0))
+                {
+                    RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                        coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 initialPoint);
+                    initialOffset = SprayCan.anchoredPosition - initialPoint;
+                    InfoText.gameObject.SetActive(false);
+                }
 
-                //if (Input.GetMouseButton(0))
-                //{
-                //    RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                //        _coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 localPoint);
+                if (Input.GetMouseButton(0))
+                {
+                    RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                        coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 localPoint);
 
-                //    // Calculate and clamp target position
-                //    Vector2 targetPosition = localPoint + initialOffset;
-                //    targetPosition.x = Mathf.Clamp(targetPosition.x, HorizontalRange.x, HorizontalRange.y);
-                //    targetPosition.y = Mathf.Clamp(targetPosition.y, VerticalRange.x, VerticalRange.y);
+                    // Calculate and clamp target position
+                    Vector2 targetPosition = localPoint + initialOffset;
+                    targetPosition.x = Mathf.Clamp(targetPosition.x, HorizontalRange.x, HorizontalRange.y);
+                    targetPosition.y = Mathf.Clamp(targetPosition.y, VerticalRange.x, VerticalRange.y);
 
-                //    // Smoothly move BrushTransform to the target position
-                //    SprayCan.anchoredPosition = Vector2.Lerp(
-                //        SprayCan.anchoredPosition, targetPosition, _speed * Time.deltaTime);
+                    // Smoothly move BrushTransform to the target position
+                    SprayCan.anchoredPosition = Vector2.Lerp(
+                        SprayCan.anchoredPosition, targetPosition, _speed * Time.deltaTime);
 
-                //    // Convert to UV coordinates and apply the brush
-                //    Vector2 brushUV = new Vector2(
-                //        (SprayCan.anchoredPosition.x - _coloringParTransform.rect.x) / _coloringParTransform.rect.width,
-                //        (SprayCan.anchoredPosition.y - _coloringParTransform.rect.y) / _coloringParTransform.rect.height);
+                    Vector2 brushUV = new Vector2(
+                    (SprayCan.anchoredPosition.x - coloringParTransform.rect.x) / coloringParTransform.rect.width,
+                    (SprayCan.anchoredPosition.y - coloringParTransform.rect.y) / coloringParTransform.rect.height);
 
-                //    int texX = Mathf.RoundToInt(brushUV.x * _partTexture.width);
-                //    int texY = Mathf.RoundToInt(brushUV.y * _partTexture.height);
-                //}
+                    int texX = Mathf.RoundToInt(brushUV.x * _partTexture.width);
+                    int texY = Mathf.RoundToInt(brushUV.y * _partTexture.height);
 
-                //if (Input.GetMouseButtonUp(0) && !NextBtn.activeInHierarchy)
-                //{
-                //    initialOffset = Vector2.zero;
-                //    InfoText.gameObject.SetActive(true);
-                //}
+                    ApplyBubble(texX, texY);
+                }
+
+                if (Input.GetMouseButtonUp(0) && !NextBtn.activeInHierarchy)
+                {
+                    initialOffset = Vector2.zero;
+                    InfoText.gameObject.SetActive(true);
+                }
 
                 yield return new WaitForSeconds(smoothTimer); // Yield until the next frame
             }
         }
 
+        void ApplyBubble(int centerX, int centerY)
+        {
+            // Check if the position has changed significantly
+            if (Mathf.Abs(centerX - _lastAppliedCenterX) <= _bubbleThreshold && Mathf.Abs(centerY - _lastAppliedCenterY) <= _bubbleThreshold)
+            {
+                return; // Skip applying the bubble if the position hasn't changed enough
+            }
+
+            // Save the new position as the last applied position
+            _lastAppliedCenterX = centerX;
+            _lastAppliedCenterY = centerY;
+
+            int bubbleWidth = BubbleTexture.width;
+            int bubbleHeight = BubbleTexture.height;
+            int compoundWidth = _partTexture.width;
+            int compoundHeight = _partTexture.height;
+
+            // Calculate bounds of the bubble on the compound texture
+            int startX = centerX - bubbleWidth / 2;
+            int startY = centerY - bubbleHeight / 2;
+
+            // Loop through bubble texture pixels
+            for (int y = 0; y < bubbleHeight; y++)
+            {
+                // Calculate the target Y index once per row
+                int targetY = startY + y;
+
+                // Only process if the targetY is within the compound texture bounds
+                if (targetY >= 0 && targetY < compoundHeight)
+                {
+                    for (int x = 0; x < bubbleWidth; x++)
+                    {
+                        int targetX = startX + x;
+
+                        // Only process if the targetX is within the compound texture bounds
+                        if (targetX >= 0 && targetX < compoundWidth)
+                        {
+                            int bubbleIndex = y * bubbleWidth + x;
+                            int compoundIndex = targetY * compoundWidth + targetX;
+
+                            // Blend only if the bubble pixel is not fully transparent
+                            if (_bubblePixles[bubbleIndex].a > 0)
+                            {
+                                _compoundPixels[compoundIndex] = _bubblePixles[bubbleIndex];
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Set all the updated pixels at once
+            _partTexture.SetPixels32(_compoundPixels);
+            _partTexture.Apply();
+        }
     }
 }
