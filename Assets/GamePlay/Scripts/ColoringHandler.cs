@@ -14,23 +14,26 @@ namespace Core.GamePlay.Coloring
         [SerializeField] SOEvents StartColoringEvent, ColorSelectedEvent;
         [SerializeField] SOColor CurrentColor;
         [SerializeField] ColorFilling[] ColoringPart;
-        [SerializeField] RectTransform BrushTransform, ColoringImage;
+        [SerializeField] RectTransform BrushTransform, ColoringImage, SprayCan;
         [SerializeField] Vector2Int VerticalRange, HorizontalRange;
         [SerializeField] TextMeshProUGUI InfoText;
         [SerializeField] string[] InfoMsgs;
-        [SerializeField] GameObject PaintBrush, RefferanceBar, NextBtn;
+        [SerializeField] GameObject PaintBrush, RefferanceBar, NextBtn, TouchProtector;
         [SerializeField] Image RefferanceImg;
+        [SerializeField] RawImage CompoundImg;
         [SerializeField] Sprite[] RefferanceSprites;
+        [SerializeField] Texture2D BubbleTexture;
 
-        float _speed = 5, _brushSize = 15, _alphaThreshold = 0.1f, _preparationTime = 1, _finalPos = 100, _finalScale = 1.5f;
-        bool _canColor = false;
+        float _speed = 5, _brushSize = 15, _preparationTime = 1, _finalPos = 100, _finalScale = 1.5f, _infoTextPos = -365f;
+        bool _canColor = false, _canSpray;
         Coroutine _movingRoutine;
         RectTransform _coloringParTransform;
         Camera _currentCamera;
         Texture2D _partTexture;
-        int _paintingCounter = 0, _totalPixles = 0;
+        int _paintingCounter = 0, _totalPixles = 0, _compoundTextureLength = 500;
         Vector2Int _lastBrushPos = new Vector2Int(-1, -1);
         List<int> _coloredPixels = new List<int>();
+        Color32[] _bubblePixles;
 
         private void OnEnable()
         {
@@ -56,7 +59,7 @@ namespace Core.GamePlay.Coloring
             _coloringParTransform = ColoringPart[_paintingCounter].transform as RectTransform;
         }
 
-        IEnumerator MovingRoutine()
+        IEnumerator BrushMovingRoutine()
         {
             Vector2 initialOffset = Vector2.zero;
 
@@ -94,7 +97,7 @@ namespace Core.GamePlay.Coloring
                     ApplyBrush(texX, texY);
                 }
 
-                if (Input.GetMouseButtonUp(0))
+                if (Input.GetMouseButtonUp(0) && !NextBtn.activeInHierarchy)
                 {
                     initialOffset = Vector2.zero;
                     InfoText.gameObject.SetActive(true);
@@ -152,7 +155,8 @@ namespace Core.GamePlay.Coloring
             float remainingPercentage = (_coloredPixels.Count / (float)_totalPixles) * 100;
             if (remainingPercentage <= 5 && !NextBtn.activeInHierarchy)
             {
-                NextBtn.SetActive(true);
+                NextBtn.SetActive(true); 
+                _paintingCounter++;
             }
         }
 
@@ -160,10 +164,12 @@ namespace Core.GamePlay.Coloring
 
         void StartColoring()
         {
+            TouchProtector.SetActive(true);
             _partTexture = ColoringPart[_paintingCounter].GetCurrenTexture();
             _coloredPixels = ColoringPart[_paintingCounter].GetColoredPixles();
             _totalPixles = _coloredPixels.Count;
-            ColoringImage.DOAnchorPos(Vector2.zero, _preparationTime).OnComplete(()=> {
+            ColoringImage.DOAnchorPos(Vector2.zero, _preparationTime).OnComplete(() =>
+            {
                 RefferanceImg.sprite = RefferanceSprites[_paintingCounter];
                 PaintBrush.SetActive(true);
                 InfoText.gameObject.SetActive(true);
@@ -177,13 +183,140 @@ namespace Core.GamePlay.Coloring
             if (_movingRoutine == null)
             {
                 _canColor = true;
-                _movingRoutine = StartCoroutine(MovingRoutine());
+                _movingRoutine = StartCoroutine(BrushMovingRoutine());
+                TouchProtector.SetActive(false);
             }
         }
 
         public void OnNextBtnClick()
         {
-
+            TouchProtector.SetActive(true);
+            NextBtn.SetActive(false);
+            _canColor = false; 
+            PaintBrush.SetActive(false);
+            if (_movingRoutine != null)
+            {
+                StopCoroutine(_movingRoutine);
+                _movingRoutine = null;
+            }
+            InfoText.gameObject.SetActive(false);
+            FillRemaingPixles();
+            if (_paintingCounter >= ColoringPart.Length)
+            {
+                PrepareCompounD();
+                InfoText.text = InfoMsgs[2];
+                InfoText.gameObject.SetActive(true);
+                InfoText.rectTransform.DOAnchorPosY(_infoTextPos, _preparationTime).OnComplete(()=> {
+                    SprayCan.gameObject.SetActive(true);
+                    _canSpray = true;
+                    _movingRoutine = StartCoroutine(SprayMovingRoutine());
+                });
+            }
+            else
+            {
+                _partTexture = ColoringPart[_paintingCounter].GetCurrenTexture();
+                _coloredPixels = ColoringPart[_paintingCounter].GetColoredPixles();
+                InfoText.text = InfoMsgs[0];
+                PaintBrush.SetActive(true);
+                InfoText.gameObject.SetActive(true);
+                _totalPixles = _coloredPixels.Count;
+                RefferanceImg.sprite = RefferanceSprites[_paintingCounter];
+            }
         }
+
+        void FillRemaingPixles()
+        {
+            if (_coloredPixels.Count > 0)
+            {
+                // Get all the pixels of the texture
+                Color32[] pixels = _partTexture.GetPixels32();
+
+                // Iterate through the remaining uncolored pixels
+                foreach (int pixelIndex in _coloredPixels)
+                {
+                    // Set the pixel color to the current color
+                    pixels[pixelIndex] = CurrentColor.Value;
+                }
+
+                // Apply the updated pixels back to the texture
+                _partTexture.SetPixels32(pixels);
+                _partTexture.Apply();
+
+                // Once all remaining pixels are filled, clear the list of colored pixels
+                _coloredPixels.Clear();
+            }
+        }
+
+        void PrepareCompounD()
+        {
+            _partTexture = new Texture2D(_compoundTextureLength, _compoundTextureLength, TextureFormat.RGBA32, false); 
+            Color32[] pixels = _partTexture.GetPixels32();
+
+            // Example: Set all pixels to a light color (you can customize this as needed)
+            Color32 fillColor = new Color32(0, 0, 0, 0); // Red color for example
+
+            // Apply the color to all pixels
+            for (int i = 0; i < pixels.Length; i++)
+            {
+                pixels[i] = fillColor;
+            }
+
+            // Apply the updated pixels to the texture
+            _partTexture.SetPixels32(pixels);
+            _partTexture.Apply();
+            CompoundImg.texture = _partTexture;
+            CompoundImg.gameObject.SetActive(true);
+            _bubblePixles = BubbleTexture.GetPixels32();
+        }
+
+
+        IEnumerator SprayMovingRoutine()
+        {
+            Vector2 initialOffset = Vector2.zero;
+            float smoothTimer = 0.01f;
+
+            while (_canSpray)
+            {
+                //if (Input.GetMouseButtonDown(0))
+                //{
+                //    RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                //        _coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 initialPoint);
+                //    initialOffset = SprayCan.anchoredPosition - initialPoint;
+                //    InfoText.gameObject.SetActive(false);
+                //}
+
+                //if (Input.GetMouseButton(0))
+                //{
+                //    RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                //        _coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 localPoint);
+
+                //    // Calculate and clamp target position
+                //    Vector2 targetPosition = localPoint + initialOffset;
+                //    targetPosition.x = Mathf.Clamp(targetPosition.x, HorizontalRange.x, HorizontalRange.y);
+                //    targetPosition.y = Mathf.Clamp(targetPosition.y, VerticalRange.x, VerticalRange.y);
+
+                //    // Smoothly move BrushTransform to the target position
+                //    SprayCan.anchoredPosition = Vector2.Lerp(
+                //        SprayCan.anchoredPosition, targetPosition, _speed * Time.deltaTime);
+
+                //    // Convert to UV coordinates and apply the brush
+                //    Vector2 brushUV = new Vector2(
+                //        (SprayCan.anchoredPosition.x - _coloringParTransform.rect.x) / _coloringParTransform.rect.width,
+                //        (SprayCan.anchoredPosition.y - _coloringParTransform.rect.y) / _coloringParTransform.rect.height);
+
+                //    int texX = Mathf.RoundToInt(brushUV.x * _partTexture.width);
+                //    int texY = Mathf.RoundToInt(brushUV.y * _partTexture.height);
+                //}
+
+                //if (Input.GetMouseButtonUp(0) && !NextBtn.activeInHierarchy)
+                //{
+                //    initialOffset = Vector2.zero;
+                //    InfoText.gameObject.SetActive(true);
+                //}
+
+                yield return new WaitForSeconds(smoothTimer); // Yield until the next frame
+            }
+        }
+
     }
 }
