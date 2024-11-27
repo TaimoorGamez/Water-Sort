@@ -34,7 +34,7 @@ namespace Core.GamePlay.Coloring
         Vector2Int _lastBrushPos = new Vector2Int(-1, -1);
         List<int> _coloredPixels = new List<int>();
         Color32[] _bubblePixles, _compoundPixels; 
-        const int _bubbleThreshold = 25;
+        const int _bubbleThreshold = 35;
 
         private void OnEnable()
         {
