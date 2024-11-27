@@ -25,12 +25,12 @@ namespace Core.GamePlay.Coloring
         [SerializeField] Texture2D BubbleTexture;
 
         float _speed = 5, _brushSize = 15, _preparationTime = 1, _finalPos = 100, _finalScale = 1.5f, _infoTextPos = -365f;
-        bool _canColor = false, _canSpray;
+        bool _canColor = false, _canSpray, _detailsAplied = false;
         Coroutine _movingRoutine;
         RectTransform _coloringParTransform;
         Camera _currentCamera;
         Texture2D _partTexture;
-        int _paintingCounter = 0, _totalPixles = 0, _compoundTextureLength = 500, _lastAppliedCenterY = -1, _lastAppliedCenterX = -1;
+        int _paintingCounter = 0, _totalColorPixles = 0, _compoundTextureLength = 500, _lastAppliedCenterY = -1, _lastAppliedCenterX = -1, _totalBubbles = 50, _bubbleCounter;
         Vector2Int _lastBrushPos = new Vector2Int(-1, -1);
         List<int> _coloredPixels = new List<int>();
         Color32[] _bubblePixles, _compoundPixels; 
@@ -153,7 +153,7 @@ namespace Core.GamePlay.Coloring
             _partTexture.SetPixels32(pixels);
             _partTexture.Apply();
 
-            float remainingPercentage = (_coloredPixels.Count / (float)_totalPixles) * 100;
+            float remainingPercentage = (_coloredPixels.Count / (float)_totalColorPixles) * 100;
             if (remainingPercentage <= 5 && !NextBtn.activeInHierarchy)
             {
                 NextBtn.SetActive(true);
@@ -168,7 +168,7 @@ namespace Core.GamePlay.Coloring
             TouchProtector.SetActive(true);
             _partTexture = ColoringPart[_paintingCounter].GetCurrenTexture();
             _coloredPixels = ColoringPart[_paintingCounter].GetColoredPixles();
-            _totalPixles = _coloredPixels.Count;
+            _totalColorPixles = _coloredPixels.Count;
             ColoringImage.DOAnchorPos(Vector2.zero, _preparationTime).OnComplete(() =>
             {
                 RefferanceImg.sprite = RefferanceSprites[_paintingCounter];
@@ -202,7 +202,8 @@ namespace Core.GamePlay.Coloring
             }
             InfoText.gameObject.SetActive(false);
             FillRemaingPixles();
-            if (_paintingCounter >= ColoringPart.Length)
+
+            if (_paintingCounter >= ColoringPart.Length && !_detailsAplied)
             {
                 PrepareCompounD();
                 InfoText.text = InfoMsgs[2];
@@ -214,15 +215,19 @@ namespace Core.GamePlay.Coloring
                     _movingRoutine = StartCoroutine(SprayMovingRoutine());
                 });
             }
-            else
+            else if (_paintingCounter < ColoringPart.Length)
             {
                 _partTexture = ColoringPart[_paintingCounter].GetCurrenTexture();
                 _coloredPixels = ColoringPart[_paintingCounter].GetColoredPixles();
                 InfoText.text = InfoMsgs[0];
                 PaintBrush.SetActive(true);
                 InfoText.gameObject.SetActive(true);
-                _totalPixles = _coloredPixels.Count;
+                _totalColorPixles = _coloredPixels.Count;
                 RefferanceImg.sprite = RefferanceSprites[_paintingCounter];
+            }
+            else
+            {
+                ColoringImage.DOAnchorPosY(_finalPos, _preparationTime);
             }
         }
 
@@ -262,7 +267,6 @@ namespace Core.GamePlay.Coloring
             {
                 _compoundPixels[i] = fillColor;
             }
-
             // Apply the updated pixels to the texture
             _partTexture.SetPixels32(_compoundPixels);
             _partTexture.Apply();
@@ -330,6 +334,7 @@ namespace Core.GamePlay.Coloring
                 return; // Skip applying the bubble if the position hasn't changed enough
             }
 
+            _bubbleCounter++;
             // Save the new position as the last applied position
             _lastAppliedCenterX = centerX;
             _lastAppliedCenterY = centerY;
@@ -367,6 +372,8 @@ namespace Core.GamePlay.Coloring
                             {
                                 _compoundPixels[compoundIndex] = _bubblePixles[bubbleIndex];
                             }
+
+                           
                         }
                     }
                 }
@@ -375,6 +382,43 @@ namespace Core.GamePlay.Coloring
             // Set all the updated pixels at once
             _partTexture.SetPixels32(_compoundPixels);
             _partTexture.Apply();
+            if (_bubbleCounter >= _totalBubbles && !NextBtn.activeInHierarchy)
+            {
+                _detailsAplied = true;
+                NextBtn.SetActive(true);
+            }
+        }
+
+        //-----------------------------------------
+        public Camera screenshotCamera; // Assign your screenshot camera here
+        public RenderTexture renderTexture; // Assign your RenderTexture here
+        public RawImage displayImage; // Assign the RawImage in your complete panel
+
+        public void CaptureColoredArea()
+        {
+            // Set the camera to render the colored area
+            screenshotCamera.targetTexture = renderTexture;
+            screenshotCamera.Render();
+
+            // Create a new Texture2D
+            Texture2D screenshot = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
+
+            // Read the pixels from the RenderTexture
+            RenderTexture.active = renderTexture;
+            screenshot.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+            screenshot.Apply();
+
+            // Reset the RenderTexture
+            RenderTexture.active = null;
+            screenshotCamera.targetTexture = null;
+
+            // Display the screenshot in the complete panel
+            displayImage.texture = screenshot;
+
+            // Optional: Save the screenshot as a PNG
+            byte[] bytes = screenshot.EncodeToPNG();
+            System.IO.File.WriteAllBytes(Application.persistentDataPath + "/ColoredArea.png", bytes);
+            Debug.Log("Screenshot saved to: " + Application.persistentDataPath + "/ColoredArea.png");
         }
     }
 }
