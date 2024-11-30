@@ -64,7 +64,7 @@ namespace Core.GamePlay.WaterSort
                 {
                     MyCollider.enabled = false;
                     OtherCollider.enabled = true;
-                    LeanTween.moveLocalX(HandObj, 130f, 0.35f).setEase(LeanTweenType.easeInOutBack);
+                    HandObj.transform.DOLocalMoveX(130f, 0.35f).SetEase(Ease.InOutBack);
                 }
                 else if (TubeCounter == 2)
                 {

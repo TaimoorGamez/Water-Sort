@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace Core.Animations.LT
+namespace Core.Animations.DT
 {
     public class PlaySOLeanTweens : MonoBehaviour
     {

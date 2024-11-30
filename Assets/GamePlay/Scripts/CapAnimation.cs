@@ -1,5 +1,7 @@
-using System.Collections;
 using UnityEngine;
+using DG.Tweening;
+using System.Collections;
+
 
 namespace Core.GamePlay.WaterSort
 {
@@ -24,7 +26,7 @@ namespace Core.GamePlay.WaterSort
             _propBlock.SetTexture("_MainTex", MyTexture);
             MySkin.SetPropertyBlock(_propBlock);
             _animationRotine = StartCoroutine(SmoothlyChangeColor(currentColor));
-            LeanTween.moveLocalZ(gameObject, 0, _transparencyChangeDuration);
+            transform.DOLocalMoveZ(0, _transparencyChangeDuration);
         }
 
         IEnumerator SmoothlyChangeColor(Color currentColor)

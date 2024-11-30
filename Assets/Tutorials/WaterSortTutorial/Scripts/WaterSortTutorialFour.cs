@@ -3,6 +3,7 @@ using Core.Events;
 using UnityEngine.UI;
 using Core.Variables;
 using System.Collections;
+using DG.Tweening;
 
 namespace Core.GamePlay.WaterSort
 {
@@ -98,7 +99,7 @@ namespace Core.GamePlay.WaterSort
                     if (_isFirstClick)
                     {
                         _isFirstClick = false;
-                        LeanTween.moveLocalX(HandObj, -45f, 0.35f).setEase(LeanTweenType.easeInOutBack);
+                        HandObj.transform.DOLocalMoveX(-45f, 0.35f).SetEase(Ease.InOutBack);
                         ColliderThree.enabled = false;
                         ColliderTwo.enabled = true;
                         enabled = false;
@@ -130,7 +131,7 @@ namespace Core.GamePlay.WaterSort
                 if (_isFirstClick)
                 {
                     _isFirstClick = false;
-                    LeanTween.moveLocal(HandObj, new Vector3(225, 150, 0), 0.35f).setEase(LeanTweenType.easeInOutBack);
+                    HandObj.transform.DOLocalMove(new Vector3(225, 150, 0), 0.35f).SetEase(Ease.InOutBack);
                     ColliderThree.enabled = true;
                 }
             }

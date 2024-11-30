@@ -1,4 +1,5 @@
 using UnityEngine;
+using DG.Tweening;
 using Core.Events;
 using UnityEngine.UI;
 using Core.Variables;
@@ -83,7 +84,7 @@ namespace Core.GamePlay.WaterSort
                 {
                     _isFirstClick = false;
                     MyCollider.enabled = false;
-                    LeanTween.moveLocalX(HandObj, 135f, 0.35f).setEase(LeanTweenType.easeInOutBack);
+                    HandObj.transform.DOLocalMoveX(135f, 0.35f).SetEase(Ease.InOutBack);
                     ThirdCollider.enabled = true;
                 }
             }
@@ -105,7 +106,7 @@ namespace Core.GamePlay.WaterSort
         void ShowUndoBtn()
         {
             InfoTextObj.SetActive(true);
-            LeanTween.moveLocal(HandObj, new Vector3(175f, -530f, 0), 0.35f).setEase(LeanTweenType.easeInOutBack);
+            HandObj.transform.DOLocalMove(new Vector3(175f, -530f, 0), 0.35f).SetEase(Ease.InOutBack);
             UndoBtn.gameObject.SetActive(true);
         }
 

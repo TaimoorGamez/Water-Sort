@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-namespace Core.Animations.LT
+namespace Core.Animations.DT
 {
     public class TutorialHandAnimationPlayer : MonoBehaviour
     {

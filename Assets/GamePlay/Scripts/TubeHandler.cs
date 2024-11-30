@@ -3,6 +3,7 @@ using Core.Events;
 using Core.Variables;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 
 namespace Core.GamePlay.WaterSort
 {
@@ -139,8 +140,8 @@ namespace Core.GamePlay.WaterSort
                 anchorPos = AnchorPos2;
             }
             int colorsToAdd = 1;
-            LeanTween.move(senderTube.gameObject, anchorPos.position, 0.1f);
-            LeanTween.rotate(senderTube.gameObject, anchorPos.eulerAngles, 0.1f).setOnComplete(() =>
+            senderTube.transform.DOMove(anchorPos.position, 0.1f);
+            senderTube.transform.DORotate(anchorPos.eulerAngles, 0.1f).OnComplete(() =>
             {
                 if (WaterColors.Count < _totalLiquidLayers - 1 && DoingUndo.Value == 0)
                 {
@@ -325,7 +326,7 @@ namespace Core.GamePlay.WaterSort
                 _propBlock.SetColor("_BaseColor", CurrentColor);
                 WaveRenderer.SetPropertyBlock(_propBlock);
                 WaveParticle.Play();
-                LeanTween.moveLocalY(gameObject, _orignalPos.y + 0.5f, 0.1f);
+                transform.DOLocalMoveY(_orignalPos.y + 0.5f, 0.1f);
             }
             else
             {
@@ -338,8 +339,8 @@ namespace Core.GamePlay.WaterSort
                         MyLiquid[c- 1].SetGlow(false);
                     }
                 }
-                LeanTween.moveLocal(gameObject, _orignalPos, 0.05f);
-                LeanTween.rotateLocal(gameObject, Vector3.zero, 0.05f).setOnComplete(() => transform.position = _orignalPos);
+                transform.DOLocalMove(_orignalPos, 0.05f);
+                transform.DOLocalRotate(Vector3.zero, 0.05f).OnComplete(() => transform.position = _orignalPos);
             }
         }
 

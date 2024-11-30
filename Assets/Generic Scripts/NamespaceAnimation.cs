@@ -1,11 +1,12 @@
 using UnityEngine;
+using DG.Tweening;
 
 namespace Core.Animations
 { 
 
 }
 
-namespace Core.Animations.LT
+namespace Core.Animations.DT
 {
     public class SOLeanTween : ScriptableObject
     {
@@ -13,27 +14,27 @@ namespace Core.Animations.LT
 
         [SerializeField] protected Vector3 TargetAction;
         [SerializeField] protected float Duration;
-        [SerializeField] protected LeanTweenType CurrentEaseType = LeanTweenType.linear;
+        [SerializeField] protected Ease CurrentEaseType;
         [SerializeField] bool IsLoop = false, StateAfterComplete = true;
 
-        protected LTDescr ltAnimation;
+        protected Tween ltAnimation;
 
         public virtual void PlayAnimation()
         {
-            ltAnimation.setEase(CurrentEaseType);
+            ltAnimation.SetEase(CurrentEaseType);
 
             if (IsLoop)
             {
-                ltAnimation.setLoopClamp();
+                ltAnimation.Loops();
             }
 
-            ltAnimation.setOnComplete(() => TargetObj.SetActive(StateAfterComplete));
+            ltAnimation.OnComplete(() => TargetObj.SetActive(StateAfterComplete));
         }
 
         public virtual void CancleAnimation()
         {
             if (TargetObj != null)
-                LeanTween.cancel(TargetObj);
+                ltAnimation.Kill();
         }
     }
 }

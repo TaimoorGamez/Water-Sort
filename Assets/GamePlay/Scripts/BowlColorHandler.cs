@@ -1,6 +1,7 @@
 using UnityEngine;
 using Core.Events;
 using Core.Variables;
+using DG.Tweening;
 
 namespace Core.GamePlay.Coloring
 {
@@ -46,12 +47,12 @@ namespace Core.GamePlay.Coloring
             if (state)
             {
                 _propBlock.SetInteger("_Glow", 1);
-                LeanTween.moveLocalY(gameObject, _orignalPos.y + 0.5f, 0.1f);
+                transform.DOLocalMoveY(_orignalPos.y + 0.5f, 0.1f);
             }
             else
             {
                 _propBlock.SetInteger("_Glow", 0);
-                LeanTween.moveLocal(gameObject, _orignalPos, 0.05f);
+                transform.DOLocalMove(_orignalPos, 0.05f);
             }
             MySkin.SetPropertyBlock(_propBlock);
         }

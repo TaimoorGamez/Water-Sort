@@ -1,13 +1,14 @@
+using DG.Tweening;
 using UnityEngine;
 
-namespace Core.Animations.LT
+namespace Core.Animations.DT
 {
     [CreateAssetMenu(fileName = "Scale", menuName = "ScriptableObjects/Animations/LT/Scale")]
     public class SOScaleLeanTween : SOLeanTween
     {
         public override void PlayAnimation()
         {
-            ltAnimation = LeanTween.scale(TargetObj, TargetAction, Duration);
+            ltAnimation = TargetObj.transform.DOScale(TargetAction, Duration);
             base.PlayAnimation();
         }
 
