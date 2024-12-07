@@ -1,9 +1,9 @@
 using UnityEngine;
+using DG.Tweening;
 using Core.Events;
 using Core.Variables;
 using System.Collections;
 using System.Collections.Generic;
-using DG.Tweening;
 
 namespace Core.GamePlay.WaterSort
 {
@@ -13,6 +13,7 @@ namespace Core.GamePlay.WaterSort
         public List<Color> WaterColors = new List<Color>();
         public Color CurrentColor;
 
+        [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] SOInterger DoingUndo, IsHiddenLevel, CompletedTubes, IsSwaping, CanPlay, UsingAnyFeature;
         [SerializeField] UndoManager UndoManager;
         [SerializeField] ColorSwiper SwapingManager;
@@ -315,6 +316,7 @@ namespace Core.GamePlay.WaterSort
         {
             if (state)
             {
+                SoundEffectEvent.InvokeSOEvent(0);
                 MyLiquid[WaterColors.Count-1].SetGlow(true); 
                 for (int c = 1; c < WaterColors.Count; c++)
                 {
@@ -346,11 +348,12 @@ namespace Core.GamePlay.WaterSort
 
         void AddColor(Color currentColor, int layers)
         {
+            SoundEffectEvent.InvokeSOEvent(1);
             _propBlock.SetColor("_BaseColor", currentColor);
             WaterLine.SetPropertyBlock(_propBlock);
             WaveRenderer.SetPropertyBlock(_propBlock);
             DropsRenderer.SetPropertyBlock(_propBlock);
-            WaterLine.gameObject.SetActive(true); 
+            WaterLine.gameObject.SetActive(true);
             CurrentColor = currentColor;
             _addingRotine = StartCoroutine(ColorAdddingCorotine(currentColor,layers));
         }

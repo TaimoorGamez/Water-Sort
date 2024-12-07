@@ -70,7 +70,7 @@ namespace Core.Screen
             if (TotalMoves.Value < 1)
             {
                 CanPlay.Value = 0;
-                ChangeStateEvent.InvokeEvent(LevelFailStateIndex.Value);
+                ChangeStateEvent.InvokeSOEvent(LevelFailStateIndex.Value);
             }
         }
 

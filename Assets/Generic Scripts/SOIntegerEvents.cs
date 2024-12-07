@@ -7,7 +7,7 @@ namespace Core.Events
     {
         public GameEventInteger EventHandler;
 
-        public void InvokeEvent(int val)
+        public void InvokeSOEvent(int val)
         {
             EventHandler?.Invoke(val);
         }

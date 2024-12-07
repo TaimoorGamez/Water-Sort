@@ -27,7 +27,7 @@ namespace Core.Screen
 
         void DisableObject()
         {
-            ChangeStateEvent.InvokeEvent(GamePlayStateIndex.Value);
+            ChangeStateEvent.InvokeSOEvent(GamePlayStateIndex.Value);
         }
 
         public void BackToHome()
@@ -39,7 +39,7 @@ namespace Core.Screen
 
         void DestroyState()
         {
-            ChangeStateEvent.InvokeEvent(MainMenuStateIndex.Value);
+            ChangeStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
         }
     }
 }

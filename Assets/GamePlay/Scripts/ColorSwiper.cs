@@ -32,7 +32,7 @@ namespace Core.GamePlay.WaterSort
                 else
                 {
                     //Debug.Log("Here34");
-                    ToastMsgEvent.InvokeEvent(0);
+                    ToastMsgEvent.InvokeSOEvent(0);
                 }
             }
             
@@ -55,7 +55,7 @@ namespace Core.GamePlay.WaterSort
             }
             else
             {
-                ToastMsgEvent.InvokeEvent(1);
+                ToastMsgEvent.InvokeSOEvent(1);
             }
 
             SwapingTubes.Clear();

@@ -84,6 +84,8 @@ MonoBehaviour:
   IsBussy: 0
   WaterColors: []
   CurrentColor: {r: 0, g: 0, b: 0, a: 0}
+  ButtonClickEffect: {fileID: 11400000, guid: 9eef85b426cb6234cac7fbb0439238d1, type: 2}
+  SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
   DoingUndo: {fileID: 11400000, guid: 8ce11c0323610f44d8bca007bba7cd74, type: 2}
   IsHiddenLevel: {fileID: 11400000, guid: 0379e96a375797544890b5b505768ff9, type: 2}
   CompletedTubes: {fileID: 11400000, guid: 5fb94964db162b54085794074b40bdfc, type: 2}

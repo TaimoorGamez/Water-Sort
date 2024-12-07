@@ -19,11 +19,11 @@ namespace Core.Screen
         {
             if (LvlNum.Value < _tutorialLevels)
             {
-                ChangeStateEvent.InvokeEvent(GamePlayStateIndex.Value);
+                ChangeStateEvent.InvokeSOEvent(GamePlayStateIndex.Value);
             }
             else
             {
-                ChangeStateEvent.InvokeEvent(MainMenuStateIndex.Value);
+                ChangeStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
             }
 
             LvlManager.AfterEnable();

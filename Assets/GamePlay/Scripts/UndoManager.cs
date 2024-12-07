@@ -72,7 +72,7 @@ namespace Core.GamePlay.WaterSort
             }
             else if (_undoMoves.Count < 1)
             {
-                ToastMsgEvent.InvokeEvent(2);
+                ToastMsgEvent.InvokeSOEvent(2);
             }
         }
     }
