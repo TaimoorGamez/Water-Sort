@@ -498,7 +498,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 6e61ab4620023af44bb9f6cf38a232e3, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -608,11 +608,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetObjs:
   - {fileID: 3625070402739387037}
-  TweenAnimations: []
-  Delays: []
+  - {fileID: 5101064069828714289}
+  - {fileID: 5101064069828714289}
+  - {fileID: 3625070402739387037}
+  TweenAnimations:
+  - {fileID: 11400000, guid: 2598941bc8e34f449b05d736f2f8c2c3, type: 2}
+  - {fileID: 11400000, guid: 5d07a16756adbed48b770e2e70a15bc4, type: 2}
+  - {fileID: 11400000, guid: 7e343619eaa10ec4d92d4662dc62a552, type: 2}
+  - {fileID: 11400000, guid: 18015947fd7a23144a9b35259bb85281, type: 2}
+  Delays:
+  - 0
+  - 0.5
+  - 0
+  - 0
   PlayOnEnable: 1
-  PlayLoop: 0
-  StartDelay: 0
+  PlayLoop: 1
+  StartDelay: 2
 --- !u!1 &5933168007553250477
 GameObject:
   m_ObjectHideFlags: 0
