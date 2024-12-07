@@ -84,7 +84,6 @@ MonoBehaviour:
   IsBussy: 0
   WaterColors: []
   CurrentColor: {r: 0, g: 0, b: 0, a: 0}
-  ButtonClickEffect: {fileID: 11400000, guid: 9eef85b426cb6234cac7fbb0439238d1, type: 2}
   SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
   DoingUndo: {fileID: 11400000, guid: 8ce11c0323610f44d8bca007bba7cd74, type: 2}
   IsHiddenLevel: {fileID: 11400000, guid: 0379e96a375797544890b5b505768ff9, type: 2}
@@ -1075,6 +1074,18 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8820179204214040472, guid: edfd00454cd934941867f35592c4b3c9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820179204214040472, guid: edfd00454cd934941867f35592c4b3c9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820179204214040472, guid: edfd00454cd934941867f35592c4b3c9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820179204214040472, guid: edfd00454cd934941867f35592c4b3c9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1113,6 +1124,10 @@ PrefabInstance:
     - target: {fileID: 8820179204214040472, guid: edfd00454cd934941867f35592c4b3c9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8820179204214040472, guid: edfd00454cd934941867f35592c4b3c9, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8820179204214040473, guid: edfd00454cd934941867f35592c4b3c9, type: 3}
       propertyPath: m_Name

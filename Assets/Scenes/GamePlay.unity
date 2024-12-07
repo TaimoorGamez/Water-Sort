@@ -822,7 +822,8 @@ MonoBehaviour:
   EffectClips:
   - {fileID: 8300000, guid: 48c68a02d6afab84ea7411589a47fce7, type: 3}
   - {fileID: 8300000, guid: 0699882fa3348fa418113df8f13250e9, type: 3}
-  LoopClips: []
+  LoopClips:
+  - {fileID: 8300000, guid: 181f582c8ba77ad4e9580759a8d77d28, type: 3}
 --- !u!81 &727782122
 AudioListener:
   m_ObjectHideFlags: 0

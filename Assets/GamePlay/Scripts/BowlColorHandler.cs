@@ -1,16 +1,18 @@
 using UnityEngine;
+using DG.Tweening;
 using Core.Events;
 using Core.Variables;
-using DG.Tweening;
 
 namespace Core.GamePlay.Coloring
 {
     public class BowlColorHandler : MonoBehaviour
     {
+        [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] SOEvents ColorSelectionEvent; 
         [SerializeField] SOColor CurrentColor;
         [SerializeField] SOColorBowl CurrentBowl;
         [SerializeField] Renderer MySkin;
+        [SerializeField] ParticleSystem WaveParticle;
 
         MaterialPropertyBlock _propBlock;
         Vector3 _orignalPos;
@@ -46,13 +48,16 @@ namespace Core.GamePlay.Coloring
         {
             if (state)
             {
+                SoundEffectEvent.InvokeSOEvent(0);
                 _propBlock.SetInteger("_Glow", 1);
                 transform.DOLocalMoveY(_orignalPos.y + 0.5f, 0.1f);
+                WaveParticle.Play();
             }
             else
             {
                 _propBlock.SetInteger("_Glow", 0);
                 transform.DOLocalMove(_orignalPos, 0.05f);
+                WaveParticle.Stop();
             }
             MySkin.SetPropertyBlock(_propBlock);
         }

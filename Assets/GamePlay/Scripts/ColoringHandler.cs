@@ -11,7 +11,8 @@ namespace Core.GamePlay.Coloring
 {
     public class ColoringHandler : MonoBehaviour
     {
-        [SerializeField] SOEvents StartColoringEvent, ColorSelectedEvent;
+        [SerializeField] SOIntegerEvents LoopEffectEvent;
+        [SerializeField] SOEvents StartColoringEvent, ColorSelectedEvent, StopLoopEffect;
         [SerializeField] SOColor CurrentColor;
         [SerializeField] ColorFilling[] ColoringPart;
         [SerializeField] RectTransform BrushTransform, ColoringImage, SprayCan;
@@ -25,7 +26,7 @@ namespace Core.GamePlay.Coloring
         [SerializeField] Texture2D BubbleTexture;
 
         float _speed = 5, _brushSize = 15, _preparationTime = 1, _finalPos = 100, _finalScale = 1.5f, _infoTextPos = -365f;
-        bool _canColor = false, _canSpray, _detailsAplied = false;
+        bool _canColor = false, _canSpray, _detailsAplied = false, _effectCheck = false;
         Coroutine _movingRoutine;
         RectTransform _coloringParTransform;
         Camera _currentCamera;
@@ -63,7 +64,6 @@ namespace Core.GamePlay.Coloring
         IEnumerator BrushMovingRoutine()
         {
             Vector2 initialOffset = Vector2.zero;
-
             while (_canColor)
             {
                 if (Input.GetMouseButtonDown(0))
@@ -100,6 +100,8 @@ namespace Core.GamePlay.Coloring
 
                 if (Input.GetMouseButtonUp(0) && !NextBtn.activeInHierarchy)
                 {
+                    StopLoopEffect.InvokeSOEvent();
+                    _effectCheck = false;
                     initialOffset = Vector2.zero;
                     InfoText.gameObject.SetActive(true);
                 }
@@ -115,7 +117,11 @@ namespace Core.GamePlay.Coloring
 
             // Only update if the brush has moved significantly
             if (_lastBrushPos == new Vector2Int(centerX, centerY))
+            {
+                StopLoopEffect.InvokeSOEvent();
+                _effectCheck = false;
                 return;
+            }
 
             _lastBrushPos = new Vector2Int(centerX, centerY);
 
@@ -142,6 +148,11 @@ namespace Core.GamePlay.Coloring
                         int pixelIndex = pixelY * textureWidth + pixelX;
                         if (_coloredPixels.Contains(pixelIndex))
                         {
+                            if (!_effectCheck)
+                            {
+                                _effectCheck = true;
+                                LoopEffectEvent.InvokeSOEvent(0);
+                            }
                             pixels[pixelIndex] = CurrentColor.Value;
                             _coloredPixels.Remove(pixelIndex);
                         }
