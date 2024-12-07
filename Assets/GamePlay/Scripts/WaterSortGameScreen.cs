@@ -9,7 +9,6 @@ namespace Core.Screen
 {
     public class WaterSortGameScreen : MonoBehaviour
     {
-        [SerializeField] GameObject SwipeColorsModePanel, PowerButtons, TopBar;
         [SerializeField] SOEvents InitLevelEvent, SwipeColorsModeEvent, UpdateMovesEvent, StartColoringEvent;
         [SerializeField] SOIntegerEvents ChangeStateEvent;
         [SerializeField] TextMeshProUGUI MovesText, CashText;
@@ -17,6 +16,7 @@ namespace Core.Screen
         [SerializeField] SOInterger TotalMoves, CanPlay, LevelFailStateIndex;
         [SerializeField] CoreEconomy Coins;
         [SerializeField] Transform ColoringHolder;
+        [SerializeField] GameObject SwipeColorsModePanel, PowerButtons, TopBar;
 
         string _coloringPath = "ColoringPart/lvl ";
 

@@ -11,7 +11,7 @@ namespace Core.GamePlay.Coloring
 {
     public class ColoringHandler : MonoBehaviour
     {
-        [SerializeField] SOIntegerEvents LoopEffectEvent;
+        [SerializeField] SOIntegerEvents LoopEffectEvent, SoundEffectEvent;
         [SerializeField] SOEvents StartColoringEvent, ColorSelectedEvent, StopLoopEffect;
         [SerializeField] SOColor CurrentColor;
         [SerializeField] ColorFilling[] ColoringPart;
@@ -98,12 +98,13 @@ namespace Core.GamePlay.Coloring
                     ApplyBrush(texX, texY);
                 }
 
-                if (Input.GetMouseButtonUp(0) && !NextBtn.activeInHierarchy)
+                if (Input.GetMouseButtonUp(0))
                 {
                     StopLoopEffect.InvokeSOEvent();
                     _effectCheck = false;
                     initialOffset = Vector2.zero;
-                    InfoText.gameObject.SetActive(true);
+                    if(!NextBtn.activeInHierarchy)
+                       InfoText.gameObject.SetActive(true);
                 }
 
                 yield return null; // Yield until the next frame
@@ -180,6 +181,7 @@ namespace Core.GamePlay.Coloring
             _partTexture = ColoringPart[_paintingCounter].GetCurrenTexture();
             _coloredPixels = ColoringPart[_paintingCounter].GetColoredPixles();
             _totalColorPixles = _coloredPixels.Count;
+            SoundEffectEvent.InvokeSOEvent(3);
             ColoringImage.DOAnchorPos(Vector2.zero, _preparationTime).OnComplete(() =>
             {
                 RefferanceImg.sprite = RefferanceSprites[_paintingCounter];
