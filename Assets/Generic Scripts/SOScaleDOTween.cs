@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Core.Animations.DT
 {
     [CreateAssetMenu(fileName = "Scale", menuName = "ScriptableObjects/Animations/LT/Scale")]
-    public class SOScaleLeanTween : SOLeanTween
+    public class SOScaleDOTween : SODOTween
     {
         public override void PlayAnimation()
         {

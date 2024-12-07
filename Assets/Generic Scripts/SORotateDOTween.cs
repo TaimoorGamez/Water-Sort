@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Core.Animations.DT
 {
     [CreateAssetMenu(fileName = "RotateLT", menuName = "ScriptableObjects/Animations/LT/Rotation")]
-    public class SORotateLeanTween : SOLeanTween
+    public class SORotateDOTween : SODOTween
     {
         public override void PlayAnimation()
         {

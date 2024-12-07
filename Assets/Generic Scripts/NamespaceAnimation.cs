@@ -8,7 +8,7 @@ namespace Core.Animations
 
 namespace Core.Animations.DT
 {
-    public class SOLeanTween : ScriptableObject
+    public class SODOTween : ScriptableObject
     {
         public GameObject TargetObj { get; set; }
 

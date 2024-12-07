@@ -7,7 +7,7 @@ namespace Core.Screen
 {
     public class GamePlaySettingScreen : MonoBehaviour
     {
-        [SerializeField] SOLeanTween PopScaleUp, PopScaleDown;
+        [SerializeField] SODOTween PopScaleUp, PopScaleDown;
         [SerializeField] GameObject PopPanel;
         [SerializeField] SOIntegerEvents ChangeStateEvent;
         [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex;

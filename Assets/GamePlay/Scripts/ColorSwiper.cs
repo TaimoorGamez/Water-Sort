@@ -12,7 +12,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] SOEvents SwipeColorsModeEvent;
         [SerializeField] SOInterger IsSwaping, UsingAnyFeature;
         [SerializeField] SOIntegerEvents ToastMsgEvent;
-        [SerializeField] SOLeanTween TubeScaleUpTween, TubeScaleDownTween;
+        [SerializeField] SODOTween TubeScaleUpTween, TubeScaleDownTween;
 
         Dictionary<int,TubeHandler> SwapingTubes = new Dictionary<int, TubeHandler>();
 

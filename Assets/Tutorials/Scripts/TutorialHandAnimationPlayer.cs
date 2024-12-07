@@ -8,7 +8,7 @@ namespace Core.Animations.DT
     {
         [SerializeField] GameObject HandObj;
         [SerializeField] Image ParticleObj;
-        [SerializeField] SOLeanTween ScaleDown, ScaleUp;
+        [SerializeField] SODOTween ScaleDown, ScaleUp;
         [SerializeField] float Delay;
 
         Coroutine _animationsRotine;

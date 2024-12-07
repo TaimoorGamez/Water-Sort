@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Core.Animations.DT
 {
     [CreateAssetMenu(fileName = "MoveLT", menuName = "ScriptableObjects/Animations/LT/Move")]
-    public class SOMoveLeanTween : SOLeanTween
+    public class SOMoveDOTween : SODOTween
     {
         public override void PlayAnimation()
         {

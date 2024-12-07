@@ -3,10 +3,10 @@ using System.Collections;
 
 namespace Core.Animations.DT
 {
-    public class PlaySOLeanTweens : MonoBehaviour
+    public class PlaySODOTweens : MonoBehaviour
     {
         [SerializeField] GameObject[] TargetObjs;
-        [SerializeField] SOLeanTween[] TweenAnimations;
+        [SerializeField] SODOTween[] TweenAnimations;
         [SerializeField] float[] Delays;
         [SerializeField] bool PlayOnEnable = false, PlayLoop = false;
         [SerializeField] float StartDelay = 0;
