@@ -1,4 +1,5 @@
 using UnityEngine;
+
 namespace Core.GamePlay.WaterSort
 {
     public class CapHandler : MonoBehaviour
@@ -7,8 +8,9 @@ namespace Core.GamePlay.WaterSort
 
         public void PlayCelebration(Color currentColor)
         {
+            Debug.Log("Here");
             MyAnimation.gameObject.SetActive(true);
-            MyAnimation.SetColor(currentColor);
+            MyAnimation.PlayCapAnimation(currentColor);
         }
 
         public void HideCap()
