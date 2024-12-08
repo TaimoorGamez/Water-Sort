@@ -245,9 +245,9 @@ namespace Core.GamePlay.WaterSort
             CompleteParticle.Play();
             yield return new WaitForSeconds(1f);
             TubeCap.PlayCelebration(CurrentColor);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
             CompletedTubes.Value ++;
-            //CheckCompleteEvent.InvokeSOEvent();
+            CheckCompleteEvent.InvokeSOEvent();
             if (_celebrationRotine != null)
             {
                 StopCoroutine(_celebrationRotine);

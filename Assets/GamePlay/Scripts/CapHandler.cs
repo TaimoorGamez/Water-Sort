@@ -8,7 +8,6 @@ namespace Core.GamePlay.WaterSort
 
         public void PlayCelebration(Color currentColor)
         {
-            Debug.Log("Here");
             MyAnimation.gameObject.SetActive(true);
             MyAnimation.PlayCapAnimation(currentColor);
         }

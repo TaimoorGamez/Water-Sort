@@ -22,8 +22,7 @@ namespace Core.GamePlay.WaterSort
             _propBlock.SetTexture("_MainTex", MyTexture);
             _propBlock.SetFloat("_ColorRange", 0);
             MySkin.SetPropertyBlock(_propBlock);
-            _animationRotine = StartCoroutine(SmoothlyChangeColor());
-            transform.DOLocalMoveZ(0, _transparencyChangeDuration);
+            transform.DOLocalMoveY(0, _transparencyChangeDuration/4).OnComplete(() => _animationRotine = StartCoroutine(SmoothlyChangeColor()));
         }
 
         IEnumerator SmoothlyChangeColor()
