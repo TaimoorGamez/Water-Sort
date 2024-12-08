@@ -10,7 +10,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] Renderer MySkin;
         [SerializeField] Texture MyTexture;
 
-        float _transparencyChangeDuration = 0.5f, _targetTransparency = 1;
+        float _transparencyChangeDuration = 1f, _targetTransparency = 1;
         MaterialPropertyBlock _propBlock;
         Coroutine _animationRotine;
 

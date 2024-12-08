@@ -29,6 +29,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] GameObject[] HidenMarks;
         [SerializeField] Renderer WaveRenderer, DropsRenderer;
         [SerializeField] Animation TubeAnimation;
+        [SerializeField] ParticleSystem CompleteParticle;
 
         List<Coroutine> _drinkingRotine = new List<Coroutine>();
         TubeHandler _senderTube;
@@ -240,8 +241,11 @@ namespace Core.GamePlay.WaterSort
         IEnumerator CelebrationOnComplete()
         {
             yield return new WaitForSeconds(0.5f);
+            SoundEffectEvent.InvokeSOEvent(4);
+            CompleteParticle.Play();
+            yield return new WaitForSeconds(1f);
             TubeCap.PlayCelebration(CurrentColor);
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(1f);
             CompletedTubes.Value ++;
             //CheckCompleteEvent.InvokeSOEvent();
             if (_celebrationRotine != null)
@@ -360,7 +364,7 @@ namespace Core.GamePlay.WaterSort
 
         IEnumerator ColorAdddingCorotine(Color currentColor, int layers)
         {
-            float elapsedTime = 0f, duration = (float)1 / layers, smoothTimer = 0.01f;
+            float elapsedTime = 0f, duration = (float)1 / layers;
             Vector3 startPosition = DropsParticle.transform.localPosition;
             DropsParticle.Play();
             for (int c = 1; c <= layers; c++)
@@ -375,7 +379,7 @@ namespace Core.GamePlay.WaterSort
                     elapsedTime += Time.deltaTime;
 
                     // Wait for the next frame
-                    yield return new WaitForSeconds(smoothTimer);
+                    yield return null;
                 }
                 WaterColors.Add(currentColor);
             }
