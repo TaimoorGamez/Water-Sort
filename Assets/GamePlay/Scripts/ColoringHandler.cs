@@ -24,10 +24,10 @@ namespace Core.GamePlay.Coloring
         [SerializeField] RawImage CompoundImg;
         [SerializeField] Sprite[] RefferanceSprites;
         [SerializeField] Texture2D BubbleTexture;
-        [SerializeField] ParticleSystem BubbleParticle;
+        [SerializeField] ParticleSystem BubbleParticle, StarParticles;
 
         float _speed = 5, _brushSize = 15, _preparationTime = 1, _finalPos = 100, _finalScale = 1.5f, _infoTextPos = -365f;
-        bool _canColor = false, _canSpray, _detailsAplied = false, _effectCheck = false, _canShowNextBtn = true;
+        bool _canColor = false, _canSpray, _detailsAplied = false, _effectCheck = false, _canShowNextBtn = true, _onceClicked = true;
         Coroutine _movingRoutine;
         RectTransform _coloringParTransform;
         Camera _currentCamera;
@@ -107,7 +107,6 @@ namespace Core.GamePlay.Coloring
                     if(_canShowNextBtn)
                        InfoText.gameObject.SetActive(true);
                 }
-                Debug.Log("1st");
                 yield return null; // Yield until the next frame
             }
         }
@@ -170,6 +169,7 @@ namespace Core.GamePlay.Coloring
             if (remainingPercentage <= 5 && _canShowNextBtn)
             {
                 _canShowNextBtn = false;
+                _onceClicked = false;
                 NextBtn.SetActive(true);
                 _paintingCounter++;
             }
@@ -206,53 +206,58 @@ namespace Core.GamePlay.Coloring
 
         public void OnNextBtnClick()
         {
-            _canColor = false;
-            TouchProtector.SetActive(true);
-            PaintBrush.SetActive(false);
-            if (_movingRoutine != null)
+            if (!_onceClicked)
             {
-                StopCoroutine(_movingRoutine);
-                _movingRoutine = null;
-            }
-            InfoText.gameObject.SetActive(false);
-            NextBtn.SetActive(false);
-            FillRemaingPixles();
-
-         if (_paintingCounter < ColoringPart.Length)
-            {
-                _partTexture = ColoringPart[_paintingCounter].GetCurrenTexture();
-                _coloredPixels = ColoringPart[_paintingCounter].GetColoredPixles();
-                InfoText.text = InfoMsgs[0];
-                PaintBrush.SetActive(true);
-                InfoText.gameObject.SetActive(true);
-                _totalColorPixles = _coloredPixels.Count;
-                RefferanceImg.sprite = RefferanceSprites[_paintingCounter];
-                TouchProtector.SetActive(false);
-                _canShowNextBtn = true;
-            }
-            else if (_paintingCounter >= ColoringPart.Length && !_detailsAplied)
-            {
-                PrepareCompounD();
-                InfoText.text = InfoMsgs[2];
-                InfoText.gameObject.SetActive(true);
-                InfoText.rectTransform.DOAnchorPosY(_infoTextPos, _preparationTime).OnComplete(() =>
+                _onceClicked = true;
+                _canColor = false;
+                TouchProtector.SetActive(true);
+                PaintBrush.SetActive(false);
+                if (_movingRoutine != null)
                 {
-                    SprayCan.gameObject.SetActive(true);
-                    _canSpray = true;
-                    _movingRoutine = StartCoroutine(SprayMovingRoutine());
+                    StopCoroutine(_movingRoutine);
+                    _movingRoutine = null;
+                }
+                InfoText.gameObject.SetActive(false);
+                NextBtn.SetActive(false);
+                FillRemaingPixles();
+
+                if (_paintingCounter < ColoringPart.Length)
+                {
+                    _partTexture = ColoringPart[_paintingCounter].GetCurrenTexture();
+                    _coloredPixels = ColoringPart[_paintingCounter].GetColoredPixles();
+                    InfoText.text = InfoMsgs[0];
+                    PaintBrush.SetActive(true);
+                    InfoText.gameObject.SetActive(true);
+                    _totalColorPixles = _coloredPixels.Count;
+                    RefferanceImg.sprite = RefferanceSprites[_paintingCounter];
                     TouchProtector.SetActive(false);
                     _canShowNextBtn = true;
-                });
-            }
-            else if(_detailsAplied)
-            {
-                SprayCan.gameObject.SetActive(false);
-                CompoundImg.rectTransform.DOScale(Vector3.zero,_preparationTime).SetEase(Ease.InBack).OnComplete(()=> {
-                    Details.gameObject.SetActive(true);
-                    Details.DOFillAmount(1, _preparationTime);
-                    ColoringImage.DOScale(_finalScale, _preparationTime);
-                    ColoringImage.DOAnchorPosY(_finalPos, _preparationTime);
-                });
+                }
+                else if (_paintingCounter >= ColoringPart.Length && !_detailsAplied)
+                {
+                    PrepareCompounD();
+                    InfoText.text = InfoMsgs[2];
+                    InfoText.gameObject.SetActive(true);
+                    InfoText.rectTransform.DOAnchorPosY(_infoTextPos, _preparationTime).OnComplete(() =>
+                    {
+                        SprayCan.gameObject.SetActive(true);
+                        _canSpray = true;
+                        _movingRoutine = StartCoroutine(SprayMovingRoutine());
+                        TouchProtector.SetActive(false);
+                        _canShowNextBtn = true;
+                    });
+                }
+                else if (_detailsAplied)
+                {
+                    SprayCan.gameObject.SetActive(false);
+                    CompoundImg.rectTransform.DOScale(Vector3.zero, _preparationTime).SetEase(Ease.InBack).OnComplete(() =>
+                    {
+                        Details.gameObject.SetActive(true);
+                        Details.DOFillAmount(1, _preparationTime);
+                        ColoringImage.DOScale(_finalScale, _preparationTime);
+                        ColoringImage.DOAnchorPosY(_finalPos, _preparationTime).OnComplete(()=> StarParticles.Play());
+                    });
+                }
             }
         }
 
@@ -349,7 +354,6 @@ namespace Core.GamePlay.Coloring
                     if (_canShowNextBtn)
                     InfoText.gameObject.SetActive(true);
                 }
-                Debug.Log("2nd");
                 yield return new WaitForSeconds(smoothTimer); // Yield until the next frame
             }
         }
@@ -400,8 +404,6 @@ namespace Core.GamePlay.Coloring
                             {
                                 _compoundPixels[compoundIndex] = _bubblePixles[bubbleIndex];
                             }
-
-                           
                         }
                     }
                 }
@@ -412,9 +414,9 @@ namespace Core.GamePlay.Coloring
             _partTexture.Apply();
             if (_bubbleCounter >= _totalBubbles && _canShowNextBtn)
             {
-                Debug.Log("line 414");
                 _canShowNextBtn = false;
-                   _detailsAplied = true;
+                _onceClicked = false;
+                _detailsAplied = true;
                 NextBtn.SetActive(true);
             }
         }

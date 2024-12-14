@@ -15,7 +15,7 @@ namespace Core.Animations.DT
         [SerializeField] protected Vector3 TargetAction;
         [SerializeField] protected float Duration;
         [SerializeField] protected Ease CurrentEaseType;
-        [SerializeField] bool IsLoop = false, StateAfterComplete = true;
+        [SerializeField] bool IsLoop = false, CanChangeStateOnComlete = false, StateOnComplete = true;
 
         protected Tween ltAnimation;
 
@@ -28,7 +28,10 @@ namespace Core.Animations.DT
                 ltAnimation.Loops();
             }
 
-            ltAnimation.OnComplete(() => TargetObj.SetActive(StateAfterComplete));
+            ltAnimation.OnComplete(() => {
+                if (CanChangeStateOnComlete)
+                    TargetObj.SetActive(StateOnComplete);
+                });
         }
 
         public virtual void CancleAnimation()
