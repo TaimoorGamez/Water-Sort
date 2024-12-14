@@ -24,6 +24,7 @@ namespace Core.GamePlay.Coloring
         [SerializeField] RawImage CompoundImg;
         [SerializeField] Sprite[] RefferanceSprites;
         [SerializeField] Texture2D BubbleTexture;
+        [SerializeField] ParticleSystem BubbleParticle;
 
         float _speed = 5, _brushSize = 15, _preparationTime = 1, _finalPos = 100, _finalScale = 1.5f, _infoTextPos = -365f;
         bool _canColor = false, _canSpray, _detailsAplied = false, _effectCheck = false;
@@ -309,6 +310,7 @@ namespace Core.GamePlay.Coloring
                         coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 initialPoint);
                     initialOffset = SprayCan.anchoredPosition - initialPoint;
                     InfoText.gameObject.SetActive(false);
+                    BubbleParticle.Play();
                 }
 
                 if (Input.GetMouseButton(0))
@@ -335,9 +337,11 @@ namespace Core.GamePlay.Coloring
                     ApplyBubble(texX, texY);
                 }
 
-                if (Input.GetMouseButtonUp(0) && !NextBtn.activeInHierarchy)
+                if (Input.GetMouseButtonUp(0))
                 {
                     initialOffset = Vector2.zero;
+                    BubbleParticle.Stop();
+                    if (!NextBtn.activeInHierarchy)
                     InfoText.gameObject.SetActive(true);
                 }
 
