@@ -27,12 +27,12 @@ namespace Core.GamePlay.Coloring
         [SerializeField] ParticleSystem BubbleParticle;
 
         float _speed = 5, _brushSize = 15, _preparationTime = 1, _finalPos = 100, _finalScale = 1.5f, _infoTextPos = -365f;
-        bool _canColor = false, _canSpray, _detailsAplied = false, _effectCheck = false;
+        bool _canColor = false, _canSpray, _detailsAplied = false, _effectCheck = false, _canShowNextBtn = true;
         Coroutine _movingRoutine;
         RectTransform _coloringParTransform;
         Camera _currentCamera;
         Texture2D _partTexture;
-        int _paintingCounter = 0, _totalColorPixles = 0, _compoundTextureLength = 500, _lastAppliedCenterY = -1, _lastAppliedCenterX = -1, _totalBubbles = 50, _bubbleCounter;
+        int _paintingCounter = 0, _totalColorPixles = 0, _compoundTextureLength = 500, _lastAppliedCenterY = -1, _lastAppliedCenterX = -1, _totalBubbles = 50, _bubbleCounter = 0;
         Vector2Int _lastBrushPos = new Vector2Int(-1, -1);
         List<int> _coloredPixels = new List<int>();
         Color32[] _bubblePixles, _compoundPixels; 
@@ -104,10 +104,10 @@ namespace Core.GamePlay.Coloring
                     StopLoopEffect.InvokeSOEvent();
                     _effectCheck = false;
                     initialOffset = Vector2.zero;
-                    if(!NextBtn.activeInHierarchy)
+                    if(_canShowNextBtn)
                        InfoText.gameObject.SetActive(true);
                 }
-
+                Debug.Log("1st");
                 yield return null; // Yield until the next frame
             }
         }
@@ -167,8 +167,9 @@ namespace Core.GamePlay.Coloring
             _partTexture.Apply();
 
             float remainingPercentage = (_coloredPixels.Count / (float)_totalColorPixles) * 100;
-            if (remainingPercentage <= 5 && !NextBtn.activeInHierarchy)
+            if (remainingPercentage <= 5 && _canShowNextBtn)
             {
+                _canShowNextBtn = false;
                 NextBtn.SetActive(true);
                 _paintingCounter++;
             }
@@ -227,6 +228,7 @@ namespace Core.GamePlay.Coloring
                 _totalColorPixles = _coloredPixels.Count;
                 RefferanceImg.sprite = RefferanceSprites[_paintingCounter];
                 TouchProtector.SetActive(false);
+                _canShowNextBtn = true;
             }
             else if (_paintingCounter >= ColoringPart.Length && !_detailsAplied)
             {
@@ -238,16 +240,19 @@ namespace Core.GamePlay.Coloring
                     SprayCan.gameObject.SetActive(true);
                     _canSpray = true;
                     _movingRoutine = StartCoroutine(SprayMovingRoutine());
-                    NextBtn.gameObject.SetActive(false);
                     TouchProtector.SetActive(false);
+                    _canShowNextBtn = true;
                 });
             }
             else if(_detailsAplied)
             {
                 SprayCan.gameObject.SetActive(false);
-                CompoundImg.rectTransform.DOScale(Vector3.zero,_preparationTime).SetEase(Ease.InBack);
-                Details.gameObject.SetActive(true) ;
-                Details.DOFillAmount(1,_preparationTime).OnComplete(() => Celebration());
+                CompoundImg.rectTransform.DOScale(Vector3.zero,_preparationTime).SetEase(Ease.InBack).OnComplete(()=> {
+                    Details.gameObject.SetActive(true);
+                    Details.DOFillAmount(1, _preparationTime);
+                    ColoringImage.DOScale(_finalScale, _preparationTime);
+                    ColoringImage.DOAnchorPosY(_finalPos, _preparationTime);
+                });
             }
         }
 
@@ -341,10 +346,10 @@ namespace Core.GamePlay.Coloring
                 {
                     initialOffset = Vector2.zero;
                     BubbleParticle.Stop();
-                    if (!NextBtn.activeInHierarchy)
+                    if (_canShowNextBtn)
                     InfoText.gameObject.SetActive(true);
                 }
-
+                Debug.Log("2nd");
                 yield return new WaitForSeconds(smoothTimer); // Yield until the next frame
             }
         }
@@ -405,17 +410,15 @@ namespace Core.GamePlay.Coloring
             // Set all the updated pixels at once
             _partTexture.SetPixels32(_compoundPixels);
             _partTexture.Apply();
-            if (_bubbleCounter >= _totalBubbles && !NextBtn.activeInHierarchy)
+            if (_bubbleCounter >= _totalBubbles && _canShowNextBtn)
             {
-                _detailsAplied = true;
+                Debug.Log("line 414");
+                _canShowNextBtn = false;
+                   _detailsAplied = true;
                 NextBtn.SetActive(true);
             }
         }
 
-        void Celebration()
-        {
-            ColoringImage.DOAnchorPosY(_finalPos, _preparationTime);
-        }
 
         //-----------------------------------------
         public Camera screenshotCamera; // Assign your screenshot camera here
