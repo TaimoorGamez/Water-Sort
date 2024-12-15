@@ -243,7 +243,6 @@ namespace Core.GamePlay.WaterSort
             yield return new WaitForSeconds(0.5f);
             SoundEffectEvent.InvokeSOEvent(4);
             CompleteParticle.Play();
-            yield return new WaitForSeconds(0.5f);
             TubeCap.PlayCelebration(CurrentColor);
             yield return new WaitForSeconds(2f);
             CompletedTubes.Value ++;
