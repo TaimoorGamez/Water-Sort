@@ -16,7 +16,7 @@ namespace Core.GamePlay.Coloring
         [SerializeField] SOInterger CompleteStateIndex;
         [SerializeField] SOColor CurrentColor;
         [SerializeField] ColorFilling[] ColoringPart;
-        [SerializeField] RectTransform BrushTransform, ColoringImage, SprayCan;
+        [SerializeField] RectTransform BrushTransform, ColoringImage, SprayCan, FlameThrower;
         [SerializeField] Vector2Int VerticalRange, HorizontalRange;
         [SerializeField] TextMeshProUGUI InfoText;
         [SerializeField] string[] InfoMsgs;
@@ -28,7 +28,7 @@ namespace Core.GamePlay.Coloring
         [SerializeField] ParticleSystem BubbleParticle, StarParticles;
 
         float _speed = 5, _brushSize = 15, _preparationTime = 1, _finalPos = 100, _finalScale = 1.5f, _infoTextPos = -365f;
-        bool _canColor = false, _canSpray, _detailsAplied = false, _effectCheck = false, _canShowNextBtn = true, _onceClicked = true;
+        bool _canColor = false, _canSpray, _cloudsAplied = false, _effectCheck = false, _canShowNextBtn = true, _onceClicked = true, _detailsApplied = false;
         Coroutine _movingRoutine;
         RectTransform _coloringParTransform;
         Camera _currentCamera;
@@ -234,7 +234,7 @@ namespace Core.GamePlay.Coloring
                     TouchProtector.SetActive(false);
                     _canShowNextBtn = true;
                 }
-                else if (_paintingCounter >= ColoringPart.Length && !_detailsAplied)
+                else if (_paintingCounter >= ColoringPart.Length && !_cloudsAplied)
                 {
                     PrepareCompounD();
                     InfoText.text = InfoMsgs[2];
@@ -248,7 +248,12 @@ namespace Core.GamePlay.Coloring
                         _canShowNextBtn = true;
                     });
                 }
-                else if (_detailsAplied)
+                else if (!_detailsApplied && _cloudsAplied)
+                {
+                    SprayCan.gameObject.SetActive(false);
+                    FlameThrower.gameObject.SetActive(true);
+                }
+                else if (_detailsApplied)
                 {
                     SprayCan.gameObject.SetActive(false);
                     CompoundImg.rectTransform.DOScale(Vector3.zero, _preparationTime).SetEase(Ease.InBack).OnComplete(() =>
@@ -256,7 +261,7 @@ namespace Core.GamePlay.Coloring
                         Details.gameObject.SetActive(true);
                         Details.DOFillAmount(1, _preparationTime);
                         ColoringImage.DOScale(_finalScale, _preparationTime);
-                        ColoringImage.DOAnchorPosY(_finalPos, _preparationTime).OnComplete(()=>
+                        ColoringImage.DOAnchorPosY(_finalPos, _preparationTime).OnComplete(() =>
                         {
                             StarParticles.Play();
                             //ChangeStateEvent.InvokeSOEvent(CompleteStateIndex.Value);
@@ -421,7 +426,7 @@ namespace Core.GamePlay.Coloring
             {
                 _canShowNextBtn = false;
                 _onceClicked = false;
-                _detailsAplied = true;
+                _cloudsAplied = true;
                 NextBtn.SetActive(true);
             }
         }
