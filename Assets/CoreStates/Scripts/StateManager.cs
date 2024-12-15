@@ -45,13 +45,6 @@ namespace Core.States
                     AllStates[s].DestroyCurrentState();
                 }
             }
-            else if (stateIndex == LeveCompleteStateIndex.Value)
-            {
-                for (int s = 0; s < LeveCompleteStateIndex.Value; s++)
-                {
-                    AllStates[s].DestroyCurrentState();
-                }
-            }
             _lastStateId = stateIndex;
         }
     }

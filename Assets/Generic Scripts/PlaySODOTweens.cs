@@ -28,13 +28,13 @@ namespace Core.Animations.DT
 
         IEnumerator PlayAllAnimations()
         {
-            yield return new WaitForSeconds(StartDelay);
             for (int a = 0; a < TweenAnimations.Length; a++)
             {
                 TweenAnimations[a].TargetObj = TargetObjs[a];
                 TweenAnimations[a].PlayAnimation();
                 yield return new WaitForSeconds(Delays[a]);
             }
+            yield return new WaitForSeconds(StartDelay);
             AnimationsComplete();
         }
 

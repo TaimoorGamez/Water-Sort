@@ -11,8 +11,9 @@ namespace Core.GamePlay.Coloring
 {
     public class ColoringHandler : MonoBehaviour
     {
-        [SerializeField] SOIntegerEvents LoopEffectEvent, SoundEffectEvent;
+        [SerializeField] SOIntegerEvents LoopEffectEvent, SoundEffectEvent, ChangeStateEvent;
         [SerializeField] SOEvents StartColoringEvent, ColorSelectedEvent, StopLoopEffect;
+        [SerializeField] SOInterger CompleteStateIndex;
         [SerializeField] SOColor CurrentColor;
         [SerializeField] ColorFilling[] ColoringPart;
         [SerializeField] RectTransform BrushTransform, ColoringImage, SprayCan;
@@ -23,7 +24,7 @@ namespace Core.GamePlay.Coloring
         [SerializeField] Image RefferanceImg, Details;
         [SerializeField] RawImage CompoundImg;
         [SerializeField] Sprite[] RefferanceSprites;
-        [SerializeField] Texture2D BubbleTexture;
+        [SerializeField] Texture2D CloudTexture;
         [SerializeField] ParticleSystem BubbleParticle, StarParticles;
 
         float _speed = 5, _brushSize = 15, _preparationTime = 1, _finalPos = 100, _finalScale = 1.5f, _infoTextPos = -365f;
@@ -32,10 +33,10 @@ namespace Core.GamePlay.Coloring
         RectTransform _coloringParTransform;
         Camera _currentCamera;
         Texture2D _partTexture;
-        int _paintingCounter = 0, _totalColorPixles = 0, _compoundTextureLength = 500, _lastAppliedCenterY = -1, _lastAppliedCenterX = -1, _totalBubbles = 50, _bubbleCounter = 0;
+        int _paintingCounter = 0, _totalColorPixles = 0, _compoundTextureLength = 500, _lastAppliedCenterY = -1, _lastAppliedCenterX = -1, _totalBubbles = 25, _bubbleCounter = 0;
         Vector2Int _lastBrushPos = new Vector2Int(-1, -1);
         List<int> _coloredPixels = new List<int>();
-        Color32[] _bubblePixles, _compoundPixels; 
+        Color32[] _cloudPixles, _compoundPixels; 
         const int _bubbleThreshold = 35;
 
         private void OnEnable()
@@ -255,7 +256,11 @@ namespace Core.GamePlay.Coloring
                         Details.gameObject.SetActive(true);
                         Details.DOFillAmount(1, _preparationTime);
                         ColoringImage.DOScale(_finalScale, _preparationTime);
-                        ColoringImage.DOAnchorPosY(_finalPos, _preparationTime).OnComplete(()=> StarParticles.Play());
+                        ColoringImage.DOAnchorPosY(_finalPos, _preparationTime).OnComplete(()=>
+                        {
+                            StarParticles.Play();
+                            //ChangeStateEvent.InvokeSOEvent(CompleteStateIndex.Value);
+                        });
                     });
                 }
             }
@@ -302,7 +307,7 @@ namespace Core.GamePlay.Coloring
             _partTexture.Apply();
             CompoundImg.texture = _partTexture;
             CompoundImg.gameObject.SetActive(true);
-            _bubblePixles = BubbleTexture.GetPixels32();
+            _cloudPixles = CloudTexture.GetPixels32();
         }
 
 
@@ -344,7 +349,7 @@ namespace Core.GamePlay.Coloring
                     int texX = Mathf.RoundToInt(brushUV.x * _partTexture.width);
                     int texY = Mathf.RoundToInt(brushUV.y * _partTexture.height);
 
-                    ApplyBubble(texX, texY);
+                    ApplyClouds(texX, texY);
                 }
 
                 if (Input.GetMouseButtonUp(0))
@@ -358,7 +363,7 @@ namespace Core.GamePlay.Coloring
             }
         }
 
-        void ApplyBubble(int centerX, int centerY)
+        void ApplyClouds(int centerX, int centerY)
         {
             // Check if the position has changed significantly
             if (Mathf.Abs(centerX - _lastAppliedCenterX) <= _bubbleThreshold && Mathf.Abs(centerY - _lastAppliedCenterY) <= _bubbleThreshold)
@@ -371,8 +376,8 @@ namespace Core.GamePlay.Coloring
             _lastAppliedCenterX = centerX;
             _lastAppliedCenterY = centerY;
 
-            int bubbleWidth = BubbleTexture.width;
-            int bubbleHeight = BubbleTexture.height;
+            int bubbleWidth = CloudTexture.width;
+            int bubbleHeight = CloudTexture.height;
             int compoundWidth = _partTexture.width;
             int compoundHeight = _partTexture.height;
 
@@ -400,9 +405,9 @@ namespace Core.GamePlay.Coloring
                             int compoundIndex = targetY * compoundWidth + targetX;
 
                             // Blend only if the bubble pixel is not fully transparent
-                            if (_bubblePixles[bubbleIndex].a > 0)
+                            if (_cloudPixles[bubbleIndex].a > 0.5f)
                             {
-                                _compoundPixels[compoundIndex] = _bubblePixles[bubbleIndex];
+                                _compoundPixels[compoundIndex] = _cloudPixles[bubbleIndex];
                             }
                         }
                     }

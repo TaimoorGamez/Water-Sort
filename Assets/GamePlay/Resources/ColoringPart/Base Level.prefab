@@ -1273,9 +1273,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LoopEffectEvent: {fileID: 11400000, guid: 093c4e46c9b68704ebb3fe930639824c, type: 2}
   SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
+  ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
   StartColoringEvent: {fileID: 11400000, guid: ed751afbb0214de499cef1891112c6d6, type: 2}
   ColorSelectedEvent: {fileID: 11400000, guid: fe2489cc2d4d5e14f9d85776a00266f3, type: 2}
   StopLoopEffect: {fileID: 11400000, guid: 6a567254c34b10d44a3c2af54a037e1d, type: 2}
+  CompleteStateIndex: {fileID: 11400000, guid: 372a4013c41549545822b875f34f8aa3, type: 2}
   CurrentColor: {fileID: 11400000, guid: 2fed6872c6a33cb40accd289f78eb6eb, type: 2}
   ColoringPart:
   - {fileID: 8155223144613782485}
@@ -1298,7 +1300,7 @@ MonoBehaviour:
   CompoundImg: {fileID: 4928604096513955447}
   RefferanceSprites:
   - {fileID: 21300000, guid: 5de9797cefe14434f8d7ab8b770544bd, type: 3}
-  BubbleTexture: {fileID: 2800000, guid: a08810e2288b18b4c8e35d6da3b58571, type: 3}
+  CloudTexture: {fileID: 2800000, guid: 992681ded4241e548a44b7aa05485a05, type: 3}
   BubbleParticle: {fileID: 4240301359178295778}
   StarParticles: {fileID: 4724836284733389828}
   screenshotCamera: {fileID: 0}

@@ -1,7 +1,5 @@
 using UnityEngine;
 using DG.Tweening;
-using System.Collections;
-
 
 namespace Core.GamePlay.WaterSort
 {
@@ -10,9 +8,8 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] Renderer MySkin;
         [SerializeField] Texture MyTexture;
 
-        float _transparencyChangeDuration = 1f, _targetTransparency = 1;
+        float _transparencyChangeDuration = 2f, _targetTransparency = 1;
         MaterialPropertyBlock _propBlock;
-        Coroutine _animationRotine;
 
 
         public override void PlayCapAnimation(Color currentColor)
@@ -21,36 +18,16 @@ namespace Core.GamePlay.WaterSort
             _propBlock.SetColor("_BaseColor", currentColor);
             _propBlock.SetTexture("_MainTex", MyTexture);
             _propBlock.SetFloat("_ColorRange", 0);
-            MySkin.SetPropertyBlock(_propBlock);
-            transform.DOLocalMoveY(0, _transparencyChangeDuration/4).OnComplete(() => _animationRotine = StartCoroutine(SmoothlyChangeColor()));
+            MySkin.SetPropertyBlock(_propBlock); transform.DOLocalMoveY(0,0.25f).OnComplete(() =>
+            {
+                // Animate the _ColorRange property
+                DOTween.To(() => 0f, value =>
+                {
+                    _propBlock.SetFloat("_ColorRange", value);
+                    MySkin.SetPropertyBlock(_propBlock);
+                }, _targetTransparency, _transparencyChangeDuration);
+            });
         }
 
-        IEnumerator SmoothlyChangeColor()
-        {
-            float elapsedTime = 0f, startTransparency = 0, smoothTimer = 0.01f;
-            while (elapsedTime < _transparencyChangeDuration)
-            {
-                elapsedTime += smoothTimer;
-                float t = Mathf.Clamp01(elapsedTime / _transparencyChangeDuration);
-                float currentTransparency = Mathf.Lerp(startTransparency, _targetTransparency, t);
-                _propBlock.SetFloat("_ColorRange", currentTransparency);
-                MySkin.SetPropertyBlock(_propBlock);
-                yield return new WaitForSeconds(smoothTimer);
-            }
-
-            if (_animationRotine != null)
-            {
-                StopCoroutine(_animationRotine);
-            }
-        }
-
-        private void OnDisable()
-        {
-            //LeanTween.kill
-            if (_animationRotine != null)
-            {
-                StopCoroutine(_animationRotine);
-            }
-        }
     }
 }
