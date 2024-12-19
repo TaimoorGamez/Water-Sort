@@ -11,9 +11,8 @@ namespace Core.GamePlay.Coloring
 {
     public class ColoringHandler : MonoBehaviour
     {
-        [SerializeField] SOIntegerEvents LoopEffectEvent, SoundEffectEvent, ChangeStateEvent;
+        [SerializeField] SOIntegerEvents LoopEffectEvent, SoundEffectEvent;
         [SerializeField] SOEvents StartColoringEvent, ColorSelectedEvent, StopLoopEffect;
-        [SerializeField] SOInterger CompleteStateIndex;
         [SerializeField] SOColor CurrentColor;
         [SerializeField] ColorFilling[] ColoringPart;
         [SerializeField] RectTransform BrushTransform, ColoringImage, SprayCan, FlameThrower;
@@ -37,8 +36,9 @@ namespace Core.GamePlay.Coloring
         Vector2Int _lastBrushPos = new Vector2Int(-1, -1);
         List<int> _coloredPixels = new List<int>();
         List<int> _flamePixels = new List<int>();
-        Color32[] _cloudPixles, _compoundPixels; 
-        const int _bubbleThreshold = 35;
+        Color32[] _cloudPixles, _compoundPixels, _partPixles; 
+        const int _bubbleThreshold = 32, _colorThreshold = 5;
+        List<Vector2Int> _brushCircle;
 
         private void OnEnable()
         {
@@ -62,7 +62,28 @@ namespace Core.GamePlay.Coloring
         {
             _currentCamera = Camera.main;
             _coloringParTransform = ColoringPart[_paintingCounter].transform as RectTransform;
+            _brushCircle = GenerateBrushCircle(Mathf.RoundToInt(_brushSize));
         }
+
+        List<Vector2Int> GenerateBrushCircle(int radius)
+        {
+            List<Vector2Int> circlePixels = new List<Vector2Int>();
+            int radiusSquared = radius * radius;
+
+            for (int y = -radius; y <= radius; y++)
+            {
+                for (int x = -radius; x <= radius; x++)
+                {
+                    if (x * x + y * y <= radiusSquared)
+                    {
+                        circlePixels.Add(new Vector2Int(x, y));
+                    }
+                }
+            }
+
+            return circlePixels;
+        }
+
 
         IEnumerator BrushMovingRoutine()
         {
@@ -116,55 +137,56 @@ namespace Core.GamePlay.Coloring
 
         void ApplyBrush(int centerX, int centerY)
         {
-            int brushRadius = Mathf.RoundToInt(_brushSize);
-
-            // Only update if the brush has moved significantly
-            if (_lastBrushPos == new Vector2Int(centerX, centerY))
+            // Check if the position has changed significantly
+            if (Mathf.Abs(centerX - _lastAppliedCenterX) <= _colorThreshold && Mathf.Abs(centerY - _colorThreshold) <= _bubbleThreshold)
             {
-                StopLoopEffect.InvokeSOEvent();
-                _effectCheck = false;
-                return;
+                return; // Skip applying the bubble if the position hasn't changed enough
             }
+            _lastAppliedCenterX = centerX;
+            _lastAppliedCenterY = centerY;
 
-            _lastBrushPos = new Vector2Int(centerX, centerY);
+            int brushWidth = Mathf.RoundToInt(_brushSize * 2);
+            int brushHeight = Mathf.RoundToInt(_brushSize * 2);
+            int compoundWidth = _partTexture.width;
+            int compoundHeight = _partTexture.height;
 
-            // Get all the pixels of the texture
-            Color32[] pixels = _partTexture.GetPixels32();
-            int textureWidth = _partTexture.width;
+            // Calculate bounds of the brush area on the compound texture
+            int startX = centerX - brushWidth / 2;
+            int startY = centerY - brushHeight / 2;
 
-            int radiusSquared = brushRadius * brushRadius;
-
-            for (int y = -brushRadius; y <= brushRadius; y++)
+            // Loop through the brush area
+            for (int y = 0; y < brushHeight; y++)
             {
-                for (int x = -brushRadius; x <= brushRadius; x++)
-                {
-                    int pixelX = centerX + x;
-                    int pixelY = centerY + y;
+                // Calculate the target Y index once per row
+                int targetY = startY + y;
 
-                    // Calculate squared distance to avoid using Mathf.Sqrt
-                    int distSquared = x * x + y * y;
-                    if (distSquared <= radiusSquared &&
-                        pixelX >= 0 && pixelX < _partTexture.width &&
-                        pixelY >= 0 && pixelY < _partTexture.height)
+                // Only process if the targetY is within the compound texture bounds
+                if (targetY >= 0 && targetY < compoundHeight)
+                {
+                    for (int x = 0; x < brushWidth; x++)
                     {
-                        // Calculate the pixel index in the array
-                        int pixelIndex = pixelY * textureWidth + pixelX;
-                        if (_coloredPixels.Contains(pixelIndex))
+                        int targetX = startX + x;
+
+                        // Only process if the targetX is within the compound texture bounds
+                        if (targetX >= 0 && targetX < compoundWidth)
                         {
-                            if (!_effectCheck)
+                            int brushIndex = y * brushWidth + x;
+                            int compoundIndex = targetY * compoundWidth + targetX;
+
+                            // Blend only if the brush pixel is within the circular area
+                            float distSquared = (x - brushWidth / 2) * (x - brushWidth / 2) + (y - brushHeight / 2) * (y - brushHeight / 2);
+                            if (distSquared <= _brushSize * _brushSize && _coloredPixels.Contains(compoundIndex))
                             {
-                                _effectCheck = true;
-                                LoopEffectEvent.InvokeSOEvent(0);
+                                _partPixles[compoundIndex] = CurrentColor.Value;
+                                _coloredPixels.Remove(compoundIndex); // Update colored pixels
                             }
-                            pixels[pixelIndex] = CurrentColor.Value;
-                            _coloredPixels.Remove(pixelIndex);
                         }
                     }
                 }
             }
 
             // Apply the updated pixels back to the texture
-            _partTexture.SetPixels32(pixels);
+            _partTexture.SetPixels32(_partPixles);
             _partTexture.Apply();
 
             float remainingPercentage = (_coloredPixels.Count / (float)_totalColorPixles) * 100;
@@ -177,13 +199,12 @@ namespace Core.GamePlay.Coloring
             }
         }
 
-
-
         void StartColoring()
         {
             TouchProtector.SetActive(true);
             _partTexture = ColoringPart[_paintingCounter].GetCurrenTexture();
             _coloredPixels = ColoringPart[_paintingCounter].GetColoredPixles();
+            _partPixles = _partTexture.GetPixels32();
             _totalColorPixles = _coloredPixels.Count;
             SoundEffectEvent.InvokeSOEvent(3);
             ColoringImage.DOAnchorPos(Vector2.zero, _preparationTime).OnComplete(() =>
@@ -227,6 +248,7 @@ namespace Core.GamePlay.Coloring
                 {
                     _partTexture = ColoringPart[_paintingCounter].GetCurrenTexture();
                     _coloredPixels = ColoringPart[_paintingCounter].GetColoredPixles();
+                    _partPixles = _partTexture.GetPixels32();
                     InfoText.text = InfoMsgs[0];
                     PaintBrush.SetActive(true);
                     InfoText.gameObject.SetActive(true);
