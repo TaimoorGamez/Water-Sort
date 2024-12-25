@@ -9,7 +9,8 @@ namespace Core.GamePlay.Coloring
         [SerializeField] RawImage ColoringPart;
 
         Texture2D _partTexture;
-        List<int> _coloredPixels = new List<int>();
+        int _totalColoredPixles = 0;
+        Color _whiteColor = Color.white;
 
         private void Start()
         {
@@ -24,8 +25,8 @@ namespace Core.GamePlay.Coloring
                 // If alpha > 0, make the pixel white, preserving alpha
                 if (originalPixels[i].a > alphaThreshold)
                 {
-                    originalPixels[i] = Color.white;
-                    _coloredPixels.Add(i);
+                    originalPixels[i] = _whiteColor;
+                    _totalColoredPixles++;
                 }
             }
 
@@ -40,9 +41,9 @@ namespace Core.GamePlay.Coloring
             return _partTexture;
         }
 
-        public List<int> GetColoredPixles()
+        public int GetColoredPixlesCount()
         {
-            return _coloredPixels;
+            return  _totalColoredPixles;
         }
     }
 }

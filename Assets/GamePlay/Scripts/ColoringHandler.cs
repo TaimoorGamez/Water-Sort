@@ -27,18 +27,20 @@ namespace Core.GamePlay.Coloring
         [SerializeField] ParticleSystem BubbleParticle, StarParticles, FlameParticles;
 
         float _speed = 5, _brushSize = 15, _preparationTime = 1, _finalPos = 100, _finalScale = 1.5f, _infoTextPos = 250f;
-        bool _canColor = false, _canSpray = false, _cloudsAplied = false, _effectCheck = false, _canShowNextBtn = true, _onceClicked = true, _detailsApplied = false, _canThrowFlame = false;
+        bool _canColor = false, _canSpray = false, _cloudsAplied = false, _effectCheck = false, _canShowNextBtn = true, _onceClicked = true,
+             _detailsApplied = false, _canThrowFlame = false;
         Coroutine _movingRoutine;
         RectTransform _coloringParTransform;
         Camera _currentCamera;
         Texture2D _partTexture;
-        int _paintingCounter = 0, _totalColorPixles = 0, _totalflamePixles = 0, _compoundTextureLength = 500, _lastAppliedCenterY = -1, _lastAppliedCenterX = -1, _totalBubbles = 25, _bubbleCounter = 0;
+        int _paintingCounter = 0, _totalColorPixles = 0, _totalflamePixles = 0, _compoundTextureLength = 500, _totalBubbles = 25, _bubbleCounter = 0,
+            _coloredPixlesCounter = 0;
         Vector2Int _lastBrushPos = new Vector2Int(-1, -1);
-        List<int> _coloredPixels = new List<int>();
         List<int> _flamePixels = new List<int>();
         Color32[] _cloudPixles, _compoundPixels, _partPixles; 
         const int _bubbleThreshold = 32, _colorThreshold = 5;
         List<Vector2Int> _brushCircle;
+        Color _whiteColor = Color.white;
 
         private void OnEnable()
         {
@@ -137,14 +139,6 @@ namespace Core.GamePlay.Coloring
 
         void ApplyBrush(int centerX, int centerY)
         {
-            // Check if the position has changed significantly
-            if (Mathf.Abs(centerX - _lastAppliedCenterX) <= _colorThreshold && Mathf.Abs(centerY - _colorThreshold) <= _bubbleThreshold)
-            {
-                return; // Skip applying the bubble if the position hasn't changed enough
-            }
-            _lastAppliedCenterX = centerX;
-            _lastAppliedCenterY = centerY;
-
             int brushWidth = Mathf.RoundToInt(_brushSize * 2);
             int brushHeight = Mathf.RoundToInt(_brushSize * 2);
             int compoundWidth = _partTexture.width;
@@ -175,10 +169,10 @@ namespace Core.GamePlay.Coloring
 
                             // Blend only if the brush pixel is within the circular area
                             float distSquared = (x - brushWidth / 2) * (x - brushWidth / 2) + (y - brushHeight / 2) * (y - brushHeight / 2);
-                            if (distSquared <= _brushSize * _brushSize && _coloredPixels.Contains(compoundIndex))
+                            if (distSquared <= _brushSize * _brushSize && _partPixles[compoundIndex] == _whiteColor)
                             {
                                 _partPixles[compoundIndex] = CurrentColor.Value;
-                                _coloredPixels.Remove(compoundIndex); // Update colored pixels
+                                _coloredPixlesCounter++;
                             }
                         }
                     }
@@ -189,8 +183,8 @@ namespace Core.GamePlay.Coloring
             _partTexture.SetPixels32(_partPixles);
             _partTexture.Apply();
 
-            float remainingPercentage = (_coloredPixels.Count / (float)_totalColorPixles) * 100;
-            if (remainingPercentage <= 5 && _canShowNextBtn)
+            float totalFilling = ((float)_coloredPixlesCounter / _totalColorPixles) * 100;
+            if (totalFilling >= 95 && _canShowNextBtn)
             {
                 _canShowNextBtn = false;
                 _onceClicked = false;
@@ -203,9 +197,8 @@ namespace Core.GamePlay.Coloring
         {
             TouchProtector.SetActive(true);
             _partTexture = ColoringPart[_paintingCounter].GetCurrenTexture();
-            _coloredPixels = ColoringPart[_paintingCounter].GetColoredPixles();
+            _totalColorPixles = ColoringPart[_paintingCounter].GetColoredPixlesCount();
             _partPixles = _partTexture.GetPixels32();
-            _totalColorPixles = _coloredPixels.Count;
             SoundEffectEvent.InvokeSOEvent(3);
             ColoringImage.DOAnchorPos(Vector2.zero, _preparationTime).OnComplete(() =>
             {
@@ -247,12 +240,11 @@ namespace Core.GamePlay.Coloring
                 if (_paintingCounter < ColoringPart.Length)
                 {
                     _partTexture = ColoringPart[_paintingCounter].GetCurrenTexture();
-                    _coloredPixels = ColoringPart[_paintingCounter].GetColoredPixles();
+                    _totalColorPixles = ColoringPart[_paintingCounter].GetColoredPixlesCount();
                     _partPixles = _partTexture.GetPixels32();
                     InfoText.text = InfoMsgs[0];
                     PaintBrush.SetActive(true);
                     InfoText.gameObject.SetActive(true);
-                    _totalColorPixles = _coloredPixels.Count;
                     RefferanceImg.sprite = RefferanceSprites[_paintingCounter];
                     TouchProtector.SetActive(false);
                     _canShowNextBtn = true;
@@ -306,24 +298,17 @@ namespace Core.GamePlay.Coloring
 
         void FillRemaingPixles()
         {
-            if (_coloredPixels.Count > 0)
+            if (_coloredPixlesCounter < _totalColorPixles)
             {
-                // Get all the pixels of the texture
-                Color32[] pixels = _partTexture.GetPixels32();
-
-                // Iterate through the remaining uncolored pixels
-                foreach (int pixelIndex in _coloredPixels)
+                for(int p = 0; p<_partPixles.Length; p++)
                 {
-                    // Set the pixel color to the current color
-                    pixels[pixelIndex] = CurrentColor.Value;
+                    if (_partPixles[p] == _whiteColor)
+                    {
+                        _partPixles[p] = CurrentColor.Value;
+                    }
                 }
-
-                // Apply the updated pixels back to the texture
-                _partTexture.SetPixels32(pixels);
+                _partTexture.SetPixels32(_partPixles);
                 _partTexture.Apply();
-
-                // Once all remaining pixels are filled, clear the list of colored pixels
-                _coloredPixels.Clear();
             }
         }
 
@@ -403,15 +388,15 @@ namespace Core.GamePlay.Coloring
         void ApplyClouds(int centerX, int centerY)
         {
             // Check if the position has changed significantly
-            if (Mathf.Abs(centerX - _lastAppliedCenterX) <= _bubbleThreshold && Mathf.Abs(centerY - _lastAppliedCenterY) <= _bubbleThreshold)
-            {
-                return; // Skip applying the bubble if the position hasn't changed enough
-            }
+            //if (Mathf.Abs(centerX - _lastAppliedCenterX) <= _bubbleThreshold && Mathf.Abs(centerY - _lastAppliedCenterY) <= _bubbleThreshold)
+            //{
+            //    return; // Skip applying the bubble if the position hasn't changed enough
+            //}
 
-            _bubbleCounter++;
-            // Save the new position as the last applied position
-            _lastAppliedCenterX = centerX;
-            _lastAppliedCenterY = centerY;
+            //_bubbleCounter++;
+            //// Save the new position as the last applied position
+            //_lastAppliedCenterX = centerX;
+            //_lastAppliedCenterY = centerY;
 
             int bubbleWidth = CloudTexture.width;
             int bubbleHeight = CloudTexture.height;
@@ -596,11 +581,11 @@ namespace Core.GamePlay.Coloring
                 Color32[] pixels = _partTexture.GetPixels32();
 
                 // Iterate through the remaining uncolored pixels
-                foreach (int pixelIndex in _coloredPixels)
-                {
-                    // Set the pixel color to the current color
-                    pixels[pixelIndex] = Color.clear;
-                }
+                //foreach (int pixelIndex in _coloredPixels)
+                //{
+                //    // Set the pixel color to the current color
+                //    pixels[pixelIndex] = Color.clear;
+                //}
 
                 // Apply the updated pixels back to the texture
                 _partTexture.SetPixels32(pixels);
