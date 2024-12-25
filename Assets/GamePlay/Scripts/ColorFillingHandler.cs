@@ -3,39 +3,30 @@ using UnityEngine;
 using DG.Tweening;
 using Core.Events;
 using Core.Variables;
-using UnityEngine.UI;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace Core.GamePlay.Coloring
 {
-    public class ColoringHandler : MonoBehaviour
+    public class ColorFillingHandler : MonoBehaviour
     {
-        [SerializeField] SOIntegerEvents LoopEffectEvent, SoundEffectEvent;
+        [SerializeField] SOIntegerEvents LoopEffectEvent;
         [SerializeField] SOEvents StartColoringEvent, ColorSelectedEvent, StopLoopEffect;
         [SerializeField] SOColor CurrentColor;
         [SerializeField] ColorFilling[] ColoringPart;
-        [SerializeField] RectTransform BrushTransform, ColoringImage, SprayCan, FlameThrower;
+        [SerializeField] RectTransform BrushTransform;
         [SerializeField] Vector2Int VerticalRange, HorizontalRange;
         [SerializeField] TextMeshProUGUI InfoText;
         [SerializeField] string[] InfoMsgs;
-        [SerializeField] GameObject PaintBrush, RefferanceBar, NextBtn, TouchProtector, DetailsImg;
-        [SerializeField] Image RefferanceImg, Details;
-        [SerializeField] RawImage CompoundImg;
-        [SerializeField] Sprite[] RefferanceSprites;
-        [SerializeField] Texture2D CloudTexture;
-        [SerializeField] ParticleSystem BubbleParticle, StarParticles, FlameParticles;
+        [SerializeField] GameObject PaintBrush, NextBtn, TouchProtector, DetailsImg;
 
-        float _speed = 5, _brushSize = 15, _preparationTime = 1, _finalPos = 100, _finalScale = 1.5f, _infoTextPos = 250f;
-        bool _canColor = false, _coloringSound = false, _canShowNextBtn = true, _onceClicked = true,
-             _detailsApplied = false, _canThrowFlame = false;
+        float _speed = 5, _brushSize = 15, _preparationTime = 1;
+        bool _canColor = false, _coloringSound = false, _canShowNextBtn = true, _onceClicked = true;
         Coroutine _movingRoutine;
         RectTransform _coloringParTransform;
         Camera _currentCamera;
         Texture2D _partTexture;
-        int _paintingCounter = 0, _totalColorPixles = 0, _coloredPixlesCounter = 0;
-        Color32[] _cloudPixles, _compoundPixels, _partPixles;
-        List<Vector2Int> _brushCircle;
+        int _paintingCounter = 0, _totalColorPixles = 1, _coloredPixlesCounter = 0;
+        Color32[] _partPixles;
         Color _whiteColor = Color.white;
 
         private void OnEnable()
@@ -60,7 +51,7 @@ namespace Core.GamePlay.Coloring
         {
             _currentCamera = Camera.main;
             _coloringParTransform = ColoringPart[_paintingCounter].transform as RectTransform;
-            _brushCircle = GenerateBrushCircle(Mathf.RoundToInt(_brushSize));
+            //_brushCircle = GenerateBrushCircle(Mathf.RoundToInt(_brushSize));
         }
 
         void StartColoring()
@@ -69,34 +60,31 @@ namespace Core.GamePlay.Coloring
             _partTexture = ColoringPart[_paintingCounter].GetCurrenTexture();
             _totalColorPixles = ColoringPart[_paintingCounter].GetColoredPixlesCount();
             _partPixles = _partTexture.GetPixels32();
-            SoundEffectEvent.InvokeSOEvent(3);
-            ColoringImage.DOAnchorPos(Vector2.zero, _preparationTime).OnComplete(() =>
+            PaintBrush.SetActive(true);
+            PaintBrush.transform.DOMoveX(0, _preparationTime).SetEase(Ease.InBack).OnComplete(() =>
             {
-                RefferanceImg.sprite = RefferanceSprites[_paintingCounter];
-                PaintBrush.SetActive(true);
                 InfoText.gameObject.SetActive(true);
-                RefferanceBar.SetActive(true);
             });
         }
 
-        List<Vector2Int> GenerateBrushCircle(int radius)
-        {
-            List<Vector2Int> circlePixels = new List<Vector2Int>();
-            int radiusSquared = radius * radius;
+        //List<Vector2Int> GenerateBrushCircle(int radius)
+        //{
+        //    List<Vector2Int> circlePixels = new List<Vector2Int>();
+        //    int radiusSquared = radius * radius;
 
-            for (int y = -radius; y <= radius; y++)
-            {
-                for (int x = -radius; x <= radius; x++)
-                {
-                    if (x * x + y * y <= radiusSquared)
-                    {
-                        circlePixels.Add(new Vector2Int(x, y));
-                    }
-                }
-            }
+        //    for (int y = -radius; y <= radius; y++)
+        //    {
+        //        for (int x = -radius; x <= radius; x++)
+        //        {
+        //            if (x * x + y * y <= radiusSquared)
+        //            {
+        //                circlePixels.Add(new Vector2Int(x, y));
+        //            }
+        //        }
+        //    }
 
-            return circlePixels;
-        }
+        //    return circlePixels;
+        //}
 
         void ColorSelected()
         {
@@ -261,7 +249,6 @@ namespace Core.GamePlay.Coloring
                     InfoText.text = InfoMsgs[0];
                     PaintBrush.SetActive(true);
                     InfoText.gameObject.SetActive(true);
-                    RefferanceImg.sprite = RefferanceSprites[_paintingCounter];
                     TouchProtector.SetActive(false);
                     _canShowNextBtn = true;
                 }

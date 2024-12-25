@@ -96,7 +96,7 @@ Material:
     m_Floats:
     - _AlphaClip: 0
     - _AlphaValue: -14.31
-    - _BackFace: 7.5
+    - _BackFace: 8
     - _Blend: 0
     - _BlendAmount: 0.5
     - _BlendOp: 0
@@ -153,7 +153,7 @@ Material:
     - _RotationSpeed: 1
     - _SampleGI: 0
     - _Shininess: 1
-    - _Smoothness: 1
+    - _Smoothness: 0
     - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
     - _SpecSource: 0
@@ -193,7 +193,7 @@ Material:
     - _Color4: {r: 1, g: 0, b: 0, a: 1}
     - _Colors: {r: 1, g: 0, b: 0, a: 1}
     - _EdgeColor: {r: 0, g: 0, b: 0, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0.09433961, g: 0.09433961, b: 0.09433961, a: 0}
     - _FillColor: {r: 1, g: 0, b: 0, a: 1}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 0}
     - _GlassColor: {r: 1, g: 0, b: 0, a: 1}
