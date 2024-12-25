@@ -427,7 +427,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8155223144186759539}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Core.GamePlay.Coloring.ColoringHandler, Assembly-CSharp
         m_MethodName: OnNextBtnClick
         m_Mode: 1
@@ -940,6 +940,7 @@ GameObject:
   - component: {fileID: 2854724308977182875}
   - component: {fileID: 3847529421024614023}
   - component: {fileID: 4928604096513955447}
+  - component: {fileID: 3879729677403443680}
   m_Layer: 5
   m_Name: CompoundImage
   m_TagString: Untagged
@@ -1002,6 +1003,45 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &3879729677403443680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7818574426039290261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84f67f698e734844895b2cf8edd783f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LoopEffectEvent: {fileID: 0}
+  SoundEffectEvent: {fileID: 0}
+  StartColoringEvent: {fileID: 0}
+  ColorSelectedEvent: {fileID: 0}
+  StopLoopEffect: {fileID: 0}
+  CurrentColor: {fileID: 0}
+  ColoringPart: []
+  BrushTransform: {fileID: 0}
+  ColoringImage: {fileID: 0}
+  SprayCan: {fileID: 0}
+  FlameThrower: {fileID: 0}
+  VerticalRange: {x: 0, y: 0}
+  HorizontalRange: {x: 0, y: 0}
+  InfoText: {fileID: 0}
+  InfoMsgs: []
+  PaintBrush: {fileID: 0}
+  RefferanceBar: {fileID: 0}
+  NextBtn: {fileID: 0}
+  TouchProtector: {fileID: 0}
+  RefferanceImg: {fileID: 0}
+  Details: {fileID: 0}
+  CompoundImg: {fileID: 0}
+  RefferanceSprites: []
+  CloudTexture: {fileID: 0}
+  BubbleParticle: {fileID: 0}
+  StarParticles: {fileID: 0}
+  FlameParticles: {fileID: 0}
 --- !u!1 &7955135140298708148
 GameObject:
   m_ObjectHideFlags: 0
@@ -1146,6 +1186,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8155223143100574219}
+  - component: {fileID: 1898423574410225127}
   m_Layer: 5
   m_Name: ColoringParts
   m_TagString: Untagged
@@ -1176,6 +1217,55 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 310}
   m_SizeDelta: {x: 750, y: 750}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1898423574410225127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8155223143100574216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e436ff83a49b96549bd523d1a4202c95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LoopEffectEvent: {fileID: 11400000, guid: 093c4e46c9b68704ebb3fe930639824c, type: 2}
+  SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
+  StartColoringEvent: {fileID: 11400000, guid: ed751afbb0214de499cef1891112c6d6, type: 2}
+  ColorSelectedEvent: {fileID: 11400000, guid: fe2489cc2d4d5e14f9d85776a00266f3, type: 2}
+  StopLoopEffect: {fileID: 11400000, guid: 6a567254c34b10d44a3c2af54a037e1d, type: 2}
+  CurrentColor: {fileID: 11400000, guid: 2fed6872c6a33cb40accd289f78eb6eb, type: 2}
+  ColoringPart:
+  - {fileID: 8155223144613782485}
+  BrushTransform: {fileID: 8155223144596094439}
+  ColoringImage: {fileID: 8155223143100574219}
+  SprayCan: {fileID: 7163878793657576286}
+  FlameThrower: {fileID: 1117509954389739820}
+  VerticalRange: {x: -250, y: 250}
+  HorizontalRange: {x: -250, y: 250}
+  InfoText: {fileID: 5488820434572149033}
+  InfoMsgs:
+  - Select a color to start Filling!
+  - Move Brush To Fill Color!
+  - Move Bottle To Sapry Compound D!
+  - Move Flamethrower To Apply Details!
+  PaintBrush: {fileID: 8155223144596094436}
+  RefferanceBar: {fileID: 6037853892773467470}
+  NextBtn: {fileID: 5101064069828714289}
+  TouchProtector: {fileID: 2980247516992575011}
+  DetailsImg: {fileID: 7818574426039290261}
+  RefferanceImg: {fileID: 7404313961772946159}
+  Details: {fileID: 7901100041250102920}
+  CompoundImg: {fileID: 4928604096513955447}
+  RefferanceSprites:
+  - {fileID: 21300000, guid: 5de9797cefe14434f8d7ab8b770544bd, type: 3}
+  CloudTexture: {fileID: 2800000, guid: 992681ded4241e548a44b7aa05485a05, type: 3}
+  BubbleParticle: {fileID: 4240301359178295778}
+  StarParticles: {fileID: 4724836284733389828}
+  FlameParticles: {fileID: 1718342908688303161}
+  screenshotCamera: {fileID: 0}
+  renderTexture: {fileID: 0}
+  displayImage: {fileID: 0}
 --- !u!1 &8155223143177507433
 GameObject:
   m_ObjectHideFlags: 0
@@ -1337,7 +1427,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8155223144186759536}
-  - component: {fileID: 8155223144186759539}
   m_Layer: 5
   m_Name: Base Level
   m_TagString: Untagged
@@ -1374,56 +1463,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8155223144186759539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8155223144186759537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e436ff83a49b96549bd523d1a4202c95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LoopEffectEvent: {fileID: 11400000, guid: 093c4e46c9b68704ebb3fe930639824c, type: 2}
-  SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
-  ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
-  StartColoringEvent: {fileID: 11400000, guid: ed751afbb0214de499cef1891112c6d6, type: 2}
-  ColorSelectedEvent: {fileID: 11400000, guid: fe2489cc2d4d5e14f9d85776a00266f3, type: 2}
-  StopLoopEffect: {fileID: 11400000, guid: 6a567254c34b10d44a3c2af54a037e1d, type: 2}
-  CompleteStateIndex: {fileID: 11400000, guid: 372a4013c41549545822b875f34f8aa3, type: 2}
-  CurrentColor: {fileID: 11400000, guid: 2fed6872c6a33cb40accd289f78eb6eb, type: 2}
-  ColoringPart:
-  - {fileID: 8155223144613782485}
-  BrushTransform: {fileID: 8155223144596094439}
-  ColoringImage: {fileID: 8155223143100574219}
-  SprayCan: {fileID: 7163878793657576286}
-  FlameThrower: {fileID: 1117509954389739820}
-  VerticalRange: {x: -250, y: 250}
-  HorizontalRange: {x: -250, y: 250}
-  InfoText: {fileID: 5488820434572149033}
-  InfoMsgs:
-  - Select a color to start Filling!
-  - Move Brush To Fill Color!
-  - Move Bottle To Sapry Compound D!
-  - Move Flamethrower To Apply Details!
-  PaintBrush: {fileID: 8155223144596094436}
-  RefferanceBar: {fileID: 6037853892773467470}
-  NextBtn: {fileID: 5101064069828714289}
-  TouchProtector: {fileID: 2980247516992575011}
-  RefferanceImg: {fileID: 7404313961772946159}
-  Details: {fileID: 7901100041250102920}
-  CompoundImg: {fileID: 4928604096513955447}
-  RefferanceSprites:
-  - {fileID: 21300000, guid: 5de9797cefe14434f8d7ab8b770544bd, type: 3}
-  CloudTexture: {fileID: 2800000, guid: 992681ded4241e548a44b7aa05485a05, type: 3}
-  BubbleParticle: {fileID: 4240301359178295778}
-  StarParticles: {fileID: 4724836284733389828}
-  FlameParticles: {fileID: 1718342908688303161}
-  screenshotCamera: {fileID: 0}
-  renderTexture: {fileID: 0}
-  displayImage: {fileID: 0}
 --- !u!1 &8155223144596094436
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Music
   m_EditorClassIdentifier: 
   CurrentValue: 0
-  DefaultValue: 1
+  DefaultValue: 0
   ResetDefault: 1
   PrefName: Music
