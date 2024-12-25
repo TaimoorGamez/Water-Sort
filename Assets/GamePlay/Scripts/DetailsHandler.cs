@@ -2,55 +2,39 @@ using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using Core.Events;
-using Core.Variables;
 using UnityEngine.UI;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace Core.GamePlay.Coloring
 {
     public class DetailsHandler : MonoBehaviour
     {
         [SerializeField] SOIntegerEvents LoopEffectEvent, SoundEffectEvent;
-        [SerializeField] SOEvents StartColoringEvent, ColorSelectedEvent, StopLoopEffect;
-        [SerializeField] SOColor CurrentColor;
-        [SerializeField] ColorFilling[] ColoringPart;
-        [SerializeField] RectTransform BrushTransform, ColoringImage, SprayCan, FlameThrower;
+        [SerializeField] SOEvents StopLoopEffect;
+        [SerializeField] RectTransform SprayCan, FlameThrower;
         [SerializeField] Vector2Int VerticalRange, HorizontalRange;
         [SerializeField] TextMeshProUGUI InfoText;
         [SerializeField] string[] InfoMsgs;
-        [SerializeField] GameObject PaintBrush, RefferanceBar, NextBtn, TouchProtector;
-        [SerializeField] Image RefferanceImg, Details;
+        [SerializeField] GameObject NextBtn, TouchProtector;
+        [SerializeField] Image Details;
         [SerializeField] RawImage CompoundImg;
-        [SerializeField] Sprite[] RefferanceSprites;
         [SerializeField] Texture2D CloudTexture;
-        [SerializeField] ParticleSystem BubbleParticle, StarParticles, FlameParticles;
+        [SerializeField] ParticleSystem BubbleParticle, FlameParticles;
 
-        float _speed = 5, _brushSize = 15, _preparationTime = 1, _finalPos = 100, _finalScale = 1.5f, _infoTextPos = 250f;
-        bool _canColor = false, _canSpray = false, _cloudsAplied = false, _effectCheck = false, _canShowNextBtn = true, _onceClicked = true,
-             _detailsApplied = false, _canThrowFlame = false;
+        float _speed = 5, _brushSize = 25, _preparationTime = 1;
+        bool _canSpray = false, _effectCheck = false, _canShowNextBtn = true, _onceClicked = true, _detailsApplied = false, _canThrowFlame = false;
         Coroutine _movingRoutine;
-        RectTransform _coloringParTransform;
         Camera _currentCamera;
         Texture2D _partTexture;
-        int _paintingCounter = 0, _totalColorPixles = 0, _totalflamePixles = 0, _compoundTextureLength = 500, _totalBubbles = 25, _bubbleCounter = 0,
-            _coloredPixlesCounter = 0;
-        Vector2Int _lastBrushPos = new Vector2Int(-1, -1);
-        List<int> _flamePixels = new List<int>();
-        Color32[] _cloudPixles, _compoundPixels, _partPixles;
-        const int _bubbleThreshold = 32, _colorThreshold = 5;
-        List<Vector2Int> _brushCircle;
-        Color _whiteColor = Color.white;
-
-        private void OnEnable()
-        {
-            StartColoringEvent.EventHandler += StartColoring;
-        }
+        int _totalColorPixles = 1, _flamePixlesCounter = 0, _compoundTextureLength = 500, _totalBubbles = 25, _bubbleCounter = 0, _lastAppliedCenterX = -1, _lastAppliedCenterY = -1;
+        Color32[] _cloudPixles, _compoundPixels;
+        const int _bubbleThreshold = 32;
+        Color32 _fillColor = new Color32(0, 0, 0, 0); // Red color for example
 
         private void OnDisable()
         {
-            StartColoringEvent.EventHandler -= StartColoring;
-            _canColor = false;
+            _canSpray = false;
+            _canThrowFlame = false;
             if (_movingRoutine != null)
             {
                 StopCoroutine(_movingRoutine);
@@ -61,43 +45,7 @@ namespace Core.GamePlay.Coloring
         private void Start()
         {
             _currentCamera = Camera.main;
-            _coloringParTransform = ColoringPart[_paintingCounter].transform as RectTransform;
-            _brushCircle = GenerateBrushCircle(Mathf.RoundToInt(_brushSize));
-        }
-
-        void StartColoring()
-        {
-            TouchProtector.SetActive(true);
-            _partTexture = ColoringPart[_paintingCounter].GetCurrenTexture();
-            _totalColorPixles = ColoringPart[_paintingCounter].GetColoredPixlesCount();
-            _partPixles = _partTexture.GetPixels32();
-            SoundEffectEvent.InvokeSOEvent(3);
-            ColoringImage.DOAnchorPos(Vector2.zero, _preparationTime).OnComplete(() =>
-            {
-                RefferanceImg.sprite = RefferanceSprites[_paintingCounter];
-                PaintBrush.SetActive(true);
-                InfoText.gameObject.SetActive(true);
-                RefferanceBar.SetActive(true);
-            });
-        }
-
-        List<Vector2Int> GenerateBrushCircle(int radius)
-        {
-            List<Vector2Int> circlePixels = new List<Vector2Int>();
-            int radiusSquared = radius * radius;
-
-            for (int y = -radius; y <= radius; y++)
-            {
-                for (int x = -radius; x <= radius; x++)
-                {
-                    if (x * x + y * y <= radiusSquared)
-                    {
-                        circlePixels.Add(new Vector2Int(x, y));
-                    }
-                }
-            }
-
-            return circlePixels;
+            PrepareCompounD();
         }
 
         public void OnNextBtnClick()
@@ -105,9 +53,7 @@ namespace Core.GamePlay.Coloring
             if (!_onceClicked)
             {
                 _onceClicked = true;
-                _canColor = false;
                 TouchProtector.SetActive(true);
-                PaintBrush.SetActive(false);
                 if (_movingRoutine != null)
                 {
                     StopCoroutine(_movingRoutine);
@@ -116,61 +62,28 @@ namespace Core.GamePlay.Coloring
                 InfoText.gameObject.SetActive(false);
                 NextBtn.SetActive(false);
 
-                if (_paintingCounter < ColoringPart.Length)
-                {
-                    _partTexture = ColoringPart[_paintingCounter].GetCurrenTexture();
-                    _totalColorPixles = ColoringPart[_paintingCounter].GetColoredPixlesCount();
-                    _partPixles = _partTexture.GetPixels32();
-                    InfoText.text = InfoMsgs[0];
-                    PaintBrush.SetActive(true);
-                    InfoText.gameObject.SetActive(true);
-                    RefferanceImg.sprite = RefferanceSprites[_paintingCounter];
-                    TouchProtector.SetActive(false);
-                    _canShowNextBtn = true;
-                }
-                else if (_paintingCounter >= ColoringPart.Length && !_cloudsAplied)
-                {
-                    PrepareCompounD();
-                    InfoText.text = InfoMsgs[2];
-                    InfoText.gameObject.SetActive(true);
-                    InfoText.rectTransform.DOAnchorPosY(_infoTextPos, _preparationTime).OnComplete(() =>
-                    {
-                        SprayCan.gameObject.SetActive(true);
-                        _canSpray = true;
-                        _movingRoutine = StartCoroutine(SprayMovingRoutine());
-                        TouchProtector.SetActive(false);
-                        _canShowNextBtn = true;
-                    });
-                }
-                else if (!_detailsApplied && _cloudsAplied)
+                if (!_detailsApplied)
                 {
                     _canSpray = false;
-                    PrepareFlames();
                     SprayCan.gameObject.SetActive(false);
-                    FlameThrower.gameObject.SetActive(true);
-                    InfoText.text = InfoMsgs[3];
-                    InfoText.gameObject.SetActive(true);
-                    _canThrowFlame = true;
-                    _movingRoutine = StartCoroutine(FlamesThrowingRoutine());
-                    TouchProtector.SetActive(false);
-                    _canShowNextBtn = true;
                     Details.gameObject.SetActive(true);
                     Details.DOFillAmount(1, _preparationTime);
+                    PrepareFlames();
                 }
                 else if (_detailsApplied)
                 {
                     _canThrowFlame = false;
                     FlameThrower.gameObject.SetActive(false);
                     HideRemaingPixles();
-                    CompoundImg.rectTransform.DOScale(Vector3.zero, _preparationTime).SetEase(Ease.InBack).OnComplete(() =>
-                    {
-                        ColoringImage.DOScale(_finalScale, _preparationTime);
-                        ColoringImage.DOAnchorPosY(_finalPos, _preparationTime).OnComplete(() =>
-                        {
-                            StarParticles.Play();
-                            //ChangeStateEvent.InvokeSOEvent(CompleteStateIndex.Value);
-                        });
-                    });
+                    //CompoundImg.rectTransform.DOScale(Vector3.zero, _preparationTime).SetEase(Ease.InBack).OnComplete(() =>
+                    //{
+                    //    ColoringImage.DOScale(_finalScale, _preparationTime);
+                    //    ColoringImage.DOAnchorPosY(_finalPos, _preparationTime).OnComplete(() =>
+                    //    {
+                    //        StarParticles.Play();
+                    //        //ChangeStateEvent.InvokeSOEvent(CompleteStateIndex.Value);
+                    //    });
+                    //});
                 }
             }
         }
@@ -180,20 +93,22 @@ namespace Core.GamePlay.Coloring
             _partTexture = new Texture2D(_compoundTextureLength, _compoundTextureLength, TextureFormat.RGBA32, false);
             _compoundPixels = _partTexture.GetPixels32();
 
-            // Example: Set all pixels to a light color (you can customize this as needed)
-            Color32 fillColor = new Color32(0, 0, 0, 0); // Red color for example
-
             // Apply the color to all pixels
             for (int i = 0; i < _compoundPixels.Length; i++)
             {
-                _compoundPixels[i] = fillColor;
+                _compoundPixels[i] = _fillColor;
+                _totalColorPixles++;
+
             }
             // Apply the updated pixels to the texture
             _partTexture.SetPixels32(_compoundPixels);
             _partTexture.Apply();
             CompoundImg.texture = _partTexture;
-            CompoundImg.gameObject.SetActive(true);
             _cloudPixles = CloudTexture.GetPixels32();
+            SprayCan.gameObject.SetActive(true);
+            _canSpray = true;
+            _movingRoutine = StartCoroutine(SprayMovingRoutine());
+            InfoText.text = InfoMsgs[0];
         }
 
         IEnumerator SprayMovingRoutine()
@@ -210,7 +125,12 @@ namespace Core.GamePlay.Coloring
                         coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 initialPoint);
                     initialOffset = SprayCan.anchoredPosition - initialPoint;
                     InfoText.gameObject.SetActive(false);
-                    BubbleParticle.Play();
+                    if (!_effectCheck)
+                    {
+                        _effectCheck = true;
+                        LoopEffectEvent.InvokeSOEvent(1);
+                        BubbleParticle.Play();
+                    }
                 }
 
                 if (Input.GetMouseButton(0))
@@ -241,6 +161,8 @@ namespace Core.GamePlay.Coloring
                 {
                     initialOffset = Vector2.zero;
                     BubbleParticle.Stop();
+                    StopLoopEffect.InvokeSOEvent();
+                    _effectCheck = false;
                     if (_canShowNextBtn)
                         InfoText.gameObject.SetActive(true);
                 }
@@ -251,15 +173,16 @@ namespace Core.GamePlay.Coloring
         void ApplyClouds(int centerX, int centerY)
         {
             // Check if the position has changed significantly
-            //if (Mathf.Abs(centerX - _lastAppliedCenterX) <= _bubbleThreshold && Mathf.Abs(centerY - _lastAppliedCenterY) <= _bubbleThreshold)
-            //{
-            //    return; // Skip applying the bubble if the position hasn't changed enough
-            //}
+            if (Mathf.Abs(centerX - _lastAppliedCenterX) <= _bubbleThreshold && Mathf.Abs(centerY - _lastAppliedCenterY) <= _bubbleThreshold)
+            {
+                return; // Skip applying the bubble if the position hasn't changed enough
+            }
 
-            //_bubbleCounter++;
-            //// Save the new position as the last applied position
-            //_lastAppliedCenterX = centerX;
-            //_lastAppliedCenterY = centerY;
+            _bubbleCounter++;
+            SoundEffectEvent.InvokeSOEvent(5);
+            // Save the new position as the last applied position
+            _lastAppliedCenterX = centerX;
+            _lastAppliedCenterY = centerY;
 
             int bubbleWidth = CloudTexture.width;
             int bubbleHeight = CloudTexture.height;
@@ -306,20 +229,27 @@ namespace Core.GamePlay.Coloring
             {
                 _canShowNextBtn = false;
                 _onceClicked = false;
-                _cloudsAplied = true;
                 NextBtn.SetActive(true);
             }
         }
 
         void PrepareFlames()
         {
+            _totalColorPixles = 0;
             // Apply the color to all pixels
             for (int i = 0; i < _compoundPixels.Length; i++)
             {
-                if (_compoundPixels[i].a > 0.5f)
-                    _flamePixels.Add(i);
+                if (_compoundPixels[i].a > 0)
+                _totalColorPixles++;
+
             }
-            _totalflamePixles = _flamePixels.Count;
+            FlameThrower.gameObject.SetActive(true);
+            InfoText.text = InfoMsgs[1];
+            InfoText.gameObject.SetActive(true);
+            TouchProtector.SetActive(false);
+            _canShowNextBtn = true;
+            _canThrowFlame = true;
+            _movingRoutine = StartCoroutine(FlamesThrowingRoutine());
         }
 
         IEnumerator FlamesThrowingRoutine()
@@ -336,7 +266,12 @@ namespace Core.GamePlay.Coloring
                         coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 initialPoint);
                     initialOffset = SprayCan.anchoredPosition - initialPoint;
                     InfoText.gameObject.SetActive(false);
-                    FlameParticles.Play();
+                    if (!_effectCheck)
+                    {
+                        _effectCheck = true;
+                        LoopEffectEvent.InvokeSOEvent(2);
+                        FlameParticles.Play();
+                    }
                 }
 
                 if (Input.GetMouseButton(0))
@@ -367,6 +302,8 @@ namespace Core.GamePlay.Coloring
                 {
                     initialOffset = Vector2.zero;
                     FlameParticles.Stop();
+                    StopLoopEffect.InvokeSOEvent();
+                    _effectCheck = false;
                     if (_canShowNextBtn)
                         InfoText.gameObject.SetActive(true);
                 }
@@ -376,59 +313,49 @@ namespace Core.GamePlay.Coloring
 
         void ApplyMask(int centerX, int centerY)
         {
-            int brushRadius = Mathf.RoundToInt(_brushSize);
+            int brushWidth = Mathf.RoundToInt(_brushSize * 2);
+            int brushHeight = Mathf.RoundToInt(_brushSize * 2);
+            int compoundWidth = _partTexture.width;
+            int compoundHeight = _partTexture.height;
 
-            // Only update if the brush has moved significantly
-            if (_lastBrushPos == new Vector2Int(centerX, centerY))
+            // Calculate bounds of the brush area on the compound texture
+            int startX = centerX - brushWidth / 2;
+            int startY = centerY - brushHeight / 2;
+
+            // Loop through the brush area
+            for (int y = 0; y < brushHeight; y++)
             {
-                StopLoopEffect.InvokeSOEvent();
-                _effectCheck = false;
-                return;
-            }
+                // Calculate the target Y index once per row
+                int targetY = startY + y;
 
-            _lastBrushPos = new Vector2Int(centerX, centerY);
-
-            // Get all the pixels of the texture
-            Color32[] pixels = _partTexture.GetPixels32();
-            int textureWidth = _partTexture.width;
-
-            int radiusSquared = brushRadius * brushRadius;
-
-            for (int y = -brushRadius; y <= brushRadius; y++)
-            {
-                for (int x = -brushRadius; x <= brushRadius; x++)
+                // Only process if the targetY is within the compound texture bounds
+                if (targetY >= 0 && targetY < compoundHeight)
                 {
-                    int pixelX = centerX + x;
-                    int pixelY = centerY + y;
-
-                    // Calculate squared distance to avoid using Mathf.Sqrt
-                    int distSquared = x * x + y * y;
-                    if (distSquared <= radiusSquared &&
-                        pixelX >= 0 && pixelX < _partTexture.width &&
-                        pixelY >= 0 && pixelY < _partTexture.height)
+                    for (int x = 0; x < brushWidth; x++)
                     {
-                        // Calculate the pixel index in the array
-                        int pixelIndex = pixelY * textureWidth + pixelX;
-                        if (_flamePixels.Contains(pixelIndex))
+                        int targetX = startX + x;
+
+                        // Only process if the targetX is within the compound texture bounds
+                        if (targetX >= 0 && targetX < compoundWidth)
                         {
-                            if (!_effectCheck)
+                            int brushIndex = y * brushWidth + x;
+                            int compoundIndex = targetY * compoundWidth + targetX;
+
+                            // Blend only if the brush pixel is within the circular area
+                            float distSquared = (x - brushWidth / 2) * (x - brushWidth / 2) + (y - brushHeight / 2) * (y - brushHeight / 2);
+                            if (distSquared <= _brushSize * _brushSize && _compoundPixels[compoundIndex].a > 0)
                             {
-                                _effectCheck = true;
-                                LoopEffectEvent.InvokeSOEvent(0);
+                                _flamePixlesCounter++;
+                                _compoundPixels[compoundIndex] = _fillColor;
                             }
-                            pixels[pixelIndex] = Color.clear;
-                            _flamePixels.Remove(pixelIndex);
                         }
                     }
                 }
             }
-
-            // Apply the updated pixels back to the texture
-            _partTexture.SetPixels32(pixels);
+            _partTexture.SetPixels32(_compoundPixels);
             _partTexture.Apply();
-
-            float remainingPercentage = (_flamePixels.Count / (float)_totalflamePixles) * 100;
-            if (remainingPercentage <= 35 && _canShowNextBtn)
+            float totalFilling = ((float)_flamePixlesCounter / _totalColorPixles) * 100;
+            if (totalFilling >= 50 && _canShowNextBtn)
             {
                 _canShowNextBtn = false;
                 _onceClicked = false;
@@ -438,26 +365,18 @@ namespace Core.GamePlay.Coloring
         }
         void HideRemaingPixles()
         {
-            if (_flamePixels.Count > 0)
+            if (_flamePixlesCounter < _totalColorPixles)
             {
-                // Get all the pixels of the texture
-                Color32[] pixels = _partTexture.GetPixels32();
-
-                // Iterate through the remaining uncolored pixels
-                //foreach (int pixelIndex in _coloredPixels)
-                //{
-                //    // Set the pixel color to the current color
-                //    pixels[pixelIndex] = Color.clear;
-                //}
-
-                // Apply the updated pixels back to the texture
-                _partTexture.SetPixels32(pixels);
+                for (int p = 0; p < _compoundPixels.Length; p++)
+                {
+                    if (_compoundPixels[p].a > 0)
+                    {
+                        _compoundPixels[p] = _fillColor;
+                    }
+                }
+                _partTexture.SetPixels32(_compoundPixels);
                 _partTexture.Apply();
-
-                // Once all remaining pixels are filled, clear the list of colored pixels
-                _flamePixels.Clear();
             }
         }
-
     }
 }

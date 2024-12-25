@@ -825,8 +825,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7b28915f076b89747a6371430ffe1729, type: 3}
   - {fileID: 8300000, guid: e6a8402a69420f14ab12b63444f4ce27, type: 3}
   - {fileID: 8300000, guid: cc66b65286881a047b83c7c88b75791f, type: 3}
+  - {fileID: 8300000, guid: eeba6926b64ea8a409d1c0927ca8736a, type: 3}
   LoopClips:
   - {fileID: 8300000, guid: a6582f934a452a24d81587b976b46ab5, type: 3}
+  - {fileID: 8300000, guid: d938bcfbd6727424481a8a49c526128c, type: 3}
+  - {fileID: 8300000, guid: f392c3ccfa424c2499b2c4654e4a98f2, type: 3}
 --- !u!81 &727782122
 AudioListener:
   m_ObjectHideFlags: 0

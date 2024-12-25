@@ -51,7 +51,6 @@ namespace Core.GamePlay.Coloring
         {
             _currentCamera = Camera.main;
             _coloringParTransform = ColoringPart[_paintingCounter].transform as RectTransform;
-            //_brushCircle = GenerateBrushCircle(Mathf.RoundToInt(_brushSize));
         }
 
         void StartColoring()
@@ -66,25 +65,6 @@ namespace Core.GamePlay.Coloring
                 InfoText.gameObject.SetActive(true);
             });
         }
-
-        //List<Vector2Int> GenerateBrushCircle(int radius)
-        //{
-        //    List<Vector2Int> circlePixels = new List<Vector2Int>();
-        //    int radiusSquared = radius * radius;
-
-        //    for (int y = -radius; y <= radius; y++)
-        //    {
-        //        for (int x = -radius; x <= radius; x++)
-        //        {
-        //            if (x * x + y * y <= radiusSquared)
-        //            {
-        //                circlePixels.Add(new Vector2Int(x, y));
-        //            }
-        //        }
-        //    }
-
-        //    return circlePixels;
-        //}
 
         void ColorSelected()
         {
@@ -108,6 +88,11 @@ namespace Core.GamePlay.Coloring
                         _coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 initialPoint);
                     initialOffset = BrushTransform.anchoredPosition - initialPoint;
                     InfoText.gameObject.SetActive(false);
+                    if (!_coloringSound)
+                    {
+                        _coloringSound = true;
+                        LoopEffectEvent.InvokeSOEvent(0);
+                    }
                 }
 
                 if (Input.GetMouseButton(0))
@@ -184,11 +169,6 @@ namespace Core.GamePlay.Coloring
                             {
                                 _partPixles[compoundIndex] = CurrentColor.Value;
                                 _coloredPixlesCounter++;
-                                if (!_coloringSound)
-                                {
-                                    _coloringSound = true;
-                                    LoopEffectEvent.InvokeSOEvent(0);
-                                }
                             }
                         }
                     }
