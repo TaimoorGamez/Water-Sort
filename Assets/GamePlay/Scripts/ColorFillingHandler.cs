@@ -238,37 +238,5 @@ namespace Core.GamePlay.Coloring
                 }
             }
         }
-
-        //-----------------------------------------
-        //public Camera screenshotCamera; // Assign your screenshot camera here
-        //public RenderTexture renderTexture; // Assign your RenderTexture here
-        //public RawImage displayImage; // Assign the RawImage in your complete panel
-
-        //public void CaptureColoredArea()
-        //{
-        //    // Set the camera to render the colored area
-        //    screenshotCamera.targetTexture = renderTexture;
-        //    screenshotCamera.Render();
-
-        //    // Create a new Texture2D
-        //    Texture2D screenshot = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
-
-        //    // Read the pixels from the RenderTexture
-        //    RenderTexture.active = renderTexture;
-        //    screenshot.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
-        //    screenshot.Apply();
-
-        //    // Reset the RenderTexture
-        //    RenderTexture.active = null;
-        //    screenshotCamera.targetTexture = null;
-
-        //    // Display the screenshot in the complete panel
-        //    displayImage.texture = screenshot;
-
-        //    // Optional: Save the screenshot as a PNG
-        //    byte[] bytes = screenshot.EncodeToPNG();
-        //    System.IO.File.WriteAllBytes(Application.persistentDataPath + "/ColoredArea.png", bytes);
-        //    Debug.Log("Screenshot saved to: " + Application.persistentDataPath + "/ColoredArea.png");
-        //}
     }
 }

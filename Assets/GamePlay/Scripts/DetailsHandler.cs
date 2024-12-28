@@ -15,7 +15,7 @@ namespace Core.GamePlay.Coloring
         [SerializeField] Vector2Int VerticalRange, HorizontalRange;
         [SerializeField] TextMeshProUGUI InfoText;
         [SerializeField] string[] InfoMsgs;
-        [SerializeField] GameObject NextBtn, TouchProtector;
+        [SerializeField] GameObject NextBtn, TouchProtector, ScreenSaver;
         [SerializeField] Image Details;
         [SerializeField] RawImage CompoundImg;
         [SerializeField] Texture2D CloudTexture;
@@ -54,6 +54,7 @@ namespace Core.GamePlay.Coloring
             {
                 _onceClicked = true;
                 TouchProtector.SetActive(true);
+                StopLoopEffect.InvokeSOEvent();
                 if (_movingRoutine != null)
                 {
                     StopCoroutine(_movingRoutine);
@@ -67,23 +68,15 @@ namespace Core.GamePlay.Coloring
                     _canSpray = false;
                     SprayCan.gameObject.SetActive(false);
                     Details.gameObject.SetActive(true);
-                    Details.DOFillAmount(1, _preparationTime);
                     PrepareFlames();
                 }
                 else if (_detailsApplied)
                 {
                     _canThrowFlame = false;
                     FlameThrower.gameObject.SetActive(false);
+                    Details.DOFillAmount(1, _preparationTime);
                     HideRemaingPixles();
-                    //CompoundImg.rectTransform.DOScale(Vector3.zero, _preparationTime).SetEase(Ease.InBack).OnComplete(() =>
-                    //{
-                    //    ColoringImage.DOScale(_finalScale, _preparationTime);
-                    //    ColoringImage.DOAnchorPosY(_finalPos, _preparationTime).OnComplete(() =>
-                    //    {
-                    //        StarParticles.Play();
-                    //        //ChangeStateEvent.InvokeSOEvent(CompleteStateIndex.Value);
-                    //    });
-                    //});
+                    ScreenSaver.SetActive(true);
                 }
             }
         }
@@ -354,8 +347,9 @@ namespace Core.GamePlay.Coloring
             }
             _partTexture.SetPixels32(_compoundPixels);
             _partTexture.Apply();
+            Details.fillAmount += 0.001f;
             float totalFilling = ((float)_flamePixlesCounter / _totalColorPixles) * 100;
-            if (totalFilling >= 50 && _canShowNextBtn)
+            if (totalFilling >= 75 && _canShowNextBtn)
             {
                 _canShowNextBtn = false;
                 _onceClicked = false;
