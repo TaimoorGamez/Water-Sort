@@ -18,6 +18,7 @@ namespace Core.GamePlay.Coloring
         [SerializeField] TextMeshProUGUI InfoText;
         [SerializeField] string[] InfoMsgs;
         [SerializeField] GameObject PaintBrush, NextBtn, TouchProtector, DetailsImg;
+        [SerializeField] Animation BrushAnimtion;
 
         float _speed = 5, _brushSize = 15, _preparationTime = 1;
         bool _canColor = false, _coloringSound = false, _canShowNextBtn = true, _onceClicked = true;
@@ -91,6 +92,7 @@ namespace Core.GamePlay.Coloring
                     if (!_coloringSound)
                     {
                         _coloringSound = true;
+                        BrushAnimtion.Play();
                         LoopEffectEvent.InvokeSOEvent(0);
                     }
                 }
@@ -122,6 +124,7 @@ namespace Core.GamePlay.Coloring
 
                 if (Input.GetMouseButtonUp(0))
                 {
+                    BrushAnimtion.Stop();
                     StopLoopEffect.InvokeSOEvent();
                     _coloringSound = false;
                     initialOffset = Vector2.zero;
