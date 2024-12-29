@@ -17,7 +17,8 @@ namespace Core.GamePlay.Coloring
         [SerializeField] ParticleSystem StarParticles;
         [SerializeField] ColorFilling[] ColoringPart;
         [SerializeField] Texture2D Details;
-        //public RawImage displayImage; // Assign the RawImage in your complete panel
+        [SerializeField] Camera ScreenshotCamera;
+        [SerializeField] RenderTexture TargetTexture;
 
         float _preparationTime = 1, _finalScale = 1.5f, _finalPos = 200;
         Coroutine _screenShotRotine;
@@ -25,94 +26,48 @@ namespace Core.GamePlay.Coloring
         private void OnEnable()
         {
             StarParticles.Play();
-            _screenShotRotine = StartCoroutine(CaptureColoredArea());
+            ColoringImage.DOScale(_finalScale, _preparationTime);
+            ColoringImage.DOAnchorPosY(_finalPos, _preparationTime).OnComplete(() =>
+            {
+                _screenShotRotine = StartCoroutine(CaptureColoredArea());
+            });
         }
 
         IEnumerator CaptureColoredArea()
         {
-            //ScreenshotCamera.targetTexture = renderTexture;
-            //ScreenshotCamera.Render();
-            //yield return new WaitForSeconds(0.01f);
-            //// Create a new Texture2D
-            //Texture2D screenshot = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
-            //yield return new WaitForSeconds(0.01f);
-            //// Read the pixels from the RenderTexture
-            //RenderTexture.active = renderTexture;
-            //screenshot.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
-            //screenshot.Apply();
-            //yield return new WaitForSeconds(0.5f);
-            //// Reset the RenderTexture
-            //RenderTexture.active = null;
+            string folderPath = "GamePlay/Resources/Paintings";
+            ScreenshotCamera.targetTexture = TargetTexture;
+            ScreenshotCamera.Render();
+            yield return new WaitForSeconds(0.01f);
+            // Create a new Texture2D
+            Texture2D screenshot = new Texture2D(TargetTexture.width, TargetTexture.height, TextureFormat.RGB24, false);
+            yield return new WaitForSeconds(0.01f);
+            // Read the pixels from the RenderTexture
+            RenderTexture.active = TargetTexture;
+            screenshot.ReadPixels(new Rect(0, 0, TargetTexture.width, TargetTexture.height), 0, 0);
+            screenshot.Apply();
+            yield return new WaitForSeconds(0.5f);
+            // Reset the RenderTexture
+            RenderTexture.active = null;
             //ScreenshotCamera.targetTexture = null;
 
-            //// Display the screenshot in the complete panel
-            ////displayImage.texture = screenshot;
+            // Display the screenshot in the complete panel
+            //displayImage.texture = screenshot;
 
-            //// Optional: Save the screenshot as a PNG
-            //byte[] bytes = screenshot.EncodeToPNG();
-            //System.IO.File.WriteAllBytes(Application.persistentDataPath + "/ColoredArea.png", bytes);
-            //Debug.Log("Screenshot saved to: " + Application.persistentDataPath + "/ColoredArea.png");
-
-            //yield return new WaitForSeconds(0.5f);
-
-            //-----------------------------
-            Texture2D partTexture;
-            int textureSixe = 128;
-            string folderPath = "GamePlay/Resources/Paintings";
-            Texture2D paintingTexture = new Texture2D(textureSixe, textureSixe, TextureFormat.RGBA32, false);
-            Color defaultColor = Color.clear;
-            Color32[] partPixles;
-
-            for (int p = 0; p < ColoringPart.Length; p++)
-            {
-                partTexture = ColoringPart[p].GetCurrenTexture();
-                yield return new WaitForSeconds(0.1f);
-                partPixles = partTexture.GetPixels32();
-                yield return new WaitForSeconds(0.1f);
-                paintingTexture.SetPixels32(partPixles);
-                yield return new WaitForSeconds(0.1f);
-                paintingTexture.Apply();
-            }
-
-            partPixles = Details.GetPixels32();
-            Color32[] paintingPixels = paintingTexture.GetPixels32();
-            yield return new WaitForSeconds(0.1f);
-            for (int i = 0; i < partPixles.Length; i++)
-            {
-                paintingPixels[i] = BlendDetailPixel(paintingPixels[i], partPixles[i]);
-            }
-                paintingTexture.SetPixels32(partPixles);
-            yield return new WaitForSeconds(0.1f);
-            paintingTexture.Apply();
-            yield return new WaitForSeconds(0.1f);
-
-            // Convert texture to PNG
-            byte[] pngData = paintingTexture.EncodeToPNG();
-
-            // Ensure Resources folder exists
             string directoryPath = Path.Combine(Application.dataPath, folderPath);
-            if (!Directory.Exists(directoryPath))
-            {
-                Debug.Log("error");
-            }
-
-            // Save the PNG file
             string filePath = Path.Combine(directoryPath, "Painting " + LvlNum.Value + ".png");
-            File.WriteAllBytes(filePath, pngData);
-
-            //Debug.Log($"Texture saved to: {filePath}");
+            // Optional: Save the screenshot as a PNG
+            byte[] bytes = screenshot.EncodeToPNG();
+            File.WriteAllBytes(filePath, bytes);
+            yield return new WaitForSeconds(0.5f);
+            ChangeStateEvent.InvokeSOEvent(CompleteStateIndex.Value);
 
 #if UNITY_EDITOR
             // Refresh the AssetDatabase to show the file in the editor
             UnityEditor.AssetDatabase.Refresh();
 #endif
-            yield return new WaitForSeconds(1f); 
-            ColoringImage.DOScale(_finalScale, _preparationTime);
-            ColoringImage.DOAnchorPosY(_finalPos, _preparationTime).OnComplete(() =>
-            {
-                //ChangeStateEvent.InvokeSOEvent(CompleteStateIndex.Value);
-            });
         }
+
         Color32 BlendDetailPixel(Color32 basePixel, Color32 detailPixel)
         {
             float alpha = detailPixel.a / 255f; // Normalize alpha to [0, 1]

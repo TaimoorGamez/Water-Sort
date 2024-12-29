@@ -21,7 +21,7 @@ namespace Core.GamePlay.Coloring
         [SerializeField] Texture2D CloudTexture;
         [SerializeField] ParticleSystem BubbleParticle, FlameParticles;
 
-        float _speed = 5, _brushSize = 25, _preparationTime = 1;
+        float _speed = 5, _brushSize = 25, _preparationTime = 0.5f;
         bool _canSpray = false, _effectCheck = false, _canShowNextBtn = true, _onceClicked = true, _detailsApplied = false, _canThrowFlame = false;
         Coroutine _movingRoutine;
         Camera _currentCamera;
@@ -347,7 +347,7 @@ namespace Core.GamePlay.Coloring
             }
             _partTexture.SetPixels32(_compoundPixels);
             _partTexture.Apply();
-            Details.fillAmount += 0.001f;
+            Details.fillAmount += 0.0025f;
             float totalFilling = ((float)_flamePixlesCounter / _totalColorPixles) * 100;
             if (totalFilling >= 75 && _canShowNextBtn)
             {

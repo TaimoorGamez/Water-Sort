@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 395807336661417582}
   - component: {fileID: 6714503405944507940}
   - component: {fileID: 2771613277041554489}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: StarParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
