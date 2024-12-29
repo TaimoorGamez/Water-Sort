@@ -30,6 +30,32 @@ namespace Core.GamePlay.Coloring
 
         IEnumerator CaptureColoredArea()
         {
+            //ScreenshotCamera.targetTexture = renderTexture;
+            //ScreenshotCamera.Render();
+            //yield return new WaitForSeconds(0.01f);
+            //// Create a new Texture2D
+            //Texture2D screenshot = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
+            //yield return new WaitForSeconds(0.01f);
+            //// Read the pixels from the RenderTexture
+            //RenderTexture.active = renderTexture;
+            //screenshot.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+            //screenshot.Apply();
+            //yield return new WaitForSeconds(0.5f);
+            //// Reset the RenderTexture
+            //RenderTexture.active = null;
+            //ScreenshotCamera.targetTexture = null;
+
+            //// Display the screenshot in the complete panel
+            ////displayImage.texture = screenshot;
+
+            //// Optional: Save the screenshot as a PNG
+            //byte[] bytes = screenshot.EncodeToPNG();
+            //System.IO.File.WriteAllBytes(Application.persistentDataPath + "/ColoredArea.png", bytes);
+            //Debug.Log("Screenshot saved to: " + Application.persistentDataPath + "/ColoredArea.png");
+
+            //yield return new WaitForSeconds(0.5f);
+
+            //-----------------------------
             Texture2D partTexture;
             int textureSixe = 128;
             string folderPath = "GamePlay/Resources/Paintings";
