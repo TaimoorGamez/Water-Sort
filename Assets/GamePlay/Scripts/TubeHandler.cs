@@ -19,7 +19,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] ColorSwiper SwapingManager;
         [SerializeField] SOWaterTube OpenTube;
         [SerializeField] SOEvents CheckCompleteEvent;
-        [SerializeField] ParticleSystem WaveParticle, DropsParticle;
+        [SerializeField] ParticleSystem WaveParticle, DropsParticle, CompleteParticle;
         [SerializeField] LineRenderer WaterLine;
         [SerializeField] Transform AnchorPos1, AnchorPos2;
         [SerializeField] Vector3[] ParticlePos;
@@ -27,9 +27,8 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] CapHandler TubeCap;
         [SerializeField] Liquid[] MyLiquid;
         [SerializeField] GameObject[] HidenMarks;
-        [SerializeField] Renderer WaveRenderer, DropsRenderer;
+        [SerializeField] Renderer DropsRenderer;
         [SerializeField] Animation TubeAnimation;
-        [SerializeField] ParticleSystem CompleteParticle;
 
         List<Coroutine> _drinkingRotine = new List<Coroutine>();
         TubeHandler _senderTube;
@@ -329,7 +328,7 @@ namespace Core.GamePlay.WaterSort
                     }
                 }
                 _propBlock.SetColor("_BaseColor", CurrentColor);
-                WaveRenderer.SetPropertyBlock(_propBlock);
+                DropsRenderer.SetPropertyBlock(_propBlock);
                 WaveParticle.Play();
                 transform.DOLocalMoveY(_orignalPos.y + 0.5f, 0.1f);
             }
@@ -354,7 +353,6 @@ namespace Core.GamePlay.WaterSort
             SoundEffectEvent.InvokeSOEvent(1);
             _propBlock.SetColor("_BaseColor", currentColor);
             WaterLine.SetPropertyBlock(_propBlock);
-            WaveRenderer.SetPropertyBlock(_propBlock);
             DropsRenderer.SetPropertyBlock(_propBlock);
             WaterLine.gameObject.SetActive(true);
             CurrentColor = currentColor;
