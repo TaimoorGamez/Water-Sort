@@ -826,6 +826,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e6a8402a69420f14ab12b63444f4ce27, type: 3}
   - {fileID: 8300000, guid: cc66b65286881a047b83c7c88b75791f, type: 3}
   - {fileID: 8300000, guid: eeba6926b64ea8a409d1c0927ca8736a, type: 3}
+  - {fileID: 8300000, guid: 2d857fa1adba0c04b9646023c9ea5e78, type: 3}
   LoopClips:
   - {fileID: 8300000, guid: a6582f934a452a24d81587b976b46ab5, type: 3}
   - {fileID: 8300000, guid: d938bcfbd6727424481a8a49c526128c, type: 3}
