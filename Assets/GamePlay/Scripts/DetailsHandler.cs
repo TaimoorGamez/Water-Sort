@@ -157,7 +157,7 @@ namespace Core.GamePlay.Coloring
                     StopLoopEffect.InvokeSOEvent();
                     _effectCheck = false;
                     if (_canShowNextBtn)
-                        InfoText.gameObject.SetActive(true);
+                    { InfoText.gameObject.SetActive(true); }
                 }
                 yield return new WaitForSeconds(smoothTimer); // Yield until the next frame
             }
@@ -238,7 +238,6 @@ namespace Core.GamePlay.Coloring
             }
             FlameThrower.gameObject.SetActive(true);
             InfoText.text = InfoMsgs[1];
-            InfoText.gameObject.SetActive(true);
             TouchProtector.SetActive(false);
             _canShowNextBtn = true;
             _canThrowFlame = true;
@@ -298,7 +297,7 @@ namespace Core.GamePlay.Coloring
                     StopLoopEffect.InvokeSOEvent();
                     _effectCheck = false;
                     if (_canShowNextBtn)
-                        InfoText.gameObject.SetActive(true);
+                    { InfoText.gameObject.SetActive(true); }
                 }
                 yield return new WaitForSeconds(smoothTimer); // Yield until the next frame
             }

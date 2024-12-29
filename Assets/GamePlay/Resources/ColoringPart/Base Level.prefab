@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -199.99997}
+  m_AnchoredPosition: {x: 0, y: -250}
   m_SizeDelta: {x: 420, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9180221301207041269
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 3674210303
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -152,6 +152,43 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!1 &743516680759357791
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8152505324987502732}
+  m_Layer: 5
+  m_Name: body
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8152505324987502732
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743516680759357791}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8155223143177507432}
+  m_Father: {fileID: 8155223144596094439}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 5, y: 5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1003301665868496183
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,6 +446,7 @@ MonoBehaviour:
   - 0
   PlayOnEnable: 1
   PlayLoop: 1
+  ResetOnDisable: 1
   StartDelay: 2
 --- !u!1 &2980247516992575011
 GameObject:
@@ -948,6 +986,7 @@ MonoBehaviour:
   - 0
   PlayOnEnable: 1
   PlayLoop: 1
+  ResetOnDisable: 1
   StartDelay: 2
 --- !u!1 &5138406773494195519
 GameObject:
@@ -1387,6 +1426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LvlNum: {fileID: 11400000, guid: bad89b7dfd4fe324eaaacf6e970340af, type: 2}
   ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
+  SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
   CompleteStateIndex: {fileID: 11400000, guid: 372a4013c41549545822b875f34f8aa3, type: 2}
   ColoringImage: {fileID: 8155223143100574219}
   StarParticles: {fileID: 4724836284733389828}
@@ -1858,6 +1898,7 @@ MonoBehaviour:
   NextBtn: {fileID: 5101064069828714289}
   TouchProtector: {fileID: 2980247516992575011}
   DetailsImg: {fileID: 7818574426039290261}
+  BrushAnimtion: {fileID: 5045153885269180167}
 --- !u!1 &8155223143177507433
 GameObject:
   m_ObjectHideFlags: 0
@@ -1890,7 +1931,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 740277747547087117}
-  m_Father: {fileID: 8155223144596094439}
+  m_Father: {fileID: 8152505324987502732}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2100,6 +2141,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8155223144596094439}
+  - component: {fileID: 5045153885269180167}
   m_Layer: 5
   m_Name: PaintBrush
   m_TagString: Untagged
@@ -2119,7 +2161,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8155223143177507432}
+  - {fileID: 8152505324987502732}
   - {fileID: 6138128920435461011}
   m_Father: {fileID: 8155223144186759536}
   m_RootOrder: 3
@@ -2129,6 +2171,22 @@ RectTransform:
   m_AnchoredPosition: {x: 1000, y: 0}
   m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!111 &5045153885269180167
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8155223144596094436}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 5fc3b2fb3198c284f8ae878289cd6510, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 5fc3b2fb3198c284f8ae878289cd6510, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &8155223144613782491
 GameObject:
   m_ObjectHideFlags: 0

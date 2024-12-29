@@ -11,7 +11,7 @@ namespace Core.GamePlay.Coloring
     public class ScreenSaver : MonoBehaviour
     {
         [SerializeField] DBInt LvlNum;
-        [SerializeField] SOIntegerEvents ChangeStateEvent;
+        [SerializeField] SOIntegerEvents ChangeStateEvent, SoundEffectEvent;
         [SerializeField] SOInterger CompleteStateIndex;
         [SerializeField] RectTransform ColoringImage;
         [SerializeField] ParticleSystem StarParticles;
@@ -25,6 +25,7 @@ namespace Core.GamePlay.Coloring
 
         private void OnEnable()
         {
+            SoundEffectEvent.InvokeSOEvent(6);
             StarParticles.Play();
             ColoringImage.DOScale(_finalScale, _preparationTime);
             ColoringImage.DOAnchorPosY(_finalPos, _preparationTime).OnComplete(() =>
@@ -46,7 +47,7 @@ namespace Core.GamePlay.Coloring
             RenderTexture.active = TargetTexture;
             screenshot.ReadPixels(new Rect(0, 0, TargetTexture.width, TargetTexture.height), 0, 0);
             screenshot.Apply();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1.5f);
             // Reset the RenderTexture
             RenderTexture.active = null;
             //ScreenshotCamera.targetTexture = null;
@@ -59,7 +60,7 @@ namespace Core.GamePlay.Coloring
             // Optional: Save the screenshot as a PNG
             byte[] bytes = screenshot.EncodeToPNG();
             File.WriteAllBytes(filePath, bytes);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1.5f);
             ChangeStateEvent.InvokeSOEvent(CompleteStateIndex.Value);
 
 #if UNITY_EDITOR
