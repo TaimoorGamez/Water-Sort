@@ -12,10 +12,10 @@ namespace Core.Animations.DT
     {
         public GameObject TargetObj { get; set; }
 
-        [SerializeField] protected Vector3 TargetAction;
         [SerializeField] protected float Duration;
         [SerializeField] protected Ease CurrentEaseType;
-        [SerializeField] bool IsLoop = false, CanChangeStateOnComlete = false, StateOnComplete = true;
+        [SerializeField] bool IsLoop = false, CanChangeStateOnComlete = false, StateOnComplete = true, ResetOnComplete = false;
+        [SerializeField] protected Vector3 TargetAction, OriginalVallue;
 
         protected Tween ltAnimation;
 
@@ -30,7 +30,11 @@ namespace Core.Animations.DT
 
             ltAnimation.OnComplete(() => {
                 if (CanChangeStateOnComlete)
-                    TargetObj.SetActive(StateOnComplete);
+                { TargetObj.SetActive(StateOnComplete); }
+                if (ResetOnComplete)
+                {
+                    ReseToDefault();
+                }
                 });
         }
 
@@ -38,6 +42,11 @@ namespace Core.Animations.DT
         {
             if (TargetObj != null)
                 ltAnimation.Kill();
+        }
+
+        public virtual void ReseToDefault()
+        {
+
         }
     }
 }

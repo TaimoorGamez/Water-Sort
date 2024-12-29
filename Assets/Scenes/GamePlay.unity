@@ -1484,7 +1484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LvlNum: {fileID: 11400000, guid: bad89b7dfd4fe324eaaacf6e970340af, type: 2}
-  LvlIndex: {fileID: 0}
+  LvlIndex: {fileID: 11400000, guid: 41c1752188b0e634bace9427b11cb2a0, type: 2}
   MovesMultiplier: {fileID: 11400000, guid: 408a999d29e60d04a8ebd2a6bb9b1ead, type: 2}
   IsHiddenLevel: {fileID: 11400000, guid: 0379e96a375797544890b5b505768ff9, type: 2}
   CurrentLvl: {fileID: 11400000, guid: 619fe066546f4a1468e58d2c6fff0e67, type: 2}
@@ -1496,6 +1496,7 @@ MonoBehaviour:
   ExtraTubeEvent: {fileID: 11400000, guid: 144ef759d9080de4684f554d27c681d9, type: 2}
   SwipeColorsModeEvent: {fileID: 11400000, guid: 9781b632e66a3704aa915400af187d35, type: 2}
   RestartLevelEvent: {fileID: 11400000, guid: 42416ab8dba2bb14c90f1294b6893a1f, type: 2}
+  DestroyLevelEvent: {fileID: 11400000, guid: 462f5b56355cc214fb4c4775d6a87709, type: 2}
   ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
   TubePrefab: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
   TubePositions:

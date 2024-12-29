@@ -587,7 +587,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 175.27002}
+  m_AnchoredPosition: {x: 0, y: 175}
   m_SizeDelta: {x: 150, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8284742485873955071
@@ -674,7 +674,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
         m_TargetAssemblyTypeName: Core.Events.SOIntegerEvents, Assembly-CSharp
-        m_MethodName: InvokeEvent
+        m_MethodName: InvokeSOEvent
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

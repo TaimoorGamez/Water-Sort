@@ -12,9 +12,9 @@ namespace Core.Animations.DT
             base.PlayAnimation();
         }
 
-        public override void CancleAnimation()
+        public override void ReseToDefault()
         {
-            base.CancleAnimation();
+            TargetObj.transform.localPosition = OriginalVallue;
         }
     }
 }

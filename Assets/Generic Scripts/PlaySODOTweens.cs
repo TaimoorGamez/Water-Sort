@@ -8,7 +8,7 @@ namespace Core.Animations.DT
         [SerializeField] GameObject[] TargetObjs;
         [SerializeField] SODOTween[] TweenAnimations;
         [SerializeField] float[] Delays;
-        [SerializeField] bool PlayOnEnable = false, PlayLoop = false;
+        [SerializeField] bool PlayOnEnable = false, PlayLoop = false, ResetOnDisable = true;
         [SerializeField] float StartDelay = 0;
 
         Coroutine _animationsRotine;
@@ -49,6 +49,17 @@ namespace Core.Animations.DT
             if (PlayLoop)
             {
                 PlayAnimation();
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (ResetOnDisable)
+            {
+                for (int a = 0; a < TweenAnimations.Length; a++)
+                {
+                    TweenAnimations[a].ReseToDefault();
+                }
             }
         }
     }

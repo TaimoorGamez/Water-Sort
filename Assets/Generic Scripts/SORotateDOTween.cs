@@ -11,9 +11,9 @@ namespace Core.Animations.DT
             ltAnimation = TargetObj.transform.DORotate(TargetAction, Duration);
             base.PlayAnimation();
         }
-        public override void CancleAnimation()
+        public override void ReseToDefault()
         {
-            base.CancleAnimation();
+            TargetObj.transform.eulerAngles = OriginalVallue;
         }
     }
 }
