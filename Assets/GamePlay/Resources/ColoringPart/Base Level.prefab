@@ -1899,7 +1899,8 @@ MonoBehaviour:
   TouchProtector: {fileID: 2980247516992575011}
   DetailsImg: {fileID: 7818574426039290261}
   BrushAnimtion: {fileID: 5045153885269180167}
-  BrushParitcleRender: {fileID: 4244122097823152202}
+  BrushParitcle: {fileID: 4244122097823152203}
+  BrushParitcleRenderrer: {fileID: 4244122097823152202}
 --- !u!1 &8155223143177507433
 GameObject:
   m_ObjectHideFlags: 0
@@ -2816,6 +2817,11 @@ PrefabInstance:
 --- !u!199 &4244122097823152202 stripped
 ParticleSystemRenderer:
   m_CorrespondingSourceObject: {fileID: 7260660492840370474, guid: 3c421ad79567ec64e857f111cc283fc4, type: 3}
+  m_PrefabInstance: {fileID: 6783875349883451744}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4244122097823152203 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7260660492840370475, guid: 3c421ad79567ec64e857f111cc283fc4, type: 3}
   m_PrefabInstance: {fileID: 6783875349883451744}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &6138128920435461011 stripped

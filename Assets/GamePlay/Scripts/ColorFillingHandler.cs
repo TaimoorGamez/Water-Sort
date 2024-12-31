@@ -19,7 +19,8 @@ namespace Core.GamePlay.Coloring
         [SerializeField] string[] InfoMsgs;
         [SerializeField] GameObject PaintBrush, NextBtn, TouchProtector, DetailsImg;
         [SerializeField] Animation BrushAnimtion;
-        [SerializeField] ParticleSystemRenderer BrushParitcleRender;
+        [SerializeField] ParticleSystem BrushParitcle;
+        [SerializeField] ParticleSystemRenderer BrushParitcleRenderrer;
 
         float _speed = 5, _brushSize = 15, _preparationTime = 1;
         bool _canColor = false, _coloringSound = false, _canShowNextBtn = true, _onceClicked = true;
@@ -74,13 +75,16 @@ namespace Core.GamePlay.Coloring
         {
             InfoText.text = InfoMsgs[1];
             _materialPropertyBlock.SetColor("_BaseColor", CurrentColor.Value);
-            BrushParitcleRender.SetPropertyBlock(_materialPropertyBlock);
+            BrushParitcleRenderrer.SetPropertyBlock(_materialPropertyBlock);
+            ParticleSystem.MainModule pm = BrushParitcle.main;
+            Color newColor = CurrentColor.Value;
+            pm.startColor = newColor;
             if (_movingRoutine == null)
             {
                 _canColor = true;
                 _movingRoutine = StartCoroutine(BrushMovingRoutine());
                 TouchProtector.SetActive(false);
-                BrushParitcleRender.gameObject.SetActive(true);
+                BrushParitcle.gameObject.SetActive(true);
             }
         }
 
