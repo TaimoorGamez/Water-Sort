@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace Core.Animations.DT
 {
-    [CreateAssetMenu(fileName = "MoveLT", menuName = "ScriptableObjects/Animations/LT/Move")]
+    [CreateAssetMenu(fileName = "MoveLT", menuName = "ScriptableObjects/Animations/Move")]
     public class SOMoveDOTween : SODOTween
     {
         public override void PlayAnimation()
         {
-            ltAnimation = TargetObj.transform.DOLocalMove(TargetAction, Duration);
+            _tween = TargetObj.transform.DOLocalMove(TargetAction, Duration);
             base.PlayAnimation();
         }
 

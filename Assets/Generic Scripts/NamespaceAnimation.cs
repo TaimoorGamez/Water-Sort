@@ -17,18 +17,18 @@ namespace Core.Animations.DT
         [SerializeField] bool IsLoop = false, CanChangeStateOnComlete = false, StateOnComplete = true, ResetOnComplete = false;
         [SerializeField] protected Vector3 TargetAction, OriginalVallue;
 
-        protected Tween ltAnimation;
+        protected Tween _tween;
 
         public virtual void PlayAnimation()
         {
-            ltAnimation.SetEase(CurrentEaseType);
+            _tween.SetEase(CurrentEaseType);
 
             if (IsLoop)
             {
-                ltAnimation.Loops();
+                _tween.Loops();
             }
 
-            ltAnimation.OnComplete(() => {
+            _tween.OnComplete(() => {
                 if (CanChangeStateOnComlete)
                 { TargetObj.SetActive(StateOnComplete); }
                 if (ResetOnComplete)
@@ -41,7 +41,7 @@ namespace Core.Animations.DT
         public virtual void CancleAnimation()
         {
             if (TargetObj != null)
-                ltAnimation.Kill();
+                _tween.Kill();
         }
 
         public virtual void ReseToDefault()

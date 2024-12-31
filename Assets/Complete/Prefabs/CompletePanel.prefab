@@ -346,6 +346,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba8f475dfffde7946880149398ed19cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
+  DestroyLevelEvent: {fileID: 11400000, guid: 462f5b56355cc214fb4c4775d6a87709, type: 2}
+  ShowPanel: {fileID: 11400000, guid: bfe4c542e9b90ea439d12ac668dc209c, type: 2}
+  Body: {fileID: 6174778208438504148}
 --- !u!1 &6174778208438504148
 GameObject:
   m_ObjectHideFlags: 0

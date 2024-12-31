@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace Core.Animations.DT
 {
-    [CreateAssetMenu(fileName = "Scale", menuName = "ScriptableObjects/Animations/LT/Scale")]
+    [CreateAssetMenu(fileName = "Scale", menuName = "ScriptableObjects/Animations/Scale")]
     public class SOScaleDOTween : SODOTween
     {
         public override void PlayAnimation()
         {
-            ltAnimation = TargetObj.transform.DOScale(TargetAction, Duration);
+            _tween = TargetObj.transform.DOScale(TargetAction, Duration);
             base.PlayAnimation();
         }
 
