@@ -20,7 +20,6 @@ namespace Core.GamePlay.Coloring
         [SerializeField] GameObject PaintBrush, NextBtn, TouchProtector, DetailsImg;
         [SerializeField] Animation BrushAnimtion;
         [SerializeField] ParticleSystem BrushParitcle;
-        [SerializeField] ParticleSystemRenderer BrushParitcleRenderrer;
 
         float _speed = 5, _brushSize = 15, _preparationTime = 1;
         bool _canColor = false, _coloringSound = false, _canShowNextBtn = true, _onceClicked = true;
@@ -31,7 +30,7 @@ namespace Core.GamePlay.Coloring
         int _paintingCounter = 0, _totalColorPixles = 1, _coloredPixlesCounter = 0;
         Color32[] _partPixles;
         Color _whiteColor = Color.white;
-        MaterialPropertyBlock _materialPropertyBlock;
+        ParticleSystem.MainModule _pm;
 
         private void OnEnable()
         {
@@ -55,7 +54,7 @@ namespace Core.GamePlay.Coloring
         {
             _currentCamera = Camera.main;
             _coloringParTransform = ColoringPart[_paintingCounter].transform as RectTransform;
-            _materialPropertyBlock = new MaterialPropertyBlock();
+            _pm = BrushParitcle.main;
         }
 
         void StartColoring()
@@ -74,11 +73,8 @@ namespace Core.GamePlay.Coloring
         void ColorSelected()
         {
             InfoText.text = InfoMsgs[1];
-            _materialPropertyBlock.SetColor("_BaseColor", CurrentColor.Value);
-            BrushParitcleRenderrer.SetPropertyBlock(_materialPropertyBlock);
-            ParticleSystem.MainModule pm = BrushParitcle.main;
             Color newColor = CurrentColor.Value;
-            pm.startColor = newColor;
+            _pm.startColor = newColor;
             if (_movingRoutine == null)
             {
                 _canColor = true;

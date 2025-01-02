@@ -27,7 +27,6 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] CapHandler TubeCap;
         [SerializeField] Liquid[] MyLiquid;
         [SerializeField] GameObject[] HidenMarks;
-        [SerializeField] Renderer DropsRenderer;
         [SerializeField] Animation TubeAnimation;
 
         List<Coroutine> _drinkingRotine = new List<Coroutine>();
@@ -36,12 +35,14 @@ namespace Core.GamePlay.WaterSort
         int _totalLiquidLayers = 4, _colorsToUndo = 1;
         bool _isDrinkingWater = false, _tubeCompleted = false, _alreadyAddedToCompleted = false;
         Coroutine _celebrationRotine, _addingRotine, _removingRotine;
-        MaterialPropertyBlock _propBlock;
+        MaterialPropertyBlock _propertyBlock;
+        ParticleSystem.MainModule _pM;
 
         private void Start()
         {
             _orignalPos = transform.position;
-            _propBlock = new MaterialPropertyBlock();
+            _propertyBlock = new MaterialPropertyBlock();
+            _pM = DropsParticle.main;
         }
 
         public void SetHidenColour(Color currentColor)
@@ -327,8 +328,8 @@ namespace Core.GamePlay.WaterSort
                         MyLiquid[c - 1].SetGlow(true);
                     }
                 }
-                _propBlock.SetColor("_BaseColor", CurrentColor);
-                DropsRenderer.SetPropertyBlock(_propBlock);
+                _propertyBlock.SetColor("_BaseColor", CurrentColor);
+                _pM.startColor = CurrentColor;
                 WaveParticle.Play();
                 transform.DOLocalMoveY(_orignalPos.y + 0.5f, 0.1f);
             }
@@ -351,9 +352,9 @@ namespace Core.GamePlay.WaterSort
         void AddColor(Color currentColor, int layers)
         {
             SoundEffectEvent.InvokeSOEvent(1);
-            _propBlock.SetColor("_BaseColor", currentColor);
-            WaterLine.SetPropertyBlock(_propBlock);
-            DropsRenderer.SetPropertyBlock(_propBlock);
+            _propertyBlock.SetColor("_BaseColor", currentColor);
+            WaterLine.SetPropertyBlock(_propertyBlock);
+            _pM.startColor = currentColor;
             WaterLine.gameObject.SetActive(true);
             CurrentColor = currentColor;
             _addingRotine = StartCoroutine(ColorAdddingCorotine(currentColor,layers));

@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BrushParticle
-  m_Shader: {fileID: -6465566751694194690, guid: 474091edcb4795746a998126e0bce909, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 0863d5b441409854d821a40af04089cd, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
