@@ -1,12 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 namespace Core.GamePlay.Coloring
 {
     public class ColorFilling : MonoBehaviour
     {
         [SerializeField] RawImage ColoringPart;
+
+        public Color DefaultColor;
 
         Texture2D _partTexture;
         int _totalColoredPixles = 0;

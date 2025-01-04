@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using Core.Events;
+using Core.Variables;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -9,6 +10,7 @@ namespace Core.GamePlay.Coloring
 {
     public class DetailsHandler : MonoBehaviour
     {
+        [SerializeField] SOInterger LevelStars;
         [SerializeField] SOIntegerEvents LoopEffectEvent, SoundEffectEvent;
         [SerializeField] SOEvents StopLoopEffect;
         [SerializeField] RectTransform SprayCan, FlameThrower;

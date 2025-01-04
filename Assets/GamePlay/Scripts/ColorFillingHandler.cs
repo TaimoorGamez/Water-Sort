@@ -9,6 +9,7 @@ namespace Core.GamePlay.Coloring
 {
     public class ColorFillingHandler : MonoBehaviour
     {
+        [SerializeField] SOInterger LevelStars;
         [SerializeField] SOIntegerEvents LoopEffectEvent;
         [SerializeField] SOEvents StartColoringEvent, ColorSelectedEvent, StopLoopEffect;
         [SerializeField] SOColor CurrentColor;
@@ -52,6 +53,7 @@ namespace Core.GamePlay.Coloring
 
         private void Start()
         {
+            LevelStars.Value = 3;
             _currentCamera = Camera.main;
             _coloringParTransform = ColoringPart[_paintingCounter].transform as RectTransform;
             _pm = BrushParitcle.main;
@@ -240,6 +242,10 @@ namespace Core.GamePlay.Coloring
                     InfoText.gameObject.SetActive(true);
                     TouchProtector.SetActive(false);
                     _canShowNextBtn = true;
+                    if (LevelStars.Value > 2 && CurrentColor.Value != ColoringPart[_paintingCounter-1].DefaultColor)
+                    {
+                        LevelStars.Value--;
+                    }
                 }
                 else 
                 {

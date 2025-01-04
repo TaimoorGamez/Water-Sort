@@ -1774,6 +1774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75460134b32094c4e8111c8f1a72f66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ChangeBackgroundEvent: {fileID: 11400000, guid: 3975c495653f66f468e75826b839bd02, type: 2}
   ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
   AllStates:
   - {fileID: 11400000, guid: d727876a364fb4d428957a9e51d89fc8, type: 2}
@@ -2163,6 +2164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2142285479}
+  - component: {fileID: 2142285480}
   m_Layer: 5
   m_Name: Backgrounds
   m_TagString: Untagged
@@ -2202,3 +2204,29 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2142285480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142285478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8774beea6c169b44499a239113729205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BackgroungChangingEvent: {fileID: 11400000, guid: 3975c495653f66f468e75826b839bd02, type: 2}
+  Backgrounds:
+  - {fileID: 1563699752}
+  - {fileID: 1238350533}
+  - {fileID: 372980953}
+  - {fileID: 1072098273}
+  - {fileID: 972144959}
+  - {fileID: 786727619}
+  - {fileID: 86352637}
+  - {fileID: 477322332}
+  - {fileID: 471950436}
+  - {fileID: 1773685328}
+  - {fileID: 1134254749}
+  - {fileID: 1717354965}

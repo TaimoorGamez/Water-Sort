@@ -6,6 +6,7 @@ namespace Core.States
 {
     public class StateManager : MonoBehaviour
     {
+        [SerializeField] SOEvents ChangeBackgroundEvent;
         [SerializeField] SOIntegerEvents ChangeStateEvent;
         [SerializeField] GameState[] AllStates;
         [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, LeveCompleteStateIndex;
@@ -33,6 +34,7 @@ namespace Core.States
             AllStates[stateIndex].ActiveCurrentState(transform);
             if (stateIndex == MainMenuStateIndex.Value)
             {
+                ChangeBackgroundEvent.InvokeSOEvent();
                 for (int s = AllStates.Length - 1; s > MainMenuStateIndex.Value; s--)
                 {
                     AllStates[s].DestroyCurrentState();
