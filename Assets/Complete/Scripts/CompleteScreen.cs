@@ -14,8 +14,8 @@ namespace Core.Screen
     public class CompleteScreen : MonoBehaviour
     {
         [SerializeField] DBInt LevelIndex, LvlNum;
-        [SerializeField] SOInterger LevelStars, CanPlay, MainMenuStateIndex, LevelMoves, DetailsApplied;
-        [SerializeField] SOIntegerEvents SoundEffectEvent, ChangeStateEvent;
+        [SerializeField] SOInterger LevelStars, CanPlay, MainMenuStateIndex, LevelMoves, DetailsApplied, GamePlayState;
+        [SerializeField] SOIntegerEvents SoundEffectEvent, ChangeStateEvent, DeActiveStatEvent;
         [SerializeField] SOEvents DestroyLevelEvent;
         [SerializeField] SOAnChorMove ShowPanel;
         [SerializeField] GameObject Body;
@@ -63,10 +63,6 @@ namespace Core.Screen
             yield return new WaitForSeconds(0.25f);
             // Reset the RenderTexture
             RenderTexture.active = null;
-            //ScreenshotCamera.targetTexture = null;
-
-            // Display the screenshot in the complete panel
-            //displayImage.texture = screenshot;
 
             string directoryPath = Path.Combine(Application.dataPath, folderPath);
             string filePath = Path.Combine(directoryPath, "Painting " + LvlNum.Value + ".png");
@@ -74,8 +70,9 @@ namespace Core.Screen
             byte[] bytes = screenshot.EncodeToPNG();
             File.WriteAllBytes(filePath, bytes);
             yield return new WaitForSeconds(2.5f);
-
+            DeActiveStatEvent.InvokeSOEvent(GamePlayState.Value);
             DestroyLevelEvent.InvokeSOEvent();
+            ScreenshotCamera.gameObject.SetActive(true);
             ShowPanel.TargetObj = Body;
             ShowPanel.PlayAnimation();
             SoundEffectEvent.InvokeSOEvent(3);
@@ -84,7 +81,7 @@ namespace Core.Screen
             {
                 StarsImg[s].material = null;
             }
-            //PaintingImg.texture = Resources.Load<Texture>(_paintingPath + LevelIndex.Value);
+            PaintingImg.texture = screenshot;
             if (_screenShotRotine != null)
             {
                 StopCoroutine(_screenShotRotine);
@@ -100,7 +97,7 @@ namespace Core.Screen
         {
             StarsObj.DOAnchorPosY(_starsPos, _durationTweeing).SetEase(Ease.OutBack);
             StarsObj.DOScale(1, _durationTweeing).SetEase(Ease.OutBack);
-            //SoundEffectEvent.InvokeSOEvent(7);
+            SoundEffectEvent.InvokeSOEvent(7);
             Painting.gameObject.SetActive(true);
             Painting.DOScale(1, _durationTweeing).SetEase(Ease.OutBack);
             DOTween.To(() => 0, x => LevelBonusText.text = x.ToString(), _levelBonus, _durationTweeing);

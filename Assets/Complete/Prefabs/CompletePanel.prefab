@@ -653,7 +653,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5660441225492399131
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1843,8 +1843,10 @@ MonoBehaviour:
   MainMenuStateIndex: {fileID: 11400000, guid: 5b4f6ec2cf4170d4b973dfba16e1515f, type: 2}
   LevelMoves: {fileID: 11400000, guid: c0332282d9024b84dafaab019726f173, type: 2}
   DetailsApplied: {fileID: 11400000, guid: 8894a4602ebb75348a39383060b968e0, type: 2}
+  GamePlayState: {fileID: 11400000, guid: d7723c4d03c616248b6e725f6734b348, type: 2}
   SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
   ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
+  DeActiveStatEvent: {fileID: 11400000, guid: 02ec45e5db2f3f04eaeb0eb4a067ffea, type: 2}
   DestroyLevelEvent: {fileID: 11400000, guid: 462f5b56355cc214fb4c4775d6a87709, type: 2}
   ShowPanel: {fileID: 11400000, guid: bfe4c542e9b90ea439d12ac668dc209c, type: 2}
   Body: {fileID: 6174778208438504148}
@@ -2705,7 +2707,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 65}
+  m_AnchoredPosition: {x: 0, y: 125}
   m_SizeDelta: {x: 150, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8284742485873955071
@@ -3107,7 +3109,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 200}
+  m_AnchoredPosition: {x: 0, y: 175}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!20 &6147520567197746425

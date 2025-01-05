@@ -827,6 +827,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cc66b65286881a047b83c7c88b75791f, type: 3}
   - {fileID: 8300000, guid: eeba6926b64ea8a409d1c0927ca8736a, type: 3}
   - {fileID: 8300000, guid: 2d857fa1adba0c04b9646023c9ea5e78, type: 3}
+  - {fileID: 8300000, guid: 1172952bcef8ce342abbb35b401d8ace, type: 3}
   LoopClips:
   - {fileID: 8300000, guid: a6582f934a452a24d81587b976b46ab5, type: 3}
   - {fileID: 8300000, guid: d938bcfbd6727424481a8a49c526128c, type: 3}
@@ -1718,7 +1719,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &1444670381
 Canvas:
   m_ObjectHideFlags: 0
@@ -1776,6 +1777,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChangeBackgroundEvent: {fileID: 11400000, guid: 3975c495653f66f468e75826b839bd02, type: 2}
   ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
+  DeActiveStateEvent: {fileID: 11400000, guid: 02ec45e5db2f3f04eaeb0eb4a067ffea, type: 2}
   AllStates:
   - {fileID: 11400000, guid: d727876a364fb4d428957a9e51d89fc8, type: 2}
   - {fileID: 11400000, guid: 173e8d3bd0a9c2a4eb44ad83ba59a4d2, type: 2}

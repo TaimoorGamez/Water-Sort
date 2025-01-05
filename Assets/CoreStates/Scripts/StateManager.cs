@@ -7,17 +7,19 @@ namespace Core.States
     public class StateManager : MonoBehaviour
     {
         [SerializeField] SOEvents ChangeBackgroundEvent;
-        [SerializeField] SOIntegerEvents ChangeStateEvent;
+        [SerializeField] SOIntegerEvents ChangeStateEvent, DeActiveStateEvent;
         [SerializeField] GameState[] AllStates;
         [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, LeveCompleteStateIndex;
 
         private void OnEnable()
         {
             ChangeStateEvent.EventHandler += ChangeState;
+            DeActiveStateEvent.EventHandler += DeActiveState;
         }
         private void OnDisable()
         {
             ChangeStateEvent.EventHandler -= ChangeState;
+            DeActiveStateEvent.EventHandler -= DeActiveState;
         }
 
         private void Start()
@@ -43,6 +45,11 @@ namespace Core.States
                     AllStates[s].DestroyCurrentState();
                 }
             }
+        }
+
+        void DeActiveState(int stateIndex)
+        {
+            AllStates[stateIndex].DeActiveCurrentState();
         }
     }
 }
