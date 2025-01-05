@@ -10,8 +10,6 @@ namespace Core.States
         [SerializeField] SOIntegerEvents ChangeStateEvent;
         [SerializeField] GameState[] AllStates;
         [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, LeveCompleteStateIndex;
-            
-        int _lastStateId = 0;
 
         private void OnEnable()
         {
@@ -25,12 +23,10 @@ namespace Core.States
         private void Start()
         {
             AllStates[0].ActiveCurrentState(transform);
-            _lastStateId = 0;
         }
 
         void ChangeState(int stateIndex)
         {
-            AllStates[_lastStateId].DeActiveCurrentState();
             AllStates[stateIndex].ActiveCurrentState(transform);
             if (stateIndex == MainMenuStateIndex.Value)
             {
@@ -47,7 +43,6 @@ namespace Core.States
                     AllStates[s].DestroyCurrentState();
                 }
             }
-            _lastStateId = stateIndex;
         }
     }
 }

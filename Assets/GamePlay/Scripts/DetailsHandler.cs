@@ -10,21 +10,21 @@ namespace Core.GamePlay.Coloring
 {
     public class DetailsHandler : MonoBehaviour
     {
-        [SerializeField] SOInterger LevelStars;
-        [SerializeField] SOIntegerEvents LoopEffectEvent, SoundEffectEvent;
+        [SerializeField] SOInterger LevelStars, DetailsApplied, CompleteStateIndex;
+        [SerializeField] SOIntegerEvents LoopEffectEvent, SoundEffectEvent, ChangeStateEvent;
         [SerializeField] SOEvents StopLoopEffect;
-        [SerializeField] RectTransform SprayCan, FlameThrower;
+        [SerializeField] RectTransform SprayCan, FlameThrower, ColoringImage;
         [SerializeField] Vector2Int VerticalRange, HorizontalRange;
         [SerializeField] TextMeshProUGUI InfoText;
         [SerializeField] string[] InfoMsgs;
-        [SerializeField] GameObject NextBtn, TouchProtector, ScreenSaver;
+        [SerializeField] GameObject NextBtn, TouchProtector;
         [SerializeField] Image Details;
         [SerializeField] RawImage CompoundImg;
         [SerializeField] Texture2D CloudTexture;
-        [SerializeField] ParticleSystem BubbleParticle, FlameParticles;
+        [SerializeField] ParticleSystem BubbleParticle, FlameParticles, StarParticles;
 
-        float _speed = 5, _brushSize = 25, _preparationTime = 0.5f;
-        bool _canSpray = false, _effectCheck = false, _canShowNextBtn = true, _onceClicked = true, _detailsApplied = false, _canThrowFlame = false;
+        float _speed = 5, _brushSize = 25, _preparationTime = 0.5f, _finalScale = 1.5f, _finalPos = 175;
+        bool _canSpray = false, _effectCheck = false, _canShowNextBtn = true, _onceClicked = true, _canThrowFlame = false;
         Coroutine _movingRoutine;
         Camera _currentCamera;
         Texture2D _partTexture;
@@ -35,7 +35,8 @@ namespace Core.GamePlay.Coloring
 
         private void OnDisable()
         {
-            _canSpray = false;
+            DetailsApplied.Value = 0;
+               _canSpray = false;
             _canThrowFlame = false;
             if (_movingRoutine != null)
             {
@@ -65,20 +66,26 @@ namespace Core.GamePlay.Coloring
                 InfoText.gameObject.SetActive(false);
                 NextBtn.SetActive(false);
 
-                if (!_detailsApplied)
+                if (DetailsApplied.Value == 0)
                 {
                     _canSpray = false;
                     SprayCan.gameObject.SetActive(false);
                     Details.gameObject.SetActive(true);
                     PrepareFlames();
                 }
-                else if (_detailsApplied)
+                else if (DetailsApplied.Value == 1)
                 {
                     _canThrowFlame = false;
                     FlameThrower.gameObject.SetActive(false);
                     Details.DOFillAmount(1, _preparationTime);
                     HideRemaingPixles();
-                    ScreenSaver.SetActive(true);
+                    SoundEffectEvent.InvokeSOEvent(6);
+                    StarParticles.Play();
+                    ColoringImage.DOScale(_finalScale, _preparationTime);
+                    ColoringImage.DOAnchorPosY(_finalPos, _preparationTime).OnComplete(() =>
+                    {
+                        ChangeStateEvent.InvokeSOEvent(CompleteStateIndex.Value);
+                    });
                 }
             }
         }
@@ -109,7 +116,6 @@ namespace Core.GamePlay.Coloring
         IEnumerator SprayMovingRoutine()
         {
             Vector2 initialOffset = Vector2.zero;
-            float smoothTimer = 0.01f;
             RectTransform coloringParTransform = CompoundImg.rectTransform;
 
             while (_canSpray)
@@ -161,7 +167,7 @@ namespace Core.GamePlay.Coloring
                     if (_canShowNextBtn)
                     { InfoText.gameObject.SetActive(true); }
                 }
-                yield return new WaitForSeconds(smoothTimer); // Yield until the next frame
+                yield return null; // Yield until the next frame
             }
         }
 
@@ -249,7 +255,6 @@ namespace Core.GamePlay.Coloring
         IEnumerator FlamesThrowingRoutine()
         {
             Vector2 initialOffset = Vector2.zero;
-            float smoothTimer = 0.01f;
             RectTransform coloringParTransform = CompoundImg.rectTransform;
 
             while (_canThrowFlame)
@@ -301,7 +306,7 @@ namespace Core.GamePlay.Coloring
                     if (_canShowNextBtn)
                     { InfoText.gameObject.SetActive(true); }
                 }
-                yield return new WaitForSeconds(smoothTimer); // Yield until the next frame
+                yield return null; // Yield until the next frame
             }
         }
 
@@ -354,7 +359,7 @@ namespace Core.GamePlay.Coloring
             {
                 _canShowNextBtn = false;
                 _onceClicked = false;
-                _detailsApplied = true;
+                DetailsApplied.Value = 1;
                 NextBtn.SetActive(true);
             }
         }

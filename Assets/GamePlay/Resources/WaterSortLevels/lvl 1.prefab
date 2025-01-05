@@ -506,7 +506,7 @@ MonoBehaviour:
   CurrenTube: {fileID: 5277642358569765672}
   HandObj: {fileID: 4061230068927693638}
   InfoTextObj: {fileID: 6643069857099970238}
-  CurrentColor: {r: 0.9411765, g: 0.74509805, b: 0.15686275, a: 1}
+  CurrentColor: {r: 0, g: 1, b: 1, a: 1}
   TubeCounter: 2
   BowlObj: {fileID: 1613508317186387605, guid: f2a0fcc19d7d3f54ca8d4d1cfb5cfbce, type: 3}
 --- !u!1001 &1906157588352975248
@@ -813,7 +813,7 @@ MonoBehaviour:
   CurrenTube: {fileID: 4177327681466216662}
   HandObj: {fileID: 4061230068927693638}
   InfoTextObj: {fileID: 6643069857099970238}
-  CurrentColor: {r: 0.9411765, g: 0.74509805, b: 0.15686275, a: 1}
+  CurrentColor: {r: 0, g: 1, b: 1, a: 1}
   TubeCounter: 1
   BowlObj: {fileID: 1613508317186387605, guid: f2a0fcc19d7d3f54ca8d4d1cfb5cfbce, type: 3}
 --- !u!114 &4177327681466216662 stripped

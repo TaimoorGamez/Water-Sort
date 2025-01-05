@@ -23,7 +23,7 @@ namespace Core.GamePlay.Coloring
         float _preparationTime = 1, _finalScale = 1.5f, _finalPos = 200;
         Coroutine _screenShotRotine;
 
-        private void OnEnable()
+        private void Start()
         {
             SoundEffectEvent.InvokeSOEvent(6);
             StarParticles.Play();
@@ -47,7 +47,7 @@ namespace Core.GamePlay.Coloring
             RenderTexture.active = TargetTexture;
             screenshot.ReadPixels(new Rect(0, 0, TargetTexture.width, TargetTexture.height), 0, 0);
             screenshot.Apply();
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(0.5f);
             // Reset the RenderTexture
             RenderTexture.active = null;
             //ScreenshotCamera.targetTexture = null;
@@ -60,29 +60,13 @@ namespace Core.GamePlay.Coloring
             // Optional: Save the screenshot as a PNG
             byte[] bytes = screenshot.EncodeToPNG();
             File.WriteAllBytes(filePath, bytes);
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(0.5f);
             ChangeStateEvent.InvokeSOEvent(CompleteStateIndex.Value);
 
 #if UNITY_EDITOR
             // Refresh the AssetDatabase to show the file in the editor
             UnityEditor.AssetDatabase.Refresh();
 #endif
-        }
-
-        Color32 BlendDetailPixel(Color32 basePixel, Color32 detailPixel)
-        {
-            float alpha = detailPixel.a / 255f; // Normalize alpha to [0, 1]
-
-            // Darken the base pixel by the amount of black in the detail pixel
-            float detailIntensity = 1f - (detailPixel.r / 255f); // Assuming grayscale, use red channel
-            detailIntensity *= alpha; // Modulate by alpha of the detail pixel
-
-            return new Color32(
-                (byte)(basePixel.r * (1f - detailIntensity)),
-                (byte)(basePixel.g * (1f - detailIntensity)),
-                (byte)(basePixel.b * (1f - detailIntensity)),
-                basePixel.a // Preserve original alpha
-            );
         }
 
         private void OnDisable()

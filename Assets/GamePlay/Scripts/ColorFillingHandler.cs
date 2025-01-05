@@ -232,6 +232,11 @@ namespace Core.GamePlay.Coloring
                 NextBtn.SetActive(false);
                 FillRemaingPixles();
 
+                if (LevelStars.Value > 2 && CurrentColor.Value != ColoringPart[_paintingCounter - 1].DefaultColor)
+                {
+                    LevelStars.Value--;
+                }
+
                 if (_paintingCounter < ColoringPart.Length)
                 {
                     _partTexture = ColoringPart[_paintingCounter].GetCurrenTexture();
@@ -242,10 +247,6 @@ namespace Core.GamePlay.Coloring
                     InfoText.gameObject.SetActive(true);
                     TouchProtector.SetActive(false);
                     _canShowNextBtn = true;
-                    if (LevelStars.Value > 2 && CurrentColor.Value != ColoringPart[_paintingCounter-1].DefaultColor)
-                    {
-                        LevelStars.Value--;
-                    }
                 }
                 else 
                 {
