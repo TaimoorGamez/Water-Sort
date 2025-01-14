@@ -1468,7 +1468,6 @@ MonoBehaviour:
   - Move Flamethrower To Apply Details!
   NextBtn: {fileID: 1017345504752300334}
   TouchProtector: {fileID: 2980247516992575011}
-  ScreenSaver: {fileID: 0}
   Details: {fileID: 7901100041250102920}
   CompoundImg: {fileID: 4928604096513955447}
   CloudTexture: {fileID: 2800000, guid: 992681ded4241e548a44b7aa05485a05, type: 3}
@@ -1715,7 +1714,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8155223144613782490}
+  - {fileID: 3802831844192468085}
   - {fileID: 8155223144125208728}
   - {fileID: 1855896980159695950}
   - {fileID: 1747065741959673278}
@@ -2078,7 +2077,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 8155223143100574219}
+  m_Father: {fileID: 3802831844192468085}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2135,6 +2134,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColoringPart: {fileID: 8155223144613782484}
   DefaultColor: {r: 0.9411765, g: 0.74509805, b: 0.15686275, a: 0}
+--- !u!1 &8749898514883401818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3802831844192468085}
+  m_Layer: 5
+  m_Name: Parts
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3802831844192468085
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8749898514883401818}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8155223144613782490}
+  m_Father: {fileID: 8155223143100574219}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &2071454431250084384
 PrefabInstance:
   m_ObjectHideFlags: 0
