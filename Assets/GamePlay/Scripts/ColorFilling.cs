@@ -8,6 +8,7 @@ namespace Core.GamePlay.Coloring
         [SerializeField] RawImage ColoringPart;
 
         public Color DefaultColor;
+        public Animation MyAnimation;
 
         Texture2D _partTexture;
         int _totalColoredPixles = 0;

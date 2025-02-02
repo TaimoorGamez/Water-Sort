@@ -163,7 +163,7 @@ Material:
     - _TansparencyRange: 0
     - _Thickness: 0.064
     - _Threshold: 0
-    - _TransparencyRange: 0
+    - _TransparencyRange: 0.018
     - _Transparency_Range: 1
     - _UVSec: 0
     - _VertexThreshold: 1

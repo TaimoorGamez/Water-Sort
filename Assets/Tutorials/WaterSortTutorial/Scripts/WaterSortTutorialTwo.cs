@@ -1,26 +1,30 @@
 using UnityEngine;
 using DG.Tweening;
 using Core.Events;
-using UnityEngine.UI;
 using Core.Variables;
+using UnityEngine.UI;
 using System.Collections;
+using Core.GamePlay.Coloring;
 
 namespace Core.GamePlay.WaterSort
 {
     public class WaterSortTutorialTwo : MonoBehaviour
     {
         [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
-        [SerializeField] SOEvents UndoEvent, SwipeColorsModeEvent;
+        [SerializeField] SOEvents UndoEvent, SwipeColorsModeEvent, StartColoringEvent;
         [SerializeField] SOIntegerEvents ChangeStateEvent;
         [SerializeField] Button UndoBtn;
         [SerializeField] CapsuleCollider MyCollider, SecondCollider, ThirdCollider;
-        [SerializeField] Liquid MyLiquid, OtherLiquid;
+        [SerializeField] TubeHandler MyLiquid, OtherLiquid, ThirdLiquid;
         [SerializeField] GameObject HandObj, InfoTextObj;
         [SerializeField] Color[] CurrentColors;
         [SerializeField] bool IsUndoBtn, ExtraTube;
+        [SerializeField] BowlColorHandler BowlObj;
 
         int _colorIndex = 0;
-        bool _isFirstClick = true;
+        bool _isFirstClick = true; 
+        Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f);
+        Vector2 _firstBowlPos = new Vector2(0, -1), _OtherBowlPos = new Vector2(-1, -1), _ThirdBowlPos = new Vector2(1, -1);
 
         private void OnEnable()
         {
@@ -28,6 +32,11 @@ namespace Core.GamePlay.WaterSort
             {
                 ChangeStateEvent.EventHandler += HideInfoText;
                 UndoBtn.onClick.AddListener(TutorialUndoButton);
+            }
+
+            if (!IsUndoBtn && !ExtraTube)
+            {
+                StartColoringEvent.EventHandler += ColoringPreparation;
             }
         }
 
@@ -37,6 +46,11 @@ namespace Core.GamePlay.WaterSort
             {
                 ChangeStateEvent.EventHandler -= HideInfoText;
                 UndoBtn.onClick.RemoveListener(TutorialUndoButton);
+            }
+
+            if (!IsUndoBtn && !ExtraTube)
+            {
+                StartColoringEvent.EventHandler += ColoringPreparation;
             }
         }
 
@@ -114,6 +128,65 @@ namespace Core.GamePlay.WaterSort
         {
             if (LevelCompleteStateIndex.Value == stateNum)
                 InfoTextObj.SetActive(false);
+        }
+
+        void ColoringPreparation()
+        {
+            float tweenTime = 1;
+            InfoTextObj.SetActive(false);
+            if (!IsUndoBtn && !ExtraTube)
+            {
+                if (ThirdLiquid.WaterColors.Count > 0)
+                {
+                    ThirdLiquid.TubeCap.gameObject.SetActive(false);
+                    ThirdLiquid.transform.DOScale(_bowlScale, tweenTime);
+                    ThirdLiquid.transform.DOLocalMove(_ThirdBowlPos, tweenTime).OnComplete(() =>
+                    {
+                        BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
+                        colorBowl.transform.localPosition = ThirdLiquid.transform.localPosition;
+                        colorBowl.SetColor(ThirdLiquid.CurrentColor);
+                        Destroy(ThirdLiquid.gameObject);
+                    });
+                }
+                else
+                {
+                    Destroy(ThirdLiquid.gameObject);
+                }
+
+                if (OtherLiquid.WaterColors.Count > 0)
+                {
+                    OtherLiquid.TubeCap.gameObject.SetActive(false);
+                    OtherLiquid.transform.DOScale(_bowlScale, tweenTime);
+                    OtherLiquid.transform.DOLocalMove(_OtherBowlPos, tweenTime).OnComplete(() =>
+                    {
+                        BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
+                        colorBowl.transform.localPosition = OtherLiquid.transform.localPosition;
+                        colorBowl.SetColor(OtherLiquid.CurrentColor);
+                        Destroy(OtherLiquid.gameObject);
+                    });
+                }
+                else
+                {
+                    Destroy(OtherLiquid.gameObject);
+                }
+
+                if (MyLiquid.WaterColors.Count > 0)
+                {
+                    MyLiquid.TubeCap.gameObject.SetActive(false);
+                    MyLiquid.transform.DOScale(_bowlScale, tweenTime);
+                    MyLiquid.transform.DOLocalMove(_firstBowlPos, tweenTime).OnComplete(() =>
+                    {
+                        BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
+                        colorBowl.transform.localPosition = MyLiquid.transform.localPosition;
+                        colorBowl.SetColor(MyLiquid.CurrentColor);
+                        Destroy(MyLiquid.gameObject);
+                    });
+                }
+                else
+                {
+                    Destroy(MyLiquid.gameObject);
+                }
+            }
         }
     }
 }

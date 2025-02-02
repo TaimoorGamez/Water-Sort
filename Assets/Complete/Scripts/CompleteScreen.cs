@@ -29,7 +29,7 @@ namespace Core.Screen
 
         float _starsPos = 100, _durationTweeing = 1f;
         bool _onceClicked = false; 
-        int _levelBonus = 50, _starsBonus = 100, _detailsBonus = 0, _totalBonus = 0; 
+        int _levelBonus = 50, _starsBonus = 100, _detailsBonus = 0, _totalBonus = 0, _tutorialLevels = 5;
         Coroutine _screenShotRotine;
 
         private void OnEnable()
@@ -122,9 +122,16 @@ namespace Core.Screen
             {
                 _onceClicked = true;
                 CanPlay.Value = 0;
-                ChangeStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
                 LvlNum.Value++;
                 LevelIndex.Value++;
+                if (LvlNum.Value < _tutorialLevels)
+                {
+                    ChangeStateEvent.InvokeSOEvent(GamePlayState.Value);
+                }
+                else
+                {
+                    ChangeStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
+                }
             }
         }
     }

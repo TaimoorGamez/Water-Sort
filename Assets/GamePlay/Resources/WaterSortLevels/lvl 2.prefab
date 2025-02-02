@@ -131,13 +131,14 @@ GameObject:
   - component: {fileID: 4828678259526343330}
   - component: {fileID: 1663151736074620710}
   - component: {fileID: 5844892731391037022}
+  - component: {fileID: 4342708311000469410}
   m_Layer: 5
   m_Name: InfoText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4828678259526343330
 RectTransform:
   m_ObjectHideFlags: 0
@@ -150,12 +151,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1811283681949291181}
+  m_Father: {fileID: 6017741503500419412}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -250.00002}
   m_SizeDelta: {x: 450, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1663151736074620710
@@ -255,6 +256,22 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!111 &4342708311000469410
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965580779618376801}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 80446205d02e8d74fb7c1583f4cbb2d4, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 80446205d02e8d74fb7c1583f4cbb2d4, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &3295146771323555393
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +303,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1811283681949291181}
+  - {fileID: 4828678259526343330}
   - {fileID: 3317255059155800264}
   - {fileID: 5544683389306859722}
   m_Father: {fileID: 5115798769448170881}
@@ -315,7 +332,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 1
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -471,60 +488,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &8018498610106359200
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1811283681949291181}
-  - component: {fileID: 6264466958139079586}
-  m_Layer: 5
-  m_Name: TextHolder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &1811283681949291181
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8018498610106359200}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4828678259526343330}
-  m_Father: {fileID: 6017741503500419412}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -250}
-  m_SizeDelta: {x: 1, y: 1}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!111 &6264466958139079586
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8018498610106359200}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 80446205d02e8d74fb7c1583f4cbb2d4, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 80446205d02e8d74fb7c1583f4cbb2d4, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!1 &8122373324303572497
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,8 +630,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: 81e15200fc21dde428dfc77b6ad0a901, type: 2}
-          m_TargetAssemblyTypeName: Core.Animations.LT.SOScaleLeanTween, Assembly-CSharp
+        - m_Target: {fileID: 11400000, guid: 1814ade01c91ecb47b8d278a64449799, type: 2}
+          m_TargetAssemblyTypeName: Core.Animations.DT.SODOTween, Assembly-CSharp
           m_MethodName: CancleAnimation
           m_Mode: 1
           m_Arguments:
@@ -679,8 +642,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 11400000, guid: 284237fc3ae7c2a498cf773957cf2c9b, type: 2}
-          m_TargetAssemblyTypeName: Core.Animations.LT.SOLeanTween, Assembly-CSharp
+        - m_Target: {fileID: 11400000, guid: c60dd5901b4a64c4b8faf099109c7fad, type: 2}
+          m_TargetAssemblyTypeName: Core.Animations.DT.SODOTween, Assembly-CSharp
           m_MethodName: set_TargetObj
           m_Mode: 2
           m_Arguments:
@@ -691,8 +654,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 11400000, guid: 284237fc3ae7c2a498cf773957cf2c9b, type: 2}
-          m_TargetAssemblyTypeName: Core.Animations.LT.SOScaleLeanTween, Assembly-CSharp
+        - m_Target: {fileID: 11400000, guid: c60dd5901b4a64c4b8faf099109c7fad, type: 2}
+          m_TargetAssemblyTypeName: Core.Animations.DT.SOScaleDOTween, Assembly-CSharp
           m_MethodName: PlayAnimation
           m_Mode: 1
           m_Arguments:
@@ -707,8 +670,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: 284237fc3ae7c2a498cf773957cf2c9b, type: 2}
-          m_TargetAssemblyTypeName: Core.Animations.LT.SOScaleLeanTween, Assembly-CSharp
+        - m_Target: {fileID: 11400000, guid: c60dd5901b4a64c4b8faf099109c7fad, type: 2}
+          m_TargetAssemblyTypeName: Core.Animations.DT.SODOTween, Assembly-CSharp
           m_MethodName: CancleAnimation
           m_Mode: 1
           m_Arguments:
@@ -719,8 +682,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 11400000, guid: 81e15200fc21dde428dfc77b6ad0a901, type: 2}
-          m_TargetAssemblyTypeName: Core.Animations.LT.SOLeanTween, Assembly-CSharp
+        - m_Target: {fileID: 11400000, guid: 1814ade01c91ecb47b8d278a64449799, type: 2}
+          m_TargetAssemblyTypeName: Core.Animations.DT.SODOTween, Assembly-CSharp
           m_MethodName: set_TargetObj
           m_Mode: 2
           m_Arguments:
@@ -731,8 +694,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 11400000, guid: 81e15200fc21dde428dfc77b6ad0a901, type: 2}
-          m_TargetAssemblyTypeName: Core.Animations.LT.SOScaleLeanTween, Assembly-CSharp
+        - m_Target: {fileID: 11400000, guid: 1814ade01c91ecb47b8d278a64449799, type: 2}
+          m_TargetAssemblyTypeName: Core.Animations.DT.SOScaleDOTween, Assembly-CSharp
           m_MethodName: PlayAnimation
           m_Mode: 1
           m_Arguments:
@@ -759,6 +722,7 @@ MonoBehaviour:
   LevelCompleteStateIndex: {fileID: 11400000, guid: 372a4013c41549545822b875f34f8aa3, type: 2}
   UndoEvent: {fileID: 11400000, guid: ff7fa43f0f31602409df525ffc36b629, type: 2}
   SwipeColorsModeEvent: {fileID: 0}
+  StartColoringEvent: {fileID: 0}
   ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
   UndoBtn: {fileID: 4125162645496471715}
   MyCollider: {fileID: 8351219351031278332}
@@ -766,11 +730,13 @@ MonoBehaviour:
   ThirdCollider: {fileID: 1223959023396332102}
   MyLiquid: {fileID: 0}
   OtherLiquid: {fileID: 0}
+  ThirdLiquid: {fileID: 0}
   HandObj: {fileID: 7276909665040472890}
   InfoTextObj: {fileID: 3295146771323555393}
   CurrentColors: []
   IsUndoBtn: 1
   ExtraTube: 0
+  BowlObj: {fileID: 0}
 --- !u!1 &8638740337467509520
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,17 +870,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 780440981a73a0347b6401976879e349, type: 3}
---- !u!114 &3932259464553563491 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1316450118960018790, guid: 780440981a73a0347b6401976879e349, type: 3}
-  m_PrefabInstance: {fileID: 2654530370116251653}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fb69ddcdb1eb1342bae74ad5ca1676c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7105461393042631095 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5065813127947164082, guid: 780440981a73a0347b6401976879e349, type: 3}
@@ -936,20 +891,23 @@ MonoBehaviour:
   LevelCompleteStateIndex: {fileID: 0}
   UndoEvent: {fileID: 0}
   SwipeColorsModeEvent: {fileID: 11400000, guid: 9781b632e66a3704aa915400af187d35, type: 2}
+  StartColoringEvent: {fileID: 11400000, guid: ed751afbb0214de499cef1891112c6d6, type: 2}
   ChangeStateEvent: {fileID: 0}
   UndoBtn: {fileID: 0}
   MyCollider: {fileID: 8351219351031278332}
   SecondCollider: {fileID: 0}
   ThirdCollider: {fileID: 1223959023396332102}
-  MyLiquid: {fileID: 3932259464553563491}
-  OtherLiquid: {fileID: 6787891106855416226}
+  MyLiquid: {fileID: 8370839497526712387}
+  OtherLiquid: {fileID: 2056577080806075522}
+  ThirdLiquid: {fileID: 1671450998538359033}
   HandObj: {fileID: 7276909665040472890}
-  InfoTextObj: {fileID: 0}
+  InfoTextObj: {fileID: 965580779618376801}
   CurrentColors:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 1, g: 1, b: 0, a: 1}
+  - {r: 0.8980393, g: 0.21960786, b: 0.29411766, a: 1}
+  - {r: 1, g: 0.627451, b: 0.27450982, a: 1}
   IsUndoBtn: 0
   ExtraTube: 0
+  BowlObj: {fileID: 1613508317186387605, guid: f2a0fcc19d7d3f54ca8d4d1cfb5cfbce, type: 3}
 --- !u!4 &7271512562738377247 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4629510652355691034, guid: 780440981a73a0347b6401976879e349, type: 3}
@@ -960,6 +918,17 @@ CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 6283564428832381689, guid: 780440981a73a0347b6401976879e349, type: 3}
   m_PrefabInstance: {fileID: 2654530370116251653}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8370839497526712387 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+  m_PrefabInstance: {fileID: 2654530370116251653}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7105461393042631095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 381958eafc16ab34aacb70e5efdd0655, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5103895360099310060
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -997,11 +966,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 731274067031566630, guid: f9032a19e55d8cd489f713145ed43649, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 37
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 731274067031566630, guid: f9032a19e55d8cd489f713145ed43649, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -130
       objectReference: {fileID: 0}
     - target: {fileID: 731274067031566630, guid: f9032a19e55d8cd489f713145ed43649, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -1013,7 +982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2461334847493489366, guid: f9032a19e55d8cd489f713145ed43649, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3491955903327983533, guid: f9032a19e55d8cd489f713145ed43649, type: 3}
       propertyPath: m_RootOrder
@@ -1153,6 +1122,7 @@ MonoBehaviour:
   LevelCompleteStateIndex: {fileID: 0}
   UndoEvent: {fileID: 0}
   SwipeColorsModeEvent: {fileID: 0}
+  StartColoringEvent: {fileID: 0}
   ChangeStateEvent: {fileID: 0}
   UndoBtn: {fileID: 4125162645496471715}
   MyCollider: {fileID: 1223959023396332102}
@@ -1160,11 +1130,13 @@ MonoBehaviour:
   ThirdCollider: {fileID: 0}
   MyLiquid: {fileID: 0}
   OtherLiquid: {fileID: 0}
+  ThirdLiquid: {fileID: 0}
   HandObj: {fileID: 7276909665040472890}
-  InfoTextObj: {fileID: 8018498610106359200}
+  InfoTextObj: {fileID: 965580779618376801}
   CurrentColors: []
   IsUndoBtn: 0
   ExtraTube: 1
+  BowlObj: {fileID: 0}
 --- !u!4 &572106521496124069 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4629510652355691034, guid: 780440981a73a0347b6401976879e349, type: 3}
@@ -1175,6 +1147,17 @@ CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 6283564428832381689, guid: 780440981a73a0347b6401976879e349, type: 3}
   m_PrefabInstance: {fileID: 5174588355139713215}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1671450998538359033 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+  m_PrefabInstance: {fileID: 5174588355139713215}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108850012270928141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 381958eafc16ab34aacb70e5efdd0655, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5510038248674002116
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1246,14 +1229,14 @@ CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 6283564428832381689, guid: 780440981a73a0347b6401976879e349, type: 3}
   m_PrefabInstance: {fileID: 5510038248674002116}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6787891106855416226 stripped
+--- !u!114 &2056577080806075522 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1316450118960018790, guid: 780440981a73a0347b6401976879e349, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
   m_PrefabInstance: {fileID: 5510038248674002116}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fb69ddcdb1eb1342bae74ad5ca1676c, type: 3}
+  m_Script: {fileID: 11500000, guid: 381958eafc16ab34aacb70e5efdd0655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

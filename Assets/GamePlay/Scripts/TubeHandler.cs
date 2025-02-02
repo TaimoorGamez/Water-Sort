@@ -12,6 +12,7 @@ namespace Core.GamePlay.WaterSort
         public bool IsBussy = false;
         public List<Color> WaterColors = new List<Color>();
         public Color CurrentColor;
+        public CapHandler TubeCap;
 
         [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] SOInterger DoingUndo, IsHiddenLevel, CompletedTubes, IsSwaping, CanPlay, UsingAnyFeature;
@@ -24,7 +25,6 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] Transform AnchorPos1, AnchorPos2;
         [SerializeField] Vector3[] ParticlePos;
         [SerializeField] CapsuleCollider TubeCollider;
-        [SerializeField] CapHandler TubeCap;
         [SerializeField] Liquid[] MyLiquid;
         [SerializeField] GameObject[] HidenMarks;
         [SerializeField] Animation TubeAnimation;
@@ -194,11 +194,13 @@ namespace Core.GamePlay.WaterSort
                 IsBussy = false;
             });
             yield return new WaitForSeconds(1f);
+            WaterLine.gameObject.SetActive(false);
             senderTube.TubeState(false);
             if (IsHiddenLevel.Value == 1)
             {
                 senderTube.CheckHiddenColor();
             }
+            yield return new WaitForSeconds(0.25f);
             WaterAdded();
             yield return new WaitForSeconds(0.5f);
             senderTube.IsBussy = false;
@@ -212,7 +214,6 @@ namespace Core.GamePlay.WaterSort
 
         public void WaterAdded()
         {
-            WaterLine.gameObject.SetActive(false);
             _isDrinkingWater = false;
             if (WaterColors.Count == _totalLiquidLayers)
             {
@@ -277,25 +278,23 @@ namespace Core.GamePlay.WaterSort
         IEnumerator ColorRemovingCorotine(int layers)
         {
             WaveParticle.Stop();
-            TubeAnimation.Play("Liquid "+WaterColors.Count+""+layers);
+            TubeAnimation.Play("Liquid " + WaterColors.Count + "" + layers);
             for (int c = 1; c <= layers; c++)
             {
                 yield return new WaitForSeconds((float)1 / layers);
-                MyLiquid[WaterColors.Count-1].HideColor();
+                MyLiquid[WaterColors.Count - 1].HideColor();
                 WaterColors.RemoveAt(WaterColors.Count - 1);
             }
-
+            TubeAnimation.Play("LiquidDefault");
             if (WaterColors.Count > 0)
-            { DropsParticle.transform.localPosition = ParticlePos[WaterColors.Count - 1]; }
-
+            {
+                DropsParticle.transform.localPosition = ParticlePos[WaterColors.Count - 1];
+                CurrentColor = WaterColors[WaterColors.Count - 1];
+            }
+            yield return new WaitForSeconds(0.1f);
             if (_removingRotine != null)
             {
                 StopCoroutine(_removingRotine);
-            }
-            yield return new WaitForSeconds(0.1f);
-            for (int c = 1; c <= layers; c++)
-            {
-                MyLiquid[WaterColors.Count - 1].transform.localScale = Vector3.one;
             }
         }
 
@@ -335,14 +334,10 @@ namespace Core.GamePlay.WaterSort
             }
             else
             {
-                MyLiquid[WaterColors.Count-1].SetGlow(false);
                 WaveParticle.Stop();
-                for (int c = 1; c < WaterColors.Count; c++)
+                for (int c = 0; c < MyLiquid.Length; c++)
                 {
-                    if (WaterColors[c] == WaterColors[c - 1])
-                    {
-                        MyLiquid[c- 1].SetGlow(false);
-                    }
+                    MyLiquid[c].SetGlow(false);
                 }
                 transform.DOLocalMove(_orignalPos, 0.05f);
                 transform.DOLocalRotate(Vector3.zero, 0.05f).OnComplete(() => transform.position = _orignalPos);
@@ -355,7 +350,6 @@ namespace Core.GamePlay.WaterSort
             _propertyBlock.SetColor("_BaseColor", currentColor);
             WaterLine.SetPropertyBlock(_propertyBlock);
             _pM.startColor = currentColor;
-            WaterLine.gameObject.SetActive(true);
             CurrentColor = currentColor;
             _addingRotine = StartCoroutine(ColorAdddingCorotine(currentColor,layers));
         }
@@ -364,6 +358,7 @@ namespace Core.GamePlay.WaterSort
         {
             float elapsedTime = 0f, duration = (float)1 / layers;
             Vector3 startPosition = DropsParticle.transform.localPosition;
+            WaterLine.gameObject.SetActive(true);
             DropsParticle.Play();
             for (int c = 1; c <= layers; c++)
             {

@@ -28,9 +28,9 @@ namespace Core.GamePlay.WaterSort
             MySkin.SetPropertyBlock(_propBlock);
         }
 
-        public void SetGlow(bool State)
+        public void SetGlow(bool state)
         {
-            if (State)
+            if (state)
             {
                 _propBlock.SetInteger("_Glow", 1);
             }

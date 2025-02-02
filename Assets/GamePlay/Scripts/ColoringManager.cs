@@ -1,6 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 using Core.Events;
+using Core.DB.Variables;
 
 namespace Core.GamePlay.Coloring
 {
@@ -10,7 +11,7 @@ namespace Core.GamePlay.Coloring
         [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] RectTransform ColoringImage;
         [SerializeField] Transform RefferanceBar;
-        [SerializeField] int LevelIndex;
+        [SerializeField] DBInt LevelIndex;
 
         float _preparationTime = 1;
         string _refferancePath = "RefferanceImges/lvl ";
@@ -31,7 +32,7 @@ namespace Core.GamePlay.Coloring
             ColoringImage.DOAnchorPos(Vector2.zero, _preparationTime).OnComplete(() =>
             {
                 RefferanceBar.gameObject.SetActive(true);
-                Instantiate(Resources.Load(_refferancePath + LevelIndex),RefferanceBar.GetChild(0));
+                Instantiate(Resources.Load(_refferancePath + LevelIndex.Value),RefferanceBar.GetChild(0));
             });
         }
     }

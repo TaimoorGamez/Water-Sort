@@ -98,6 +98,7 @@ MonoBehaviour:
   CheckCompleteEvent: {fileID: 11400000, guid: 2c37a8d1a87a967478aac7aad7856195, type: 2}
   WaveParticle: {fileID: 1311254256}
   DropsParticle: {fileID: 6072863914309259624}
+  CompleteParticle: {fileID: 3955569127721252623}
   WaterLine: {fileID: 6086113648058284376}
   AnchorPos1: {fileID: 2669047898572765166}
   AnchorPos2: {fileID: 737825630789356636}
@@ -114,10 +115,7 @@ MonoBehaviour:
   - {fileID: 373532316630249238}
   - {fileID: 5024568846389565036}
   HidenMarks: []
-  WaveRenderer: {fileID: 1311254257}
-  DropsRenderer: {fileID: 6072863914309259627}
   TubeAnimation: {fileID: 8526494977704156384}
-  CompleteParticle: {fileID: 3955569127721252623}
 --- !u!136 &6283564428832381689
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -143,6 +141,7 @@ Animation:
   serializedVersion: 3
   m_Animation: {fileID: 0}
   m_Animations:
+  - {fileID: 7400000, guid: 271cac25c04a2c04190344b0a477aa6a, type: 2}
   - {fileID: 7400000, guid: b523e458e9aedfa4c888c2dc23522657, type: 2}
   - {fileID: 7400000, guid: e6b9f68d3d6b6e345af9bdb1882506c1, type: 2}
   - {fileID: 7400000, guid: c4a009e25609da648ac193c16c17e2a4, type: 2}
@@ -475,11 +474,6 @@ ParticleSystem:
 --- !u!4 &6072863914309259626 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6754629058700666996, guid: feb41f2447e861c4cb7f756297643f39, type: 3}
-  m_PrefabInstance: {fileID: 719000179639023902}
-  m_PrefabAsset: {fileID: 0}
---- !u!199 &6072863914309259627 stripped
-ParticleSystemRenderer:
-  m_CorrespondingSourceObject: {fileID: 6754629058700666997, guid: feb41f2447e861c4cb7f756297643f39, type: 3}
   m_PrefabInstance: {fileID: 719000179639023902}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &749552814008904832
@@ -1211,11 +1205,6 @@ PrefabInstance:
 --- !u!198 &1311254256 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 8820179204214040474, guid: edfd00454cd934941867f35592c4b3c9, type: 3}
-  m_PrefabInstance: {fileID: 8820179203306488170}
-  m_PrefabAsset: {fileID: 0}
---- !u!199 &1311254257 stripped
-ParticleSystemRenderer:
-  m_CorrespondingSourceObject: {fileID: 8820179204214040475, guid: edfd00454cd934941867f35592c4b3c9, type: 3}
   m_PrefabInstance: {fileID: 8820179203306488170}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1311254258 stripped
