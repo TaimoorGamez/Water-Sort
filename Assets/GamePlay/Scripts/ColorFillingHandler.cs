@@ -70,7 +70,7 @@ namespace Core.GamePlay.Coloring
             {
                 InfoText.gameObject.SetActive(true);
             });
-            ColoringPart[_paintingCounter].MyAnimation.Play();
+            ColoringPart[_paintingCounter].MyAnimation.Play("CurrentColoringPart");
         }
 
         void ColorSelected()
@@ -195,7 +195,7 @@ namespace Core.GamePlay.Coloring
             {
                 _canShowNextBtn = false;
                 _onceClicked = false;
-                ColoringPart[_paintingCounter].MyAnimation.Stop();
+                ColoringPart[_paintingCounter].MyAnimation.Play("DefaultColoringPart");
                 NextBtn.SetActive(true);
                 _paintingCounter++;
             }
@@ -248,7 +248,7 @@ namespace Core.GamePlay.Coloring
                     PaintBrush.SetActive(true);
                     InfoText.gameObject.SetActive(true);
                     TouchProtector.SetActive(false);
-                    ColoringPart[_paintingCounter].MyAnimation.Play();
+                    ColoringPart[_paintingCounter].MyAnimation.Play("CurrentColoringPart");
                     _canShowNextBtn = true;
                 }
                 else 
