@@ -356,24 +356,15 @@ namespace Core.GamePlay.WaterSort
 
         IEnumerator ColorAdddingCorotine(Color currentColor, int layers)
         {
-            float elapsedTime = 0f, duration = (float)1 / layers;
+            float duration = (float)1 / layers;
             Vector3 startPosition = DropsParticle.transform.localPosition;
             WaterLine.gameObject.SetActive(true);
             DropsParticle.Play();
             for (int c = 1; c <= layers; c++)
             {
-                StartCoroutine(MyLiquid[WaterColors.Count].SmoothlyAddColor(currentColor, (float)1 / layers));
-                while (elapsedTime < duration)
-                {
-                    // Interpolate between the start and destination positions
-                    DropsParticle.transform.localPosition = Vector3.Lerp(startPosition, ParticlePos[WaterColors.Count], elapsedTime / duration);
-
-                    // Increase elapsed time
-                    elapsedTime += Time.deltaTime;
-
-                    // Wait for the next frame
-                    yield return null;
-                }
+                MyLiquid[WaterColors.Count].SmoothlyAddColor(currentColor, duration);
+                DropsParticle.transform.DOLocalMove(ParticlePos[WaterColors.Count], duration);
+                yield return duration;
                 WaterColors.Add(currentColor);
             }
             DropsParticle.Stop();

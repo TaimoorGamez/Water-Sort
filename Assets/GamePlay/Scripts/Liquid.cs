@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using System.Collections;
 
@@ -47,22 +48,17 @@ namespace Core.GamePlay.WaterSort
             MySkin.SetPropertyBlock(_propBlock);
         }
 
-        public IEnumerator SmoothlyAddColor(Color currentColor, float duration)
+        public void SmoothlyAddColor(Color currentColor, float duration)
         {
             _propBlock.SetColor("_BaseColor", currentColor);
             _propBlock.SetFloat("_TransparencyRange", 0);
             MySkin.SetPropertyBlock(_propBlock);
-            float elapsedTime = 0f, smoothTimer = 0.01f;
 
-            while (elapsedTime < duration)
+            DOTween.To(() => 0f, x =>
             {
-                elapsedTime += smoothTimer;
-                float t = Mathf.Clamp01(elapsedTime / duration);
-                float currentTransparency = Mathf.Lerp(0, 1, t);
-                _propBlock.SetFloat("_TransparencyRange", currentTransparency);
+                _propBlock.SetFloat("_TransparencyRange", x);
                 MySkin.SetPropertyBlock(_propBlock);
-                yield return new WaitForSeconds(smoothTimer);
-            }
+            }, 1f, duration);
         }
 
 
