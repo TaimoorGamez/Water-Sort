@@ -1846,7 +1846,7 @@ MonoBehaviour:
   GamePlayState: {fileID: 11400000, guid: d7723c4d03c616248b6e725f6734b348, type: 2}
   SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
   ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
-  DeActiveStatEvent: {fileID: 11400000, guid: 02ec45e5db2f3f04eaeb0eb4a067ffea, type: 2}
+  DestroyStatEvent: {fileID: 11400000, guid: 853f6ddba0535194baa5c23d4d561386, type: 2}
   DestroyLevelEvent: {fileID: 11400000, guid: 462f5b56355cc214fb4c4775d6a87709, type: 2}
   ShowPanel: {fileID: 11400000, guid: bfe4c542e9b90ea439d12ac668dc209c, type: 2}
   Body: {fileID: 6174778208438504148}
@@ -1857,7 +1857,6 @@ MonoBehaviour:
   - {fileID: 4047541346041690862}
   - {fileID: 5845976620193309198}
   PaintingImg: {fileID: 5310888612579853602}
-  NextButton: {fileID: 3547177611047254759}
   LevelBonusText: {fileID: 371418382920146953}
   StarsBonusText: {fileID: 1299131095481621160}
   DetailsBonusText: {fileID: 4791703346453442037}
@@ -3230,6 +3229,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3912602606777042924}
     m_Modifications:
+    - target: {fileID: -8112495795357452813, guid: 351d10f092e847d43a270062db1f47f7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8112495795357452813, guid: 351d10f092e847d43a270062db1f47f7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8112495795357452813, guid: 351d10f092e847d43a270062db1f47f7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: -4677062817652568163}
+    - target: {fileID: -8112495795357452813, guid: 351d10f092e847d43a270062db1f47f7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8112495795357452813, guid: 351d10f092e847d43a270062db1f47f7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnClickNext
+      objectReference: {fileID: 0}
+    - target: {fileID: -8112495795357452813, guid: 351d10f092e847d43a270062db1f47f7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Core.Screen.CompleteScreen, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: -8112495795357452813, guid: 351d10f092e847d43a270062db1f47f7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2246259970652694679, guid: 351d10f092e847d43a270062db1f47f7, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
       value: 1.2
@@ -3332,17 +3359,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 351d10f092e847d43a270062db1f47f7, type: 3}
---- !u!114 &3547177611047254759 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 772757944669561043, guid: 351d10f092e847d43a270062db1f47f7, type: 3}
-  m_PrefabInstance: {fileID: 4288403761083406900}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &4910007234151839453 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9196528488518298857, guid: 351d10f092e847d43a270062db1f47f7, type: 3}

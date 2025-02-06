@@ -1777,7 +1777,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChangeBackgroundEvent: {fileID: 11400000, guid: 3975c495653f66f468e75826b839bd02, type: 2}
   ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
-  DeActiveStateEvent: {fileID: 11400000, guid: 02ec45e5db2f3f04eaeb0eb4a067ffea, type: 2}
+  DeactiveStateEvent: {fileID: 11400000, guid: 02ec45e5db2f3f04eaeb0eb4a067ffea, type: 2}
+  DestroyStateEvent: {fileID: 11400000, guid: 853f6ddba0535194baa5c23d4d561386, type: 2}
   AllStates:
   - {fileID: 11400000, guid: d727876a364fb4d428957a9e51d89fc8, type: 2}
   - {fileID: 11400000, guid: 173e8d3bd0a9c2a4eb44ad83ba59a4d2, type: 2}

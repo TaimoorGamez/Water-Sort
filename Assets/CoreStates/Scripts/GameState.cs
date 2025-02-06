@@ -21,12 +21,12 @@ namespace Core.States
             }
         }
 
-        public void DeActiveCurrentState()
+        public void DeactiveState()
         {
             _stateScreen.SetActive(false);
         }
 
-        public void DestroyCurrentState()
+        public void DestroyState()
         {
             if (_stateScreen != null)
                 Destroy(_stateScreen);

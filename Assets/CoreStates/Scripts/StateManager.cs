@@ -7,19 +7,21 @@ namespace Core.States
     public class StateManager : MonoBehaviour
     {
         [SerializeField] SOEvents ChangeBackgroundEvent;
-        [SerializeField] SOIntegerEvents ChangeStateEvent, DeActiveStateEvent;
+        [SerializeField] SOIntegerEvents ChangeStateEvent, DeactiveStateEvent, DestroyStateEvent;
         [SerializeField] GameState[] AllStates;
         [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, LeveCompleteStateIndex;
 
         private void OnEnable()
         {
             ChangeStateEvent.EventHandler += ChangeState;
-            DeActiveStateEvent.EventHandler += DeActiveState;
+            DeactiveStateEvent.EventHandler += DeactiveState;
+            DestroyStateEvent.EventHandler += DestroyState;
         }
         private void OnDisable()
         {
             ChangeStateEvent.EventHandler -= ChangeState;
-            DeActiveStateEvent.EventHandler -= DeActiveState;
+            DeactiveStateEvent.EventHandler -= DeactiveState;
+            DestroyStateEvent.EventHandler -= DestroyState;
         }
 
         private void Start()
@@ -29,27 +31,32 @@ namespace Core.States
 
         void ChangeState(int stateIndex)
         {
-            AllStates[stateIndex].ActiveCurrentState(transform);
             if (stateIndex == MainMenuStateIndex.Value)
             {
                 ChangeBackgroundEvent.InvokeSOEvent();
-                for (int s = AllStates.Length - 1; s > MainMenuStateIndex.Value; s--)
+                for (int s = 0; s > AllStates.Length; s++)
                 {
-                    AllStates[s].DestroyCurrentState();
+                    AllStates[s].DestroyState();
                 }
             }
             else if (stateIndex == GamePlayStateIndex.Value)
             {
-                for (int s = 0; s < GamePlayStateIndex.Value; s++)
+                for (int s = 0; s < AllStates.Length; s++)
                 {
-                    AllStates[s].DestroyCurrentState();
+                    AllStates[s].DestroyState();
                 }
             }
+            AllStates[stateIndex].ActiveCurrentState(transform);
         }
 
-        void DeActiveState(int stateIndex)
+        void DeactiveState(int stateIndex)
         {
-            AllStates[stateIndex].DeActiveCurrentState();
+            AllStates[stateIndex].DeactiveState();
+        }
+
+        void DestroyState(int stateIndex)
+        {
+            AllStates[stateIndex].DestroyState();
         }
     }
 }

@@ -15,14 +15,13 @@ namespace Core.Screen
     {
         [SerializeField] DBInt LevelIndex, LvlNum;
         [SerializeField] SOInterger LevelStars, CanPlay, MainMenuStateIndex, LevelMoves, DetailsApplied, GamePlayState;
-        [SerializeField] SOIntegerEvents SoundEffectEvent, ChangeStateEvent, DeActiveStatEvent;
+        [SerializeField] SOIntegerEvents SoundEffectEvent, ChangeStateEvent, DestroyStatEvent;
         [SerializeField] SOEvents DestroyLevelEvent;
         [SerializeField] SOAnChorMove ShowPanel;
         [SerializeField] GameObject Body;
         [SerializeField] RectTransform StarsObj, Painting;
         [SerializeField] Image[] StarsImg;
         [SerializeField] RawImage PaintingImg;
-        [SerializeField] Button NextButton;
         [SerializeField] TextMeshProUGUI LevelBonusText, StarsBonusText, DetailsBonusText, MovesBonusText, TotalBonusText;
         [SerializeField] Camera ScreenshotCamera;
         [SerializeField] RenderTexture TargetTexture;
@@ -32,19 +31,9 @@ namespace Core.Screen
         int _levelBonus = 50, _starsBonus = 100, _detailsBonus = 0, _totalBonus = 0, _tutorialLevels = 5;
         Coroutine _screenShotRotine;
 
-        private void OnEnable()
-        {
-            NextButton.onClick.AddListener(OnClickNext);
-        }
-
         private void Start()
         {
             _screenShotRotine = StartCoroutine(CaptureColoredArea());
-        }
-
-        private void OnDisable()
-        {
-            NextButton.onClick.RemoveListener(OnClickNext);
         }
 
         IEnumerator CaptureColoredArea()
@@ -70,7 +59,7 @@ namespace Core.Screen
             byte[] bytes = screenshot.EncodeToPNG();
             File.WriteAllBytes(filePath, bytes);
             yield return new WaitForSeconds(2.5f);
-            DeActiveStatEvent.InvokeSOEvent(GamePlayState.Value);
+            DestroyStatEvent.InvokeSOEvent(GamePlayState.Value);
             DestroyLevelEvent.InvokeSOEvent();
             ScreenshotCamera.gameObject.SetActive(true);
             ShowPanel.TargetObj = Body;
@@ -116,7 +105,7 @@ namespace Core.Screen
         }
 
 
-        void OnClickNext()
+        public void OnClickNext()
         {
             if (!_onceClicked)
             {
