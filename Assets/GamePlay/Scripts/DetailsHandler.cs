@@ -81,12 +81,18 @@ namespace Core.GamePlay.Coloring
                     HideRemaingPixles();
                     SoundEffectEvent.InvokeSOEvent(6);
                     StarParticles.Play();
+                    ColoringImage.DOScale(1.1f, _preparationTime);
                     ColoringImage.DOAnchorPosY(_finalPos, _preparationTime).OnComplete(() =>
                     {
-                        ChangeStateEvent.InvokeSOEvent(CompleteStateIndex.Value);
+                        Invoke(nameof(LevelComplete),2);
                     });
                 }
             }
+        }
+
+        void LevelComplete()
+        {
+            ChangeStateEvent.InvokeSOEvent(CompleteStateIndex.Value);
         }
 
         void PrepareCompounD()
