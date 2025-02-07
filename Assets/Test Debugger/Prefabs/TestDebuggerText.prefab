@@ -31,6 +31,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -66,7 +67,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 5f3c3c7bee1ec5042971ead7558cd859, type: 3}
+    m_Font: {fileID: 12800000, guid: e0978430adbdc5340aa153d0848dd039, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1

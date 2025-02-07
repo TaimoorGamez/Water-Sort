@@ -1,5 +1,4 @@
 using TMPro;
-using System.IO;
 using DG.Tweening;
 using UnityEngine;
 using Core.Events;
@@ -38,7 +37,7 @@ namespace Core.Screen
 
         IEnumerator CaptureColoredArea()
         {
-            string folderPath = "GamePlay/Resources/Paintings";
+            string folderPath = "Assets/GamePlay/Resources/Paintings/Painting ";
             ScreenshotCamera.targetTexture = TargetTexture;
             ScreenshotCamera.Render();
             yield return new WaitForSeconds(0.01f);
@@ -52,13 +51,9 @@ namespace Core.Screen
             yield return new WaitForSeconds(0.25f);
             // Reset the RenderTexture
             RenderTexture.active = null;
-
-            string directoryPath = Path.Combine(Application.dataPath, folderPath);
-            string filePath = Path.Combine(directoryPath, "Painting " + LvlNum.Value + ".png");
             // Optional: Save the screenshot as a PNG
             byte[] bytes = screenshot.EncodeToPNG();
-            File.WriteAllBytes(filePath, bytes);
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(0.1f);
             DestroyStatEvent.InvokeSOEvent(GamePlayState.Value);
             DestroyLevelEvent.InvokeSOEvent();
             ScreenshotCamera.gameObject.SetActive(true);
