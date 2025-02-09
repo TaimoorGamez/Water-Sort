@@ -202,11 +202,11 @@ namespace Core.GamePlay.WaterSort
             }
             yield return new WaitForSeconds(0.25f);
             WaterAdded();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
             senderTube.IsBussy = false;
             if (DoingUndo.Value == 1)
             {
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(0.05f);
                 DoingUndo.Value = 0;
                 UsingAnyFeature.Value = 0;
             }

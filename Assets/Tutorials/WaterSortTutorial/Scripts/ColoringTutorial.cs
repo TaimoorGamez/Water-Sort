@@ -17,8 +17,8 @@ namespace Core.GamePlay.Coloring
 
         private void OnDisable()
         {
-            StartColoringEvent.EventHandler += StartColoring;
-            ColorSelectedEvent.EventHandler += ColorSelected;
+            StartColoringEvent.EventHandler -= StartColoring;
+            ColorSelectedEvent.EventHandler -= ColorSelected;
         }
 
         void StartColoring()

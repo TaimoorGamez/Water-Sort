@@ -19,7 +19,7 @@ namespace Core.GamePlay.Coloring
         [SerializeField] Vector2Int VerticalRange, HorizontalRange;
         [SerializeField] TextMeshProUGUI InfoText;
         [SerializeField] string[] InfoMsgs;
-        [SerializeField] GameObject PaintBrush, NextBtn, TouchProtector, DetailsImg, ResetButton;
+        [SerializeField] GameObject NextBtn, TouchProtector, DetailsImg, ResetButton;
         [SerializeField] Animation BrushAnimtion;
         [SerializeField] ParticleSystem BrushParitcle;
 
@@ -66,8 +66,8 @@ namespace Core.GamePlay.Coloring
             _partTexture = ColoringPart[_paintingCounter].GetCurrenTexture();
             _totalColorPixles = ColoringPart[_paintingCounter].GetColoredPixlesCount();
             _partPixles = _partTexture.GetPixels32();
-            PaintBrush.SetActive(true);
-            PaintBrush.transform.DOMoveX(0, _preparationTime).SetEase(Ease.InBack).OnComplete(() =>
+            BrushTransform.gameObject.SetActive(true);
+            BrushTransform.DOAnchorPosX(175, _preparationTime).SetEase(Ease.InBack).OnComplete(() =>
             {
                 InfoText.gameObject.SetActive(true);
             });
@@ -76,7 +76,7 @@ namespace Core.GamePlay.Coloring
 
         void ColorSelected()
         {
-            if (!_isReseting)
+            if (!_isReseting && _paintingCounter < ColoringPart.Length)
             {
                 InfoText.text = InfoMsgs[1];
                 Color newColor = CurrentColor.Value;
@@ -232,7 +232,7 @@ namespace Core.GamePlay.Coloring
                 _paintingCounter++;
                 _canColor = false;
                 TouchProtector.SetActive(true);
-                PaintBrush.SetActive(false);
+                BrushTransform.gameObject.SetActive(false);
                 if (_movingRoutine != null)
                 {
                     StopCoroutine(_movingRoutine);
@@ -256,7 +256,7 @@ namespace Core.GamePlay.Coloring
                     _totalColorPixles = ColoringPart[_paintingCounter].GetColoredPixlesCount();
                     _partPixles = _partTexture.GetPixels32();
                     InfoText.text = InfoMsgs[0];
-                    PaintBrush.SetActive(true);
+                    BrushTransform.gameObject.SetActive(true);
                     InfoText.gameObject.SetActive(true);
                     TouchProtector.SetActive(false);
                     ColoringPart[_paintingCounter].MyAnimation.Play("CurrentColoringPart");
@@ -277,7 +277,7 @@ namespace Core.GamePlay.Coloring
                 _onceClicked = true;
                 _canColor = false;
                 TouchProtector.SetActive(true);
-                PaintBrush.SetActive(false);
+                BrushTransform.gameObject.SetActive(false);
                 if (_movingRoutine != null)
                 {
                     StopCoroutine(_movingRoutine);
@@ -311,7 +311,7 @@ namespace Core.GamePlay.Coloring
             _onceClicked = false;
             _canShowNextBtn = true;
             InfoText.text = InfoMsgs[0];
-            PaintBrush.SetActive(true);
+            BrushTransform.gameObject.SetActive(true);
             InfoText.gameObject.SetActive(true);
             ColoringPart[_paintingCounter].MyAnimation.Play("CurrentColoringPart");
         }

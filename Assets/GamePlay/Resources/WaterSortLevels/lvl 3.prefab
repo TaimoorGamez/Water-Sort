@@ -182,7 +182,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 1
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -239,21 +239,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SwipeColorsModeEvent: {fileID: 11400000, guid: 9781b632e66a3704aa915400af187d35, type: 2}
+  StartColoringEvent: {fileID: 11400000, guid: ed751afbb0214de499cef1891112c6d6, type: 2}
   CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
   LevelCompleteStateIndex: {fileID: 11400000, guid: 372a4013c41549545822b875f34f8aa3, type: 2}
   ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
   ExtraTubeBtn: {fileID: 1842825908184335162}
-  FirstLiquid: {fileID: 1708857271899722823}
-  SecondLiquid: {fileID: 5853556478865419059}
-  ThirdLiquid: {fileID: 623073010633328491}
+  FirstTube: {fileID: 5340313201947925067}
+  SecondTube: {fileID: 1406532179427866131}
+  ThirdTube: {fileID: 4245445903593742572}
+  ForthTube: {fileID: 6128862155433085287}
+  ExtraTube: {fileID: 4880146174068660934}
   HandObj: {fileID: 6608867192839173477}
-  ExtraTube: {fileID: 6127528030835665714}
   InfoText: {fileID: 7646069049856018515}
   InfoTextObj: {fileID: 3199467706706938422}
   CurrentColors:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 1, g: 1, b: 0, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 1, g: 0.6666667, b: 0.2, a: 1}
+  - {r: 0, g: 0.5019608, b: 0.5019608, a: 1}
+  - {r: 1, g: 0.8509804, b: 0.72156864, a: 1}
+  BowlObj: {fileID: 1613508317186387605, guid: f2a0fcc19d7d3f54ca8d4d1cfb5cfbce, type: 3}
 --- !u!1 &5163768413923243326
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,8 +287,8 @@ Transform:
   m_Children:
   - {fileID: 5029605590461096763}
   - {fileID: 6015519498062540954}
-  - {fileID: 6547726547116322839}
   - {fileID: 236343987971562575}
+  - {fileID: 6547726547116322839}
   - {fileID: 3037803860543113904}
   - {fileID: 3863604613441239777}
   m_Father: {fileID: 0}
@@ -549,7 +552,67 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7732355770898967337}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 9eef85b426cb6234cac7fbb0439238d1, type: 2}
+        m_TargetAssemblyTypeName: Core.Events.SOEvents, Assembly-CSharp
+        m_MethodName: InvokeSOEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5962862957491223512}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 5607779218694514932}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1462348799795119276}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 4405810586812830291}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &7469867195776208918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -654,6 +717,7 @@ GameObject:
   - component: {fileID: 7390587632965041891}
   - component: {fileID: 6369042075663016632}
   - component: {fileID: 512766114670070050}
+  - component: {fileID: 3408716077672868369}
   m_Layer: 5
   m_Name: InfoText
   m_TagString: Untagged
@@ -778,6 +842,22 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!111 &3408716077672868369
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5959190079167516231}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 80446205d02e8d74fb7c1583f4cbb2d4, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 80446205d02e8d74fb7c1583f4cbb2d4, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &6291094812915869833
 GameObject:
   m_ObjectHideFlags: 0
@@ -863,7 +943,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 821816864612206772}
-  - component: {fileID: 5074769213580793420}
   m_Layer: 5
   m_Name: TextHolder (1)
   m_TagString: Untagged
@@ -889,25 +968,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 250}
+  m_AnchoredPosition: {x: 0, y: 100}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!111 &5074769213580793420
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6841723027984324631}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 80446205d02e8d74fb7c1583f4cbb2d4, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 80446205d02e8d74fb7c1583f4cbb2d4, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!1 &7646069049856018515
 GameObject:
   m_ObjectHideFlags: 0
@@ -917,7 +980,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 269678626925016440}
-  - component: {fileID: 4697009242732887331}
   m_Layer: 5
   m_Name: TextHolder (2)
   m_TagString: Untagged
@@ -943,25 +1005,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -250}
+  m_AnchoredPosition: {x: 0, y: -300}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!111 &4697009242732887331
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7646069049856018515}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 80446205d02e8d74fb7c1583f4cbb2d4, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 80446205d02e8d74fb7c1583f4cbb2d4, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!1 &8395602423257033628
 GameObject:
   m_ObjectHideFlags: 0
@@ -1090,24 +1136,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaterGlassTube
       objectReference: {fileID: 0}
+    - target: {fileID: 6283564428832381689, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 780440981a73a0347b6401976879e349, type: 3}
---- !u!114 &1708857271899722823 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1316450118960018790, guid: 780440981a73a0347b6401976879e349, type: 3}
-  m_PrefabInstance: {fileID: 428946742097797409}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fb69ddcdb1eb1342bae74ad5ca1676c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &5029605590461096763 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4629510652355691034, guid: 780440981a73a0347b6401976879e349, type: 3}
   m_PrefabInstance: {fileID: 428946742097797409}
   m_PrefabAsset: {fileID: 0}
+--- !u!136 &5962862957491223512 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 6283564428832381689, guid: 780440981a73a0347b6401976879e349, type: 3}
+  m_PrefabInstance: {fileID: 428946742097797409}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6128862155433085287 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+  m_PrefabInstance: {fileID: 428946742097797409}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 381958eafc16ab34aacb70e5efdd0655, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1388296657496994432
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1169,14 +1224,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 780440981a73a0347b6401976879e349, type: 3}
+--- !u!114 &4880146174068660934 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+  m_PrefabInstance: {fileID: 1388296657496994432}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 381958eafc16ab34aacb70e5efdd0655, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6015519498062540954 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4629510652355691034, guid: 780440981a73a0347b6401976879e349, type: 3}
-  m_PrefabInstance: {fileID: 1388296657496994432}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6127528030835665714 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5065813127947164082, guid: 780440981a73a0347b6401976879e349, type: 3}
   m_PrefabInstance: {fileID: 1388296657496994432}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1936937009219056141
@@ -1188,7 +1249,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4629510652355691034, guid: 780440981a73a0347b6401976879e349, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4629510652355691034, guid: 780440981a73a0347b6401976879e349, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1234,19 +1295,28 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaterGlassTube (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6283564428832381689, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 780440981a73a0347b6401976879e349, type: 3}
---- !u!114 &623073010633328491 stripped
+--- !u!114 &5340313201947925067 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1316450118960018790, guid: 780440981a73a0347b6401976879e349, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
   m_PrefabInstance: {fileID: 1936937009219056141}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fb69ddcdb1eb1342bae74ad5ca1676c, type: 3}
+  m_Script: {fileID: 11500000, guid: 381958eafc16ab34aacb70e5efdd0655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &5607779218694514932 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 6283564428832381689, guid: 780440981a73a0347b6401976879e349, type: 3}
+  m_PrefabInstance: {fileID: 1936937009219056141}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6547726547116322839 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4629510652355691034, guid: 780440981a73a0347b6401976879e349, type: 3}
@@ -1261,7 +1331,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4629510652355691034, guid: 780440981a73a0347b6401976879e349, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4629510652355691034, guid: 780440981a73a0347b6401976879e349, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1307,6 +1377,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaterGlassTube (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6283564428832381689, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 780440981a73a0347b6401976879e349, type: 3}
 --- !u!4 &236343987971562575 stripped
@@ -1314,17 +1388,22 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4629510652355691034, guid: 780440981a73a0347b6401976879e349, type: 3}
   m_PrefabInstance: {fileID: 4861911715745652309}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5853556478865419059 stripped
+--- !u!114 &1406532179427866131 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1316450118960018790, guid: 780440981a73a0347b6401976879e349, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
   m_PrefabInstance: {fileID: 4861911715745652309}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fb69ddcdb1eb1342bae74ad5ca1676c, type: 3}
+  m_Script: {fileID: 11500000, guid: 381958eafc16ab34aacb70e5efdd0655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &1462348799795119276 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 6283564428832381689, guid: 780440981a73a0347b6401976879e349, type: 3}
+  m_PrefabInstance: {fileID: 4861911715745652309}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7644616193629210794
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1380,11 +1459,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaterGlassTube (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6283564428832381689, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 780440981a73a0347b6401976879e349, type: 3}
 --- !u!4 &3037803860543113904 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4629510652355691034, guid: 780440981a73a0347b6401976879e349, type: 3}
+  m_PrefabInstance: {fileID: 7644616193629210794}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4245445903593742572 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+  m_PrefabInstance: {fileID: 7644616193629210794}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 381958eafc16ab34aacb70e5efdd0655, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!136 &4405810586812830291 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 6283564428832381689, guid: 780440981a73a0347b6401976879e349, type: 3}
   m_PrefabInstance: {fileID: 7644616193629210794}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8763726366077794227
