@@ -3,21 +3,26 @@ using DG.Tweening;
 using UnityEngine;
 using Core.Variables;
 using System.Collections;
+using Core.GamePlay.Coloring;
 
 namespace Core.GamePlay.WaterSort
 {
     public class WaterSortTutorialFour : MonoBehaviour
     {
-        [SerializeField] SOEvents SwipeColorsModeEvent;
+        [SerializeField] SOEvents SwipeColorsModeEvent, StartColoringEvent;
         [SerializeField] SOInterger CanPlay, IsSwaping, UsingAnyFeature, LevelCompleteStateIndex;
         [SerializeField] SOIntegerEvents ChangeStateEvent;
         [SerializeField] CapsuleCollider ColliderOne, ColliderTwo, ColliderThree, ColliderFour, ColliderFive;
-        [SerializeField] TubeHandler FirstLiquid, SecondLiquid, ThirdLiquid, ForthLiquid;
+        [SerializeField] TubeHandler FirstTube, SecondTube, ThirdTube, ForthTube, FifthTube, SixthTube;
         [SerializeField] GameObject HandObj, InfoTextObj;
         [SerializeField] Color[] CurrentColors;
         [SerializeField] bool IsSwipButton, IsFirstTube, IsLastTube;
+        [SerializeField] BowlColorHandler BowlObj;
+        [SerializeField] Transform BowlParent;
 
-        int _colorIndex = 0;
+        Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f);
+        int _colorIndex = 0, _colorBowlCounter = 0;
+        Vector2 _bowlYPos = new Vector2(-2, -0.5f);
         bool _isFirstClick = true;
 
         private void OnEnable()
@@ -25,6 +30,7 @@ namespace Core.GamePlay.WaterSort
             if (IsSwipButton)
             {
                 ChangeStateEvent.EventHandler += HideInfoText;
+                StartColoringEvent.EventHandler += ColoringPreparation;
             }
         }
 
@@ -33,6 +39,7 @@ namespace Core.GamePlay.WaterSort
             if (IsSwipButton)
             {
                 ChangeStateEvent.EventHandler -= HideInfoText;
+                StartColoringEvent.EventHandler -= ColoringPreparation;
             }
         }
 
@@ -49,7 +56,7 @@ namespace Core.GamePlay.WaterSort
             yield return new WaitForSeconds(0.5f);
             for (int c = 0; c < 4; c++)
             {
-                FirstLiquid.SetColor(CurrentColors[_colorIndex]);
+                FirstTube.SetColor(CurrentColors[_colorIndex]);
                 yield return new WaitForSeconds(0.1f);
                 if (_colorIndex == 3)
                 {
@@ -59,7 +66,7 @@ namespace Core.GamePlay.WaterSort
                 {
                     _colorIndex++;
                 }
-                SecondLiquid.SetColor(CurrentColors[_colorIndex]);
+                SecondTube.SetColor(CurrentColors[_colorIndex]);
                 yield return new WaitForSeconds(0.1f); 
                 if (_colorIndex == 3)
                 {
@@ -69,7 +76,7 @@ namespace Core.GamePlay.WaterSort
                 {
                     _colorIndex++;
                 }
-                ThirdLiquid.SetColor(CurrentColors[_colorIndex]);
+                ThirdTube.SetColor(CurrentColors[_colorIndex]);
                 yield return new WaitForSeconds(0.1f); 
                 if (_colorIndex == 3)
                 {
@@ -79,7 +86,7 @@ namespace Core.GamePlay.WaterSort
                 {
                     _colorIndex++;
                 }
-                ForthLiquid.SetColor(CurrentColors[_colorIndex]);
+                ForthTube.SetColor(CurrentColors[_colorIndex]);
             }
             SwipeColorsModeEvent.InvokeSOEvent();
             CanPlay.Value = 1;
@@ -138,5 +145,185 @@ namespace Core.GamePlay.WaterSort
             if (LevelCompleteStateIndex.Value == stateNum)
                 InfoTextObj.SetActive(false);
         }
+
+        void ColoringPreparation()
+        {
+            float tweenTime = 1;
+            InfoTextObj.SetActive(false);
+            if (FirstTube.WaterColors.Count > 0)
+            {
+                FirstTube.TubeCap.gameObject.SetActive(false);
+                FirstTube.transform.DOScale(_bowlScale, tweenTime);
+                FirstTube.transform.DOLocalMove(_bowlYPos, tweenTime).OnComplete(() =>
+                {
+                    BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
+                    colorBowl.transform.localPosition = FirstTube.transform.localPosition;
+                    colorBowl.SetColor(FirstTube.CurrentColor);
+                    Destroy(FirstTube.gameObject);
+                });
+
+                if(_colorBowlCounter == 5)
+                {
+                    _bowlYPos = new Vector2(-2, -2);
+                }
+                else
+                {
+                    _bowlYPos += new Vector2(1, 0);
+                }
+            }
+            else
+            {
+                FirstTube.transform.DOLocalMove(FirstTube.transform.position*5, tweenTime).OnComplete(() =>
+                {
+                    Destroy(FirstTube.gameObject);
+                });
+            }
+
+            if (SecondTube.WaterColors.Count > 0)
+            {
+                SecondTube.TubeCap.gameObject.SetActive(false);
+                SecondTube.transform.DOScale(_bowlScale, tweenTime);
+                SecondTube.transform.DOLocalMove(_bowlYPos, tweenTime).OnComplete(() =>
+                {
+                    BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
+                    colorBowl.transform.localPosition = SecondTube.transform.localPosition;
+                    colorBowl.SetColor(SecondTube.CurrentColor);
+                    Destroy(SecondTube.gameObject);
+                });
+
+                if (_colorBowlCounter == 5)
+                {
+                    _bowlYPos = new Vector2(-2, -2);
+                }
+                else
+                {
+                    _bowlYPos += new Vector2(1, 0);
+                }
+            }
+            else
+            {
+                SecondTube.transform.DOLocalMove(SecondTube.transform.position * 5, tweenTime).OnComplete(() =>
+                {
+                    Destroy(SecondTube.gameObject);
+                });
+            }
+
+            if (ThirdTube.WaterColors.Count > 0)
+            {
+                ThirdTube.TubeCap.gameObject.SetActive(false);
+                ThirdTube.transform.DOScale(_bowlScale, tweenTime);
+                ThirdTube.transform.DOLocalMove(_bowlYPos, tweenTime).OnComplete(() =>
+                {
+                    BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
+                    colorBowl.transform.localPosition = ThirdTube.transform.localPosition;
+                    colorBowl.SetColor(ThirdTube.CurrentColor);
+                    Destroy(ThirdTube.gameObject);
+                });
+
+                if (_colorBowlCounter == 5)
+                {
+                    _bowlYPos = new Vector2(-2, -2);
+                }
+                else
+                {
+                    _bowlYPos += new Vector2(1, 0);
+                }
+            }
+            else
+            {
+                ThirdTube.transform.DOLocalMove(ThirdTube.transform.position * 5, tweenTime).OnComplete(() =>
+                {
+                    Destroy(ThirdTube.gameObject);
+                });
+            }
+
+            if (ForthTube.WaterColors.Count > 0)
+            {
+                ForthTube.TubeCap.gameObject.SetActive(false);
+                ForthTube.transform.DOScale(_bowlScale, tweenTime);
+                ForthTube.transform.DOLocalMove(_bowlYPos, tweenTime).OnComplete(() =>
+                {
+                    BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
+                    colorBowl.transform.localPosition = ForthTube.transform.localPosition;
+                    colorBowl.SetColor(ForthTube.CurrentColor);
+                    Destroy(ForthTube.gameObject);
+                });
+
+                if (_colorBowlCounter == 5)
+                {
+                    _bowlYPos = new Vector2(-2, -2);
+                }
+                else
+                {
+                    _bowlYPos += new Vector2(1, 0);
+                }
+            }
+            else
+            {
+                ForthTube.transform.DOLocalMove(ForthTube.transform.position * 5, tweenTime).OnComplete(() =>
+                {
+                    Destroy(ForthTube.gameObject);
+                });
+            }
+
+            if (FifthTube.WaterColors.Count > 0)
+            {
+                FifthTube.TubeCap.gameObject.SetActive(false);
+                FifthTube.transform.DOScale(_bowlScale, tweenTime);
+                FifthTube.transform.DOLocalMove(_bowlYPos, tweenTime).OnComplete(() =>
+                {
+                    BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
+                    colorBowl.transform.localPosition = FifthTube.transform.localPosition;
+                    colorBowl.SetColor(FifthTube.CurrentColor);
+                    Destroy(FifthTube.gameObject);
+                });
+
+                if (_colorBowlCounter == 5)
+                {
+                    _bowlYPos = new Vector2(-2, -2);
+                }
+                else
+                {
+                    _bowlYPos += new Vector2(1, 0);
+                }
+            }
+            else
+            {
+                FifthTube.transform.DOLocalMove(FifthTube.transform.position * 5, tweenTime).OnComplete(() =>
+                {
+                    Destroy(FifthTube.gameObject);
+                });
+            }
+
+            if (SixthTube.WaterColors.Count > 0)
+            {
+                SixthTube.TubeCap.gameObject.SetActive(false);
+                SixthTube.transform.DOScale(_bowlScale, tweenTime);
+                SixthTube.transform.DOLocalMove(_bowlYPos, tweenTime).OnComplete(() =>
+                {
+                    BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
+                    colorBowl.transform.localPosition = SixthTube.transform.localPosition;
+                    colorBowl.SetColor(SixthTube.CurrentColor);
+                    Destroy(SixthTube.gameObject);
+                });
+
+                if (_colorBowlCounter == 5)
+                {
+                    _bowlYPos = new Vector2(-2, -2);
+                }
+                else
+                {
+                    _bowlYPos += new Vector2(1, 0);
+                }
+            }
+            else
+            {
+                SixthTube.transform.DOLocalMove(SixthTube.transform.position * 5, tweenTime).OnComplete(() =>
+                {
+                    Destroy(SixthTube.gameObject);
+                });
+            }
+        }
+
     }
 }

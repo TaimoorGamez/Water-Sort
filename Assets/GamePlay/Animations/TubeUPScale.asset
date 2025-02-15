@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d17bc15e4abaf4c8be3aa598c60062, type: 3}
   m_Name: TubeUPScale
   m_EditorClassIdentifier: 
-  TargetObj: {fileID: 0}
-  TargetAction: {x: 40, y: 40, z: 40}
   Duration: 0.25
   CurrentEaseType: 28
   IsLoop: 0
-  StateAfterComplete: 1
+  CanChangeStateOnComlete: 0
+  StateOnComplete: 1
+  ResetOnComplete: 0
+  TargetAction: {x: 1.2, y: 1.2, z: 1.2}
+  OriginalVallue: {x: 1, y: 1, z: 1}
