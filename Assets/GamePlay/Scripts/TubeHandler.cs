@@ -102,7 +102,7 @@ namespace Core.GamePlay.WaterSort
                     }
                 }
             }
-            else if (IsSwaping.Value == 1 && CanPlay.Value == 1)
+            else if (IsSwaping.Value == 1 && CanPlay.Value == 1 && WaterColors.Count > 0)
             {
                 SwapingManager.AddTubeForSwaping(this);
             }
@@ -300,18 +300,9 @@ namespace Core.GamePlay.WaterSort
 
         public void SwapeColor(Color currentColor)
         {
-            //WaterColors.RemoveAt(WaterColors.Count - 1);
-            //CurrentColor = currentColor;
-            ////WaterColors.Add(currentColor);
-            //_propBlock.SetColor("_Color" + WaterColors.Count.ToString(), currentColor);
-            //// Apply the material property block to the renderer
-            //MySkin.SetPropertyBlock(_propBlock);
-            //// Set transparency property in the material property block
-            //_propBlock.SetFloat("_TransparencyRange", _eachLiquidLayerHeight * WaterColors.Count);
-
-            // Apply the material property block to the renderer
-            //MySkin.SetPropertyBlock(_propBlock);
-            //WaterLineEndPos.localPosition += new Vector3(0, _waterPosIncrement, 0);
+            WaterColors[WaterColors.Count - 1] = currentColor;
+            CurrentColor = currentColor;
+            MyLiquid[WaterColors.Count-1].SetColor(currentColor);
         }
 
         void TubeState(bool state)

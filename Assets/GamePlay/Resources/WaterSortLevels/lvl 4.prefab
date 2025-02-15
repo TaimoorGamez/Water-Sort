@@ -633,10 +633,35 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 6878465181933440435}
+  m_TargetGraphic: {fileID: 6067407549826181483}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 9eef85b426cb6234cac7fbb0439238d1, type: 2}
+        m_TargetAssemblyTypeName: Core.Events.SOEvents, Assembly-CSharp
+        m_MethodName: InvokeSOEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2807349717444993772}
+        m_TargetAssemblyTypeName: Core.GamePlay.WaterSort.WaterSortTutorialFour,
+          Assembly-CSharp
+        m_MethodName: SwapeColor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6021774065096947340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -654,8 +679,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: 81e15200fc21dde428dfc77b6ad0a901, type: 2}
-          m_TargetAssemblyTypeName: Core.Animations.LT.SOScaleLeanTween, Assembly-CSharp
+        - m_Target: {fileID: 11400000, guid: 1814ade01c91ecb47b8d278a64449799, type: 2}
+          m_TargetAssemblyTypeName: Core.Animations.DT.SODOTween, Assembly-CSharp
           m_MethodName: CancleAnimation
           m_Mode: 1
           m_Arguments:
@@ -666,8 +691,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 11400000, guid: 284237fc3ae7c2a498cf773957cf2c9b, type: 2}
-          m_TargetAssemblyTypeName: Core.Animations.LT.SOLeanTween, Assembly-CSharp
+        - m_Target: {fileID: 11400000, guid: c60dd5901b4a64c4b8faf099109c7fad, type: 2}
+          m_TargetAssemblyTypeName: Core.Animations.DT.SODOTween, Assembly-CSharp
           m_MethodName: set_TargetObj
           m_Mode: 2
           m_Arguments:
@@ -678,8 +703,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 11400000, guid: 284237fc3ae7c2a498cf773957cf2c9b, type: 2}
-          m_TargetAssemblyTypeName: Core.Animations.LT.SOScaleLeanTween, Assembly-CSharp
+        - m_Target: {fileID: 11400000, guid: c60dd5901b4a64c4b8faf099109c7fad, type: 2}
+          m_TargetAssemblyTypeName: Core.Animations.DT.SOScaleDOTween, Assembly-CSharp
           m_MethodName: PlayAnimation
           m_Mode: 1
           m_Arguments:
@@ -694,8 +719,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: 284237fc3ae7c2a498cf773957cf2c9b, type: 2}
-          m_TargetAssemblyTypeName: Core.Animations.LT.SOScaleLeanTween, Assembly-CSharp
+        - m_Target: {fileID: 11400000, guid: c60dd5901b4a64c4b8faf099109c7fad, type: 2}
+          m_TargetAssemblyTypeName: Core.Animations.DT.SODOTween, Assembly-CSharp
           m_MethodName: CancleAnimation
           m_Mode: 1
           m_Arguments:
@@ -706,8 +731,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 11400000, guid: 81e15200fc21dde428dfc77b6ad0a901, type: 2}
-          m_TargetAssemblyTypeName: Core.Animations.LT.SOLeanTween, Assembly-CSharp
+        - m_Target: {fileID: 11400000, guid: 1814ade01c91ecb47b8d278a64449799, type: 2}
+          m_TargetAssemblyTypeName: Core.Animations.DT.SODOTween, Assembly-CSharp
           m_MethodName: set_TargetObj
           m_Mode: 2
           m_Arguments:
@@ -718,8 +743,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 11400000, guid: 81e15200fc21dde428dfc77b6ad0a901, type: 2}
-          m_TargetAssemblyTypeName: Core.Animations.LT.SOScaleLeanTween, Assembly-CSharp
+        - m_Target: {fileID: 11400000, guid: 1814ade01c91ecb47b8d278a64449799, type: 2}
+          m_TargetAssemblyTypeName: Core.Animations.DT.SOScaleDOTween, Assembly-CSharp
           m_MethodName: PlayAnimation
           m_Mode: 1
           m_Arguments:
@@ -753,18 +778,17 @@ MonoBehaviour:
   ColliderThree: {fileID: 6938949045176832770}
   ColliderFour: {fileID: 0}
   ColliderFive: {fileID: 0}
-  FirstLiquid: {fileID: 248808055731021849}
-  SecondLiquid: {fileID: 6248192613495019135}
-  ThirdLiquid: {fileID: 2682832022392110237}
-  ForthLiquid: {fileID: 8095601819874510556}
+  FirstLiquid: {fileID: 3050210243956944741}
+  SecondLiquid: {fileID: 4740868265693934905}
+  ThirdLiquid: {fileID: 1445384012063738719}
+  ForthLiquid: {fileID: 7458619077447705021}
   HandObj: {fileID: 5004993579510881447}
   InfoTextObj: {fileID: 3044361965994056459}
-  SwapeBtn: {fileID: 3290133922605704608}
   CurrentColors:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 1, g: 1, b: 0, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 0, g: 1, b: 1, a: 1}
+  - {r: 0.39215687, g: 0.27450982, b: 0.39215687, a: 1}
+  - {r: 0.78431374, g: 0.9019608, b: 0.39215687, a: 1}
+  - {r: 0.5294118, g: 0.78431374, b: 0.9215687, a: 1}
+  - {r: 1, g: 0.8431373, b: 0.7058824, a: 1}
   IsSwipButton: 1
   IsFirstTube: 0
   IsLastTube: 0
@@ -850,12 +874,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5434596321998777731}
+  - {fileID: 4221612295712900409}
   - {fileID: 5839016541734559589}
   - {fileID: 8593147927115123681}
   - {fileID: 346109852226593027}
   - {fileID: 2459794385497092512}
-  - {fileID: 4221612295712900409}
+  - {fileID: 5434596321998777731}
   - {fileID: 3270301596525083217}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -867,6 +891,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2336340366317475260}
     m_Modifications:
+    - target: {fileID: 4629510652355691034, guid: 780440981a73a0347b6401976879e349, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4629510652355691034, guid: 780440981a73a0347b6401976879e349, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -988,15 +1016,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 780440981a73a0347b6401976879e349, type: 3}
---- !u!114 &248808055731021849 stripped
+--- !u!114 &4740868265693934905 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1316450118960018790, guid: 780440981a73a0347b6401976879e349, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
   m_PrefabInstance: {fileID: 1240471162890984831}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fb69ddcdb1eb1342bae74ad5ca1676c, type: 3}
+  m_Script: {fileID: 11500000, guid: 381958eafc16ab34aacb70e5efdd0655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!136 &5045365827900934022 stripped
@@ -1070,22 +1098,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 780440981a73a0347b6401976879e349, type: 3}
---- !u!114 &2682832022392110237 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1316450118960018790, guid: 780440981a73a0347b6401976879e349, type: 3}
-  m_PrefabInstance: {fileID: 3999106215192332795}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fb69ddcdb1eb1342bae74ad5ca1676c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &6938949045176832770 stripped
 CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 6283564428832381689, guid: 780440981a73a0347b6401976879e349, type: 3}
   m_PrefabInstance: {fileID: 3999106215192332795}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7458619077447705021 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+  m_PrefabInstance: {fileID: 3999106215192332795}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8156810406746493001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 381958eafc16ab34aacb70e5efdd0655, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8156810406746493001 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5065813127947164082, guid: 780440981a73a0347b6401976879e349, type: 3}
@@ -1120,7 +1148,6 @@ MonoBehaviour:
   ForthLiquid: {fileID: 0}
   HandObj: {fileID: 5004993579510881447}
   InfoTextObj: {fileID: 0}
-  SwapeBtn: {fileID: 0}
   CurrentColors: []
   IsSwipButton: 0
   IsFirstTube: 1
@@ -1225,7 +1252,6 @@ MonoBehaviour:
   ForthLiquid: {fileID: 0}
   HandObj: {fileID: 5004993579510881447}
   InfoTextObj: {fileID: 0}
-  SwapeBtn: {fileID: 0}
   CurrentColors: []
   IsSwipButton: 0
   IsFirstTube: 0
@@ -1240,15 +1266,15 @@ CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 6283564428832381689, guid: 780440981a73a0347b6401976879e349, type: 3}
   m_PrefabInstance: {fileID: 4968299950492803865}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6248192613495019135 stripped
+--- !u!114 &1445384012063738719 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1316450118960018790, guid: 780440981a73a0347b6401976879e349, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
   m_PrefabInstance: {fileID: 4968299950492803865}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 198035549208705707}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fb69ddcdb1eb1342bae74ad5ca1676c, type: 3}
+  m_Script: {fileID: 11500000, guid: 381958eafc16ab34aacb70e5efdd0655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &7069985793648997306
@@ -1322,17 +1348,6 @@ CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 6283564428832381689, guid: 780440981a73a0347b6401976879e349, type: 3}
   m_PrefabInstance: {fileID: 7069985793648997306}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8095601819874510556 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1316450118960018790, guid: 780440981a73a0347b6401976879e349, type: 3}
-  m_PrefabInstance: {fileID: 7069985793648997306}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fb69ddcdb1eb1342bae74ad5ca1676c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &7448149097186893425
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1465,7 +1480,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4629510652355691034, guid: 780440981a73a0347b6401976879e349, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4629510652355691034, guid: 780440981a73a0347b6401976879e349, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1517,6 +1532,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 780440981a73a0347b6401976879e349, type: 3}
+--- !u!114 &3050210243956944741 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
+  m_PrefabInstance: {fileID: 8838733650476386083}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 381958eafc16ab34aacb70e5efdd0655, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &3286160852955848154 stripped
 CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 6283564428832381689, guid: 780440981a73a0347b6401976879e349, type: 3}

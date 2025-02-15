@@ -1,9 +1,8 @@
-using UnityEngine;
 using Core.Events;
-using UnityEngine.UI;
+using DG.Tweening;
+using UnityEngine;
 using Core.Variables;
 using System.Collections;
-using DG.Tweening;
 
 namespace Core.GamePlay.WaterSort
 {
@@ -13,9 +12,8 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] SOInterger CanPlay, IsSwaping, UsingAnyFeature, LevelCompleteStateIndex;
         [SerializeField] SOIntegerEvents ChangeStateEvent;
         [SerializeField] CapsuleCollider ColliderOne, ColliderTwo, ColliderThree, ColliderFour, ColliderFive;
-        [SerializeField] Liquid FirstLiquid, SecondLiquid, ThirdLiquid, ForthLiquid;
+        [SerializeField] TubeHandler FirstLiquid, SecondLiquid, ThirdLiquid, ForthLiquid;
         [SerializeField] GameObject HandObj, InfoTextObj;
-        [SerializeField] Button SwapeBtn;
         [SerializeField] Color[] CurrentColors;
         [SerializeField] bool IsSwipButton, IsFirstTube, IsLastTube;
 
@@ -27,7 +25,6 @@ namespace Core.GamePlay.WaterSort
             if (IsSwipButton)
             {
                 ChangeStateEvent.EventHandler += HideInfoText;
-                SwapeBtn.onClick.AddListener(SwapeColor);
             }
         }
 
@@ -36,7 +33,6 @@ namespace Core.GamePlay.WaterSort
             if (IsSwipButton)
             {
                 ChangeStateEvent.EventHandler -= HideInfoText;
-                SwapeBtn.onClick.RemoveListener(SwapeColor);
             }
         }
 
@@ -121,7 +117,7 @@ namespace Core.GamePlay.WaterSort
             }
         }
 
-        void SwapeColor()
+        public void SwapeColor()
         {
             if (UsingAnyFeature.Value == 0 && IsSwaping.Value == 0)
             {
@@ -131,7 +127,7 @@ namespace Core.GamePlay.WaterSort
                 if (_isFirstClick)
                 {
                     _isFirstClick = false;
-                    HandObj.transform.DOLocalMove(new Vector3(225, 150, 0), 0.35f).SetEase(Ease.InOutBack);
+                    HandObj.transform.DOLocalMove(new Vector3(225, 0, 0), 0.35f).SetEase(Ease.InOutBack);
                     ColliderThree.enabled = true;
                 }
             }

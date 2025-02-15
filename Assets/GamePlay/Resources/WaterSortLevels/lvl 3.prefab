@@ -549,7 +549,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 7732355770898967337}
+  m_TargetGraphic: {fileID: 6919829470421405681}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -630,8 +630,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: 81e15200fc21dde428dfc77b6ad0a901, type: 2}
-          m_TargetAssemblyTypeName: Core.Animations.LT.SOScaleLeanTween, Assembly-CSharp
+        - m_Target: {fileID: 11400000, guid: 1814ade01c91ecb47b8d278a64449799, type: 2}
+          m_TargetAssemblyTypeName: Core.Animations.DT.SODOTween, Assembly-CSharp
           m_MethodName: CancleAnimation
           m_Mode: 1
           m_Arguments:
@@ -642,8 +642,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 11400000, guid: 284237fc3ae7c2a498cf773957cf2c9b, type: 2}
-          m_TargetAssemblyTypeName: Core.Animations.LT.SOLeanTween, Assembly-CSharp
+        - m_Target: {fileID: 11400000, guid: c60dd5901b4a64c4b8faf099109c7fad, type: 2}
+          m_TargetAssemblyTypeName: Core.Animations.DT.SODOTween, Assembly-CSharp
           m_MethodName: set_TargetObj
           m_Mode: 2
           m_Arguments:
@@ -654,8 +654,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 11400000, guid: 284237fc3ae7c2a498cf773957cf2c9b, type: 2}
-          m_TargetAssemblyTypeName: Core.Animations.LT.SOScaleLeanTween, Assembly-CSharp
+        - m_Target: {fileID: 11400000, guid: c60dd5901b4a64c4b8faf099109c7fad, type: 2}
+          m_TargetAssemblyTypeName: Core.Animations.DT.SOScaleDOTween, Assembly-CSharp
           m_MethodName: PlayAnimation
           m_Mode: 1
           m_Arguments:
@@ -670,8 +670,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: 284237fc3ae7c2a498cf773957cf2c9b, type: 2}
-          m_TargetAssemblyTypeName: Core.Animations.LT.SOScaleLeanTween, Assembly-CSharp
+        - m_Target: {fileID: 11400000, guid: c60dd5901b4a64c4b8faf099109c7fad, type: 2}
+          m_TargetAssemblyTypeName: Core.Animations.DT.SODOTween, Assembly-CSharp
           m_MethodName: CancleAnimation
           m_Mode: 1
           m_Arguments:
@@ -682,8 +682,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 11400000, guid: 81e15200fc21dde428dfc77b6ad0a901, type: 2}
-          m_TargetAssemblyTypeName: Core.Animations.LT.SOLeanTween, Assembly-CSharp
+        - m_Target: {fileID: 11400000, guid: 1814ade01c91ecb47b8d278a64449799, type: 2}
+          m_TargetAssemblyTypeName: Core.Animations.DT.SODOTween, Assembly-CSharp
           m_MethodName: set_TargetObj
           m_Mode: 2
           m_Arguments:
@@ -694,8 +694,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 11400000, guid: 81e15200fc21dde428dfc77b6ad0a901, type: 2}
-          m_TargetAssemblyTypeName: Core.Animations.LT.SOScaleLeanTween, Assembly-CSharp
+        - m_Target: {fileID: 11400000, guid: 1814ade01c91ecb47b8d278a64449799, type: 2}
+          m_TargetAssemblyTypeName: Core.Animations.DT.SOScaleDOTween, Assembly-CSharp
           m_MethodName: PlayAnimation
           m_Mode: 1
           m_Arguments:
