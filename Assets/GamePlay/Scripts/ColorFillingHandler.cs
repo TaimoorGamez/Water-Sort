@@ -67,7 +67,7 @@ namespace Core.GamePlay.Coloring
             _totalColorPixles = ColoringPart[_paintingCounter].GetColoredPixlesCount();
             _partPixles = _partTexture.GetPixels32();
             BrushTransform.gameObject.SetActive(true);
-            BrushTransform.DOAnchorPosX(175, _preparationTime).SetEase(Ease.InBack).OnComplete(() =>
+            BrushTransform.DOAnchorPosX(175, _preparationTime).SetEase(Ease.OutBack).OnComplete(() =>
             {
                 InfoText.gameObject.SetActive(true);
             });
@@ -252,6 +252,7 @@ namespace Core.GamePlay.Coloring
 
                 if (_paintingCounter < ColoringPart.Length)
                 {
+                    BrushTransform.DOAnchorPosX(175, 0.2f).SetEase(Ease.InBack);
                     _partTexture = ColoringPart[_paintingCounter].GetCurrenTexture();
                     _totalColorPixles = ColoringPart[_paintingCounter].GetColoredPixlesCount();
                     _partPixles = _partTexture.GetPixels32();

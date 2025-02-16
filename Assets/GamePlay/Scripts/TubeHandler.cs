@@ -104,6 +104,7 @@ namespace Core.GamePlay.WaterSort
             }
             else if (IsSwaping.Value == 1 && CanPlay.Value == 1 && WaterColors.Count > 0)
             {
+                SoundEffectEvent.InvokeSOEvent(0);
                 SwapingManager.AddTubeForSwaping(this);
             }
         }
