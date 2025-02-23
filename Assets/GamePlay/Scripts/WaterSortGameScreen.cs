@@ -10,7 +10,7 @@ namespace Core.Screen
     public class WaterSortGameScreen : MonoBehaviour
     {
         [SerializeField] SOEvents InitLevelEvent, SwipeColorsModeEvent, UpdateMovesEvent, StartColoringEvent;
-        [SerializeField] SOIntegerEvents ChangeStateEvent;
+        [SerializeField] SOIntegerEvents ActiveStateEvent;
         [SerializeField] TextMeshProUGUI MovesText, CashText;
         [SerializeField] DBInt LvlNum, LvlIndex;
         [SerializeField] SOInterger TotalMoves, CanPlay, LevelFailStateIndex;
@@ -65,12 +65,12 @@ namespace Core.Screen
             {
                 TotalMoves.Value--;
                 MovesText.text = TotalMoves.Value.ToString();
-            }
 
-            if (TotalMoves.Value < 1)
-            {
-                CanPlay.Value = 0;
-                ChangeStateEvent.InvokeSOEvent(LevelFailStateIndex.Value);
+                if (TotalMoves.Value < 1)
+                {
+                    CanPlay.Value = 0;
+                    ActiveStateEvent.InvokeSOEvent(LevelFailStateIndex.Value);
+                }
             }
         }
 

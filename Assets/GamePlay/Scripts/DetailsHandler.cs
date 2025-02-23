@@ -11,7 +11,7 @@ namespace Core.GamePlay.Coloring
     public class DetailsHandler : MonoBehaviour
     {
         [SerializeField] SOInterger LevelStars, DetailsApplied, CompleteStateIndex;
-        [SerializeField] SOIntegerEvents LoopEffectEvent, SoundEffectEvent, ChangeStateEvent;
+        [SerializeField] SOIntegerEvents LoopEffectEvent, SoundEffectEvent, ActiveStateEvent;
         [SerializeField] SOEvents StopLoopEffect;
         [SerializeField] RectTransform SprayCan, FlameThrower, ColoringImage;
         [SerializeField] Vector2Int VerticalRange, HorizontalRange;
@@ -92,7 +92,7 @@ namespace Core.GamePlay.Coloring
 
         void LevelComplete()
         {
-            ChangeStateEvent.InvokeSOEvent(CompleteStateIndex.Value);
+            ActiveStateEvent.InvokeSOEvent(CompleteStateIndex.Value);
         }
 
         void PrepareCompounD()

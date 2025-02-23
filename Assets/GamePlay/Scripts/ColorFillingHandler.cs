@@ -262,6 +262,7 @@ namespace Core.GamePlay.Coloring
                     TouchProtector.SetActive(false);
                     ColoringPart[_paintingCounter].MyAnimation.Play("CurrentColoringPart");
                     _canShowNextBtn = true;
+                    _onceClicked = false;
                 }
                 else 
                 {
@@ -294,7 +295,6 @@ namespace Core.GamePlay.Coloring
                 _partPixles = _partTexture.GetPixels32();
                 for (int i = 0; i < _partPixles.Length; i++)
                 {
-                    // If alpha > 0, make the pixel white, preserving alpha
                     if (_partPixles[i].a > alphaThreshold)
                     {
                         _partPixles[i] = _whiteColor;

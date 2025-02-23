@@ -14,8 +14,8 @@ namespace Core.Screen
     public class CompleteScreen : MonoBehaviour
     {
         [SerializeField] DBInt LevelIndex, LvlNum;
-        [SerializeField] SOInterger LevelStars, CanPlay, MainMenuStateIndex, LevelMoves, DetailsApplied, GamePlayState;
-        [SerializeField] SOIntegerEvents SoundEffectEvent, ChangeStateEvent, DestroyStatEvent;
+        [SerializeField] SOInterger LevelStars, CanPlay, MainMenuStateIndex, LevelMoves, DetailsApplied, GamePlayState, LevelCompleteStateIndex;
+        [SerializeField] SOIntegerEvents SoundEffectEvent, ActiveStateEvent, DestroyStatEvent;
         [SerializeField] SOEvents DestroyLevelEvent;
         [SerializeField] SOAnChorMove ShowPanel;
         [SerializeField] GameObject Body;
@@ -123,12 +123,13 @@ namespace Core.Screen
                 LevelIndex.Value++;
                 if (LvlNum.Value < _tutorialLevels)
                 {
-                    ChangeStateEvent.InvokeSOEvent(GamePlayState.Value);
+                    ActiveStateEvent.InvokeSOEvent(GamePlayState.Value);
                 }
                 else
                 {
-                    ChangeStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
+                    ActiveStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
                 }
+                DestroyStatEvent.InvokeSOEvent(LevelCompleteStateIndex.Value);
             }
         }
     }

@@ -773,7 +773,7 @@ MonoBehaviour:
   IsSwaping: {fileID: 11400000, guid: 3237d1914975aed4fb5ca302095f1b6b, type: 2}
   UsingAnyFeature: {fileID: 11400000, guid: ee976038d1a51e14684dc2c2bb35a697, type: 2}
   LevelCompleteStateIndex: {fileID: 11400000, guid: 372a4013c41549545822b875f34f8aa3, type: 2}
-  ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
+  ActiveStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
   ColliderOne: {fileID: 0}
   ColliderTwo: {fileID: 0}
   ColliderThree: {fileID: 6938949045176832770}
@@ -1153,7 +1153,7 @@ MonoBehaviour:
   IsSwaping: {fileID: 0}
   UsingAnyFeature: {fileID: 0}
   LevelCompleteStateIndex: {fileID: 0}
-  ChangeStateEvent: {fileID: 0}
+  ActiveStateEvent: {fileID: 0}
   ColliderOne: {fileID: 0}
   ColliderTwo: {fileID: 1423496976135322080}
   ColliderThree: {fileID: 6938949045176832770}
@@ -1262,7 +1262,7 @@ MonoBehaviour:
   IsSwaping: {fileID: 0}
   UsingAnyFeature: {fileID: 0}
   LevelCompleteStateIndex: {fileID: 0}
-  ChangeStateEvent: {fileID: 0}
+  ActiveStateEvent: {fileID: 0}
   ColliderOne: {fileID: 5045365827900934022}
   ColliderTwo: {fileID: 3286160852955848154}
   ColliderThree: {fileID: 6938949045176832770}

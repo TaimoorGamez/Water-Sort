@@ -3,6 +3,7 @@ using Core.Events;
 using Core.Variables;
 using Core.DB.Variables;
 using System.Collections;
+using Core.GamePlay.Coloring;
 using System.Collections.Generic;
 
 namespace Core.GamePlay.WaterSort
@@ -10,25 +11,23 @@ namespace Core.GamePlay.WaterSort
     public class WaterSortLevelInit : MonoBehaviour
     {
         [SerializeField] DBInt LvlNum, LvlIndex, MovesMultiplier;
-        [SerializeField] SOInterger IsHiddenLevel, CurrentLvl, CanPlay, TotalMoves, BtnOnceClicked, MainMenuStateIndex;
+        [SerializeField] SOInterger IsHiddenLevel, CanPlay, TotalMoves, BtnOnceClicked, MainMenuStateIndex, CurrrentLvl;
         [SerializeField] SOEvents InitLevelEvent, ExtraTubeEvent, SwipeColorsModeEvent, RestartLevelEvent, DestroyLevelEvent;
-        [SerializeField] SOIntegerEvents ChangeStateEvent;
         [SerializeField] TubeHandler TubePrefab;
         [SerializeField] Vector3[] TubePositions, BowlPositions;
-        [SerializeField] Color[] AllColours;
 
         string _sortingLvlPath = "WaterSortLevels/lvl ";
-        List<TubeHandler> _levelTubes = new List<TubeHandler>();
+        List<TubeHandler> _colorTubes = new List<TubeHandler>();
         Coroutine lvlMakingRotine;
         int _totalTubes = 0, _maxColorsInTube = 4;
-        Dictionary<int, List<Color>> _currentLevelColors = new Dictionary<int, List<Color>>();
+        SOColors _levelColors; 
+        Dictionary<int, List<Color32>> _currentLevelColors = new Dictionary<int, List<Color32>>();
 
         private void OnEnable()
         {
             InitLevelEvent.EventHandler += InitNewLevel;
             ExtraTubeEvent.EventHandler += OnAddTubeClick;
             RestartLevelEvent.EventHandler += RestartLevel;
-            ChangeStateEvent.EventHandler += OnClickHome;
             DestroyLevelEvent.EventHandler += DestroyLevel;
         }
 
@@ -37,15 +36,13 @@ namespace Core.GamePlay.WaterSort
             InitLevelEvent.EventHandler -= InitNewLevel;
             ExtraTubeEvent.EventHandler -= OnAddTubeClick;
             RestartLevelEvent.EventHandler -= RestartLevel;
-            ChangeStateEvent.EventHandler -= OnClickHome;
             DestroyLevelEvent.EventHandler -= DestroyLevel;
         }
 
         void InitNewLevel()
         {
             CanPlay.Value = 0;
-            _levelTubes.Clear();
-            _currentLevelColors.Clear(); 
+            _colorTubes.Clear();
             DestroyLevel();
             if (LvlNum.Value % 5 == 0)
             {
@@ -59,23 +56,16 @@ namespace Core.GamePlay.WaterSort
             if (LvlNum.Value < 5)
             {
                 Instantiate(Resources.Load(_sortingLvlPath + LvlNum.Value), transform);
-                CurrentLvl.Value = LvlNum.Value;
-            }
-            else if (LvlNum.Value < 8)
-            {
-                _totalTubes = LvlNum.Value + 2;
-                CurrentLvl.Value = LvlNum.Value;
-                lvlMakingRotine = StartCoroutine(GenerateLvl());
+                CurrrentLvl.Value = LvlNum.Value;
             }
             else
             {
-                int randomNum = Random.Range(0, 3);
-                CurrentLvl.Value = randomNum + 5;
-                _totalTubes = CurrentLvl.Value+2;
+                _levelColors = Resources.Load<SOColors>(_sortingLvlPath + LvlNum.Value);
+                CurrrentLvl.Value = _levelColors.Colors.Length;
+                _totalTubes = CurrrentLvl.Value + 2;
                 lvlMakingRotine = StartCoroutine(GenerateLvl());
+                TotalMoves.Value = CurrrentLvl.Value * MovesMultiplier.Value;
             }
-
-            TotalMoves.Value = CurrentLvl.Value * MovesMultiplier.Value;
         }
 
         IEnumerator GenerateLvl()
@@ -84,41 +74,41 @@ namespace Core.GamePlay.WaterSort
             {
                 TubeHandler newTube = Instantiate(TubePrefab, transform);
                 newTube.transform.position = TubePositions[t];
-                if (t < CurrentLvl.Value)
+                if (t < CurrrentLvl.Value)
                 { 
-                    _levelTubes.Add(newTube);
-                    _currentLevelColors[t] = new List<Color>();
+                    _colorTubes.Add(newTube);
+                    //_currentLevelColors[t] = new List<Color>();
                 }
             }
             List<TubeHandler> tempTubes = new List<TubeHandler>();
-            foreach (TubeHandler tube in _levelTubes)
+            foreach (TubeHandler tube in _colorTubes)
             {
                 tempTubes.Add(tube);
             }
             yield return new WaitForSeconds(0.25f);
-            for (int l = 0; l < CurrentLvl.Value; l++)
+            for (int l = 0; l < CurrrentLvl.Value; l++)
             {
                 for (int b = 0; b < _maxColorsInTube; b++)
                 {
-                    int tubeNum = Random.Range(0, _levelTubes.Count);
+                    int tubeNum = Random.Range(0, _colorTubes.Count);
 
-                    if (_levelTubes[tubeNum].WaterColors.Count < _maxColorsInTube)
+                    if (_colorTubes[tubeNum].WaterColors.Count < _maxColorsInTube)
                     {
                         if (IsHiddenLevel.Value == 1)
                         {
-                            _levelTubes[tubeNum].SetHidenColour(AllColours[l]);
+                            _colorTubes[tubeNum].SetHidenColour(_levelColors.Colors[l]);
                         }
                         else
                         {
-                            _levelTubes[tubeNum].SetColor(AllColours[l]);
+                            _colorTubes[tubeNum].SetColor(_levelColors.Colors[l]);
                         }
                        
                     }
                     yield return new WaitForSeconds(0.01f);
-                    if (_levelTubes[tubeNum].WaterColors.Count == _maxColorsInTube)
+                    if (_colorTubes[tubeNum].WaterColors.Count == _maxColorsInTube)
                     {
-                        _levelTubes[tubeNum].WaterAdded();
-                        _levelTubes.RemoveAt(tubeNum);
+                        _colorTubes[tubeNum].WaterAdded();
+                        _colorTubes.RemoveAt(tubeNum);
                     }
                 }
             }
@@ -151,17 +141,15 @@ namespace Core.GamePlay.WaterSort
         IEnumerator ReGenerateLevel()
         {
             DestroyLevel();
-            //Debug.Log(_currentLeve;lColors.Count);
             yield return new WaitForSeconds(0.5f);
             SwipeColorsModeEvent.InvokeSOEvent();
             for (int t = 0; t < _totalTubes; t++)
             {
                 TubeHandler newTube = Instantiate(TubePrefab, transform);
                 newTube.transform.position = TubePositions[t];
-                if (t < CurrentLvl.Value)
+                if (t < CurrrentLvl.Value)
                 {
-                    List<Color> tubeColors = _currentLevelColors[t];
-                    //Debug.Log(tubeColors.Count);
+                    List<Color32> tubeColors = _currentLevelColors[t];
                     yield return new WaitForSeconds(0.015f);
                     for (int c = 0; c < _maxColorsInTube; c++)
                     {
@@ -194,14 +182,6 @@ namespace Core.GamePlay.WaterSort
                 TubeHandler newTube = Instantiate(TubePrefab, transform);
                 newTube.transform.position = TubePositions[_totalTubes];
                 _totalTubes++;
-            }
-        }
-
-        void OnClickHome(int state)
-        {
-            if (state == MainMenuStateIndex.Value)
-            {
-                DestroyLevel();
             }
         }
 

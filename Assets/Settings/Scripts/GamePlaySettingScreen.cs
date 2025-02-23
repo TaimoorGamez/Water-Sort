@@ -9,7 +9,7 @@ namespace Core.Screen
     {
         [SerializeField] SODOTween PopScaleUp, PopScaleDown;
         [SerializeField] GameObject PopPanel;
-        [SerializeField] SOIntegerEvents ChangeStateEvent;
+        [SerializeField] SOIntegerEvents ActiveStateEvent;
         [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex;
 
         private void OnEnable()
@@ -27,7 +27,7 @@ namespace Core.Screen
 
         void DisableObject()
         {
-            ChangeStateEvent.InvokeSOEvent(GamePlayStateIndex.Value);
+            ActiveStateEvent.InvokeSOEvent(GamePlayStateIndex.Value);
         }
 
         public void BackToHome()
@@ -39,7 +39,7 @@ namespace Core.Screen
 
         void DestroyState()
         {
-            ChangeStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
+            ActiveStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
         }
     }
 }

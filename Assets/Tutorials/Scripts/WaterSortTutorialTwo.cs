@@ -12,7 +12,6 @@ namespace Core.GamePlay.WaterSort
     {
         [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
         [SerializeField] SOEvents UndoEvent, SwipeColorsModeEvent, StartColoringEvent;
-        [SerializeField] SOIntegerEvents ChangeStateEvent;
         [SerializeField] Button UndoBtn;
         [SerializeField] CapsuleCollider MyCollider, SecondCollider, ThirdCollider;
         [SerializeField] TubeHandler MyLiquid, OtherLiquid, ThirdLiquid;
@@ -30,7 +29,6 @@ namespace Core.GamePlay.WaterSort
         {
             if (IsUndoBtn)
             {
-                ChangeStateEvent.EventHandler += HideInfoText;
                 UndoBtn.onClick.AddListener(TutorialUndoButton);
             }
 
@@ -44,7 +42,6 @@ namespace Core.GamePlay.WaterSort
         {
             if (IsUndoBtn)
             {
-                ChangeStateEvent.EventHandler -= HideInfoText;
                 UndoBtn.onClick.RemoveListener(TutorialUndoButton);
             }
 
@@ -122,12 +119,6 @@ namespace Core.GamePlay.WaterSort
             InfoTextObj.SetActive(true);
             HandObj.transform.DOLocalMove(new Vector3(175f, -530f, 0), 0.35f).SetEase(Ease.InOutBack);
             UndoBtn.gameObject.SetActive(true);
-        }
-
-        void HideInfoText(int stateNum)
-        {
-            if (LevelCompleteStateIndex.Value == stateNum)
-                InfoTextObj.SetActive(false);
         }
 
         void ColoringPreparation()

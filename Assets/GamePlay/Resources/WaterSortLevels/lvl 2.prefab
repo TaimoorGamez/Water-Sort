@@ -735,7 +735,6 @@ MonoBehaviour:
   UndoEvent: {fileID: 11400000, guid: ff7fa43f0f31602409df525ffc36b629, type: 2}
   SwipeColorsModeEvent: {fileID: 0}
   StartColoringEvent: {fileID: 0}
-  ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
   UndoBtn: {fileID: 4125162645496471715}
   MyCollider: {fileID: 8351219351031278332}
   SecondCollider: {fileID: 1964732830773812797}
@@ -904,7 +903,6 @@ MonoBehaviour:
   UndoEvent: {fileID: 0}
   SwipeColorsModeEvent: {fileID: 11400000, guid: 9781b632e66a3704aa915400af187d35, type: 2}
   StartColoringEvent: {fileID: 11400000, guid: ed751afbb0214de499cef1891112c6d6, type: 2}
-  ChangeStateEvent: {fileID: 0}
   UndoBtn: {fileID: 0}
   MyCollider: {fileID: 8351219351031278332}
   SecondCollider: {fileID: 0}
@@ -915,7 +913,7 @@ MonoBehaviour:
   HandObj: {fileID: 7276909665040472890}
   InfoTextObj: {fileID: 965580779618376801}
   CurrentColors:
-  - {r: 0.8980393, g: 0.21960786, b: 0.29411766, a: 1}
+  - {r: 0.9019608, g: 0.21568628, b: 0.29411766, a: 1}
   - {r: 1, g: 0.627451, b: 0.27450982, a: 1}
   IsUndoBtn: 0
   ExtraTube: 0
@@ -1135,7 +1133,6 @@ MonoBehaviour:
   UndoEvent: {fileID: 0}
   SwipeColorsModeEvent: {fileID: 0}
   StartColoringEvent: {fileID: 0}
-  ChangeStateEvent: {fileID: 0}
   UndoBtn: {fileID: 4125162645496471715}
   MyCollider: {fileID: 1223959023396332102}
   SecondCollider: {fileID: 0}

@@ -10,7 +10,6 @@ namespace Core.GamePlay.WaterSort
     public class WaterSortTutorialOne : MonoBehaviour
     {
         [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
-        [SerializeField] SOIntegerEvents ChangeStateEvent;
         [SerializeField] SOEvents SwipeColorsModeEvent, StartColoringEvent;
         [SerializeField] CapsuleCollider MyCollider, OtherCollider;
         [SerializeField] TubeHandler CurrenTube;
@@ -24,13 +23,11 @@ namespace Core.GamePlay.WaterSort
 
         private void OnEnable()
         {
-            ChangeStateEvent.EventHandler += HideInfoText;
             StartColoringEvent.EventHandler += ColoringPreparation;
         }
 
         private void OnDisable()
         {
-            ChangeStateEvent.EventHandler -= HideInfoText;
             StartColoringEvent.EventHandler -= ColoringPreparation;
         }
 
@@ -72,12 +69,6 @@ namespace Core.GamePlay.WaterSort
                     HandObj.SetActive(false);
                 }
             }
-        }
-
-        void HideInfoText(int stateNum)
-        {
-            if (LevelCompleteStateIndex.Value == stateNum)
-                InfoTextObj.SetActive(false);
         }
 
         void ColoringPreparation()

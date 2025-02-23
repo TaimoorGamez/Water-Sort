@@ -1644,14 +1644,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4807497638510345865}
-  m_LocalRotation: {x: 0, y: 0, z: 0.043619405, w: 0.9990483}
+  m_LocalRotation: {x: 0, y: 0, z: 0.19936788, w: 0.97992474}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3912602606777042924}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 5}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 23}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 150}
@@ -2031,8 +2031,9 @@ MonoBehaviour:
   LevelMoves: {fileID: 11400000, guid: c0332282d9024b84dafaab019726f173, type: 2}
   DetailsApplied: {fileID: 11400000, guid: 8894a4602ebb75348a39383060b968e0, type: 2}
   GamePlayState: {fileID: 11400000, guid: d7723c4d03c616248b6e725f6734b348, type: 2}
+  LevelCompleteStateIndex: {fileID: 11400000, guid: 372a4013c41549545822b875f34f8aa3, type: 2}
   SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
-  ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
+  ActiveStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
   DestroyStatEvent: {fileID: 11400000, guid: 853f6ddba0535194baa5c23d4d561386, type: 2}
   DestroyLevelEvent: {fileID: 11400000, guid: 462f5b56355cc214fb4c4775d6a87709, type: 2}
   ShowPanel: {fileID: 11400000, guid: bfe4c542e9b90ea439d12ac668dc209c, type: 2}

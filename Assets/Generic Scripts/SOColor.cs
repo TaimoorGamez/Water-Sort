@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Core.Variables
+namespace Core.GamePlay.Coloring
 {
-    [CreateAssetMenu(fileName = "SOColor", menuName = "ScriptableObjects/Variables/Colors")]
+    [CreateAssetMenu(fileName = "SOColor", menuName = "ScriptableObjects/GamePlay/SingleColor")]
     public class SOColor : ScriptableObject
     {
         [SerializeField] Color32 CurrentValue, DefaultValue;

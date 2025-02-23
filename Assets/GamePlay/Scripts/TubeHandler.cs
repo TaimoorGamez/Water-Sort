@@ -370,38 +370,25 @@ namespace Core.GamePlay.WaterSort
 
         void RevelColour()
         {
-            //if (WaterColors.Count > 0)
-            //{
-            //    HidenMarks[WaterColors.Count - 1].SetActive(false);
-            //}
-
-            //if (WaterColors.Count > 1)
-            //{
-            //    LeanTween.moveLocalZ(QustionMark, QustionMarkPositions[WaterColors.Count - 2], QustionMarkMovemenTime);
-            //}
-            //else
-            //{
-            //    QustionMark.SetActive(false);
-            //}
+            if (WaterColors.Count > 0)
+            {
+                HidenMarks[WaterColors.Count - 1].SetActive(false);
+                MyLiquid[WaterColors.Count - 1].RevelColour();
+            }
         }
 
         void RevelFullTube()
         {
-            //QustionMark.SetActive(false);
-            //foreach (GameObject obj in HidenMarks)
-            //{
-            //    obj.SetActive(false);
-            //}
+            for (int h = 0; h < HidenMarks.Length; h++ )
+            {
+                HidenMarks[h].SetActive(false);
+                MyLiquid[h].RevelColour();
+            }
         }
 
         bool GetHidenColor(int i)
         {
             return HidenMarks[i].gameObject.activeInHierarchy;
-        }
-
-        bool IsEmpty()
-        {
-            return (WaterColors.Count > 0) ? false : true;
         }
 
         private void OnDisable()

@@ -1,6 +1,5 @@
 using DG.Tweening;
 using UnityEngine;
-using System.Collections;
 
 namespace Core.GamePlay.WaterSort
 {
@@ -62,19 +61,13 @@ namespace Core.GamePlay.WaterSort
         }
 
 
-        public IEnumerator RevelColour()
+        public void RevelColour()
         {
-            float elapsedTime = 0f, smoothTimer = 0.01f;
-
-            while (elapsedTime < _transparencyChangeDuration)
+            DOTween.To(() => 1f, x =>
             {
-                elapsedTime += smoothTimer;
-                float t = Mathf.Clamp01(elapsedTime / _transparencyChangeDuration);
-                float currentTransparency = Mathf.Lerp(1, 0, t);
-                _propBlock.SetFloat("_HidenRange", currentTransparency);
+                _propBlock.SetFloat("_HidenRange", x);
                 MySkin.SetPropertyBlock(_propBlock);
-                yield return new WaitForSeconds(smoothTimer);
-            }
+            }, 0f, _transparencyChangeDuration);
         }
     }
 }

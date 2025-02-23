@@ -1383,17 +1383,16 @@ MonoBehaviour:
   LvlIndex: {fileID: 11400000, guid: 41c1752188b0e634bace9427b11cb2a0, type: 2}
   MovesMultiplier: {fileID: 11400000, guid: 408a999d29e60d04a8ebd2a6bb9b1ead, type: 2}
   IsHiddenLevel: {fileID: 11400000, guid: 0379e96a375797544890b5b505768ff9, type: 2}
-  CurrentLvl: {fileID: 11400000, guid: 619fe066546f4a1468e58d2c6fff0e67, type: 2}
   CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
   TotalMoves: {fileID: 11400000, guid: c0332282d9024b84dafaab019726f173, type: 2}
   BtnOnceClicked: {fileID: 11400000, guid: 6c8296d6059f7344fa43263cf388a50f, type: 2}
   MainMenuStateIndex: {fileID: 11400000, guid: 5b4f6ec2cf4170d4b973dfba16e1515f, type: 2}
+  CurrrentLvl: {fileID: 11400000, guid: 619fe066546f4a1468e58d2c6fff0e67, type: 2}
   InitLevelEvent: {fileID: 11400000, guid: 30e22fa3534f8ae429ac3af2c42b6b5c, type: 2}
   ExtraTubeEvent: {fileID: 11400000, guid: 144ef759d9080de4684f554d27c681d9, type: 2}
   SwipeColorsModeEvent: {fileID: 11400000, guid: 9781b632e66a3704aa915400af187d35, type: 2}
   RestartLevelEvent: {fileID: 11400000, guid: 42416ab8dba2bb14c90f1294b6893a1f, type: 2}
   DestroyLevelEvent: {fileID: 11400000, guid: 462f5b56355cc214fb4c4775d6a87709, type: 2}
-  ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
   TubePrefab: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
   TubePositions:
   - {x: -1, y: 2.5, z: 0}
@@ -1417,14 +1416,6 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   - {x: -2, y: 0, z: 0}
   - {x: 2, y: 0, z: 0}
-  AllColours:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 1, g: 1, b: 0, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 0, g: 1, b: 1, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
-  - {r: 1, g: 0, b: 1, a: 1}
-  - {r: 0.5882353, g: 0, b: 1, a: 1}
 --- !u!1 &1238350533
 GameObject:
   m_ObjectHideFlags: 0
@@ -1776,7 +1767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ChangeBackgroundEvent: {fileID: 11400000, guid: 3975c495653f66f468e75826b839bd02, type: 2}
-  ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
+  ActiveStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
   DeactiveStateEvent: {fileID: 11400000, guid: 02ec45e5db2f3f04eaeb0eb4a067ffea, type: 2}
   DestroyStateEvent: {fileID: 11400000, guid: 853f6ddba0535194baa5c23d4d561386, type: 2}
   AllStates:

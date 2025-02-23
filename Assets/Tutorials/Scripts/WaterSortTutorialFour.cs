@@ -11,7 +11,6 @@ namespace Core.GamePlay.WaterSort
     {
         [SerializeField] SOEvents SwipeColorsModeEvent, StartColoringEvent;
         [SerializeField] SOInterger CanPlay, IsSwaping, UsingAnyFeature, LevelCompleteStateIndex;
-        [SerializeField] SOIntegerEvents ChangeStateEvent;
         [SerializeField] CapsuleCollider ColliderOne, ColliderTwo, ColliderThree, ColliderFour, ColliderFive;
         [SerializeField] TubeHandler FirstTube, SecondTube, ThirdTube, ForthTube, FifthTube, SixthTube;
         [SerializeField] GameObject HandObj, InfoTextObj;
@@ -29,7 +28,6 @@ namespace Core.GamePlay.WaterSort
         {
             if (IsSwipButton)
             {
-                ChangeStateEvent.EventHandler += HideInfoText;
                 StartColoringEvent.EventHandler += ColoringPreparation;
             }
         }
@@ -38,7 +36,6 @@ namespace Core.GamePlay.WaterSort
         {
             if (IsSwipButton)
             {
-                ChangeStateEvent.EventHandler -= HideInfoText;
                 StartColoringEvent.EventHandler -= ColoringPreparation;
             }
         }
@@ -138,12 +135,6 @@ namespace Core.GamePlay.WaterSort
                     ColliderThree.enabled = true;
                 }
             }
-        }
-
-        void HideInfoText(int stateNum)
-        {
-            if (LevelCompleteStateIndex.Value == stateNum)
-                InfoTextObj.SetActive(false);
         }
 
         void ColoringPreparation()

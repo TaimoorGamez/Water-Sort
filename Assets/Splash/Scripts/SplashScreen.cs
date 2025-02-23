@@ -9,7 +9,7 @@ namespace Core.Screen
     public class SplashScreen : MonoBehaviour
     {
         [SerializeField] DBInt LvlNum;
-        [SerializeField] SOIntegerEvents ChangeStateEvent;
+        [SerializeField] SOIntegerEvents ActiveStateEvent, DestroyStateEvent;
         [SerializeField] LevelManager LvlManager;
         [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex;
 
@@ -19,13 +19,13 @@ namespace Core.Screen
         {
             if (LvlNum.Value < _tutorialLevels)
             {
-                ChangeStateEvent.InvokeSOEvent(GamePlayStateIndex.Value);
+                ActiveStateEvent.InvokeSOEvent(GamePlayStateIndex.Value);
             }
             else
             {
-                ChangeStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
+                ActiveStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
             }
-
+            DestroyStateEvent.InvokeSOEvent(0);
             LvlManager.AfterEnable();
         }
     }

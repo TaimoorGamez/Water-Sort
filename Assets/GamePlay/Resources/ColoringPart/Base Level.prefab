@@ -738,7 +738,7 @@ MonoBehaviour:
   CompleteStateIndex: {fileID: 11400000, guid: 372a4013c41549545822b875f34f8aa3, type: 2}
   LoopEffectEvent: {fileID: 11400000, guid: 093c4e46c9b68704ebb3fe930639824c, type: 2}
   SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
-  ChangeStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
+  ActiveStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
   StopLoopEffect: {fileID: 11400000, guid: 6a567254c34b10d44a3c2af54a037e1d, type: 2}
   SprayCan: {fileID: 7163878793657576286}
   FlameThrower: {fileID: 1117509954389739820}
@@ -826,7 +826,6 @@ MonoBehaviour:
   InfoMsgs:
   - Select a color to start Filling!
   - Move Brush To Fill Color!
-  PaintBrush: {fileID: 8155223144596094436}
   NextBtn: {fileID: 5101064069828714289}
   TouchProtector: {fileID: 2980247516992575011}
   DetailsImg: {fileID: 7818574426039290261}

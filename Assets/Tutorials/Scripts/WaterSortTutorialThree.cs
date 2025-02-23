@@ -12,7 +12,6 @@ namespace Core.GamePlay.WaterSort
     {
         [SerializeField] SOEvents SwipeColorsModeEvent, StartColoringEvent;
         [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
-        [SerializeField] SOIntegerEvents ChangeStateEvent;
         [SerializeField] Button ExtraTubeBtn;
         [SerializeField] TubeHandler FirstTube, SecondTube, ThirdTube, ForthTube, ExtraTube;
         [SerializeField] GameObject HandObj, InfoText, InfoTextObj;
@@ -27,14 +26,12 @@ namespace Core.GamePlay.WaterSort
         private void OnEnable()
         {
             StartColoringEvent.EventHandler += ColoringPreparation;
-            ChangeStateEvent.EventHandler += HideInfoText;
             ExtraTubeBtn.onClick.AddListener(AddTubbe);
         }
 
         private void OnDisable()
         {
             StartColoringEvent.EventHandler -= ColoringPreparation;
-            ChangeStateEvent.EventHandler -= HideInfoText;
             ExtraTubeBtn.onClick.RemoveListener(AddTubbe);
         }
 
@@ -85,12 +82,6 @@ namespace Core.GamePlay.WaterSort
                 InfoText.SetActive(true);
                 Destroy(ExtraTubeBtn.gameObject);
             }
-        }
-
-        void HideInfoText(int stateNum)
-        {
-            if (LevelCompleteStateIndex.Value == stateNum)
-                InfoTextObj.SetActive(false);
         }
 
         void ColoringPreparation()

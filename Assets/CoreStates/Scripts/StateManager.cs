@@ -7,19 +7,19 @@ namespace Core.States
     public class StateManager : MonoBehaviour
     {
         [SerializeField] SOEvents ChangeBackgroundEvent;
-        [SerializeField] SOIntegerEvents ChangeStateEvent, DeactiveStateEvent, DestroyStateEvent;
+        [SerializeField] SOIntegerEvents ActiveStateEvent, DeactiveStateEvent, DestroyStateEvent;
         [SerializeField] GameState[] AllStates;
         [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, LeveCompleteStateIndex;
 
         private void OnEnable()
         {
-            ChangeStateEvent.EventHandler += ChangeState;
+            ActiveStateEvent.EventHandler += ActiveeState;
             DeactiveStateEvent.EventHandler += DeactiveState;
             DestroyStateEvent.EventHandler += DestroyState;
         }
         private void OnDisable()
         {
-            ChangeStateEvent.EventHandler -= ChangeState;
+            ActiveStateEvent.EventHandler -= ActiveeState;
             DeactiveStateEvent.EventHandler -= DeactiveState;
             DestroyStateEvent.EventHandler -= DestroyState;
         }
@@ -29,23 +29,8 @@ namespace Core.States
             AllStates[0].ActiveCurrentState(transform);
         }
 
-        void ChangeState(int stateIndex)
+        void ActiveeState(int stateIndex)
         {
-            if (stateIndex == MainMenuStateIndex.Value)
-            {
-                ChangeBackgroundEvent.InvokeSOEvent();
-                for (int s = 0; s > AllStates.Length; s++)
-                {
-                    AllStates[s].DestroyState();
-                }
-            }
-            else if (stateIndex == GamePlayStateIndex.Value)
-            {
-                for (int s = 0; s < AllStates.Length; s++)
-                {
-                    AllStates[s].DestroyState();
-                }
-            }
             AllStates[stateIndex].ActiveCurrentState(transform);
         }
 
