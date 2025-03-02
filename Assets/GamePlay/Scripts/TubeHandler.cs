@@ -197,11 +197,11 @@ namespace Core.GamePlay.WaterSort
             yield return new WaitForSeconds(1f);
             WaterLine.gameObject.SetActive(false);
             senderTube.TubeState(false);
+            yield return new WaitForSeconds(0.25f);
             if (IsHiddenLevel.Value == 1)
             {
-                senderTube.CheckHiddenColor();
+                senderTube.RevelColour();
             }
-            yield return new WaitForSeconds(0.25f);
             WaterAdded();
             yield return new WaitForSeconds(0.1f);
             senderTube.IsBussy = false;
@@ -255,11 +255,6 @@ namespace Core.GamePlay.WaterSort
             }
         }
 
-        public void CheckHiddenColor()
-        {
-            RevelColour();
-        }
-
         public void RemoveFromCompleted()
         {
             if (_tubeCompleted && _alreadyAddedToCompleted)
@@ -311,12 +306,15 @@ namespace Core.GamePlay.WaterSort
             if (state)
             {
                 SoundEffectEvent.InvokeSOEvent(0);
-                MyLiquid[WaterColors.Count-1].SetGlow(true); 
-                for (int c = 1; c < WaterColors.Count; c++)
+                MyLiquid[WaterColors.Count-1].SetGlow(true);
+                if (IsHiddenLevel.Value != 1)
                 {
-                    if (WaterColors[c] == WaterColors[c-1])
+                    for (int c = 1; c < WaterColors.Count; c++)
                     {
-                        MyLiquid[c - 1].SetGlow(true);
+                        if (WaterColors[c] == WaterColors[c - 1])
+                        {
+                            MyLiquid[c - 1].SetGlow(true);
+                        }
                     }
                 }
                 _propertyBlock.SetColor("_BaseColor", CurrentColor);
@@ -368,7 +366,7 @@ namespace Core.GamePlay.WaterSort
             }
         }
 
-        void RevelColour()
+        public void RevelColour()
         {
             if (WaterColors.Count > 0)
             {

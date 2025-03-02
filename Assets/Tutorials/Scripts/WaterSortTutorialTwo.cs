@@ -141,10 +141,7 @@ namespace Core.GamePlay.WaterSort
                 }
                 else
                 {
-                    ThirdLiquid.transform.DOLocalMove(_thirdBowlPos, tweenTime).OnComplete(() =>
-                    {
-                        Destroy(ThirdLiquid.gameObject);
-                    });
+                    Destroy(ThirdLiquid.gameObject);
                 }
 
                 if (OtherLiquid.WaterColors.Count > 0)
@@ -161,10 +158,7 @@ namespace Core.GamePlay.WaterSort
                 }
                 else
                 {
-                    OtherLiquid.transform.DOLocalMove(_otherBowlPos, tweenTime).OnComplete(() =>
-                    {
-                        Destroy(OtherLiquid.gameObject);
-                    });
+                    Destroy(OtherLiquid.gameObject);
                 }
 
                 if (MyLiquid.WaterColors.Count > 0)
@@ -181,10 +175,7 @@ namespace Core.GamePlay.WaterSort
                 }
                 else
                 {
-                    MyLiquid.transform.DOLocalMove(_firstBowlPos, tweenTime).OnComplete(() =>
-                    {
-                        Destroy(MyLiquid.gameObject);
-                    });
+                    Destroy(MyLiquid.gameObject);
                 }
             }
         }

@@ -153,7 +153,7 @@ namespace Core.GamePlay.WaterSort
                     Destroy(FirstTube.gameObject);
                 });
 
-                if(_colorBowlCounter == 5)
+                if (_colorBowlCounter == 5)
                 {
                     _bowlYPos = new Vector2(-2, -2);
                 }
@@ -164,10 +164,7 @@ namespace Core.GamePlay.WaterSort
             }
             else
             {
-                FirstTube.transform.DOLocalMove(FirstTube.transform.position*5, tweenTime).OnComplete(() =>
-                {
-                    Destroy(FirstTube.gameObject);
-                });
+                Destroy(FirstTube.gameObject);
             }
 
             if (SecondTube.WaterColors.Count > 0)
@@ -193,10 +190,7 @@ namespace Core.GamePlay.WaterSort
             }
             else
             {
-                SecondTube.transform.DOLocalMove(SecondTube.transform.position * 5, tweenTime).OnComplete(() =>
-                {
-                    Destroy(SecondTube.gameObject);
-                });
+                Destroy(SecondTube.gameObject);
             }
 
             if (ThirdTube.WaterColors.Count > 0)
@@ -222,10 +216,7 @@ namespace Core.GamePlay.WaterSort
             }
             else
             {
-                ThirdTube.transform.DOLocalMove(ThirdTube.transform.position * 5, tweenTime).OnComplete(() =>
-                {
-                    Destroy(ThirdTube.gameObject);
-                });
+                Destroy(ThirdTube.gameObject);
             }
 
             if (ForthTube.WaterColors.Count > 0)
@@ -251,10 +242,7 @@ namespace Core.GamePlay.WaterSort
             }
             else
             {
-                ForthTube.transform.DOLocalMove(ForthTube.transform.position * 5, tweenTime).OnComplete(() =>
-                {
-                    Destroy(ForthTube.gameObject);
-                });
+                Destroy(ForthTube.gameObject);
             }
 
             if (FifthTube.WaterColors.Count > 0)
@@ -280,10 +268,7 @@ namespace Core.GamePlay.WaterSort
             }
             else
             {
-                FifthTube.transform.DOLocalMove(FifthTube.transform.position * 5, tweenTime).OnComplete(() =>
-                {
-                    Destroy(FifthTube.gameObject);
-                });
+                Destroy(FifthTube.gameObject);
             }
 
             if (SixthTube.WaterColors.Count > 0)
@@ -309,10 +294,7 @@ namespace Core.GamePlay.WaterSort
             }
             else
             {
-                SixthTube.transform.DOLocalMove(SixthTube.transform.position * 5, tweenTime).OnComplete(() =>
-                {
-                    Destroy(SixthTube.gameObject);
-                });
+                Destroy(SixthTube.gameObject);
             }
         }
 

@@ -102,10 +102,7 @@ namespace Core.GamePlay.WaterSort
             }
             else
             {
-                FirstTube.transform.DOLocalMove(_firstBowlPos, tweenTime).OnComplete(() =>
-                    {
-                        Destroy(FirstTube.gameObject);
-                    });
+                Destroy(FirstTube.gameObject);
             }
 
             if (SecondTube.WaterColors.Count > 0)
@@ -122,10 +119,7 @@ namespace Core.GamePlay.WaterSort
             }
             else
             {
-                SecondTube.transform.DOLocalMove(_secondBowlPos, tweenTime).OnComplete(() =>
-                    {
-                        Destroy(SecondTube.gameObject);
-                    });
+                Destroy(SecondTube.gameObject);
             }
 
             if (ThirdTube.WaterColors.Count > 0)
@@ -142,10 +136,7 @@ namespace Core.GamePlay.WaterSort
             }
             else
             {
-                ThirdTube.transform.DOLocalMove(_thirdBowlPos, tweenTime).OnComplete(() =>
-                    {
-                        Destroy(ThirdTube.gameObject);
-                    });
+                Destroy(ThirdTube.gameObject);
             }
 
             if (ForthTube.WaterColors.Count > 0)
@@ -162,10 +153,7 @@ namespace Core.GamePlay.WaterSort
             }
             else
             {
-                ForthTube.transform.DOLocalMove(_forthBowlPos, tweenTime).OnComplete(() =>
-                    {
-                        Destroy(ForthTube.gameObject);
-                    });
+                Destroy(ForthTube.gameObject);
             }
 
             if (ExtraTube.WaterColors.Count > 0)
@@ -182,10 +170,7 @@ namespace Core.GamePlay.WaterSort
             }
             else
             {
-                ExtraTube.transform.DOLocalMove(_extraBowlPos, tweenTime).OnComplete(() =>
-                    {
-                        Destroy(ExtraTube.gameObject);
-                    });
+                Destroy(ExtraTube.gameObject);
             }
         }
     }

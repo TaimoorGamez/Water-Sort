@@ -1,4 +1,5 @@
 using UnityEngine;
+using DG.Tweening;
 using Core.Events;
 using Core.Variables;
 using Core.DB.Variables;
@@ -12,16 +13,20 @@ namespace Core.GamePlay.WaterSort
     {
         [SerializeField] DBInt LvlNum, LvlIndex, MovesMultiplier;
         [SerializeField] SOInterger IsHiddenLevel, CanPlay, TotalMoves, BtnOnceClicked, MainMenuStateIndex, CurrrentLvl;
-        [SerializeField] SOEvents InitLevelEvent, ExtraTubeEvent, SwipeColorsModeEvent, RestartLevelEvent, DestroyLevelEvent;
+        [SerializeField] SOEvents InitLevelEvent, ExtraTubeEvent, SwipeColorsModeEvent, RestartLevelEvent, DestroyLevelEvent, StartColoringEvent;
         [SerializeField] TubeHandler TubePrefab;
         [SerializeField] Vector3[] TubePositions, BowlPositions;
+        [SerializeField] BowlColorHandler BowlObj;
 
         string _sortingLvlPath = "WaterSortLevels/lvl ";
         List<TubeHandler> _colorTubes = new List<TubeHandler>();
+        List<TubeHandler> _totalTubes = new List<TubeHandler>();
         Coroutine lvlMakingRotine;
-        int _totalTubes = 0, _maxColorsInTube = 4;
-        SOColors _levelColors; 
+        int _totalTubesCount = 0, _maxColorsInTube = 4;
+        SOColors _levelColors;
         Dictionary<int, List<Color32>> _currentLevelColors = new Dictionary<int, List<Color32>>();
+        Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f);
+        int _colorBowlCounter = 0;
 
         private void OnEnable()
         {
@@ -29,6 +34,7 @@ namespace Core.GamePlay.WaterSort
             ExtraTubeEvent.EventHandler += OnAddTubeClick;
             RestartLevelEvent.EventHandler += RestartLevel;
             DestroyLevelEvent.EventHandler += DestroyLevel;
+            StartColoringEvent.EventHandler += ColoringPreparation;
         }
 
         private void OnDisable()
@@ -37,12 +43,14 @@ namespace Core.GamePlay.WaterSort
             ExtraTubeEvent.EventHandler -= OnAddTubeClick;
             RestartLevelEvent.EventHandler -= RestartLevel;
             DestroyLevelEvent.EventHandler -= DestroyLevel;
+            StartColoringEvent.EventHandler -= ColoringPreparation;
         }
 
         void InitNewLevel()
         {
             CanPlay.Value = 0;
             _colorTubes.Clear();
+            _totalTubes.Clear();
             DestroyLevel();
             if (LvlNum.Value % 5 == 0)
             {
@@ -62,7 +70,7 @@ namespace Core.GamePlay.WaterSort
             {
                 _levelColors = Resources.Load<SOColors>(_sortingLvlPath + LvlNum.Value);
                 CurrrentLvl.Value = _levelColors.Colors.Length;
-                _totalTubes = CurrrentLvl.Value + 2;
+                _totalTubesCount = CurrrentLvl.Value + 2;
                 lvlMakingRotine = StartCoroutine(GenerateLvl());
                 TotalMoves.Value = CurrrentLvl.Value * MovesMultiplier.Value;
             }
@@ -70,14 +78,14 @@ namespace Core.GamePlay.WaterSort
 
         IEnumerator GenerateLvl()
         {
-            for (int t = 0; t < _totalTubes; t++)
+            for (int t = 0; t < _totalTubesCount; t++)
             {
                 TubeHandler newTube = Instantiate(TubePrefab, transform);
                 newTube.transform.position = TubePositions[t];
+                _totalTubes.Add(newTube);
                 if (t < CurrrentLvl.Value)
-                { 
+                {
                     _colorTubes.Add(newTube);
-                    //_currentLevelColors[t] = new List<Color>();
                 }
             }
             List<TubeHandler> tempTubes = new List<TubeHandler>();
@@ -102,7 +110,7 @@ namespace Core.GamePlay.WaterSort
                         {
                             _colorTubes[tubeNum].SetColor(_levelColors.Colors[l]);
                         }
-                       
+
                     }
                     yield return new WaitForSeconds(0.01f);
                     if (_colorTubes[tubeNum].WaterColors.Count == _maxColorsInTube)
@@ -113,8 +121,9 @@ namespace Core.GamePlay.WaterSort
                 }
             }
             yield return new WaitForSeconds(0.1f);
-            for (int c=0; c< tempTubes.Count; c++)
+            for (int c = 0; c < tempTubes.Count; c++)
             {
+                _currentLevelColors[c] = new List<Color32>();
                 foreach (Color col in tempTubes[c].WaterColors)
                 {
                     _currentLevelColors[c].Add(col);
@@ -143,7 +152,7 @@ namespace Core.GamePlay.WaterSort
             DestroyLevel();
             yield return new WaitForSeconds(0.5f);
             SwipeColorsModeEvent.InvokeSOEvent();
-            for (int t = 0; t < _totalTubes; t++)
+            for (int t = 0; t < _totalTubesCount; t++)
             {
                 TubeHandler newTube = Instantiate(TubePrefab, transform);
                 newTube.transform.position = TubePositions[t];
@@ -177,19 +186,46 @@ namespace Core.GamePlay.WaterSort
 
         void OnAddTubeClick()
         {
-            if (_totalTubes < 10 && CanPlay.Value==1)
+            if (_totalTubesCount < 10 && CanPlay.Value == 1)
             {
                 TubeHandler newTube = Instantiate(TubePrefab, transform);
-                newTube.transform.position = TubePositions[_totalTubes];
-                _totalTubes++;
+                newTube.transform.position = TubePositions[_totalTubesCount];
+                _totalTubesCount++;
+                _totalTubes.Add(newTube);
+            }
+        }
+
+        void ColoringPreparation()
+        {
+            float tweenTime = 1;
+            for (int t = 0; t < _totalTubes.Count; t++)
+            {
+                TubeHandler currentTube = _totalTubes[t];
+                if (currentTube.WaterColors.Count > 0)
+                {
+                    currentTube.TubeCap.gameObject.SetActive(false);
+                    currentTube.transform.DOScale(_bowlScale, tweenTime);
+                    currentTube.transform.DOLocalMove(BowlPositions[t], tweenTime).OnComplete(() =>
+                    {
+                        BowlColorHandler colorBowl = Instantiate(BowlObj, transform);
+                        colorBowl.transform.position = currentTube.transform.position;
+                        colorBowl.SetColor(currentTube.CurrentColor);
+                        Destroy(currentTube.gameObject, 0.1f);
+                    });
+                }
+                else
+                {
+                        Destroy(currentTube.gameObject);
+                }
             }
         }
 
         void DestroyLevel()
         {
-            foreach (Transform child in transform)
+            int childCount = transform.childCount;
+            for (int i = childCount - 1; i >= 0; i--)
             {
-                Destroy(child.gameObject);
+                Destroy(transform.GetChild(i).gameObject);
             }
         }
     }

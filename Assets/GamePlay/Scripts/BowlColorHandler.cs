@@ -20,6 +20,7 @@ namespace Core.GamePlay.Coloring
 
         public void SetColor(Color currentColor)
         {
+            Debug.Log("line 22");
             _propBlock = new MaterialPropertyBlock();
             _bowlColor = currentColor;
             _orignalPos = transform.position;
