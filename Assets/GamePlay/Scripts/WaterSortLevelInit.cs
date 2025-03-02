@@ -11,7 +11,7 @@ namespace Core.GamePlay.WaterSort
 {
     public class WaterSortLevelInit : MonoBehaviour
     {
-        [SerializeField] DBInt LvlNum, LvlIndex, MovesMultiplier;
+        [SerializeField] DBInt LvlIndex, MovesMultiplier;
         [SerializeField] SOInterger IsHiddenLevel, CanPlay, TotalMoves, BtnOnceClicked, MainMenuStateIndex, CurrrentLvl;
         [SerializeField] SOEvents InitLevelEvent, ExtraTubeEvent, SwipeColorsModeEvent, RestartLevelEvent, DestroyLevelEvent, StartColoringEvent;
         [SerializeField] TubeHandler TubePrefab;
@@ -52,7 +52,7 @@ namespace Core.GamePlay.WaterSort
             _colorTubes.Clear();
             _totalTubes.Clear();
             DestroyLevel();
-            if (LvlNum.Value % 5 == 0)
+            if (LvlIndex.Value % 5 == 0)
             {
                 IsHiddenLevel.Value = 1;
             }
@@ -61,14 +61,14 @@ namespace Core.GamePlay.WaterSort
                 IsHiddenLevel.Value = 0;
             }
 
-            if (LvlNum.Value < 5)
+            if (LvlIndex.Value < 5)
             {
-                Instantiate(Resources.Load(_sortingLvlPath + LvlNum.Value), transform);
-                CurrrentLvl.Value = LvlNum.Value;
+                Instantiate(Resources.Load(_sortingLvlPath + LvlIndex.Value), transform);
+                CurrrentLvl.Value = LvlIndex.Value;
             }
             else
             {
-                _levelColors = Resources.Load<SOColors>(_sortingLvlPath + LvlNum.Value);
+                _levelColors = Resources.Load<SOColors>(_sortingLvlPath + LvlIndex.Value);
                 CurrrentLvl.Value = _levelColors.Colors.Length;
                 _totalTubesCount = CurrrentLvl.Value + 2;
                 lvlMakingRotine = StartCoroutine(GenerateLvl());

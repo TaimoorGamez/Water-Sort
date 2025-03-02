@@ -1379,7 +1379,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3ea379d98f12345968c5e37ea4d09a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LvlNum: {fileID: 11400000, guid: bad89b7dfd4fe324eaaacf6e970340af, type: 2}
   LvlIndex: {fileID: 11400000, guid: 41c1752188b0e634bace9427b11cb2a0, type: 2}
   MovesMultiplier: {fileID: 11400000, guid: 408a999d29e60d04a8ebd2a6bb9b1ead, type: 2}
   IsHiddenLevel: {fileID: 11400000, guid: 0379e96a375797544890b5b505768ff9, type: 2}
