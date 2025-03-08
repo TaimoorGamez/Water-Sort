@@ -11,7 +11,7 @@ namespace Core.GamePlay.WaterSort
 {
     public class WaterSortLevelInit : MonoBehaviour
     {
-        [SerializeField] DBInt LvlIndex, MovesMultiplier;
+        [SerializeField] DBInt LvlIndex, LvlNum, MovesMultiplier;
         [SerializeField] SOInterger IsHiddenLevel, CanPlay, TotalMoves, BtnOnceClicked, MainMenuStateIndex, CurrrentLvl;
         [SerializeField] SOEvents InitLevelEvent, ExtraTubeEvent, SwipeColorsModeEvent, RestartLevelEvent, DestroyLevelEvent, StartColoringEvent;
         [SerializeField] TubeHandler TubePrefab;
@@ -26,7 +26,6 @@ namespace Core.GamePlay.WaterSort
         SOColors _levelColors;
         Dictionary<int, List<Color32>> _currentLevelColors = new Dictionary<int, List<Color32>>();
         Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f);
-        int _colorBowlCounter = 0;
 
         private void OnEnable()
         {
@@ -52,7 +51,7 @@ namespace Core.GamePlay.WaterSort
             _colorTubes.Clear();
             _totalTubes.Clear();
             DestroyLevel();
-            if (LvlIndex.Value % 5 == 0)
+            if (LvlNum.Value % 5 == 0)
             {
                 IsHiddenLevel.Value = 1;
             }

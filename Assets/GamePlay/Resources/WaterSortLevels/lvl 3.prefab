@@ -242,7 +242,6 @@ MonoBehaviour:
   StartColoringEvent: {fileID: 11400000, guid: ed751afbb0214de499cef1891112c6d6, type: 2}
   CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
   LevelCompleteStateIndex: {fileID: 11400000, guid: 372a4013c41549545822b875f34f8aa3, type: 2}
-  ActiveStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
   ExtraTubeBtn: {fileID: 1842825908184335162}
   FirstTube: {fileID: 5340313201947925067}
   SecondTube: {fileID: 1406532179427866131}
@@ -253,9 +252,9 @@ MonoBehaviour:
   InfoText: {fileID: 7646069049856018515}
   InfoTextObj: {fileID: 3199467706706938422}
   CurrentColors:
-  - {r: 1, g: 0.6666667, b: 0.2, a: 1}
-  - {r: 0, g: 0.5019608, b: 0.5019608, a: 1}
-  - {r: 1, g: 0.8509804, b: 0.72156864, a: 1}
+  - {r: 1, g: 0.6666667, b: 0.19607843, a: 1}
+  - {r: 0, g: 0.50980395, b: 0.50980395, a: 1}
+  - {r: 1, g: 0.84313726, b: 0.7254902, a: 1}
   BowlObj: {fileID: 1613508317186387605, guid: f2a0fcc19d7d3f54ca8d4d1cfb5cfbce, type: 3}
 --- !u!1 &5163768413923243326
 GameObject:

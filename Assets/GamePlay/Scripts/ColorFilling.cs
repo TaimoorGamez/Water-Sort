@@ -7,12 +7,12 @@ namespace Core.GamePlay.Coloring
     {
         [SerializeField] RawImage ColoringPart;
 
-        public Color DefaultColor;
+        public Color32 DefaultColor;
         public Animation MyAnimation;
 
         Texture2D _partTexture;
         int _totalColoredPixles = 0;
-        Color _whiteColor = Color.white;
+        Color32 _whiteColor = Color.white;
 
         private void Start()
         {

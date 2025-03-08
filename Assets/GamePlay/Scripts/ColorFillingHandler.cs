@@ -245,7 +245,7 @@ namespace Core.GamePlay.Coloring
                 CurrentBowl.Bowl.BowlState(false);
                 _coloredPixlesCounter = 0;
                 StopLoopEffect.InvokeSOEvent();
-                if (LevelStars.Value > 2 && CurrentColor.Value != ColoringPart[_paintingCounter - 1].DefaultColor)
+                if (LevelStars.Value > 2 && !CurrentColor.Value.Equals(ColoringPart[_paintingCounter - 1].DefaultColor))
                 {
                     LevelStars.Value--;
                 }

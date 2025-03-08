@@ -28,7 +28,7 @@ namespace Core.Screen
 
         float _starsPos = 100, _durationTweeing = 1f;
         bool _onceClicked = false; 
-        int _levelBonus = 50, _starsBonus = 100, _detailsBonus = 0, _totalBonus = 0, _tutorialLevels = 5; 
+        int _levelBonus = 50, _starsBonus = 100, _detailsBonus = 0, _totalBonus = 0, _tutorialLevels = 5, _minLvlCount = 5, _maxLvlCount = 8; 
         Coroutine _screenShotRotine;
 
         void Start()
@@ -121,7 +121,13 @@ namespace Core.Screen
                 CanPlay.Value = 0;
                 LvlNum.Value++;
                 LevelIndex.Value++;
-                if (LvlNum.Value < _tutorialLevels)
+
+                if (LevelIndex.Value > _maxLvlCount)
+                {
+                    LevelIndex.Value = _minLvlCount;
+                }
+
+                if (LevelIndex.Value < _tutorialLevels)
                 {
                     ActiveStateEvent.InvokeSOEvent(GamePlayState.Value);
                 }
