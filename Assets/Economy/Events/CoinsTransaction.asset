@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 049685e8887a9b74db81a3df02355cc2, type: 3}
-  m_Name: CoinsEconomy
+  m_Script: {fileID: 11500000, guid: 3f1a04c78c1d9a0488b25f594f68c57d, type: 3}
+  m_Name: CoinsTransaction
   m_EditorClassIdentifier: 
-  _Amount: {fileID: 11400000, guid: c24cfd69ff0cb7442b7b34c5c8b89aee, type: 2}

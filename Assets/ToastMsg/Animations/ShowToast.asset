@@ -9,10 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 263c214676a7b4244984af8a5cdcc97c, type: 3}
-  m_Name: MovesMultiplier
+  m_Script: {fileID: 11500000, guid: e100698643efa7942b334e83af7ba215, type: 3}
+  m_Name: ShowToast
   m_EditorClassIdentifier: 
-  CurrentValue: 6
-  DefaultValue: 6
-  ResetDefault: 1
-  PrefName: MovesMultiplier
+  Duration: 0.25
+  CurrentEaseType: 27
+  IsLoop: 0
+  CanChangeStateOnComlete: 0
+  StateOnComplete: 1
+  ResetOnComplete: 0
+  TargetAction: {x: 0, y: 180, z: 0}
+  OriginalVallue: {x: 0, y: 0, z: 0}

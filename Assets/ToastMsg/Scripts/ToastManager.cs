@@ -1,6 +1,5 @@
 using UnityEngine;
 using Core.Events;
-using Core.Variables;
 
 namespace Core.ToastMsg
 {
@@ -9,9 +8,9 @@ namespace Core.ToastMsg
     {
         [SerializeField] SOIntegerEvents ToastMsgEvent;
         [SerializeField] ToastScreen ToastMsgPrefab;
-        [SerializeField] SOInterger OldMsgNum;
 
         ToastScreen _oldMsgScreen;
+        int _oldMsgNum = -1;
 
         private void OnEnable()
         {
@@ -20,17 +19,16 @@ namespace Core.ToastMsg
 
         void ShowToastMsg(int toastNum)
         {
-            //Debug.Log("Here");
             if (_oldMsgScreen == null)
             {
                 _oldMsgScreen = Instantiate(ToastMsgPrefab);
                 _oldMsgScreen.ChangeMsg(toastNum);
-                OldMsgNum.Value = toastNum;
+                _oldMsgNum = toastNum;
             }
-            else if(toastNum != OldMsgNum.Value)
+            else if(toastNum != _oldMsgNum)
             {
                 _oldMsgScreen.ChangeMsg(toastNum);
-                OldMsgNum.Value = toastNum;
+                _oldMsgNum = toastNum;
             }
         }
     }

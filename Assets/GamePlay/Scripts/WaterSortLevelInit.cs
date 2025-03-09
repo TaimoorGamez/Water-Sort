@@ -11,7 +11,7 @@ namespace Core.GamePlay.WaterSort
 {
     public class WaterSortLevelInit : MonoBehaviour
     {
-        [SerializeField] DBInt LvlIndex, LvlNum, MovesMultiplier;
+        [SerializeField] DBInt LvlIndex, LvlNum;
         [SerializeField] SOInterger IsHiddenLevel, CanPlay, TotalMoves, BtnOnceClicked, MainMenuStateIndex, CurrrentLvl;
         [SerializeField] SOEvents InitLevelEvent, ExtraTubeEvent, SwipeColorsModeEvent, RestartLevelEvent, DestroyLevelEvent, StartColoringEvent;
         [SerializeField] TubeHandler TubePrefab;
@@ -22,7 +22,7 @@ namespace Core.GamePlay.WaterSort
         List<TubeHandler> _colorTubes = new List<TubeHandler>();
         List<TubeHandler> _totalTubes = new List<TubeHandler>();
         Coroutine lvlMakingRotine;
-        int _totalTubesCount = 0, _maxColorsInTube = 4;
+        int _totalTubesCount = 0, _maxColorsInTube = 4, _movesMultiplier = 4;
         SOColors _levelColors;
         Dictionary<int, List<Color32>> _currentLevelColors = new Dictionary<int, List<Color32>>();
         Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f);
@@ -71,7 +71,7 @@ namespace Core.GamePlay.WaterSort
                 CurrrentLvl.Value = _levelColors.Colors.Length;
                 _totalTubesCount = CurrrentLvl.Value + 2;
                 lvlMakingRotine = StartCoroutine(GenerateLvl());
-                TotalMoves.Value = CurrrentLvl.Value * MovesMultiplier.Value;
+                TotalMoves.Value = CurrrentLvl.Value * _movesMultiplier;
             }
         }
 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Core.Animations.DT
 {
-    [CreateAssetMenu(fileName = "Scale", menuName = "ScriptableObjects/Animations/SOAnchor")]
+    [CreateAssetMenu(fileName = "Anchor", menuName = "ScriptableObjects/Animations/SOAnchor")]
     public class SOAnChorMove : SODOTween
     {
         RectTransform _objRect;

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d17bc15e4abaf4c8be3aa598c60062, type: 3}
   m_Name: TriggerScaleDown
   m_EditorClassIdentifier: 
-  Duration: 0.5
+  Duration: 0.2
   CurrentEaseType: 1
   IsLoop: 0
   CanChangeStateOnComlete: 0

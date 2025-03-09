@@ -3,6 +3,7 @@ using System.IO;
 using DG.Tweening;
 using UnityEngine;
 using Core.Events;
+using Core.Economy;
 using Core.Variables;
 using UnityEngine.UI;
 using Core.DB.Variables;
@@ -13,6 +14,7 @@ namespace Core.Screen
 {
     public class CompleteScreen : MonoBehaviour
     {
+        [SerializeField] Currency Coins;
         [SerializeField] DBInt LevelIndex, LvlNum;
         [SerializeField] SOInterger LevelStars, CanPlay, MainMenuStateIndex, LevelMoves, DetailsApplied, GamePlayState, LevelCompleteStateIndex;
         [SerializeField] SOIntegerEvents SoundEffectEvent, ActiveStateEvent, DestroyStatEvent;
@@ -28,7 +30,7 @@ namespace Core.Screen
 
         float _starsPos = 100, _durationTweeing = 1f;
         bool _onceClicked = false; 
-        int _levelBonus = 50, _starsBonus = 100, _detailsBonus = 0, _totalBonus = 0, _tutorialLevels = 5, _minLvlCount = 5, _maxLvlCount = 8; 
+        int _levelBonus = 15, _starsBonus = 10, _detailsBonus = 0, _totalBonus = 0, _tutorialLevels = 5, _minLvlCount = 5, _maxLvlCount = 8; 
         Coroutine _screenShotRotine;
 
         void Start()
@@ -51,7 +53,7 @@ namespace Core.Screen
             { DOTween.To(() => 0, x => MovesBonusText.text = x.ToString(), LevelMoves.Value, _durationTweeing); }
             if (DetailsApplied.Value == 1)
             {
-                _detailsBonus = 100;
+                _detailsBonus = 20;
                 DOTween.To(() => 0, x => DetailsBonusText.text = x.ToString(), _detailsBonus, _durationTweeing); 
             }
             _starsBonus *= LevelStars.Value;
@@ -119,6 +121,7 @@ namespace Core.Screen
             {
                 _onceClicked = true;
                 CanPlay.Value = 0;
+                Coins.Amount += _totalBonus;
                 LvlNum.Value++;
                 LevelIndex.Value++;
 

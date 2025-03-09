@@ -1,28 +1,27 @@
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
 
 namespace Core.ToastMsg
 {
     public class ToastScreen : MonoBehaviour
     {
-        [SerializeField] Text MsgText;
+        [SerializeField] TextMeshProUGUI MsgText;
         [SerializeField] string[] ToastMsgs;
 
-        float _destroyDelay = 5;
-        Coroutine _sefDestructionRotine;
+        float _destroyDelay = 3;
+        Coroutine _selfDestructionRotine;
 
         private void Start()
         {
-            _sefDestructionRotine = StartCoroutine(SelfDestruct());
+            _selfDestructionRotine = StartCoroutine(SelfDestruct());
         }
 
         public void ChangeMsg(int msgNum)
         {
-            _destroyDelay = 5;
+            _destroyDelay = 3;
             MsgText.text = ToastMsgs[msgNum];
             MsgText.transform.parent.gameObject.SetActive(false);
-            MsgText.transform.parent.position = Vector3.zero;
             MsgText.transform.parent.gameObject.SetActive(true);
         }
 
@@ -38,9 +37,9 @@ namespace Core.ToastMsg
 
         private void OnDestroy()
         {
-            if (_sefDestructionRotine != null)
+            if (_selfDestructionRotine != null)
             {
-                StopCoroutine(_sefDestructionRotine);
+                StopCoroutine(_selfDestructionRotine);
             }
         }
     }

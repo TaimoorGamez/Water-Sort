@@ -472,13 +472,11 @@ MonoBehaviour:
   StartColoringEvent: {fileID: 11400000, guid: ed751afbb0214de499cef1891112c6d6, type: 2}
   ActiveStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
   MovesText: {fileID: 2552334045817676012}
-  CashText: {fileID: 6044358937756088614}
   LvlNum: {fileID: 11400000, guid: bad89b7dfd4fe324eaaacf6e970340af, type: 2}
   LvlIndex: {fileID: 11400000, guid: 41c1752188b0e634bace9427b11cb2a0, type: 2}
   TotalMoves: {fileID: 11400000, guid: c0332282d9024b84dafaab019726f173, type: 2}
   CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
   LevelFailStateIndex: {fileID: 11400000, guid: 58a28048a36a10746ad0a0b7453ccaa5, type: 2}
-  Coins: {fileID: 11400000, guid: 7eda067dffd0e094b883a13ef89857cd, type: 2}
   ColoringHolder: {fileID: 4044495243165485517}
   SwipeColorsModePanel: {fileID: 5658296870264550383}
   PowerButtons: {fileID: 5904127183862769092}
@@ -1367,17 +1365,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5115930599845863787, guid: f743f92d80369774690fccfe4f017d93, type: 3}
   m_PrefabInstance: {fileID: 5470659876504583790}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6044358937756088614 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1732285249764788040, guid: f743f92d80369774690fccfe4f017d93, type: 3}
-  m_PrefabInstance: {fileID: 5470659876504583790}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &6744547067588196045
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1484,18 +1471,18 @@ PrefabInstance:
     - target: {fileID: 4727839765463032159, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
-      objectReference: {fileID: 11400000, guid: ff7fa43f0f31602409df525ffc36b629, type: 2}
+      objectReference: {fileID: 5829752615572163611}
     - target: {fileID: 4727839765463032159, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4727839765463032159, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
-      value: InvokeSOEvent
+      value: OnClickUndoBtn
       objectReference: {fileID: 0}
     - target: {fileID: 4727839765463032159, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
-      value: Core.Events.SOEvents, Assembly-CSharp
+      value: Core.Screen.UndoBtnHandler, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4727839765463032159, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -1511,9 +1498,61 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
+--- !u!1 &366443676944414226 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6380667494977929439, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
+  m_PrefabInstance: {fileID: 6744547067588196045}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1884810153579532905 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5165981766818161828, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
+  m_PrefabInstance: {fileID: 6744547067588196045}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &3057019479535196359 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8644033690610576906, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
+  m_PrefabInstance: {fileID: 6744547067588196045}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3151233520320494092 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8512401302037105857, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
+  m_PrefabInstance: {fileID: 6744547067588196045}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5829752615572163611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3151233520320494092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d0f940d60d9334c96efd5761200a2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RemaingUndo: {fileID: 11400000, guid: ea039cf300a11a34ba289c06a95e577b, type: 2}
+  UndoEvent: {fileID: 11400000, guid: ff7fa43f0f31602409df525ffc36b629, type: 2}
+  UndoStatusEvent: {fileID: 11400000, guid: 185830f7c77c7ad4685a979e8aa56e1d, type: 2}
+  ToastMsgEvent: {fileID: 11400000, guid: 206e032d1b187244f94f744674e5f04e, type: 2}
+  CashEconomy: {fileID: 11400000, guid: 7eda067dffd0e094b883a13ef89857cd, type: 2}
+  CounterObj: {fileID: 3057019479535196359}
+  PriceObj: {fileID: 366443676944414226}
+  AdObj: {fileID: 7520058629304396429}
+  RemaingText: {fileID: 1884810153579532905}
 --- !u!224 &6555722460637492288 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 532527612466545293, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
+  m_PrefabInstance: {fileID: 6744547067588196045}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7520058629304396429 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3874763261252705344, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
   m_PrefabInstance: {fileID: 6744547067588196045}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8311245673043882499
