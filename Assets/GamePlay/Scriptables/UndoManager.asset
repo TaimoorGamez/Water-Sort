@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d14de64a88ffd854587dc2296f3ccb7e, type: 3}
   m_Name: UndoManager
   m_EditorClassIdentifier: 
+  LvlNum: {fileID: 11400000, guid: bad89b7dfd4fe324eaaacf6e970340af, type: 2}
   DoingUndo: {fileID: 11400000, guid: 8ce11c0323610f44d8bca007bba7cd74, type: 2}
   UsingAnyFeature: {fileID: 11400000, guid: ee976038d1a51e14684dc2c2bb35a697, type: 2}
   CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
   GamePlayStateIndex: {fileID: 11400000, guid: d7723c4d03c616248b6e725f6734b348, type: 2}
+  MinLvlIndex: {fileID: 11400000, guid: 97861f11d658661419c157765ea4ff3c, type: 2}
   OpenTube: {fileID: 11400000, guid: bf474ece7744e9b479539f42878ff194, type: 2}
   UndoEvent: {fileID: 11400000, guid: ff7fa43f0f31602409df525ffc36b629, type: 2}
   UpdateMovesEvent: {fileID: 11400000, guid: fe63d3e2311d8fc45b9e575a701d2292, type: 2}

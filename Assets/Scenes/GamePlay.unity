@@ -828,6 +828,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: eeba6926b64ea8a409d1c0927ca8736a, type: 3}
   - {fileID: 8300000, guid: 2d857fa1adba0c04b9646023c9ea5e78, type: 3}
   - {fileID: 8300000, guid: 1172952bcef8ce342abbb35b401d8ace, type: 3}
+  - {fileID: 8300000, guid: cb3bd050fa7baef4ea51e85e39bdd126, type: 3}
   LoopClips:
   - {fileID: 8300000, guid: a6582f934a452a24d81587b976b46ab5, type: 3}
   - {fileID: 8300000, guid: d938bcfbd6727424481a8a49c526128c, type: 3}
@@ -1379,6 +1380,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3ea379d98f12345968c5e37ea4d09a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SwipeProtectorEvent: {fileID: 11400000, guid: a23a193df529a5742b69a31e2a0a2720, type: 2}
+  ToastMsgEvent: {fileID: 11400000, guid: 206e032d1b187244f94f744674e5f04e, type: 2}
   LvlIndex: {fileID: 11400000, guid: 41c1752188b0e634bace9427b11cb2a0, type: 2}
   LvlNum: {fileID: 11400000, guid: bad89b7dfd4fe324eaaacf6e970340af, type: 2}
   IsHiddenLevel: {fileID: 11400000, guid: 0379e96a375797544890b5b505768ff9, type: 2}
@@ -1389,10 +1392,10 @@ MonoBehaviour:
   CurrrentLvl: {fileID: 11400000, guid: 619fe066546f4a1468e58d2c6fff0e67, type: 2}
   InitLevelEvent: {fileID: 11400000, guid: 30e22fa3534f8ae429ac3af2c42b6b5c, type: 2}
   ExtraTubeEvent: {fileID: 11400000, guid: 144ef759d9080de4684f554d27c681d9, type: 2}
-  SwipeColorsModeEvent: {fileID: 11400000, guid: 9781b632e66a3704aa915400af187d35, type: 2}
   RestartLevelEvent: {fileID: 11400000, guid: 42416ab8dba2bb14c90f1294b6893a1f, type: 2}
   DestroyLevelEvent: {fileID: 11400000, guid: 462f5b56355cc214fb4c4775d6a87709, type: 2}
   StartColoringEvent: {fileID: 11400000, guid: ed751afbb0214de499cef1891112c6d6, type: 2}
+  ChangeExtraTubeStatEvent: {fileID: 11400000, guid: bca4965798c5fad43ab5713a2eb9c7d2, type: 2}
   TubePrefab: {fileID: 5836097092843497542, guid: 780440981a73a0347b6401976879e349, type: 3}
   TubePositions:
   - {x: -1, y: 2.5, z: 0}

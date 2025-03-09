@@ -6,26 +6,24 @@ using Core.DB.Variables;
 
 namespace Core.Screen
 {
-    public class UndoBtnHandler : MonoBehaviour
+    public class PowerBtnHandler : MonoBehaviour
     {
-        [SerializeField] DBInt RemaingUndo;
-        [SerializeField] SOEvents UndoEvent, UndoStatusEvent;
-        [SerializeField] SOIntegerEvents ToastMsgEvent;
+        [SerializeField] DBInt RemaingPower;
+        [SerializeField] SOEvents PowerEvent, ChangePowerStatusEvent;
         [SerializeField] Currency CashEconomy;
         [SerializeField] GameObject CounterObj, PriceObj, AdObj;
         [SerializeField] TextMeshProUGUI RemaingText;
-
-        int _price = 100;
+        [SerializeField] int Price;
 
         private void OnEnable()
         {
-            UndoStatusEvent.EventHandler += ChangeStatus;
+            ChangePowerStatusEvent.EventHandler += ChangeStatus;
             PowerStatus();
         }
 
         private void OnDisable()
         {
-            UndoStatusEvent.EventHandler -= ChangeStatus;
+            ChangePowerStatusEvent.EventHandler -= ChangeStatus;
         }
 
         void PowerStatus()
@@ -33,12 +31,12 @@ namespace Core.Screen
             CounterObj.SetActive(false);
             PriceObj.SetActive(false);
             AdObj.SetActive(false);
-            if (RemaingUndo.Value > 0)
+            if (RemaingPower.Value > 0)
             {
-                RemaingText.text = RemaingUndo.Value.ToString();
+                RemaingText.text = RemaingPower.Value.ToString();
                 CounterObj.SetActive(true);
             }
-            else if (CashEconomy.Amount >= _price)
+            else if (CashEconomy.Amount >= Price)
             {
                 PriceObj.SetActive(true);
             }
@@ -50,26 +48,22 @@ namespace Core.Screen
 
         void ChangeStatus()
         {
-            if (RemaingUndo.Value > 0)
+            if (RemaingPower.Value > 0)
             {
-                RemaingUndo.Value--;
+                RemaingPower.Value--;
             }
-            else if (CashEconomy.Amount >= _price)
+            else if (CashEconomy.Amount >= Price)
             {
-                CashEconomy.Amount-= _price;
+                CashEconomy.Amount-= Price;
             }
             PowerStatus();
         }
 
-        public void OnClickUndoBtn()
+        public void OnClickPowerBtn()
         {
-            if (RemaingUndo.Value > 0 || CashEconomy.Amount >= _price)
+            if (RemaingPower.Value > 0 || CashEconomy.Amount >= Price)
             {
-                UndoEvent.InvokeSOEvent();
-            }
-            else
-            {
-                ToastMsgEvent.InvokeSOEvent(3);
+                PowerEvent.InvokeSOEvent();
             }
         }
     }

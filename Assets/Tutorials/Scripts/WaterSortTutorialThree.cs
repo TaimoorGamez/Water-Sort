@@ -1,7 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
 using Core.Events;
-using UnityEngine.UI;
 using Core.Variables;
 using System.Collections;
 using Core.GamePlay.Coloring;
@@ -10,29 +9,27 @@ namespace Core.GamePlay.WaterSort
 {
     public class WaterSortTutorialThree : MonoBehaviour
     {
-        [SerializeField] SOEvents SwipeColorsModeEvent, StartColoringEvent;
+        [SerializeField] SOEvents StartColoringEvent;
+        [SerializeField] SOIntegerEvents SwitchProtectorEvent;
         [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
-        [SerializeField] Button ExtraTubeBtn;
         [SerializeField] TubeHandler FirstTube, SecondTube, ThirdTube, ForthTube, ExtraTube;
-        [SerializeField] GameObject HandObj, InfoText, InfoTextObj;
+        [SerializeField] GameObject HandObj, InfoTextObj;
         [SerializeField] Color[] CurrentColors;
         [SerializeField] BowlColorHandler BowlObj;
 
         Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f);
-        Vector2 _firstBowlPos = new Vector2(1, -1), _secondBowlPos = new Vector2(-1, -1), _thirdBowlPos = new Vector2(-2, -1), _forthBowlPos = new Vector2(0, -1),
-                _extraBowlPos = new Vector2(2, -1);
+        Vector2 _firstBowlPos = new Vector2(1, 0), _secondBowlPos = new Vector2(-1, 0), _thirdBowlPos = new Vector2(-2, 0), 
+                _forthBowlPos = new Vector2(0, 0), _extraBowlPos = new Vector2(2, 0);
         int _colorIndex = 0;
 
         private void OnEnable()
         {
             StartColoringEvent.EventHandler += ColoringPreparation;
-            ExtraTubeBtn.onClick.AddListener(AddTubbe);
         }
 
         private void OnDisable()
         {
             StartColoringEvent.EventHandler -= ColoringPreparation;
-            ExtraTubeBtn.onClick.RemoveListener(AddTubbe);
         }
 
         private void Start()
@@ -68,20 +65,9 @@ namespace Core.GamePlay.WaterSort
                 ThirdTube.SetColor(CurrentColors[_colorIndex]);
                 yield return new WaitForSeconds(0.1f);
             }
-            SwipeColorsModeEvent.InvokeSOEvent();
+            SwitchProtectorEvent.InvokeSOEvent(0);
             CanPlay.Value = 1;
             HandObj.SetActive(true);
-        }
-
-        void AddTubbe()
-        {
-            if (CanPlay.Value == 1)
-            {
-                ExtraTube.gameObject.SetActive(true);
-                HandObj.SetActive(false);
-                InfoText.SetActive(true);
-                Destroy(ExtraTubeBtn.gameObject);
-            }
         }
 
         void ColoringPreparation()

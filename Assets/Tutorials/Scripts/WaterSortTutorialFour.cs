@@ -9,8 +9,9 @@ namespace Core.GamePlay.WaterSort
 {
     public class WaterSortTutorialFour : MonoBehaviour
     {
-        [SerializeField] SOEvents SwipeColorsModeEvent, StartColoringEvent;
-        [SerializeField] SOInterger CanPlay, IsSwaping, UsingAnyFeature, LevelCompleteStateIndex;
+        [SerializeField] SOIntegerEvents SwitchProtectorEvent;
+        [SerializeField] SOEvents StartColoringEvent;
+        [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
         [SerializeField] CapsuleCollider ColliderOne, ColliderTwo, ColliderThree, ColliderFour, ColliderFive;
         [SerializeField] TubeHandler FirstTube, SecondTube, ThirdTube, ForthTube, FifthTube, SixthTube;
         [SerializeField] GameObject HandObj, InfoTextObj;
@@ -21,7 +22,7 @@ namespace Core.GamePlay.WaterSort
 
         Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f);
         int _colorIndex = 0, _colorBowlCounter = 0;
-        Vector2 _bowlYPos = new Vector2(-2, -0.5f);
+        Vector2 _bowlYPos = new Vector2(-2, 0f);
         bool _isFirstClick = true;
 
         private void OnEnable()
@@ -85,7 +86,7 @@ namespace Core.GamePlay.WaterSort
                 }
                 ForthTube.SetColor(CurrentColors[_colorIndex]);
             }
-            SwipeColorsModeEvent.InvokeSOEvent();
+            SwitchProtectorEvent.InvokeSOEvent(0);
             CanPlay.Value = 1;
             HandObj.SetActive(true);
         }
@@ -123,17 +124,11 @@ namespace Core.GamePlay.WaterSort
 
         public void SwapeColor()
         {
-            if (UsingAnyFeature.Value == 0 && IsSwaping.Value == 0)
+            if (_isFirstClick)
             {
-                UsingAnyFeature.Value = 1;
-                SwipeColorsModeEvent.InvokeSOEvent();
-                IsSwaping.Value = 1;
-                if (_isFirstClick)
-                {
-                    _isFirstClick = false;
-                    HandObj.transform.DOLocalMove(new Vector3(225, 0, 0), 0.35f).SetEase(Ease.InOutBack);
-                    ColliderThree.enabled = true;
-                }
+                _isFirstClick = false;
+                HandObj.transform.DOLocalMove(new Vector3(225, 0, 0), 0.35f).SetEase(Ease.InOutBack);
+                ColliderThree.enabled = true;
             }
         }
 

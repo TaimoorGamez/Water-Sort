@@ -93,7 +93,7 @@ namespace Core.Screen
                     CurrencyShine.SetActive(true);
                     _currentAmount += amountSegment;
                     CurrencyTxt.text = _currentAmount.ToString();
-                    SoundEffectEvent.InvokeSOEvent(2);
+                    SoundEffectEvent.InvokeSOEvent(8);
                 });
                 yield return new WaitForSeconds(0.1f);
             }
@@ -132,7 +132,7 @@ namespace Core.Screen
             int amountSegment = cashAmount / cashCount;
             for (int t = 0; t < cashCount; t++)
             {
-                SoundEffectEvent.InvokeSOEvent(3);
+                SoundEffectEvent.InvokeSOEvent(8);
                 CurrencyShine.SetActive(true);
                 _currentAmount -= amountSegment;
                 CurrencyTxt.text = _currentAmount.ToString();

@@ -9,7 +9,7 @@ namespace Core.ToastMsg
         [SerializeField] TextMeshProUGUI MsgText;
         [SerializeField] string[] ToastMsgs;
 
-        float _destroyDelay = 3;
+        float _destroyDelay = 2;
         Coroutine _selfDestructionRotine;
 
         private void Start()
@@ -19,7 +19,7 @@ namespace Core.ToastMsg
 
         public void ChangeMsg(int msgNum)
         {
-            _destroyDelay = 3;
+            _destroyDelay = 2;
             MsgText.text = ToastMsgs[msgNum];
             MsgText.transform.parent.gameObject.SetActive(false);
             MsgText.transform.parent.gameObject.SetActive(true);

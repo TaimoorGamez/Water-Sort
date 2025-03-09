@@ -1,6 +1,7 @@
 using UnityEngine;
 using Core.Events;
 using Core.Variables;
+using Core.DB.Variables;
 using System.Collections.Generic;
 
 namespace Core.GamePlay.WaterSort
@@ -8,7 +9,8 @@ namespace Core.GamePlay.WaterSort
     [CreateAssetMenu(fileName = "UndoManager", menuName = "ScriptableObjects/WaterSort/UndoManager")]
     public class UndoManager : ScriptableObject
     {
-        [SerializeField] SOInterger DoingUndo, UsingAnyFeature, CanPlay, GamePlayStateIndex;
+        [SerializeField] DBInt LvlNum;
+        [SerializeField] SOInterger DoingUndo, UsingAnyFeature, CanPlay, GamePlayStateIndex, MinLvlIndex;
         [SerializeField] SOWaterTube OpenTube;
         [SerializeField] SOEvents UndoEvent, UpdateMovesEvent, InitLevelEvent, RestartLevelEvent, UpdateUndoStatusEvent;
         [SerializeField] SOIntegerEvents ToastMsgEvent;
@@ -46,10 +48,8 @@ namespace Core.GamePlay.WaterSort
 
         void OnUndoBtnClick()
         {
-            //Debug.Log(_undoMoves.Count);
             if (_undoMoves.Count > 0 && DoingUndo.Value == 0 && UsingAnyFeature.Value == 0 && CanPlay.Value == 1)
             {
-                //Debug.Log("here " + _undoMoves.Count);
                 DoingUndo.Value = 1;
                 UsingAnyFeature.Value = 1;
                 UndoData lastMove = new UndoData();
@@ -63,7 +63,10 @@ namespace Core.GamePlay.WaterSort
                     OpenTube.Tube = lastMove.GetterTube;
                     OpenTube.Tube.RemoveFromCompleted();
                     lastMove.SenderTube.UndoWater(lastMove.GetterTube, lastMove.LiquidLayers);
-                    UpdateUndoStatusEvent.InvokeSOEvent();
+                    if (LvlNum.Value >= MinLvlIndex.Value)
+                    { 
+                        UpdateUndoStatusEvent.InvokeSOEvent(); 
+                    }
                 }
                 else
                 {

@@ -10,7 +10,8 @@ namespace Core.GamePlay.WaterSort
     public class WaterSortTutorialOne : MonoBehaviour
     {
         [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
-        [SerializeField] SOEvents SwipeColorsModeEvent, StartColoringEvent;
+        [SerializeField] SOEvents StartColoringEvent;
+        [SerializeField] SOIntegerEvents SwitchProtectorEvent;
         [SerializeField] CapsuleCollider MyCollider, OtherCollider;
         [SerializeField] TubeHandler CurrenTube;
         [SerializeField] GameObject HandObj, InfoTextObj;
@@ -19,7 +20,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] BowlColorHandler BowlObj;
 
         Vector3 _bowlScale = new Vector3(1.5f,0.1f,1.5f);
-        Vector2 _bowlPos = new Vector2(0,-1);
+        Vector2 _bowlPos = new Vector2(0,0.5f);
 
         private void OnEnable()
         {
@@ -47,7 +48,7 @@ namespace Core.GamePlay.WaterSort
             if (TubeCounter == 1)
             {
                 MyCollider.enabled = true;
-                SwipeColorsModeEvent.InvokeSOEvent();
+                SwitchProtectorEvent.InvokeSOEvent(0);
                 CanPlay.Value = 1;
                 HandObj.SetActive(true);
             }

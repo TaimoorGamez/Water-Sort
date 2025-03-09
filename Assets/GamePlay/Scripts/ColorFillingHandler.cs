@@ -279,7 +279,7 @@ namespace Core.GamePlay.Coloring
                 _onceClicked = true;
                 _canColor = false;
                 TouchProtector.SetActive(true);
-                BrushTransform.gameObject.SetActive(false);
+                BrushTransform.DOAnchorPosX(175, 0.2f).SetEase(Ease.InBack);
                 if (_movingRoutine != null)
                 {
                     StopCoroutine(_movingRoutine);

@@ -9,6 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 225d2bab3ec7f4748af06b93e4513679, type: 3}
-  m_Name: SwipeColorsModeEvent
+  m_Script: {fileID: 11500000, guid: 704fa4f1bd56d2745b96b6106e71a541, type: 3}
+  m_Name: MinLvlIndex
   m_EditorClassIdentifier: 
+  CurrentValue: 5
+  DefaultValue: 5
+  ResetDefault: 1

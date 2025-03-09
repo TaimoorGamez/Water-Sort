@@ -523,7 +523,6 @@ GameObject:
   - component: {fileID: 1544419829250217310}
   - component: {fileID: 1683998348357723620}
   - component: {fileID: 6878465181933440435}
-  - component: {fileID: 3290133922605704608}
   - component: {fileID: 6021774065096947340}
   - component: {fileID: 2807349717444993772}
   m_Layer: 5
@@ -593,75 +592,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3290133922605704608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7219012152950922002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 6067407549826181483}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 9eef85b426cb6234cac7fbb0439238d1, type: 2}
-        m_TargetAssemblyTypeName: Core.Events.SOEvents, Assembly-CSharp
-        m_MethodName: InvokeSOEvent
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2807349717444993772}
-        m_TargetAssemblyTypeName: Core.GamePlay.WaterSort.WaterSortTutorialFour,
-          Assembly-CSharp
-        m_MethodName: SwapeColor
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &6021774065096947340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,6 +609,18 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
+        - m_Target: {fileID: 11400000, guid: 9eef85b426cb6234cac7fbb0439238d1, type: 2}
+          m_TargetAssemblyTypeName: Core.Events.SOEvents, Assembly-CSharp
+          m_MethodName: InvokeSOEvent
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
         - m_Target: {fileID: 11400000, guid: 1814ade01c91ecb47b8d278a64449799, type: 2}
           m_TargetAssemblyTypeName: Core.Animations.DT.SODOTween, Assembly-CSharp
           m_MethodName: CancleAnimation
@@ -755,6 +697,31 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 2807349717444993772}
+          m_TargetAssemblyTypeName: Core.GamePlay.WaterSort.WaterSortTutorialFour,
+            Assembly-CSharp
+          m_MethodName: SwapeColor
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 9781b632e66a3704aa915400af187d35, type: 2}
+          m_TargetAssemblyTypeName: Core.Events.SOEvents, Assembly-CSharp
+          m_MethodName: InvokeSOEvent
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &2807349717444993772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -767,11 +734,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 413addbc900e1d74da78ab06b0629697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SwipeColorsModeEvent: {fileID: 11400000, guid: 9781b632e66a3704aa915400af187d35, type: 2}
+  SwitchProtectorEvent: {fileID: 11400000, guid: a23a193df529a5742b69a31e2a0a2720, type: 2}
   StartColoringEvent: {fileID: 11400000, guid: ed751afbb0214de499cef1891112c6d6, type: 2}
   CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
-  IsSwaping: {fileID: 11400000, guid: 3237d1914975aed4fb5ca302095f1b6b, type: 2}
-  UsingAnyFeature: {fileID: 11400000, guid: ee976038d1a51e14684dc2c2bb35a697, type: 2}
   LevelCompleteStateIndex: {fileID: 11400000, guid: 372a4013c41549545822b875f34f8aa3, type: 2}
   ColliderOne: {fileID: 0}
   ColliderTwo: {fileID: 0}
@@ -1146,11 +1111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 413addbc900e1d74da78ab06b0629697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SwipeColorsModeEvent: {fileID: 0}
+  SwitchProtectorEvent: {fileID: 0}
   StartColoringEvent: {fileID: 0}
   CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
-  IsSwaping: {fileID: 0}
-  UsingAnyFeature: {fileID: 0}
   LevelCompleteStateIndex: {fileID: 0}
   ColliderOne: {fileID: 0}
   ColliderTwo: {fileID: 1423496976135322080}
@@ -1254,11 +1217,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 413addbc900e1d74da78ab06b0629697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SwipeColorsModeEvent: {fileID: 0}
+  SwitchProtectorEvent: {fileID: 0}
   StartColoringEvent: {fileID: 0}
   CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
-  IsSwaping: {fileID: 0}
-  UsingAnyFeature: {fileID: 0}
   LevelCompleteStateIndex: {fileID: 0}
   ColliderOne: {fileID: 5045365827900934022}
   ColliderTwo: {fileID: 3286160852955848154}

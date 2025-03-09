@@ -11,9 +11,10 @@ namespace Core.GamePlay.WaterSort
 {
     public class WaterSortLevelInit : MonoBehaviour
     {
+        [SerializeField] SOIntegerEvents SwipeProtectorEvent, ToastMsgEvent;
         [SerializeField] DBInt LvlIndex, LvlNum;
         [SerializeField] SOInterger IsHiddenLevel, CanPlay, TotalMoves, BtnOnceClicked, MainMenuStateIndex, CurrrentLvl;
-        [SerializeField] SOEvents InitLevelEvent, ExtraTubeEvent, SwipeColorsModeEvent, RestartLevelEvent, DestroyLevelEvent, StartColoringEvent;
+        [SerializeField] SOEvents InitLevelEvent, ExtraTubeEvent, RestartLevelEvent, DestroyLevelEvent, StartColoringEvent, ChangeExtraTubeStatEvent;
         [SerializeField] TubeHandler TubePrefab;
         [SerializeField] Vector3[] TubePositions, BowlPositions;
         [SerializeField] BowlColorHandler BowlObj;
@@ -128,7 +129,7 @@ namespace Core.GamePlay.WaterSort
                     _currentLevelColors[c].Add(col);
                 }
             }
-            SwipeColorsModeEvent.InvokeSOEvent();
+            SwipeProtectorEvent.InvokeSOEvent(0);
             CanPlay.Value = 1;
             if (lvlMakingRotine != null)
             {
@@ -150,7 +151,7 @@ namespace Core.GamePlay.WaterSort
         {
             DestroyLevel();
             yield return new WaitForSeconds(0.5f);
-            SwipeColorsModeEvent.InvokeSOEvent();
+            SwipeProtectorEvent.InvokeSOEvent(1);
             for (int t = 0; t < _totalTubesCount; t++)
             {
                 TubeHandler newTube = Instantiate(TubePrefab, transform);
@@ -174,7 +175,7 @@ namespace Core.GamePlay.WaterSort
                 }
             }
             yield return new WaitForSeconds(0.1f);
-            SwipeColorsModeEvent.InvokeSOEvent();
+            SwipeProtectorEvent.InvokeSOEvent(0);
             CanPlay.Value = 1;
             BtnOnceClicked.Value = 0;
             if (lvlMakingRotine != null)
@@ -191,6 +192,11 @@ namespace Core.GamePlay.WaterSort
                 newTube.transform.position = TubePositions[_totalTubesCount];
                 _totalTubesCount++;
                 _totalTubes.Add(newTube);
+                ChangeExtraTubeStatEvent.InvokeSOEvent();
+            }
+            else if(_totalTubes.Count >= 10)
+            {
+                ToastMsgEvent.InvokeSOEvent(5);
             }
         }
 

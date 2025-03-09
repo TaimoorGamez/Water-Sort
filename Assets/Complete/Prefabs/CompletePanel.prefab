@@ -2033,6 +2033,8 @@ MonoBehaviour:
   DetailsApplied: {fileID: 11400000, guid: 8894a4602ebb75348a39383060b968e0, type: 2}
   GamePlayState: {fileID: 11400000, guid: d7723c4d03c616248b6e725f6734b348, type: 2}
   LevelCompleteStateIndex: {fileID: 11400000, guid: 372a4013c41549545822b875f34f8aa3, type: 2}
+  MinLvlCount: {fileID: 11400000, guid: 97861f11d658661419c157765ea4ff3c, type: 2}
+  MaxLvlCount: {fileID: 11400000, guid: 278c1791207f9d048b22053faa41c9ac, type: 2}
   SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
   ActiveStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
   DestroyStatEvent: {fileID: 11400000, guid: 853f6ddba0535194baa5c23d4d561386, type: 2}

@@ -2,7 +2,6 @@ using UnityEngine;
 using DG.Tweening;
 using Core.Events;
 using Core.Variables;
-using UnityEngine.UI;
 using System.Collections;
 using Core.GamePlay.Coloring;
 
@@ -11,11 +10,11 @@ namespace Core.GamePlay.WaterSort
     public class WaterSortTutorialTwo : MonoBehaviour
     {
         [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
-        [SerializeField] SOEvents UndoEvent, SwipeColorsModeEvent, StartColoringEvent;
-        [SerializeField] Button UndoBtn;
+        [SerializeField] SOEvents StartColoringEvent;
+        [SerializeField] SOIntegerEvents SwitchProtectorEvent;
         [SerializeField] CapsuleCollider MyCollider, SecondCollider, ThirdCollider;
         [SerializeField] TubeHandler MyLiquid, OtherLiquid, ThirdLiquid;
-        [SerializeField] GameObject HandObj, InfoTextObj;
+        [SerializeField] GameObject HandObj, InfoTextObj, UndoBtn;
         [SerializeField] Color[] CurrentColors;
         [SerializeField] bool IsUndoBtn, ExtraTube;
         [SerializeField] BowlColorHandler BowlObj;
@@ -23,14 +22,10 @@ namespace Core.GamePlay.WaterSort
         int _colorIndex = 0;
         bool _isFirstClick = true; 
         Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f);
-        Vector2 _firstBowlPos = new Vector2(0, -1), _otherBowlPos = new Vector2(-1, -1), _thirdBowlPos = new Vector2(1, -1);
+        Vector2 _firstBowlPos = new Vector2(0, 0), _otherBowlPos = new Vector2(-1, 0), _thirdBowlPos = new Vector2(1, 0);
 
         private void OnEnable()
         {
-            if (IsUndoBtn)
-            {
-                UndoBtn.onClick.AddListener(TutorialUndoButton);
-            }
 
             if (!IsUndoBtn && !ExtraTube)
             {
@@ -40,11 +35,6 @@ namespace Core.GamePlay.WaterSort
 
         private void OnDisable()
         {
-            if (IsUndoBtn)
-            {
-                UndoBtn.onClick.RemoveListener(TutorialUndoButton);
-            }
-
             if (!IsUndoBtn && !ExtraTube)
             {
                 StartColoringEvent.EventHandler -= ColoringPreparation;
@@ -75,7 +65,7 @@ namespace Core.GamePlay.WaterSort
                 OtherLiquid.SetColor(CurrentColors[_colorIndex]);
                 yield return new WaitForSeconds(0.1f);
             }
-            SwipeColorsModeEvent.InvokeSOEvent();
+            SwitchProtectorEvent.InvokeSOEvent(0);
             MyCollider.enabled = true;
             CanPlay.Value = 1;
             HandObj.SetActive(true);
@@ -101,9 +91,8 @@ namespace Core.GamePlay.WaterSort
             }
         }
 
-        void TutorialUndoButton()
+        public void TutorialUndoButton()
         {
-            UndoEvent.InvokeSOEvent();
             if (_isFirstClick)
             {
                 _isFirstClick = false;
@@ -118,7 +107,7 @@ namespace Core.GamePlay.WaterSort
         {
             InfoTextObj.SetActive(true);
             HandObj.transform.DOLocalMove(new Vector3(175f, -530f, 0), 0.35f).SetEase(Ease.InOutBack);
-            UndoBtn.gameObject.SetActive(true);
+            UndoBtn.SetActive(true);
         }
 
         void ColoringPreparation()

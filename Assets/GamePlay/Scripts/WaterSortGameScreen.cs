@@ -8,8 +8,8 @@ namespace Core.Screen
 {
     public class WaterSortGameScreen : MonoBehaviour
     {
-        [SerializeField] SOEvents InitLevelEvent, SwipeColorsModeEvent, UpdateMovesEvent, StartColoringEvent;
-        [SerializeField] SOIntegerEvents ActiveStateEvent;
+        [SerializeField] SOEvents InitLevelEvent, UpdateMovesEvent, StartColoringEvent;
+        [SerializeField] SOIntegerEvents ActiveStateEvent, SwitchProtectorEvent;
         [SerializeField] TextMeshProUGUI MovesText;
         [SerializeField] DBInt LvlNum, LvlIndex;
         [SerializeField] SOInterger TotalMoves, CanPlay, LevelFailStateIndex;
@@ -20,14 +20,14 @@ namespace Core.Screen
 
         private void OnEnable()
         {
-            SwipeColorsModeEvent.EventHandler += SwitchSwipeColorsMode;
+            SwitchProtectorEvent.EventHandler += SwitchProtector;
             UpdateMovesEvent.EventHandler += UpdateMovesText;
             StartColoringEvent.EventHandler += PrepareForColoring;
         }
 
         private void OnDisable()
         {
-            SwipeColorsModeEvent.EventHandler -= SwitchSwipeColorsMode;
+            SwitchProtectorEvent.EventHandler -= SwitchProtector;
             UpdateMovesEvent.EventHandler -= UpdateMovesText;
             StartColoringEvent.EventHandler -= PrepareForColoring;
         }
@@ -46,13 +46,9 @@ namespace Core.Screen
             }
         }
 
-        void SwitchSwipeColorsMode()
+        void SwitchProtector(int state)
         {
-            if (LvlNum.Value > 5)
-            {
-                MovesText.text = TotalMoves.Value.ToString();
-            }
-            SwipeColorsModePanel.SetActive(!SwipeColorsModePanel.activeInHierarchy);
+            SwipeColorsModePanel.SetActive(state == 1);
         }
         
 

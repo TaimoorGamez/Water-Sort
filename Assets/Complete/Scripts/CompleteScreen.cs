@@ -16,7 +16,8 @@ namespace Core.Screen
     {
         [SerializeField] Currency Coins;
         [SerializeField] DBInt LevelIndex, LvlNum;
-        [SerializeField] SOInterger LevelStars, CanPlay, MainMenuStateIndex, LevelMoves, DetailsApplied, GamePlayState, LevelCompleteStateIndex;
+        [SerializeField] SOInterger LevelStars, CanPlay, MainMenuStateIndex, LevelMoves, DetailsApplied, GamePlayState, LevelCompleteStateIndex,
+                                     MinLvlCount, MaxLvlCount;
         [SerializeField] SOIntegerEvents SoundEffectEvent, ActiveStateEvent, DestroyStatEvent;
         [SerializeField] SOEvents DestroyLevelEvent;
         [SerializeField] SOAnChorMove ShowPanel;
@@ -29,8 +30,8 @@ namespace Core.Screen
         [SerializeField] RawImage DisplayImage;
 
         float _starsPos = 100, _durationTweeing = 1f;
-        bool _onceClicked = false; 
-        int _levelBonus = 15, _starsBonus = 10, _detailsBonus = 0, _totalBonus = 0, _tutorialLevels = 5, _minLvlCount = 5, _maxLvlCount = 8; 
+        bool _onceClicked = false;
+        int _levelBonus = 15, _starsBonus = 10, _detailsBonus = 0, _totalBonus = 0, _tutorialLevels = 5; 
         Coroutine _screenShotRotine;
 
         void Start()
@@ -124,22 +125,26 @@ namespace Core.Screen
                 Coins.Amount += _totalBonus;
                 LvlNum.Value++;
                 LevelIndex.Value++;
-
-                if (LevelIndex.Value > _maxLvlCount)
-                {
-                    LevelIndex.Value = _minLvlCount;
-                }
-
-                if (LevelIndex.Value < _tutorialLevels)
-                {
-                    ActiveStateEvent.InvokeSOEvent(GamePlayState.Value);
-                }
-                else
-                {
-                    ActiveStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
-                }
-                DestroyStatEvent.InvokeSOEvent(LevelCompleteStateIndex.Value);
+                Invoke(nameof(GoNext), 2);
             }
+        }
+
+        void GoNext()
+        {
+            if (LevelIndex.Value > MaxLvlCount.Value)
+            {
+                LevelIndex.Value = MinLvlCount.Value;
+            }
+
+            if (LevelIndex.Value < _tutorialLevels)
+            {
+                ActiveStateEvent.InvokeSOEvent(GamePlayState.Value);
+            }
+            else
+            {
+                ActiveStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
+            }
+            DestroyStatEvent.InvokeSOEvent(LevelCompleteStateIndex.Value);
         }
     }
 }
