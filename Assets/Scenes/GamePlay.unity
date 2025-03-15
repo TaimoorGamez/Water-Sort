@@ -1777,6 +1777,7 @@ MonoBehaviour:
   AllStates:
   - {fileID: 11400000, guid: d727876a364fb4d428957a9e51d89fc8, type: 2}
   - {fileID: 11400000, guid: 173e8d3bd0a9c2a4eb44ad83ba59a4d2, type: 2}
+  - {fileID: 11400000, guid: dfe2745b4ae62dc4ca5a1f772d2e9acc, type: 2}
   - {fileID: 11400000, guid: d727876a364fb4d428957a9e51d89fc8, type: 2}
   - {fileID: 11400000, guid: d727876a364fb4d428957a9e51d89fc8, type: 2}
   - {fileID: 11400000, guid: d727876a364fb4d428957a9e51d89fc8, type: 2}
@@ -1787,7 +1788,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d727876a364fb4d428957a9e51d89fc8, type: 2}
   - {fileID: 11400000, guid: d727876a364fb4d428957a9e51d89fc8, type: 2}
   - {fileID: 11400000, guid: 6205461601167a24c84c43a150b1291d, type: 2}
-  - {fileID: 11400000, guid: dfe2745b4ae62dc4ca5a1f772d2e9acc, type: 2}
   - {fileID: 11400000, guid: 4ff027c0c59583546b6a455918d866eb, type: 2}
   - {fileID: 11400000, guid: 6dd521081f1803747956a8656f299fe6, type: 2}
   MainMenuStateIndex: {fileID: 11400000, guid: 5b4f6ec2cf4170d4b973dfba16e1515f, type: 2}

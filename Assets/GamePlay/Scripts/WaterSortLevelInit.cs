@@ -23,7 +23,7 @@ namespace Core.GamePlay.WaterSort
         List<TubeHandler> _colorTubes = new List<TubeHandler>();
         List<TubeHandler> _totalTubes = new List<TubeHandler>();
         Coroutine lvlMakingRotine;
-        int _totalTubesCount = 0, _maxColorsInTube = 4, _movesMultiplier = 4;
+        int _totalTubesCount = 0, _maxColorsInTube = 4, _movesMultiplier = 3;
         SOColors _levelColors;
         Dictionary<int, List<Color32>> _currentLevelColors = new Dictionary<int, List<Color32>>();
         Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f);
