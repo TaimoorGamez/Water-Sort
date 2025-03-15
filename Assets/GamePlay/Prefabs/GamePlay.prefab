@@ -477,6 +477,7 @@ MonoBehaviour:
   TotalMoves: {fileID: 11400000, guid: c0332282d9024b84dafaab019726f173, type: 2}
   CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
   LevelFailStateIndex: {fileID: 11400000, guid: 58a28048a36a10746ad0a0b7453ccaa5, type: 2}
+  CompletedTubes: {fileID: 11400000, guid: 5fb94964db162b54085794074b40bdfc, type: 2}
   ColoringHolder: {fileID: 4044495243165485517}
   SwipeColorsModePanel: {fileID: 5658296870264550383}
   PowerButtons: {fileID: 5904127183862769092}

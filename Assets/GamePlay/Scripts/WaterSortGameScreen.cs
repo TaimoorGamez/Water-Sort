@@ -12,7 +12,7 @@ namespace Core.Screen
         [SerializeField] SOIntegerEvents ActiveStateEvent, SwitchProtectorEvent;
         [SerializeField] TextMeshProUGUI MovesText;
         [SerializeField] DBInt LvlNum, LvlIndex;
-        [SerializeField] SOInterger TotalMoves, CanPlay, LevelFailStateIndex;
+        [SerializeField] SOInterger TotalMoves, CanPlay, LevelFailStateIndex, CompletedTubes;
         [SerializeField] Transform ColoringHolder;
         [SerializeField] GameObject SwipeColorsModePanel, PowerButtons, TopBar;
 
@@ -56,14 +56,21 @@ namespace Core.Screen
         {
             if (LvlNum.Value > 5)
             {
-                TotalMoves.Value--;
                 MovesText.text = TotalMoves.Value.ToString();
 
                 if (TotalMoves.Value < 1)
                 {
                     CanPlay.Value = 0;
-                    ActiveStateEvent.InvokeSOEvent(LevelFailStateIndex.Value);
+                    Invoke(nameof(OnMovesEnd), 3);
                 }
+            }
+        }
+
+        void OnMovesEnd()
+        {
+            if (CompletedTubes.Value != 0)
+            { 
+                ActiveStateEvent.InvokeSOEvent(LevelFailStateIndex.Value); 
             }
         }
 

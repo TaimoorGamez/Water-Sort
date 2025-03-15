@@ -1,18 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using Core.Events;
+using Core.Variables;
 
-public class FailScreen : MonoBehaviour
+namespace Core.Screen
 {
-    // Start is called before the first frame update
-    void Start()
+    public class FailScreen : MonoBehaviour
     {
-        
-    }
+        [SerializeField] SOEvents UpdateMovesEvent;
+        [SerializeField] SOInterger TotalMoves, CanPlay;
+        [SerializeField] Transform Body;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        int _extraMoves = 10;
+        float _tweenTime = 0.25f;
+
+        private void OnEnable()
+        {
+            Body.DOScale(1, _tweenTime).SetEase(Ease.OutBack);
+        }
+
+
+        public void AddMoreMoves()
+        {
+            ClosePanel();
+            TotalMoves.Value += _extraMoves;
+            UpdateMovesEvent.InvokeSOEvent();
+            CanPlay.Value = 1;
+        }
+
+        void ClosePanel()
+        {
+            Body.DOScale(0, _tweenTime).SetEase(Ease.InBack).OnComplete(() => Destroy(gameObject));
+        }
     }
 }

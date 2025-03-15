@@ -3,7 +3,7 @@ using Core.Events;
 using Core.DB.Variables;
 using System.Collections.Generic;
 
-namespace ProjectCore.Sfx
+namespace Core.Sfx
 {
     public class SoundManager : MonoBehaviour
     {

@@ -8,13 +8,14 @@ namespace Core.GamePlay
     [CreateAssetMenu(fileName = "LevelManager", menuName = "ScriptableObjects/WaterSort/LevelManager")]
     public class LevelManager : ScriptableObject
     {
-        [SerializeField] SOInterger CompletedTubes, CurrrentLvl, CanPlay, LevelCompleteStateIndex;
+        [SerializeField] SOInterger CompletedTubes, CurrrentLvl, CanPlay, LevelCompleteStateIndex, TotalMoves;
         [SerializeField] DBInt LvlNum;
-        [SerializeField] SOEvents CheckCompleteEvent, StartColoringEvent;
+        [SerializeField] SOEvents CheckCompleteEvent, StartColoringEvent, RegisterMoveEvent, UpdateMovesEvent;
 
         public void AfterEnable()
         {
             CheckCompleteEvent.EventHandler = CheckComplete;
+            RegisterMoveEvent.EventHandler = CheckMoves;
         }
 
         void CheckComplete()
@@ -24,6 +25,12 @@ namespace Core.GamePlay
                 CompletedTubes.Value = 0;
                 StartColoringEvent.InvokeSOEvent();
             }
+        }
+
+        void CheckMoves()
+        {
+            TotalMoves.Value--;
+            UpdateMovesEvent.InvokeSOEvent();
         }
     }
 }

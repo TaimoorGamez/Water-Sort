@@ -12,14 +12,14 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] DBInt LvlNum;
         [SerializeField] SOInterger DoingUndo, UsingAnyFeature, CanPlay, GamePlayStateIndex, MinLvlIndex;
         [SerializeField] SOWaterTube OpenTube;
-        [SerializeField] SOEvents UndoEvent, UpdateMovesEvent, InitLevelEvent, RestartLevelEvent, UpdateUndoStatusEvent;
+        [SerializeField] SOEvents UndoEvent, RegisterMoveEvent, InitLevelEvent, RestartLevelEvent, UpdateUndoStatusEvent;
         [SerializeField] SOIntegerEvents ToastMsgEvent;
 
         Stack<UndoData> _undoMoves = new Stack<UndoData>();
 
         public void AddUndo(TubeHandler senderTube, TubeHandler getterTube, int liquidLayers)
         {
-            UpdateMovesEvent.InvokeSOEvent();
+            RegisterMoveEvent.InvokeSOEvent();
             UndoData newUndo = new UndoData();
             newUndo.SenderTube = senderTube;
             newUndo.GetterTube = getterTube;

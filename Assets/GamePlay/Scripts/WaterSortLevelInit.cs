@@ -14,7 +14,8 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] SOIntegerEvents SwipeProtectorEvent, ToastMsgEvent;
         [SerializeField] DBInt LvlIndex, LvlNum;
         [SerializeField] SOInterger IsHiddenLevel, CanPlay, TotalMoves, BtnOnceClicked, MainMenuStateIndex, CurrrentLvl;
-        [SerializeField] SOEvents InitLevelEvent, ExtraTubeEvent, RestartLevelEvent, DestroyLevelEvent, StartColoringEvent, ChangeExtraTubeStatEvent;
+        [SerializeField] SOEvents InitLevelEvent, ExtraTubeEvent, RestartLevelEvent, DestroyLevelEvent, StartColoringEvent, ChangeExtraTubeStatEvent,
+                                  UpdateMovesEvent;
         [SerializeField] TubeHandler TubePrefab;
         [SerializeField] Vector3[] TubePositions, BowlPositions;
         [SerializeField] BowlColorHandler BowlObj;
@@ -23,7 +24,7 @@ namespace Core.GamePlay.WaterSort
         List<TubeHandler> _colorTubes = new List<TubeHandler>();
         List<TubeHandler> _totalTubes = new List<TubeHandler>();
         Coroutine lvlMakingRotine;
-        int _totalTubesCount = 0, _maxColorsInTube = 4, _movesMultiplier = 3;
+        int _totalTubesCount = 0, _maxColorsInTube = 4;
         SOColors _levelColors;
         Dictionary<int, List<Color32>> _currentLevelColors = new Dictionary<int, List<Color32>>();
         Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f);
@@ -72,8 +73,9 @@ namespace Core.GamePlay.WaterSort
                 CurrrentLvl.Value = _levelColors.Colors.Length;
                 _totalTubesCount = CurrrentLvl.Value + 2;
                 lvlMakingRotine = StartCoroutine(GenerateLvl());
-                TotalMoves.Value = CurrrentLvl.Value * _movesMultiplier;
+                TotalMoves.Value = CurrrentLvl.Value * _maxColorsInTube;
             }
+            UpdateMovesEvent.InvokeSOEvent();
         }
 
         IEnumerator GenerateLvl()
