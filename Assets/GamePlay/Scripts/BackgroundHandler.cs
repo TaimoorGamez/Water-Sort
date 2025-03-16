@@ -1,12 +1,14 @@
-using Core.Events;
 using UnityEngine;
+using Core.Events;
+using Core.Variables;
 
 namespace Core.Screen
 {
     public class BackgroundHandler : MonoBehaviour
     {
-        [SerializeField] SOEvents BackgroungChangingEvent;
-        [SerializeField] GameObject[] Backgrounds;
+        [SerializeField] SOInterger MainMenuIndex, GamePlayIndex;
+        [SerializeField] SOIntegerEvents BackgroungChangingEvent;
+        [SerializeField] GameObject MMbg, GPbg;
 
         private void OnEnable()
         {
@@ -17,10 +19,18 @@ namespace Core.Screen
             BackgroungChangingEvent.EventHandler -= ChangeBackground;
         }
 
-        void ChangeBackground() 
+        void ChangeBackground(int bgNum) 
         {
-            for (int i = 0; i < Backgrounds.Length; i++) { Backgrounds[i].SetActive(false); }
-            Backgrounds[Random.Range(0,Backgrounds.Length)].SetActive(true);
+            if(bgNum == MainMenuIndex.Value)
+            {
+                MMbg.SetActive(true);
+                GPbg.SetActive(false);
+            }
+            else if (bgNum == GamePlayIndex.Value)
+            {
+                GPbg.SetActive(true);
+                MMbg.SetActive(false);
+            }
         }
     }
 }

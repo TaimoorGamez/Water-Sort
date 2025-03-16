@@ -6,7 +6,6 @@ namespace Core.States
 {
     public class StateManager : MonoBehaviour
     {
-        [SerializeField] SOEvents ChangeBackgroundEvent;
         [SerializeField] SOIntegerEvents ActiveStateEvent, DeactiveStateEvent, DestroyStateEvent;
         [SerializeField] GameState[] AllStates;
         [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, LeveCompleteStateIndex;

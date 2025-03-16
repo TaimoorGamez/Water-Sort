@@ -7,7 +7,12 @@ namespace Core.Screen
     public class MainMenuScreen : MonoBehaviour
     {
         [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex;
-        [SerializeField] SOIntegerEvents ActiveStateEvent, DestroyStateEvent;
+        [SerializeField] SOIntegerEvents ActiveStateEvent, DestroyStateEvent, ChangeBackgroundEvent;
+
+        private void OnEnable()
+        {
+            ChangeBackgroundEvent.InvokeSOEvent(MainMenuStateIndex.Value);
+        }
 
         public void OnClickPlayButton()
         {

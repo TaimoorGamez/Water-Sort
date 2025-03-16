@@ -94,6 +94,7 @@ MonoBehaviour:
   GamePlayStateIndex: {fileID: 11400000, guid: d7723c4d03c616248b6e725f6734b348, type: 2}
   ActiveStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
   DestroyStateEvent: {fileID: 11400000, guid: 853f6ddba0535194baa5c23d4d561386, type: 2}
+  ChangeBackgroundEvent: {fileID: 11400000, guid: b27032bfab4345e41ad29cacede8c6ef, type: 2}
 --- !u!1001 &8090654935158029895
 PrefabInstance:
   m_ObjectHideFlags: 0
