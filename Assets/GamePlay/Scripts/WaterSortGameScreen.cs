@@ -12,7 +12,7 @@ namespace Core.Screen
         [SerializeField] SOIntegerEvents ActiveStateEvent, SwitchProtectorEvent, ChangeBackgroundEvent;
         [SerializeField] TextMeshProUGUI MovesText;
         [SerializeField] DBInt LvlNum, LvlIndex;
-        [SerializeField] SOInterger TotalMoves, CanPlay, LevelFailStateIndex, CompletedTubes, GamePlayStateIndex;
+        [SerializeField] SOInterger TotalMoves, CanPlay, LevelFailStateIndex, CompletedTubes, GamePlayStateIndex, PauseStateIndex;
         [SerializeField] Transform ColoringHolder;
         [SerializeField] GameObject SwipeColorsModePanel, PowerButtons, TopBar;
 
@@ -51,7 +51,7 @@ namespace Core.Screen
         {
             SwipeColorsModePanel.SetActive(state == 1);
         }
-        
+
 
         void UpdateMovesText()
         {
@@ -70,8 +70,8 @@ namespace Core.Screen
         void OnMovesEnd()
         {
             if (CompletedTubes.Value != 0)
-            { 
-                ActiveStateEvent.InvokeSOEvent(LevelFailStateIndex.Value); 
+            {
+                ActiveStateEvent.InvokeSOEvent(LevelFailStateIndex.Value);
             }
         }
 
@@ -79,6 +79,12 @@ namespace Core.Screen
         {
             PowerButtons.SetActive(false);
             TopBar.SetActive(false);
+        }
+
+        public void OnClickPause()
+        {
+            CanPlay.Value = 0;
+            ActiveStateEvent.InvokeSOEvent(PauseStateIndex.Value);
         }
     }
 }

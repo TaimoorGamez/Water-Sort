@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 704fa4f1bd56d2745b96b6106e71a541, type: 3}
-  m_Name: LvlCompleteStateIndex
+  m_Script: {fileID: 11500000, guid: de1a8e435fc332846b01aca6b65be72b, type: 3}
+  m_Name: Pausestate
   m_EditorClassIdentifier: 
-  CurrentValue: 6
-  DefaultValue: 6
-  ResetDefault: 1
+  StateViewPrefab: {fileID: 3364995954017222511, guid: ea215fe962372ad44b5406f8c7ba89af, type: 3}

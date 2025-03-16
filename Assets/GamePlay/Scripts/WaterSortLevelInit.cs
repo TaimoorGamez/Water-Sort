@@ -141,8 +141,10 @@ namespace Core.GamePlay.WaterSort
 
         void RestartLevel()
         {
+            Debug.Log("line 144");
             if (BtnOnceClicked.Value == 0)
             {
+                Debug.Log("line 147");
                 BtnOnceClicked.Value = 1;
                 CanPlay.Value = 0;
                 lvlMakingRotine = StartCoroutine(ReGenerateLevel());
@@ -151,6 +153,7 @@ namespace Core.GamePlay.WaterSort
 
         IEnumerator ReGenerateLevel()
         {
+            Debug.Log("line 156");
             DestroyLevel();
             yield return new WaitForSeconds(0.5f);
             SwipeProtectorEvent.InvokeSOEvent(1);
