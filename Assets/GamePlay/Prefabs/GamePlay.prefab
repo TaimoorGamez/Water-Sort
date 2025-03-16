@@ -837,7 +837,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 512353582190022526, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: Price
-      value: 200
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 512353582190022526, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: PowerEvent
@@ -1043,6 +1043,14 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6010710645656147978, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
+      propertyPath: m_text
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 6010710645656147978, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 8003833594416206809, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1083,7 +1091,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 512353582190022526, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: Price
-      value: 100
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 512353582190022526, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: PowerEvent
@@ -1288,6 +1296,14 @@ PrefabInstance:
     - target: {fileID: 4727839765463032159, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6010710645656147978, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
+      propertyPath: m_text
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 6010710645656147978, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 8003833594416206809, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: m_Sprite
@@ -1533,7 +1549,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 512353582190022526, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: Price
-      value: 100
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 512353582190022526, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: PowerEvent
@@ -1662,6 +1678,14 @@ PrefabInstance:
     - target: {fileID: 4727839765463032159, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6010710645656147978, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
+      propertyPath: m_text
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 6010710645656147978, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 8003833594416206809, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: m_Sprite

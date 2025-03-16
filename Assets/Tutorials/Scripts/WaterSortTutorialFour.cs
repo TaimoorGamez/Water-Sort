@@ -22,7 +22,7 @@ namespace Core.GamePlay.WaterSort
 
         Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f);
         int _colorIndex = 0, _colorBowlCounter = 0;
-        Vector2 _bowlYPos = new Vector2(-2, 0f);
+        Vector3 _bowlYPos = new Vector3(-2, -0.85f, -2.5f);
         bool _isFirstClick = true;
 
         private void OnEnable()
@@ -150,11 +150,11 @@ namespace Core.GamePlay.WaterSort
 
                 if (_colorBowlCounter == 5)
                 {
-                    _bowlYPos = new Vector2(-2, -2);
+                    _bowlYPos = new Vector3(-2, -0.85f, -4);
                 }
                 else
                 {
-                    _bowlYPos += new Vector2(1, 0);
+                    _bowlYPos += new Vector3(1, 0, 0);
                 }
             }
             else
@@ -176,11 +176,11 @@ namespace Core.GamePlay.WaterSort
 
                 if (_colorBowlCounter == 5)
                 {
-                    _bowlYPos = new Vector2(-2, -2);
+                    _bowlYPos = new Vector3(-2, -0.85f, -4);
                 }
                 else
                 {
-                    _bowlYPos += new Vector2(1, 0);
+                    _bowlYPos += new Vector3(1, 0, 0);
                 }
             }
             else
@@ -202,11 +202,11 @@ namespace Core.GamePlay.WaterSort
 
                 if (_colorBowlCounter == 5)
                 {
-                    _bowlYPos = new Vector2(-2, -2);
+                    _bowlYPos = new Vector3(-2, -0.85f, -4);
                 }
                 else
                 {
-                    _bowlYPos += new Vector2(1, 0);
+                    _bowlYPos += new Vector3(1, 0, 0);
                 }
             }
             else
@@ -228,11 +228,11 @@ namespace Core.GamePlay.WaterSort
 
                 if (_colorBowlCounter == 5)
                 {
-                    _bowlYPos = new Vector2(-2, -2);
+                    _bowlYPos = new Vector3(-2, -0.85f, -4);
                 }
                 else
                 {
-                    _bowlYPos += new Vector2(1, 0);
+                    _bowlYPos += new Vector3(1, 0, 0);
                 }
             }
             else
@@ -254,11 +254,11 @@ namespace Core.GamePlay.WaterSort
 
                 if (_colorBowlCounter == 5)
                 {
-                    _bowlYPos = new Vector2(-2, -2);
+                    _bowlYPos = new Vector3(-2, -0.85f, -4);
                 }
                 else
                 {
-                    _bowlYPos += new Vector2(1, 0);
+                    _bowlYPos += new Vector3(1, 0, 0);
                 }
             }
             else
@@ -280,11 +280,11 @@ namespace Core.GamePlay.WaterSort
 
                 if (_colorBowlCounter == 5)
                 {
-                    _bowlYPos = new Vector2(-2, -2);
+                    _bowlYPos = new Vector3(-2, -0.85f, -4);
                 }
                 else
                 {
-                    _bowlYPos += new Vector2(1, 0);
+                    _bowlYPos += new Vector3(1, 0, 0);
                 }
             }
             else

@@ -16,7 +16,7 @@ namespace Core.Screen
         [SerializeField] RectTransform InitLocation, SubmitLocation;
 
         int _minCurrenyCount = 8, _maxCurrencyCount = 13, _currentAmount;
-        float _circleRadious = 5, _moveDuration = 0.5f;
+        float _circleRadious = 1, _moveDuration = 0.5f;
         GameObject[] _currencyIconArray = new GameObject[0];
         Coroutine _depositRotine, _transactionRotine;
         bool _isDeposting = false, _doingTransaction;
@@ -73,12 +73,12 @@ namespace Core.Screen
                 GameObject newAmount = Instantiate(CurrencyIcon, position, Quaternion.identity, transform);
 
                 // Randomize size
-                float randomSize = Random.Range(0.9f, 1.1f);
-                newAmount.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
+                //float randomSize = Random.Range(0.9f, 1.1f);
+                //newAmount.transform.localScale = new Vector3(randomSize, randomSize, 1);
 
                 // Randomize rotation
-                float randomZRotation = Random.Range(-45f, 45f);
-                newAmount.transform.rotation = Quaternion.Euler(0, 0, randomZRotation);
+                //float randomZRotation = Random.Range(-45f, 45f);
+                //newAmount.transform.rotation = Quaternion.Euler(0, 0, randomZRotation);
                 _currencyIconArray[c] = newAmount;
             }
             yield return new WaitForSeconds(0.1f);

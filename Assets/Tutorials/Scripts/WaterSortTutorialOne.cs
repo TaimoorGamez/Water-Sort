@@ -19,8 +19,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] int TubeCounter;
         [SerializeField] BowlColorHandler BowlObj;
 
-        Vector3 _bowlScale = new Vector3(1.5f,0.1f,1.5f);
-        Vector2 _bowlPos = new Vector2(0,0.5f);
+        Vector3 _bowlScale = new Vector3(1.5f,0.1f,1.5f), _bowlPos = new Vector3(0,-1.5f, -2);
 
         private void OnEnable()
         {

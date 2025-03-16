@@ -17,9 +17,8 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] Color[] CurrentColors;
         [SerializeField] BowlColorHandler BowlObj;
 
-        Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f);
-        Vector2 _firstBowlPos = new Vector2(1, 0), _secondBowlPos = new Vector2(-1, 0), _thirdBowlPos = new Vector2(-2, 0), 
-                _forthBowlPos = new Vector2(0, 0), _extraBowlPos = new Vector2(2, 0);
+        Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f), _firstBowlPos = new Vector3(1, -1.5f, -2), _secondBowlPos = new Vector3(-1, -1.5f, -2), 
+                _thirdBowlPos = new Vector3(-2, -1.5f, -2), _forthBowlPos = new Vector3(0, -1.5f, -2), _extraBowlPos = new Vector3(2, -1.5f, -2);
         int _colorIndex = 0;
 
         private void OnEnable()
