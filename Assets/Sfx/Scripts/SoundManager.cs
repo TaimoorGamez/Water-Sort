@@ -7,7 +7,7 @@ namespace Core.Sfx
 {
     public class SoundManager : MonoBehaviour
     {
-        [SerializeField] SOEvents OnOffBGMusic, OnOffSounds, PlayBtnClick, StopLoopSoundEffect;
+        [SerializeField] SOEvents OnOffBGMusic, OnOffSounds, PlayBtnClick, StopLoopSoundEffect, UpdateMusicStateEvent, UpdateSoundStateEvent;
         [SerializeField] SOIntegerEvents SoundEffectEvent, LoopEffectsEvent;
         [SerializeField] DBInt Music, Sound;
         [SerializeField] AudioClip BgMusic, BtnClick;
@@ -74,6 +74,7 @@ namespace Core.Sfx
                 Music.Value = 1;
                 CreateMusicSources();
             }
+            UpdateMusicStateEvent.InvokeSOEvent();
         }
 
         void PlayBGMusic()
@@ -132,6 +133,7 @@ namespace Core.Sfx
                 Sound.Value = 1;
                 CreateSoundSources();
             }
+            UpdateSoundStateEvent.InvokeSOEvent();
         }
 
         void PlayBtnSound()

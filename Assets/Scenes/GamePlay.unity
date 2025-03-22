@@ -435,11 +435,13 @@ MonoBehaviour:
   OnOffSounds: {fileID: 11400000, guid: b50b072196677664d8e641132c7ff753, type: 2}
   PlayBtnClick: {fileID: 11400000, guid: 9eef85b426cb6234cac7fbb0439238d1, type: 2}
   StopLoopSoundEffect: {fileID: 11400000, guid: 6a567254c34b10d44a3c2af54a037e1d, type: 2}
+  UpdateMusicStateEvent: {fileID: 11400000, guid: 2b6c09a194e061b4397d43430881c4eb, type: 2}
+  UpdateSoundStateEvent: {fileID: 11400000, guid: 9af50a3288a8bce43b8d368385473552, type: 2}
   SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
   LoopEffectsEvent: {fileID: 11400000, guid: 093c4e46c9b68704ebb3fe930639824c, type: 2}
   Music: {fileID: 11400000, guid: 49c28a4a2c59429439aed711312140c2, type: 2}
   Sound: {fileID: 11400000, guid: 09754934285b3444699e95c33f208b73, type: 2}
-  BgMusic: {fileID: 8300000, guid: 4d96a153335f674408871c66ae68f264, type: 3}
+  BgMusic: {fileID: 8300000, guid: 2cea9b92d1387a8449f31294dc7f90d8, type: 3}
   BtnClick: {fileID: 8300000, guid: a6e027322946cce408dc5ecab6f40252, type: 3}
   EffectClips:
   - {fileID: 8300000, guid: 48c68a02d6afab84ea7411589a47fce7, type: 3}

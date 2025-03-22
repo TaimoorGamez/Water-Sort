@@ -1,45 +1,58 @@
+using DG.Tweening;
 using UnityEngine;
 using Core.Events;
 using Core.Variables;
-using Core.Animations.DT;
+using Core.DB.Variables;
 
 namespace Core.Screen
 {
     public class GamePlaySettingScreen : MonoBehaviour
     {
-        [SerializeField] SODOTween PopScaleUp, PopScaleDown;
-        [SerializeField] GameObject PopPanel;
-        [SerializeField] SOIntegerEvents ActiveStateEvent;
-        [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex;
+        [SerializeField] DBInt Music, Sound;
+        [SerializeField] SOEvents UpdateMusicStateEvent, UpdateSoundStateEvent;
+        [SerializeField] SOIntegerEvents DestroyStateEvent;
+        [SerializeField] SOInterger SettingStateIndex;
+        [SerializeField] RectTransform MusicBtn, SoundBtn;
+        [SerializeField] GameObject MusicOn, MusicOff, SoundOn, SoundOff;
+
+        float _tweenTime = 0.5f;
 
         private void OnEnable()
         {
-            PopScaleUp.TargetObj = PopPanel;
-            PopScaleUp.PlayAnimation();
+            UpdateMusicStateEvent.EventHandler += UpdateMusicState;
+            UpdateSoundStateEvent.EventHandler += UpdateSoundState;
         }
 
-        public void ClosePopPanel()
+        private void Start()
         {
-            PopScaleDown.TargetObj = PopPanel;
-            PopScaleDown.PlayAnimation();
-            Invoke(nameof(DisableObject),0.45f);
+            UpdateMusicState();
+            UpdateSoundState();
+            MusicBtn.DOAnchorPosY(-150, _tweenTime).SetEase(Ease.OutBack);
+            SoundBtn.DOAnchorPosY(-240, _tweenTime).SetEase(Ease.OutBack);
         }
 
-        void DisableObject()
+        private void OnDisable()
         {
-            ActiveStateEvent.InvokeSOEvent(GamePlayStateIndex.Value);
+            UpdateMusicStateEvent.EventHandler -= UpdateMusicState;
+            UpdateSoundStateEvent.EventHandler -= UpdateSoundState;
         }
 
-        public void BackToHome()
+        void UpdateMusicState()
         {
-            PopScaleDown.TargetObj = PopPanel;
-            PopScaleDown.PlayAnimation();
-            Invoke(nameof(DestroyState), 0.45f);
+            MusicOn.SetActive(Music.Value == 1);
+            MusicOff.SetActive(Music.Value != 1);
         }
 
-        void DestroyState()
+        void UpdateSoundState()
         {
-            ActiveStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
+            SoundOn.SetActive(Sound.Value == 1);
+            SoundOff.SetActive(Sound.Value != 1);
+        }
+
+        public void OnCloseSetting()
+        {
+            MusicBtn.DOAnchorPosY(-60, _tweenTime).SetEase(Ease.InBack);
+            SoundBtn.DOAnchorPosY(-60, _tweenTime).SetEase(Ease.InBack).OnComplete(()=>DestroyStateEvent.InvokeSOEvent(SettingStateIndex.Value));
         }
     }
 }
