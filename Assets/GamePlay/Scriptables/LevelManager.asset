@@ -20,5 +20,5 @@ MonoBehaviour:
   LvlNum: {fileID: 11400000, guid: bad89b7dfd4fe324eaaacf6e970340af, type: 2}
   CheckCompleteEvent: {fileID: 11400000, guid: 2c37a8d1a87a967478aac7aad7856195, type: 2}
   StartColoringEvent: {fileID: 11400000, guid: ed751afbb0214de499cef1891112c6d6, type: 2}
-  RegisterMoveEvent: {fileID: 11400000, guid: 42416ab8dba2bb14c90f1294b6893a1f, type: 2}
+  RegisterMoveEvent: {fileID: 11400000, guid: fbebde2edd1ede54ea088c49a8c19ffe, type: 2}
   UpdateMovesEvent: {fileID: 11400000, guid: fe63d3e2311d8fc45b9e575a701d2292, type: 2}

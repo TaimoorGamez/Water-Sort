@@ -20,8 +20,8 @@ MonoBehaviour:
   MinLvlIndex: {fileID: 11400000, guid: 97861f11d658661419c157765ea4ff3c, type: 2}
   OpenTube: {fileID: 11400000, guid: bf474ece7744e9b479539f42878ff194, type: 2}
   UndoEvent: {fileID: 11400000, guid: ff7fa43f0f31602409df525ffc36b629, type: 2}
-  RegisterMoveEvent: {fileID: 11400000, guid: 42416ab8dba2bb14c90f1294b6893a1f, type: 2}
+  RegisterMoveEvent: {fileID: 11400000, guid: fbebde2edd1ede54ea088c49a8c19ffe, type: 2}
   InitLevelEvent: {fileID: 11400000, guid: 30e22fa3534f8ae429ac3af2c42b6b5c, type: 2}
-  RestartLevelEvent: {fileID: 11400000, guid: 42416ab8dba2bb14c90f1294b6893a1f, type: 2}
+  RestartLevelEvent: {fileID: 11400000, guid: 4e9a7e556dcd27740a95945b73a22a1d, type: 2}
   UpdateUndoStatusEvent: {fileID: 11400000, guid: 185830f7c77c7ad4685a979e8aa56e1d, type: 2}
   ToastMsgEvent: {fileID: 11400000, guid: 206e032d1b187244f94f744674e5f04e, type: 2}

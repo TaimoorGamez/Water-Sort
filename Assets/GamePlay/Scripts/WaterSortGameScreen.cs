@@ -8,7 +8,7 @@ namespace Core.Screen
 {
     public class WaterSortGameScreen : MonoBehaviour
     {
-        [SerializeField] SOEvents InitLevelEvent, UpdateMovesEvent, StartColoringEvent;
+        [SerializeField] SOEvents InitLevelEvent, UpdateMovesEvent, StartColoringEvent, RestartLevelEvent;
         [SerializeField] SOIntegerEvents ActiveStateEvent, SwitchProtectorEvent, ChangeBackgroundEvent;
         [SerializeField] TextMeshProUGUI MovesText;
         [SerializeField] DBInt LvlNum, LvlIndex;
@@ -24,6 +24,7 @@ namespace Core.Screen
             SwitchProtectorEvent.EventHandler += SwitchProtector;
             UpdateMovesEvent.EventHandler += UpdateMovesText;
             StartColoringEvent.EventHandler += PrepareForColoring;
+            RestartLevelEvent.EventHandler += RegenrateColoring;
         }
 
         private void OnDisable()
@@ -31,11 +32,11 @@ namespace Core.Screen
             SwitchProtectorEvent.EventHandler -= SwitchProtector;
             UpdateMovesEvent.EventHandler -= UpdateMovesText;
             StartColoringEvent.EventHandler -= PrepareForColoring;
+            RestartLevelEvent.EventHandler -= RegenrateColoring;
         }
 
         private void Start()
         {
-            Instantiate(Resources.Load(_coloringPath + LvlIndex.Value), ColoringHolder);
             InitLevelEvent.InvokeSOEvent();
             if (LvlNum.Value < 5)
             {
@@ -45,6 +46,13 @@ namespace Core.Screen
             {
                 PowerButtons.SetActive(true);
             }
+            Instantiate(Resources.Load(_coloringPath + LvlIndex.Value), ColoringHolder);
+        }
+
+        void RegenrateColoring()
+        {
+            Destroy(ColoringHolder.GetChild(0).gameObject);
+            Instantiate(Resources.Load(_coloringPath + LvlIndex.Value), ColoringHolder);
         }
 
         void SwitchProtector(int state)

@@ -7,8 +7,9 @@ namespace Core.Screen
 {
     public class FailScreen : MonoBehaviour
     {
-        [SerializeField] SOEvents UpdateMovesEvent, RestartLevelEvent;
-        [SerializeField] SOInterger TotalMoves, CanPlay;
+        [SerializeField] SOIntegerEvents DestroyStatEvent, ActiveStatEvent;
+        [SerializeField] SOEvents UpdateMovesEvent, RestartLevelEvent, DestroyLevelEvent;
+        [SerializeField] SOInterger TotalMoves, CanPlay, MainMenuStateIndex, GamePlayStateIndex;
         [SerializeField] Transform Body;
 
         int _extraMoves = 10;
@@ -29,8 +30,15 @@ namespace Core.Screen
 
         public void RestartLevel()
         {
-            ClosePanel();
             RestartLevelEvent.InvokeSOEvent();
+            ClosePanel();
+        }
+        public void GoHome()
+        {
+            DestroyLevelEvent.InvokeSOEvent();
+            DestroyStatEvent.InvokeSOEvent(GamePlayStateIndex.Value);
+            ActiveStatEvent.InvokeSOEvent(MainMenuStateIndex.Value);
+            ClosePanel();
         }
 
         void ClosePanel()

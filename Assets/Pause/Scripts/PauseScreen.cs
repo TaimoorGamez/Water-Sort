@@ -7,8 +7,9 @@ namespace Core.Screen
 {
     public class PauseScreen : MonoBehaviour
     {
-        [SerializeField] SOEvents RestartLevelEvent;
-        [SerializeField] SOInterger CanPlay;
+        [SerializeField] SOIntegerEvents DestroyStatEvent, ActiveStatEvent;
+        [SerializeField] SOEvents RestartLevelEvent, DestroyLevelEvent;
+        [SerializeField] SOInterger CanPlay, MainMenuStateIndex, GamePlayStateIndex;
         [SerializeField] Transform Body;
 
         float _tweenTime = 0.25f;
@@ -20,13 +21,24 @@ namespace Core.Screen
 
         public void RestartLevel()
         {
-            ClosePanel();
             RestartLevelEvent.InvokeSOEvent();
+            ClosePanel();
         }
 
         public void ClosePanel()
         {
-            Body.DOScale(0, _tweenTime).SetEase(Ease.InBack).OnComplete(() => Destroy(gameObject));
+            Body.DOScale(0, _tweenTime).SetEase(Ease.InBack).OnComplete(() => {
+                CanPlay.Value = 1;
+                Destroy(gameObject);
+            });
+        }
+
+        public void GoHome()
+        {
+            DestroyLevelEvent.InvokeSOEvent();
+            DestroyStatEvent.InvokeSOEvent(GamePlayStateIndex.Value);
+            ActiveStatEvent.InvokeSOEvent(MainMenuStateIndex.Value);
+            ClosePanel();
         }
     }
 }
