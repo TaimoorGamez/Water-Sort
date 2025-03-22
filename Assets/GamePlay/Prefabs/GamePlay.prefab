@@ -486,6 +486,7 @@ MonoBehaviour:
   SwipeColorsModePanel: {fileID: 5658296870264550383}
   PowerButtons: {fileID: 5904127183862769092}
   TopBar: {fileID: 893510127590977225}
+  PauseBtn: {fileID: 8619781588721761333}
 --- !u!1 &4492567532703147193
 GameObject:
   m_ObjectHideFlags: 0
@@ -1474,6 +1475,11 @@ PrefabInstance:
 --- !u!224 &494948764909253241 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4600733382793412619, guid: 7b26c9a2eac24f144815375a741df200, type: 3}
+  m_PrefabInstance: {fileID: 4109393807760552562}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8619781588721761333 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5663525339896712775, guid: 7b26c9a2eac24f144815375a741df200, type: 3}
   m_PrefabInstance: {fileID: 4109393807760552562}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5470659876504583790

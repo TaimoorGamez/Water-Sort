@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Core.GamePlay
 {
@@ -14,4 +16,18 @@ namespace Core.GamePlay
             _propBlock = new MaterialPropertyBlock();
         }
     }
+
+    [Serializable]
+    public class LevelData
+    {
+        public int LevelNumber;
+        public int Stars;
+    }
+
+    [Serializable]
+    public class GameData
+    {
+        public List<LevelData> Levels = new List<LevelData>();
+    }
+
 }

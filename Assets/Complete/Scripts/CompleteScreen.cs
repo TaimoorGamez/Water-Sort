@@ -4,6 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 using Core.Events;
 using Core.Economy;
+using Core.GamePlay;
 using Core.Variables;
 using UnityEngine.UI;
 using Core.DB.Variables;
@@ -30,12 +31,14 @@ namespace Core.Screen
         [SerializeField] RawImage DisplayImage;
 
         float _starsPos = 100, _durationTweeing = 1f;
-        bool _onceClicked = false;
+        bool _onceClicked = true;
         int _levelBonus = 15, _starsBonus = 10, _detailsBonus = 0, _totalBonus = 0, _tutorialLevels = 5; 
         Coroutine _screenShotRotine;
+        string _starsDataPath;
 
         void Start()
         {
+            _starsDataPath = Path.Combine(Application.persistentDataPath, "starsData.json");
             _screenShotRotine = StartCoroutine(CaptureColoredArea());
         }
 
@@ -100,7 +103,6 @@ namespace Core.Screen
             {
                 StarsImg[s].material = null;
             }
-
             //if (File.Exists(filePath))
             //{
             //    byte[] fileData = File.ReadAllBytes(filePath);
@@ -114,6 +116,33 @@ namespace Core.Screen
             //{
             //    Debug.LogWarning("Image not found: " + filePath);
             //}
+            yield return new WaitForSeconds(0.1f);
+            GameData starsData = LoadStars();
+            yield return new WaitForSeconds(0.1f);
+            LevelData existingLevel = starsData.Levels.Find(l => l.LevelNumber == LevelIndex.Value);
+            if (existingLevel != null)
+            {
+                existingLevel.Stars = LevelStars.Value; // Save max stars
+            }
+            else
+            {
+                starsData.Levels.Add(new LevelData { LevelNumber = LevelIndex.Value, Stars = LevelStars.Value });
+            }
+
+            string json = JsonUtility.ToJson(starsData, true);
+            File.WriteAllText(_starsDataPath, json);
+            yield return new WaitForSeconds(0.1f); 
+            _onceClicked = false;
+        }
+
+        GameData LoadStars()
+        {
+            if (File.Exists(_starsDataPath))
+            {
+                string json = File.ReadAllText(_starsDataPath);
+                return JsonUtility.FromJson<GameData>(json);
+            }
+            return new GameData();
         }
 
         public void OnClickNext()

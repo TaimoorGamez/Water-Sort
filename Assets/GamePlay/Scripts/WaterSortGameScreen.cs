@@ -14,7 +14,7 @@ namespace Core.Screen
         [SerializeField] DBInt LvlNum, LvlIndex;
         [SerializeField] SOInterger TotalMoves, CanPlay, LevelFailStateIndex, CompletedTubes, GamePlayStateIndex, PauseStateIndex;
         [SerializeField] Transform ColoringHolder;
-        [SerializeField] GameObject SwipeColorsModePanel, PowerButtons, TopBar;
+        [SerializeField] GameObject SwipeColorsModePanel, PowerButtons, TopBar, PauseBtn;
 
         string _coloringPath = "ColoringPart/lvl ";
 
@@ -41,10 +41,12 @@ namespace Core.Screen
             if (LvlNum.Value < 5)
             {
                 PowerButtons.SetActive(false);
+                PauseBtn.SetActive(false);
             }
             else
             {
                 PowerButtons.SetActive(true);
+                PauseBtn.SetActive(true);
             }
             Instantiate(Resources.Load(_coloringPath + LvlIndex.Value), ColoringHolder);
         }
