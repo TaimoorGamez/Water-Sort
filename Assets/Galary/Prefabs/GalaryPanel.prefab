@@ -1121,6 +1121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf2b9024f461b446b22547385be273a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MinLvlNum: {fileID: 11400000, guid: 97861f11d658661419c157765ea4ff3c, type: 2}
   PaintingObj: {fileID: 2103683321289657488, guid: 99551eeec7c8f5543a37ff943cabad8e, type: 3}
   Body: {fileID: 6291503782256565250}
   Content: {fileID: 8483314078615144374}

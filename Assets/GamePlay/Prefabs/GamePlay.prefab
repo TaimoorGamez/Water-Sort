@@ -466,7 +466,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d87a6a9a6abff2429949db195e64c64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitLevelEvent: {fileID: 11400000, guid: 30e22fa3534f8ae429ac3af2c42b6b5c, type: 2}
   UpdateMovesEvent: {fileID: 11400000, guid: fe63d3e2311d8fc45b9e575a701d2292, type: 2}
   StartColoringEvent: {fileID: 11400000, guid: ed751afbb0214de499cef1891112c6d6, type: 2}
   RestartLevelEvent: {fileID: 11400000, guid: 4e9a7e556dcd27740a95945b73a22a1d, type: 2}
@@ -482,6 +481,7 @@ MonoBehaviour:
   CompletedTubes: {fileID: 11400000, guid: 5fb94964db162b54085794074b40bdfc, type: 2}
   GamePlayStateIndex: {fileID: 11400000, guid: d7723c4d03c616248b6e725f6734b348, type: 2}
   PauseStateIndex: {fileID: 11400000, guid: b8c7eb0e02271b14e90d732de1e1c3ff, type: 2}
+  TempLevelIndex: {fileID: 11400000, guid: 1ce211a6ca2ede84c9718479db351404, type: 2}
   ColoringHolder: {fileID: 4044495243165485517}
   SwipeColorsModePanel: {fileID: 5658296870264550383}
   PowerButtons: {fileID: 5904127183862769092}

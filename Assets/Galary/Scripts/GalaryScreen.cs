@@ -2,12 +2,14 @@ using System.IO;
 using DG.Tweening;
 using UnityEngine;
 using Core.GamePlay;
+using Core.Variables;
 using System.Collections;
 
 namespace Core.Screen
 {
     public class GalaryScreen : MonoBehaviour
     {
+        [SerializeField] SOInterger MinLvlNum;
         [SerializeField] PaintingView PaintingObj;
         [SerializeField] Transform Body;
         [SerializeField] RectTransform Content, Viewport;
@@ -47,8 +49,8 @@ namespace Core.Screen
         IEnumerator PaintingsCorotine()
         {
             GameData starsData = LoadStars();
-            yield return new WaitForSeconds(0.1f);
-            for(int s = 0; s < starsData.Levels.Count; s++)
+            yield return new WaitForSeconds(0.01f);
+            for(int s = MinLvlNum.Value-1; s < starsData.Levels.Count; s++)
             {
                 string filePath = Path.Combine(_directoryPath, $"Painting_{starsData.Levels[s].LevelNumber}.png");
                 if (File.Exists(filePath))
@@ -57,16 +59,19 @@ namespace Core.Screen
                     Texture2D texture = new Texture2D(2, 2);
                     if (texture.LoadImage(fileData))
                     {
-                        yield return new WaitForSeconds(0.1f);
+                        yield return new WaitForSeconds(0.01f);
                         PaintingView newPainting = Instantiate(PaintingObj, Content);
-                        newPainting.InitPainting(texture, starsData.Levels[s].Stars);
+                        newPainting.InitPainting(texture, starsData.Levels[s].LevelNumber, starsData.Levels[s].Stars);
                     }
                 }
             }
-            int totalRows = Mathf.CeilToInt(22 / 3f);
+            int totalRows = Mathf.CeilToInt((starsData.Levels.Count - MinLvlNum.Value) / 3f);
             Content.sizeDelta = new Vector2(Content.sizeDelta.x, totalRows * _rowHeight);
-            float targetY = Content.rect.height + Viewport.rect.height;
-            Content.DOAnchorPosY(targetY, 2f).SetEase(Ease.OutBack);
+            if (totalRows > 3)
+            {
+                float targetY = Content.rect.height - Viewport.rect.height;
+                Content.DOAnchorPosY(targetY, 1f).SetEase(Ease.OutBack);
+            }
         }
 
         public void ClosePanel()

@@ -8,13 +8,13 @@ namespace Core.Screen
 {
     public class WaterSortGameScreen : MonoBehaviour
     {
-        [SerializeField] SOEvents InitLevelEvent, UpdateMovesEvent, StartColoringEvent, RestartLevelEvent;
+        [SerializeField] SOEvents UpdateMovesEvent, StartColoringEvent, RestartLevelEvent;
         [SerializeField] SOIntegerEvents ActiveStateEvent, SwitchProtectorEvent, ChangeBackgroundEvent;
-        [SerializeField] TextMeshProUGUI MovesText;
         [SerializeField] DBInt LvlNum, LvlIndex;
-        [SerializeField] SOInterger TotalMoves, CanPlay, LevelFailStateIndex, CompletedTubes, GamePlayStateIndex, PauseStateIndex;
+        [SerializeField] SOInterger TotalMoves, CanPlay, LevelFailStateIndex, CompletedTubes, GamePlayStateIndex, PauseStateIndex, TempLevelIndex;
         [SerializeField] Transform ColoringHolder;
         [SerializeField] GameObject SwipeColorsModePanel, PowerButtons, TopBar, PauseBtn;
+        [SerializeField] TextMeshProUGUI MovesText;
 
         string _coloringPath = "ColoringPart/lvl ";
 
@@ -37,7 +37,6 @@ namespace Core.Screen
 
         private void Start()
         {
-            InitLevelEvent.InvokeSOEvent();
             if (LvlNum.Value < 5)
             {
                 PowerButtons.SetActive(false);
@@ -48,13 +47,13 @@ namespace Core.Screen
                 PowerButtons.SetActive(true);
                 PauseBtn.SetActive(true);
             }
-            Instantiate(Resources.Load(_coloringPath + LvlIndex.Value), ColoringHolder);
+            Instantiate(Resources.Load(_coloringPath + (TempLevelIndex.Value == -1 ? LvlIndex.Value : TempLevelIndex.Value)), ColoringHolder);
         }
 
         void RegenrateColoring()
         {
-            Destroy(ColoringHolder.GetChild(0).gameObject);
-            Instantiate(Resources.Load(_coloringPath + LvlIndex.Value), ColoringHolder);
+            Destroy(ColoringHolder.GetChild(0).gameObject); 
+            Instantiate(Resources.Load(_coloringPath + (TempLevelIndex.Value == -1 ? LvlIndex.Value : TempLevelIndex.Value)), ColoringHolder);
         }
 
         void SwitchProtector(int state)

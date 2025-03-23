@@ -6,7 +6,8 @@ namespace Core.Screen
 {
     public class MainMenuScreen : MonoBehaviour
     {
-        [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, SettingStateIndex;
+        [SerializeField] SOEvents InitLevelEvent;
+        [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, SettingStateIndex, TempLvlIndex;
         [SerializeField] SOIntegerEvents ActiveStateEvent, DestroyStateEvent, ChangeBackgroundEvent;
 
         private void OnEnable()
@@ -19,8 +20,14 @@ namespace Core.Screen
             ActiveStateEvent.InvokeSOEvent(SettingStateIndex.Value);
         }
 
+        private void Start()
+        {
+            TempLvlIndex.Value = -1;
+        }
+
         public void OnClickPlayButton()
         {
+            InitLevelEvent.InvokeSOEvent();
             ActiveStateEvent.InvokeSOEvent(GamePlayStateIndex.Value);
             DestroyStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
         }

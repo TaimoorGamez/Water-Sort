@@ -13,7 +13,7 @@ namespace Core.GamePlay.WaterSort
     {
         [SerializeField] SOIntegerEvents SwipeProtectorEvent, ToastMsgEvent;
         [SerializeField] DBInt LvlIndex, LvlNum;
-        [SerializeField] SOInterger IsHiddenLevel, CanPlay, TotalMoves, BtnOnceClicked, MainMenuStateIndex, CurrrentLvl;
+        [SerializeField] SOInterger IsHiddenLevel, CanPlay, TotalMoves, BtnOnceClicked, MainMenuStateIndex, CurrrentLvl, TempLvlIndex;
         [SerializeField] SOEvents InitLevelEvent, ExtraTubeEvent, RestartLevelEvent, DestroyLevelEvent, StartColoringEvent, ChangeExtraTubeStatEvent,
                                   UpdateMovesEvent;
         [SerializeField] TubeHandler TubePrefab;
@@ -69,12 +69,29 @@ namespace Core.GamePlay.WaterSort
             }
             else
             {
-                _levelColors = Resources.Load<SOColors>(_sortingLvlPath + LvlIndex.Value);
-                CurrrentLvl.Value = _levelColors.Colors.Length;
-                _totalTubesCount = CurrrentLvl.Value + 2;
-                lvlMakingRotine = StartCoroutine(GenerateLvl());
-                TotalMoves.Value = CurrrentLvl.Value * _maxColorsInTube;
+                if (TempLvlIndex.Value == -1)
+                {
+                    _levelColors = Resources.Load<SOColors>(_sortingLvlPath + LvlIndex.Value);
+                    CurrrentLvl.Value = _levelColors.Colors.Length;
+                    _totalTubesCount = CurrrentLvl.Value + 2;
+                    lvlMakingRotine = StartCoroutine(GenerateLvl());
+                    TotalMoves.Value = CurrrentLvl.Value * _maxColorsInTube;
+                }
+                else
+                {
+                    InitCustomLvl();
+                }
             }
+            UpdateMovesEvent.InvokeSOEvent();
+        }
+
+        void InitCustomLvl()
+        {
+            _levelColors = Resources.Load<SOColors>(_sortingLvlPath + TempLvlIndex.Value);
+            CurrrentLvl.Value = _levelColors.Colors.Length;
+            _totalTubesCount = CurrrentLvl.Value + 2;
+            lvlMakingRotine = StartCoroutine(GenerateLvl());
+            TotalMoves.Value = CurrrentLvl.Value * _maxColorsInTube;
             UpdateMovesEvent.InvokeSOEvent();
         }
 

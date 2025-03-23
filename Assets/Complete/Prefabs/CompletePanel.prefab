@@ -2035,17 +2035,15 @@ MonoBehaviour:
   LevelCompleteStateIndex: {fileID: 11400000, guid: 372a4013c41549545822b875f34f8aa3, type: 2}
   MinLvlCount: {fileID: 11400000, guid: 97861f11d658661419c157765ea4ff3c, type: 2}
   MaxLvlCount: {fileID: 11400000, guid: 278c1791207f9d048b22053faa41c9ac, type: 2}
+  TempLvlIndex: {fileID: 11400000, guid: 1ce211a6ca2ede84c9718479db351404, type: 2}
   SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
   ActiveStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
   DestroyStatEvent: {fileID: 11400000, guid: 853f6ddba0535194baa5c23d4d561386, type: 2}
   DestroyLevelEvent: {fileID: 11400000, guid: 462f5b56355cc214fb4c4775d6a87709, type: 2}
+  InitLvlEvent: {fileID: 11400000, guid: 30e22fa3534f8ae429ac3af2c42b6b5c, type: 2}
   ShowPanel: {fileID: 11400000, guid: bfe4c542e9b90ea439d12ac668dc209c, type: 2}
   Body: {fileID: 6174778208438504148}
   StarsObj: {fileID: 5901047971187165036}
-  StarsImg:
-  - {fileID: 144182502631914726}
-  - {fileID: 4047541346041690862}
-  - {fileID: 5845976620193309198}
   LevelBonusText: {fileID: 371418382920146953}
   StarsBonusText: {fileID: 1299131095481621160}
   DetailsBonusText: {fileID: 4791703346453442037}
@@ -2054,6 +2052,10 @@ MonoBehaviour:
   ScreenshotCamera: {fileID: 3503863100763946393}
   TargetTexture: {fileID: 8600000, guid: 05e553ea02e37ee49af90cd1d479e55d, type: 2}
   DisplayImage: {fileID: 79410222647563090}
+  StarsImg:
+  - {fileID: 144182502631914726}
+  - {fileID: 4047541346041690862}
+  - {fileID: 5845976620193309198}
 --- !u!1 &5819927224509809321
 GameObject:
   m_ObjectHideFlags: 0
@@ -3126,7 +3128,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5115930599845863787, guid: f743f92d80369774690fccfe4f017d93, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: -60
       objectReference: {fileID: 0}
     - target: {fileID: 5115930599845863787, guid: f743f92d80369774690fccfe4f017d93, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3165,6 +3167,22 @@ PrefabInstance:
     - target: {fileID: 2640109034732669052, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
       propertyPath: m_Name
       value: NextBtn
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175025373427661188, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: -4677062817652568163}
+    - target: {fileID: 5175025373427661188, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnClickNext
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175025373427661188, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Core.Screen.CompleteScreen, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175025373427661188, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7530474994064364851, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

@@ -8,17 +8,17 @@ namespace Core.Screen
 {
     public class SplashScreen : MonoBehaviour
     {
+        [SerializeField] SOEvents InitLevelEvent;
         [SerializeField] DBInt LvlNum;
         [SerializeField] SOIntegerEvents ActiveStateEvent, DestroyStateEvent;
         [SerializeField] LevelManager LvlManager;
-        [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex;
-
-        int _tutorialLevels = 5;
+        [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, MinLvlNum;
 
         private void Start()
         {
-            if (LvlNum.Value < _tutorialLevels)
+            if (LvlNum.Value <= MinLvlNum.Value)
             {
+                InitLevelEvent.InvokeSOEvent();
                 ActiveStateEvent.InvokeSOEvent(GamePlayStateIndex.Value);
             }
             else

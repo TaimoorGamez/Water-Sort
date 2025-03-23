@@ -1,17 +1,19 @@
 using DG.Tweening;
 using UnityEngine;
 using Core.Events;
+using Core.Variables;
 using Core.DB.Variables;
 
 namespace Core.GamePlay.Coloring
 {
     public class ColoringManager : MonoBehaviour
     {
+        [SerializeField] DBInt LevelIndex;
+        [SerializeField] SOInterger TempLevelIndex;
         [SerializeField] SOEvents StartColoringEvent;
         [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] RectTransform ColoringImage;
         [SerializeField] Transform RefferanceBar;
-        [SerializeField] DBInt LevelIndex;
 
         float _preparationTime = 1;
         string _refferancePath = "RefferanceImges/lvl ";
@@ -31,8 +33,8 @@ namespace Core.GamePlay.Coloring
             SoundEffectEvent.InvokeSOEvent(3);
             ColoringImage.DOAnchorPos(Vector2.zero, _preparationTime).OnComplete(() =>
             {
-                RefferanceBar.gameObject.SetActive(true);
-                Instantiate(Resources.Load(_refferancePath + LevelIndex.Value),RefferanceBar.GetChild(0));
+                RefferanceBar.gameObject.SetActive(true); 
+                Instantiate(Resources.Load(_refferancePath + (TempLevelIndex.Value == -1 ? LevelIndex.Value : TempLevelIndex.Value)), RefferanceBar.GetChild(0));
             });
         }
     }

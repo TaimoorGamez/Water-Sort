@@ -1060,11 +1060,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c35743e1571027748b3513c74bbe190d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelIndex: {fileID: 11400000, guid: 41c1752188b0e634bace9427b11cb2a0, type: 2}
+  TempLevelIndex: {fileID: 11400000, guid: 1ce211a6ca2ede84c9718479db351404, type: 2}
   StartColoringEvent: {fileID: 11400000, guid: ed751afbb0214de499cef1891112c6d6, type: 2}
   SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
   ColoringImage: {fileID: 8155223143100574219}
   RefferanceBar: {fileID: 6283109655976388234}
-  LevelIndex: {fileID: 11400000, guid: 41c1752188b0e634bace9427b11cb2a0, type: 2}
 --- !u!1 &8155223144596094436
 GameObject:
   m_ObjectHideFlags: 0
@@ -1314,6 +1315,22 @@ PrefabInstance:
     - target: {fileID: 2640109034732669052, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175025373427661188, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3879729677403443680}
+    - target: {fileID: 5175025373427661188, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnNextBtnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175025373427661188, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Core.GamePlay.Coloring.DetailsHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175025373427661188, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7530474994064364851, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -2114,6 +2131,22 @@ PrefabInstance:
     - target: {fileID: 2640109034732669052, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175025373427661188, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1898423574410225127}
+    - target: {fileID: 5175025373427661188, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnNextBtnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175025373427661188, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Core.GamePlay.Coloring.ColorFillingHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175025373427661188, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7530474994064364851, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

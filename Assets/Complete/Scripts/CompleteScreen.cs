@@ -18,21 +18,21 @@ namespace Core.Screen
         [SerializeField] Currency Coins;
         [SerializeField] DBInt LevelIndex, LvlNum;
         [SerializeField] SOInterger LevelStars, CanPlay, MainMenuStateIndex, LevelMoves, DetailsApplied, GamePlayState, LevelCompleteStateIndex,
-                                     MinLvlCount, MaxLvlCount;
+                                     MinLvlCount, MaxLvlCount, TempLvlIndex;
         [SerializeField] SOIntegerEvents SoundEffectEvent, ActiveStateEvent, DestroyStatEvent;
-        [SerializeField] SOEvents DestroyLevelEvent;
+        [SerializeField] SOEvents DestroyLevelEvent, InitLvlEvent;
         [SerializeField] SOAnChorMove ShowPanel;
         [SerializeField] GameObject Body;
         [SerializeField] RectTransform StarsObj;
-        [SerializeField] Image[] StarsImg;
         [SerializeField] TextMeshProUGUI LevelBonusText, StarsBonusText, DetailsBonusText, MovesBonusText, TotalBonusText;
         [SerializeField] Camera ScreenshotCamera;
         [SerializeField] RenderTexture TargetTexture;
         [SerializeField] RawImage DisplayImage;
+        [SerializeField] Image[] StarsImg;
 
         float _starsPos = 100, _durationTweeing = 1f;
         bool _onceClicked = true;
-        int _levelBonus = 15, _starsBonus = 10, _detailsBonus = 0, _totalBonus = 0, _tutorialLevels = 5; 
+        int _levelBonus = 15, _starsBonus = 10, _detailsBonus = 0, _totalBonus = 0; 
         Coroutine _screenShotRotine;
         string _starsDataPath;
 
@@ -70,7 +70,8 @@ namespace Core.Screen
         IEnumerator CaptureColoredArea()
         {
             ScreenshotCamera.targetTexture = TargetTexture;
-            ScreenshotCamera.Render();
+            ScreenshotCamera.Render(); 
+            int currentLvl = TempLvlIndex.Value != -1 ? TempLvlIndex.Value : LevelIndex.Value;
             yield return new WaitForSeconds(0.01f);
             // Create a new Texture2D
             Texture2D screenshot = new Texture2D(TargetTexture.width, TargetTexture.height, TextureFormat.RGB24, false);
@@ -90,7 +91,7 @@ namespace Core.Screen
             if (!Directory.Exists(directoryPath))
             { Directory.CreateDirectory(directoryPath); }
 
-            string filePath = Path.Combine(directoryPath, $"Painting_{LvlNum.Value}.png");
+            string filePath = Path.Combine(directoryPath, $"Painting_{currentLvl}.png");
             File.WriteAllBytes(filePath, screenshot.EncodeToPNG());
             yield return new WaitForSeconds(2.5f);
 
@@ -103,30 +104,18 @@ namespace Core.Screen
             {
                 StarsImg[s].material = null;
             }
-            //if (File.Exists(filePath))
-            //{
-            //    byte[] fileData = File.ReadAllBytes(filePath);
-            //    Texture2D texture = new Texture2D(2, 2);
-            //    if (texture.LoadImage(fileData)) // Load PNG into Texture2D
-            //    {
-            //        PaintingImg.texture = texture; // Set to UI RawImage
-            //    }
-            //}
-            //else
-            //{
-            //    Debug.LogWarning("Image not found: " + filePath);
-            //}
             yield return new WaitForSeconds(0.1f);
+
             GameData starsData = LoadStars();
             yield return new WaitForSeconds(0.1f);
-            LevelData existingLevel = starsData.Levels.Find(l => l.LevelNumber == LevelIndex.Value);
+            LevelData existingLevel = starsData.Levels.Find(l => l.LevelNumber == currentLvl);
             if (existingLevel != null)
             {
                 existingLevel.Stars = LevelStars.Value; // Save max stars
             }
             else
             {
-                starsData.Levels.Add(new LevelData { LevelNumber = LevelIndex.Value, Stars = LevelStars.Value });
+                starsData.Levels.Add(new LevelData { LevelNumber = currentLvl, Stars = LevelStars.Value });
             }
 
             string json = JsonUtility.ToJson(starsData, true);
@@ -152,26 +141,30 @@ namespace Core.Screen
                 _onceClicked = true;
                 CanPlay.Value = 0;
                 Coins.Amount += _totalBonus;
-                LvlNum.Value++;
-                LevelIndex.Value++;
+                if (TempLvlIndex.Value == -1)
+                {
+                    LvlNum.Value++;
+                    LevelIndex.Value++;
+                }
                 Invoke(nameof(GoNext), 2);
             }
         }
 
         void GoNext()
         {
-            if (LevelIndex.Value > MaxLvlCount.Value)
+            if (LevelIndex.Value <= MinLvlCount.Value)
             {
-                LevelIndex.Value = MinLvlCount.Value;
-            }
-
-            if (LevelIndex.Value < _tutorialLevels)
-            {
+                InitLvlEvent.InvokeSOEvent();
                 ActiveStateEvent.InvokeSOEvent(GamePlayState.Value);
             }
             else
             {
                 ActiveStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
+            }
+
+            if (LevelIndex.Value > MaxLvlCount.Value)
+            {
+                LevelIndex.Value = MinLvlCount.Value;
             }
             DestroyStatEvent.InvokeSOEvent(LevelCompleteStateIndex.Value);
         }
