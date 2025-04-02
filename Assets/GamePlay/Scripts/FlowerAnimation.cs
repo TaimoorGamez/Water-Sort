@@ -18,7 +18,8 @@ namespace Core.GamePlay.WaterSort
             _propBlock.SetColor("_BaseColor", currentColor);
             _propBlock.SetTexture("_MainTex", MyTexture);
             _propBlock.SetFloat("_ColorRange", 0);
-            MySkin.SetPropertyBlock(_propBlock); transform.DOLocalMoveY(0,0.2f).OnComplete(() =>
+            MySkin.SetPropertyBlock(_propBlock); 
+            transform.DOLocalMoveY(0,0.2f).OnComplete(() =>
             {
                 // Animate the _ColorRange property
                 DOTween.To(() => 0f, value =>

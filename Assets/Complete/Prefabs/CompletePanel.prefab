@@ -2041,8 +2041,7 @@ MonoBehaviour:
   DestroyStatEvent: {fileID: 11400000, guid: 853f6ddba0535194baa5c23d4d561386, type: 2}
   DestroyLevelEvent: {fileID: 11400000, guid: 462f5b56355cc214fb4c4775d6a87709, type: 2}
   InitLvlEvent: {fileID: 11400000, guid: 30e22fa3534f8ae429ac3af2c42b6b5c, type: 2}
-  ShowPanel: {fileID: 11400000, guid: bfe4c542e9b90ea439d12ac668dc209c, type: 2}
-  Body: {fileID: 6174778208438504148}
+  Body: {fileID: 3912602606777042924}
   StarsObj: {fileID: 5901047971187165036}
   LevelBonusText: {fileID: 371418382920146953}
   StarsBonusText: {fileID: 1299131095481621160}

@@ -8,7 +8,6 @@ using Core.GamePlay;
 using Core.Variables;
 using UnityEngine.UI;
 using Core.DB.Variables;
-using Core.Animations.DT;
 using System.Collections;
 
 namespace Core.Screen
@@ -21,8 +20,7 @@ namespace Core.Screen
                                      MinLvlCount, MaxLvlCount, TempLvlIndex;
         [SerializeField] SOIntegerEvents SoundEffectEvent, ActiveStateEvent, DestroyStatEvent;
         [SerializeField] SOEvents DestroyLevelEvent, InitLvlEvent;
-        [SerializeField] SOAnChorMove ShowPanel;
-        [SerializeField] GameObject Body;
+        [SerializeField] RectTransform Body;
         [SerializeField] RectTransform StarsObj;
         [SerializeField] TextMeshProUGUI LevelBonusText, StarsBonusText, DetailsBonusText, MovesBonusText, TotalBonusText;
         [SerializeField] Camera ScreenshotCamera;
@@ -96,8 +94,7 @@ namespace Core.Screen
             yield return new WaitForSeconds(2.5f);
 
             DestroyLevelEvent.InvokeSOEvent();
-            ShowPanel.TargetObj = Body;
-            ShowPanel.PlayAnimation();
+            Body.DOAnchorPosX(0, _durationTweeing).SetEase(Ease.OutBack);
             SoundEffectEvent.InvokeSOEvent(3);
             Invoke(nameof(OnPanelVisible), _durationTweeing);
             for (int s = 0; s < LevelStars.Value; s++)
@@ -152,21 +149,23 @@ namespace Core.Screen
 
         void GoNext()
         {
-            if (LevelIndex.Value <= MinLvlCount.Value)
-            {
-                InitLvlEvent.InvokeSOEvent();
-                ActiveStateEvent.InvokeSOEvent(GamePlayState.Value);
-            }
-            else
-            {
-                ActiveStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
-            }
+            Body.DOAnchorPosX(1500, _durationTweeing).SetEase(Ease.InBack).OnComplete(() => {
+                if (LevelIndex.Value <= MinLvlCount.Value)
+                {
+                    InitLvlEvent.InvokeSOEvent();
+                    ActiveStateEvent.InvokeSOEvent(GamePlayState.Value);
+                }
+                else
+                {
+                    ActiveStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
+                }
 
-            if (LevelIndex.Value > MaxLvlCount.Value)
-            {
-                LevelIndex.Value = MinLvlCount.Value;
-            }
-            DestroyStatEvent.InvokeSOEvent(LevelCompleteStateIndex.Value);
+                if (LevelIndex.Value > MaxLvlCount.Value)
+                {
+                    LevelIndex.Value = MinLvlCount.Value;
+                }
+                DestroyStatEvent.InvokeSOEvent(LevelCompleteStateIndex.Value);
+            });
         }
     }
 }

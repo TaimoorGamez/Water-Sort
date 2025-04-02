@@ -6,9 +6,11 @@ namespace Core.Animations.DT
     [CreateAssetMenu(fileName = "RotateLT", menuName = "ScriptableObjects/Animations/Rotation")]
     public class SORotateDOTween : SODOTween
     {
+        [SerializeField] RotateMode RotMode;
+
         public override void PlayAnimation()
         {
-            _tween = TargetObj.transform.DORotate(TargetAction, Duration);
+            _tween = TargetObj.transform.DORotate(TargetAction, Duration, RotMode);
             base.PlayAnimation();
         }
         public override void ReseToDefault()

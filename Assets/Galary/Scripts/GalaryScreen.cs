@@ -14,7 +14,7 @@ namespace Core.Screen
         [SerializeField] Transform Body;
         [SerializeField] RectTransform Content, Viewport;
 
-        float _tweenTime = 0.25f, _rowHeight = 150;
+        float _tweenTime = 0.5f, _rowHeight = 150;
         string _starsDataPath, _directoryPath;
         Coroutine _paintingRotine;
 

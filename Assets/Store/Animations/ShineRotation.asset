@@ -9,14 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e100698643efa7942b334e83af7ba215, type: 3}
-  m_Name: ShowPanel
+  m_Script: {fileID: 11500000, guid: b7d0437681f9f644bbd2f033bcd33239, type: 3}
+  m_Name: ShineRotation
   m_EditorClassIdentifier: 
-  Duration: 1
-  CurrentEaseType: 27
+  Duration: 3.2
+  CurrentEaseType: 0
   IsLoop: 0
   CanChangeStateOnComlete: 0
   StateOnComplete: 1
   ResetOnComplete: 0
-  TargetAction: {x: 0, y: 0, z: 0}
-  OriginalVallue: {x: 1500, y: 0, z: 0}
+  TargetAction: {x: 0, y: 0, z: 360}
+  OriginalVallue: {x: 0, y: 0, z: 0}
+  RotMode: 3

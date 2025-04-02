@@ -114,6 +114,7 @@ namespace Core.GamePlay.WaterSort
         {
             float tweenTime = 1;
             InfoTextObj.SetActive(false);
+            Destroy(UndoBtn.transform.parent.gameObject);
             if (!IsUndoBtn && !ExtraTube)
             {
                 if (ThirdLiquid.WaterColors.Count > 0)
