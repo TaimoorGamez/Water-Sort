@@ -32,6 +32,15 @@ namespace Core.Screen
         {
             ChangeItemStatusEvent.EventHandler -= ChangeItemStatus;
             StopActiveRotines();
+            if (_currentItem != null)
+            {
+                Destroy(_currentItem);
+            }
+            for (int i = 0; i < RoomItems.Length; i++)
+            {
+                RoomItems[i].transform.DOScale(Vector3.zero,0);
+                RoomItems[i].gameObject.SetActive(false);
+            }
         }
 
         IEnumerator ActiveStorageRoom()
