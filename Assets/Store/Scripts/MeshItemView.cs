@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Core.Screen
 {
-    public class CapItemView : ItemView
+    public class MeshItemView : ItemView
     {
         [SerializeField] Color32 SelecteColor, UnselectColor;
         [SerializeField] Renderer MySkin;

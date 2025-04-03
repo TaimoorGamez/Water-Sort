@@ -3,13 +3,10 @@ using UnityEngine.UI;
 
 
 namespace Core.Screen
-{
-    public class ImageItemView : ItemView
+{ public class ImageItemView : ItemView
     {
-        [SerializeField] Color32  UnselectColor;
+        [SerializeField] Color32 SelectColor, UnselectColor;
         [SerializeField] Image ItemImg;
-
-        Color _selectColor = Color.white;
 
         public void OnClick()
         {
@@ -25,13 +22,13 @@ namespace Core.Screen
         public override void SelectItem()
         {
             base.SelectItem();
-            ItemImg.color = _selectColor;
+            ItemImg.color = SelectColor;
         }
 
         public override void ActiveSelectItem()
         {
             base.ActiveSelectItem();
-            ItemImg.color = _selectColor;
+            ItemImg.color = SelectColor;
         }
     }
 }
