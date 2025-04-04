@@ -4,24 +4,26 @@ using DG.Tweening;
 using Core.Events;
 using Core.Variables;
 using UnityEngine.UI;
+using Core.DB.Variables;
 using System.Collections;
 
 namespace Core.GamePlay.Coloring
 {
     public class DetailsHandler : MonoBehaviour
     {
+        [SerializeField] DBInt CurrentSpray;
         [SerializeField] SOInterger LevelStars, DetailsApplied, CompleteStateIndex;
-        [SerializeField] SOIntegerEvents LoopEffectEvent, SoundEffectEvent, ActiveStateEvent;
+        [SerializeField] SOIntegerEvents SoundEffectEvent, ActiveStateEvent;
         [SerializeField] SOEvents StopLoopEffect;
         [SerializeField] RectTransform SprayCan, FlameThrower, ColoringImage;
         [SerializeField] Vector2Int VerticalRange, HorizontalRange;
         [SerializeField] TextMeshProUGUI InfoText;
         [SerializeField] string[] InfoMsgs;
-        [SerializeField] GameObject NextBtn, TouchProtector;
+        [SerializeField] GameObject NextBtn, TouchProtector, BubbleParticle, FlameParticles;
         [SerializeField] Image Details;
         [SerializeField] RawImage CompoundImg;
         [SerializeField] Texture2D CloudTexture;
-        [SerializeField] ParticleSystem BubbleParticle, FlameParticles, StarParticles;
+        [SerializeField] ParticleSystem StarParticles;
 
         float _speed = 5, _brushSize = 25, _preparationTime = 0.5f, _finalPos = 175;
         bool _canSpray = false, _effectCheck = false, _canShowNextBtn = true, _onceClicked = true, _canThrowFlame = false;
@@ -31,7 +33,9 @@ namespace Core.GamePlay.Coloring
         int _totalColorPixles = 1, _flamePixlesCounter = 0, _compoundTextureLength = 500, _totalBubbles = 25, _bubbleCounter = 0, _lastAppliedCenterX = -1, _lastAppliedCenterY = -1;
         Color32[] _cloudPixles, _compoundPixels;
         const int _bubbleThreshold = 32;
-        Color32 _fillColor = new Color32(0, 0, 0, 0); // Red color for example
+        Color32 _fillColor = new Color32(0, 0, 0, 0);
+        string _sprayPath = "Sprays/Spray ";
+        Animation _sprayAnimation;
 
         private void OnDisable()
         {
@@ -48,7 +52,8 @@ namespace Core.GamePlay.Coloring
         private void Start()
         {
             _currentCamera = Camera.main;
-            PrepareCompounD();
+            _sprayAnimation = Instantiate(Resources.Load<Animation>(_sprayPath + CurrentSpray.Value),SprayCan);
+            Invoke(nameof(PrepareCompounD),0.1f);
         }
 
         public void OnNextBtnClick()
@@ -116,6 +121,7 @@ namespace Core.GamePlay.Coloring
             _canSpray = true;
             _movingRoutine = StartCoroutine(SprayMovingRoutine());
             InfoText.text = InfoMsgs[0];
+            CompoundImg.enabled = true;
         }
 
         IEnumerator SprayMovingRoutine()
@@ -134,8 +140,8 @@ namespace Core.GamePlay.Coloring
                     if (!_effectCheck)
                     {
                         _effectCheck = true;
-                        LoopEffectEvent.InvokeSOEvent(1);
-                        BubbleParticle.Play();
+                        BubbleParticle.SetActive(true);
+                        _sprayAnimation.Play("SprayOn");
                     }
                 }
 
@@ -166,7 +172,8 @@ namespace Core.GamePlay.Coloring
                 if (Input.GetMouseButtonUp(0))
                 {
                     initialOffset = Vector2.zero;
-                    BubbleParticle.Stop();
+                    BubbleParticle.SetActive(false);
+                    _sprayAnimation.Play("SprayOff");
                     StopLoopEffect.InvokeSOEvent();
                     _effectCheck = false;
                     if (_canShowNextBtn)
@@ -273,8 +280,7 @@ namespace Core.GamePlay.Coloring
                     if (!_effectCheck)
                     {
                         _effectCheck = true;
-                        LoopEffectEvent.InvokeSOEvent(2);
-                        FlameParticles.Play();
+                        FlameParticles.SetActive(true);
                     }
                 }
 
@@ -305,7 +311,7 @@ namespace Core.GamePlay.Coloring
                 if (Input.GetMouseButtonUp(0))
                 {
                     initialOffset = Vector2.zero;
-                    FlameParticles.Stop();
+                    FlameParticles.SetActive(false);
                     StopLoopEffect.InvokeSOEvent();
                     _effectCheck = false;
                     if (_canShowNextBtn)

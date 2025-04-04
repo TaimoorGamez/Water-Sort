@@ -45,6 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60df8e2281b7a8243a8d505fe92c89dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StopLoopEffect: {fileID: 11400000, guid: 6a567254c34b10d44a3c2af54a037e1d, type: 2}
+  StartColoringEvent: {fileID: 11400000, guid: ed751afbb0214de499cef1891112c6d6, type: 2}
+  LoopEffectEvent: {fileID: 11400000, guid: 093c4e46c9b68704ebb3fe930639824c, type: 2}
   MySkin: {fileID: 4543542380082502086}
   MyTexture: {fileID: 2800000, guid: 2cbb5e1fc6c8cbd479c979d0fc9fc012, type: 3}
 --- !u!1001 &2939850108472296770

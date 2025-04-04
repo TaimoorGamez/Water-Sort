@@ -62,6 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
   ColorSelectionEvent: {fileID: 11400000, guid: fe2489cc2d4d5e14f9d85776a00266f3, type: 2}
+  HideColorBowlEvent: {fileID: 11400000, guid: df676412f262a30498589c22220395c8, type: 2}
   CurrentColor: {fileID: 11400000, guid: 2fed6872c6a33cb40accd289f78eb6eb, type: 2}
   CurrentBowl: {fileID: 11400000, guid: 5bdb2b9ae995a074b958977cacc85f03, type: 2}
   MySkin: {fileID: 577840799681512718}

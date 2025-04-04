@@ -12,14 +12,14 @@ namespace Core.GamePlay.Coloring
         [SerializeField] SOColorBowl CurrentBowl;
         [SerializeField] SOInterger LevelStars;
         [SerializeField] SOIntegerEvents LoopEffectEvent;
-        [SerializeField] SOEvents StartColoringEvent, ColorSelectedEvent, StopLoopEffect;
+        [SerializeField] SOEvents StartColoringEvent, ColorSelectedEvent, StopLoopEffect, HideColorBowlEvent;
         [SerializeField] SOColor CurrentColor;
         [SerializeField] ColorFilling[] ColoringPart;
         [SerializeField] RectTransform BrushTransform;
         [SerializeField] Vector2Int VerticalRange, HorizontalRange;
         [SerializeField] TextMeshProUGUI InfoText;
         [SerializeField] string[] InfoMsgs;
-        [SerializeField] GameObject NextBtn, TouchProtector, DetailsImg, ResetButton;
+        [SerializeField] GameObject NextBtn, TouchProtector, DetailsHandler, ResetButton;
         [SerializeField] Animation BrushAnimtion;
         [SerializeField] ParticleSystem BrushParitcle;
 
@@ -266,7 +266,8 @@ namespace Core.GamePlay.Coloring
                 }
                 else 
                 {
-                    DetailsImg.SetActive(true);
+                    HideColorBowlEvent.InvokeSOEvent();
+                    DetailsHandler.SetActive(true);
                 }
             }
         }

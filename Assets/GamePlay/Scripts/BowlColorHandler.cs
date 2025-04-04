@@ -8,7 +8,7 @@ namespace Core.GamePlay.Coloring
     public class BowlColorHandler : MonoBehaviour
     {
         [SerializeField] SOIntegerEvents SoundEffectEvent;
-        [SerializeField] SOEvents ColorSelectionEvent; 
+        [SerializeField] SOEvents ColorSelectionEvent, HideColorBowlEvent; 
         [SerializeField] SOColor CurrentColor;
         [SerializeField] SOColorBowl CurrentBowl;
         [SerializeField] Renderer MySkin;
@@ -17,6 +17,16 @@ namespace Core.GamePlay.Coloring
         MaterialPropertyBlock _propBlock;
         Vector3 _orignalPos;
         Color _bowlColor;
+
+        private void OnEnable()
+        {
+            HideColorBowlEvent.EventHandler += HideNow;
+        }
+
+        private void OnDisable()
+        {
+            HideColorBowlEvent.EventHandler -= HideNow;
+        }
 
         public void SetColor(Color currentColor)
         {
@@ -60,6 +70,11 @@ namespace Core.GamePlay.Coloring
                 WaveParticle.Stop();
             }
             MySkin.SetPropertyBlock(_propBlock);
+        }
+
+        void HideNow()
+        {
+            gameObject.SetActive(false);
         }
     }
 }

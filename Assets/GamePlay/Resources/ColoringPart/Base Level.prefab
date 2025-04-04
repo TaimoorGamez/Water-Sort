@@ -700,7 +700,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7818574426039290261}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
@@ -732,10 +732,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84f67f698e734844895b2cf8edd783f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentSpray: {fileID: 11400000, guid: 3ca6af44fe0017c4ebe32d1bba84d8ff, type: 2}
   LevelStars: {fileID: 11400000, guid: 88bc526aa03fb954c879ac3dbef7ef51, type: 2}
   DetailsApplied: {fileID: 11400000, guid: 8894a4602ebb75348a39383060b968e0, type: 2}
   CompleteStateIndex: {fileID: 11400000, guid: 372a4013c41549545822b875f34f8aa3, type: 2}
-  LoopEffectEvent: {fileID: 11400000, guid: 093c4e46c9b68704ebb3fe930639824c, type: 2}
   SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
   ActiveStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
   StopLoopEffect: {fileID: 11400000, guid: 6a567254c34b10d44a3c2af54a037e1d, type: 2}
@@ -750,11 +750,11 @@ MonoBehaviour:
   - Move Flamethrower To Apply Details!
   NextBtn: {fileID: 2697519323748933671}
   TouchProtector: {fileID: 2980247516992575011}
+  BubbleParticle: {fileID: 803203266184797557}
+  FlameParticles: {fileID: 1045603333149354834}
   Details: {fileID: 7901100041250102920}
   CompoundImg: {fileID: 4928604096513955447}
   CloudTexture: {fileID: 2800000, guid: 992681ded4241e548a44b7aa05485a05, type: 3}
-  BubbleParticle: {fileID: 4240301359178295778}
-  FlameParticles: {fileID: 1718342908688303161}
   StarParticles: {fileID: 4724836284733389828}
 --- !u!1 &8155223143100574216
 GameObject:
@@ -815,6 +815,7 @@ MonoBehaviour:
   StartColoringEvent: {fileID: 11400000, guid: ed751afbb0214de499cef1891112c6d6, type: 2}
   ColorSelectedEvent: {fileID: 11400000, guid: fe2489cc2d4d5e14f9d85776a00266f3, type: 2}
   StopLoopEffect: {fileID: 11400000, guid: 6a567254c34b10d44a3c2af54a037e1d, type: 2}
+  HideColorBowlEvent: {fileID: 11400000, guid: df676412f262a30498589c22220395c8, type: 2}
   CurrentColor: {fileID: 11400000, guid: 2fed6872c6a33cb40accd289f78eb6eb, type: 2}
   ColoringPart:
   - {fileID: 8155223144613782485}
@@ -827,7 +828,7 @@ MonoBehaviour:
   - Move Brush To Fill Color!
   NextBtn: {fileID: 5101064069828714289}
   TouchProtector: {fileID: 2980247516992575011}
-  DetailsImg: {fileID: 7818574426039290261}
+  DetailsHandler: {fileID: 7818574426039290261}
   ResetButton: {fileID: 5649013793351793456}
   BrushAnimtion: {fileID: 5045153885269180167}
   BrushParitcle: {fileID: 4244122097823152203}
@@ -1666,6 +1667,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BubbleParticles
       objectReference: {fileID: 0}
+    - target: {fileID: 4233761066675919261, guid: d0bf3b07cff46cc49b739368f640c710, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5327123349262267050, guid: d0bf3b07cff46cc49b739368f640c710, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1732,9 +1737,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0bf3b07cff46cc49b739368f640c710, type: 3}
---- !u!198 &4240301359178295778 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 809603130425978122, guid: d0bf3b07cff46cc49b739368f640c710, type: 3}
+--- !u!1 &803203266184797557 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4233761066675919261, guid: d0bf3b07cff46cc49b739368f640c710, type: 3}
   m_PrefabInstance: {fileID: 3595238505321071848}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &8649554688528578114 stripped
@@ -1752,6 +1757,10 @@ PrefabInstance:
     - target: {fileID: 5073444174971378430, guid: 35f2f116f2589134db24008662cec8fb, type: 3}
       propertyPath: m_Name
       value: FireFlames
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073444174971378430, guid: 35f2f116f2589134db24008662cec8fb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7367606342059353290, guid: 35f2f116f2589134db24008662cec8fb, type: 3}
       propertyPath: m_RootOrder
@@ -1799,9 +1808,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35f2f116f2589134db24008662cec8fb, type: 3}
---- !u!198 &1718342908688303161 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 6859549497505674645, guid: 35f2f116f2589134db24008662cec8fb, type: 3}
+--- !u!1 &1045603333149354834 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5073444174971378430, guid: 35f2f116f2589134db24008662cec8fb, type: 3}
   m_PrefabInstance: {fileID: 5254227599355638188}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &3374386647515370854 stripped
