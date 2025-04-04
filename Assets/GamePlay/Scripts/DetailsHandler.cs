@@ -11,7 +11,7 @@ namespace Core.GamePlay.Coloring
 {
     public class DetailsHandler : MonoBehaviour
     {
-        [SerializeField] DBInt CurrentSpray;
+        [SerializeField] DBInt CurrentSpray, CurrentFlame;
         [SerializeField] SOInterger LevelStars, DetailsApplied, CompleteStateIndex;
         [SerializeField] SOIntegerEvents SoundEffectEvent, ActiveStateEvent;
         [SerializeField] SOEvents StopLoopEffect;
@@ -34,7 +34,7 @@ namespace Core.GamePlay.Coloring
         Color32[] _cloudPixles, _compoundPixels;
         const int _bubbleThreshold = 32;
         Color32 _fillColor = new Color32(0, 0, 0, 0);
-        string _sprayPath = "Sprays/Spray ";
+        string _sprayPath = "Sprays/Spray ", _flamePath = "Flames/Flame ";
         Animation _sprayAnimation;
 
         private void OnDisable()
@@ -249,7 +249,6 @@ namespace Core.GamePlay.Coloring
         void PrepareFlames()
         {
             _totalColorPixles = 0;
-            // Apply the color to all pixels
             for (int i = 0; i < _compoundPixels.Length; i++)
             {
                 if (_compoundPixels[i].a > 0)
@@ -262,20 +261,20 @@ namespace Core.GamePlay.Coloring
             _canShowNextBtn = true;
             _canThrowFlame = true;
             _movingRoutine = StartCoroutine(FlamesThrowingRoutine());
+            Instantiate(Resources.Load(_flamePath + CurrentFlame.Value), FlameThrower);
         }
 
         IEnumerator FlamesThrowingRoutine()
         {
             Vector2 initialOffset = Vector2.zero;
             RectTransform coloringParTransform = CompoundImg.rectTransform;
-
             while (_canThrowFlame)
             {
                 if (Input.GetMouseButtonDown(0))
                 {
                     RectTransformUtility.ScreenPointToLocalPointInRectangle(
                         coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 initialPoint);
-                    initialOffset = SprayCan.anchoredPosition - initialPoint;
+                    initialOffset = FlameThrower.anchoredPosition - initialPoint;
                     InfoText.gameObject.SetActive(false);
                     if (!_effectCheck)
                     {

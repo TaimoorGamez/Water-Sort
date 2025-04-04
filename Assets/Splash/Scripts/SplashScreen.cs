@@ -8,7 +8,7 @@ namespace Core.Screen
 {
     public class SplashScreen : MonoBehaviour
     {
-        [SerializeField] ItemData DefaultCap, DefaultSpray;
+        [SerializeField] ItemData DefaultCap, DefaultFlame, DefaultSpray;
         [SerializeField] SOEvents InitLevelEvent;
         [SerializeField] DBInt LvlNum, FFT;
         [SerializeField] SOIntegerEvents ActiveStateEvent, DestroyStateEvent;
@@ -20,6 +20,7 @@ namespace Core.Screen
             if (FFT.Value != 1)
             {
                 DefaultCap.IsPurchased = true;
+                DefaultFlame.IsPurchased = true;
                 DefaultSpray.IsPurchased = true;
                 FFT.Value = 1;
             }
