@@ -9,7 +9,7 @@ namespace Core.Screen
     public class PauseScreen : MonoBehaviour
     {
         [SerializeField] DBInt Music, Sound;
-        [SerializeField] SOIntegerEvents DestroyStatEvent, ActiveStatEvent;
+        [SerializeField] SOIntegerEvents DestroyStatEvent, ActiveStatEvent, SoundEffectEvent;
         [SerializeField] SOEvents RestartLevelEvent, DestroyLevelEvent, UpdateMusicStateEvent, UpdateSoundStateEvent;
         [SerializeField] SOInterger CanPlay, MainMenuStateIndex, GamePlayStateIndex;
         [SerializeField] Transform Body;
@@ -21,6 +21,7 @@ namespace Core.Screen
         {
             UpdateMusicStateEvent.EventHandler += UpdateMusicState;
             UpdateSoundStateEvent.EventHandler += UpdateSoundState;
+            SoundEffectEvent.InvokeSOEvent(2);
             Body.DOScale(1, _tweenTime).SetEase(Ease.OutBack);
             UpdateMusicState();
             UpdateSoundState();
@@ -56,6 +57,7 @@ namespace Core.Screen
                 CanPlay.Value = 1;
                 Destroy(gameObject);
             });
+            SoundEffectEvent.InvokeSOEvent(2);
         }
 
         public void GoHome()

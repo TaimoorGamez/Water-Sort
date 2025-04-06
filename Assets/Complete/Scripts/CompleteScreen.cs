@@ -149,7 +149,13 @@ namespace Core.Screen
 
         void GoNext()
         {
+            SoundEffectEvent.InvokeSOEvent(3);
             Body.DOAnchorPosX(1500, _durationTweeing).SetEase(Ease.InBack).OnComplete(() => {
+                if (LevelIndex.Value >= MaxLvlCount.Value)
+                {
+                    LevelIndex.Value = MinLvlCount.Value;
+                }
+
                 if (LevelIndex.Value <= MinLvlCount.Value)
                 {
                     InitLvlEvent.InvokeSOEvent();
@@ -158,11 +164,6 @@ namespace Core.Screen
                 else
                 {
                     ActiveStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
-                }
-
-                if (LevelIndex.Value > MaxLvlCount.Value)
-                {
-                    LevelIndex.Value = MinLvlCount.Value;
                 }
                 DestroyStatEvent.InvokeSOEvent(LevelCompleteStateIndex.Value);
             });

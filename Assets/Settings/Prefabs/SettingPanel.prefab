@@ -154,6 +154,7 @@ MonoBehaviour:
   UpdateMusicStateEvent: {fileID: 11400000, guid: 2b6c09a194e061b4397d43430881c4eb, type: 2}
   UpdateSoundStateEvent: {fileID: 11400000, guid: 9af50a3288a8bce43b8d368385473552, type: 2}
   DestroyStateEvent: {fileID: 11400000, guid: 853f6ddba0535194baa5c23d4d561386, type: 2}
+  SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
   SettingStateIndex: {fileID: 11400000, guid: 0da849fa20e2e0c419378c6b3231a7cb, type: 2}
   MusicBtn: {fileID: 8567641564306404373}
   SoundBtn: {fileID: 265755845950097325}

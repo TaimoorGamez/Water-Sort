@@ -7,7 +7,7 @@ namespace Core.Screen
 {
     public class FailScreen : MonoBehaviour
     {
-        [SerializeField] SOIntegerEvents DestroyStatEvent, ActiveStatEvent;
+        [SerializeField] SOIntegerEvents DestroyStatEvent, ActiveStatEvent, SoundEffectEvent;
         [SerializeField] SOEvents UpdateMovesEvent, RestartLevelEvent, DestroyLevelEvent;
         [SerializeField] SOInterger TotalMoves, CanPlay, MainMenuStateIndex, GamePlayStateIndex;
         [SerializeField] Transform Body;
@@ -18,6 +18,7 @@ namespace Core.Screen
         private void OnEnable()
         {
             Body.DOScale(1, _tweenTime).SetEase(Ease.OutBack);
+            SoundEffectEvent.InvokeSOEvent(2);
         }
 
         public void AddMoreMoves()
@@ -44,6 +45,7 @@ namespace Core.Screen
         void ClosePanel()
         {
             Body.DOScale(0, _tweenTime).SetEase(Ease.InBack).OnComplete(() => Destroy(gameObject));
+            SoundEffectEvent.InvokeSOEvent(2);
         }
     }
 }

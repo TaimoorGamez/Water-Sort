@@ -97,7 +97,7 @@ MonoBehaviour:
   DepositEvent: {fileID: 11400000, guid: 6431b8806ab84b143baff9e699b92781, type: 2}
   TransactionEvent: {fileID: 11400000, guid: ca73b568a3ac8364fb995af9640ffc74, type: 2}
   SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
-  CurrencyIcon: {fileID: 4292388434989829621}
+  CurrencyIcon: {fileID: 5612710695927672241, guid: 6bf40f1b4b169ab42b9d11c0840ff388, type: 3}
   CurrencyShine: {fileID: 2351056498938453773}
   CurrencyTxt: {fileID: 1732285249764788040}
   InitLocation: {fileID: 7745666749122182459}

@@ -472,7 +472,6 @@ MonoBehaviour:
   ActiveStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
   SwitchProtectorEvent: {fileID: 11400000, guid: a23a193df529a5742b69a31e2a0a2720, type: 2}
   ChangeBackgroundEvent: {fileID: 11400000, guid: b27032bfab4345e41ad29cacede8c6ef, type: 2}
-  MovesText: {fileID: 2552334045817676012}
   LvlNum: {fileID: 11400000, guid: bad89b7dfd4fe324eaaacf6e970340af, type: 2}
   LvlIndex: {fileID: 11400000, guid: 41c1752188b0e634bace9427b11cb2a0, type: 2}
   TotalMoves: {fileID: 11400000, guid: c0332282d9024b84dafaab019726f173, type: 2}
@@ -482,11 +481,14 @@ MonoBehaviour:
   GamePlayStateIndex: {fileID: 11400000, guid: d7723c4d03c616248b6e725f6734b348, type: 2}
   PauseStateIndex: {fileID: 11400000, guid: b8c7eb0e02271b14e90d732de1e1c3ff, type: 2}
   TempLevelIndex: {fileID: 11400000, guid: 1ce211a6ca2ede84c9718479db351404, type: 2}
+  MinLvl: {fileID: 11400000, guid: 97861f11d658661419c157765ea4ff3c, type: 2}
+  CurrrentLvl: {fileID: 11400000, guid: 619fe066546f4a1468e58d2c6fff0e67, type: 2}
   ColoringHolder: {fileID: 4044495243165485517}
   SwipeColorsModePanel: {fileID: 5658296870264550383}
   PowerButtons: {fileID: 5904127183862769092}
   TopBar: {fileID: 893510127590977225}
   PauseBtn: {fileID: 8619781588721761333}
+  MovesText: {fileID: 2552334045817676012}
 --- !u!1 &4492567532703147193
 GameObject:
   m_ObjectHideFlags: 0

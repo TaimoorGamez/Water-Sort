@@ -1,6 +1,7 @@
 using System.IO;
 using DG.Tweening;
 using UnityEngine;
+using Core.Events;
 using Core.GamePlay;
 using Core.Variables;
 using System.Collections;
@@ -9,6 +10,7 @@ namespace Core.Screen
 {
     public class GalaryScreen : MonoBehaviour
     {
+        [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] SOInterger MinLvlNum;
         [SerializeField] PaintingView PaintingObj;
         [SerializeField] Transform Body;
@@ -21,6 +23,7 @@ namespace Core.Screen
         private void OnEnable()
         {
             Body.DOScale(1, _tweenTime).SetEase(Ease.OutBack);
+            SoundEffectEvent.InvokeSOEvent(2);
         }
 
         private void OnDisable()
@@ -77,6 +80,7 @@ namespace Core.Screen
         public void ClosePanel()
         {
             Body.DOScale(0, _tweenTime).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
+            SoundEffectEvent.InvokeSOEvent(2);
         }
     }
 }

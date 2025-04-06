@@ -70,8 +70,8 @@ namespace Core.Screen
                 Vector3 position = new Vector3(x, y, 0) + InitLocation.position;
 
                 // Instantiate the icon at the calculated position
-                GameObject newAmount = Instantiate(CurrencyIcon, position, Quaternion.identity, transform);
-
+                GameObject newAmount = Instantiate(CurrencyIcon, transform);
+                newAmount.transform.position = position;
                 // Randomize size
                 //float randomSize = Random.Range(0.9f, 1.1f);
                 //newAmount.transform.localScale = new Vector3(randomSize, randomSize, 1);

@@ -6,11 +6,11 @@ using Core.DB.Variables;
 
 namespace Core.Screen
 {
-    public class GamePlaySettingScreen : MonoBehaviour
+    public class SettingScreen : MonoBehaviour
     {
         [SerializeField] DBInt Music, Sound;
         [SerializeField] SOEvents UpdateMusicStateEvent, UpdateSoundStateEvent;
-        [SerializeField] SOIntegerEvents DestroyStateEvent;
+        [SerializeField] SOIntegerEvents DestroyStateEvent, SoundEffectEvent;
         [SerializeField] SOInterger SettingStateIndex;
         [SerializeField] RectTransform MusicBtn, SoundBtn;
         [SerializeField] GameObject MusicOn, MusicOff, SoundOn, SoundOff;
@@ -29,6 +29,7 @@ namespace Core.Screen
             UpdateSoundState();
             MusicBtn.DOAnchorPosY(-150, _tweenTime).SetEase(Ease.OutBack);
             SoundBtn.DOAnchorPosY(-240, _tweenTime).SetEase(Ease.OutBack);
+            SoundEffectEvent.InvokeSOEvent(2);
         }
 
         private void OnDisable()
@@ -53,6 +54,7 @@ namespace Core.Screen
         {
             MusicBtn.DOAnchorPosY(-60, _tweenTime).SetEase(Ease.InBack);
             SoundBtn.DOAnchorPosY(-60, _tweenTime).SetEase(Ease.InBack).OnComplete(()=>DestroyStateEvent.InvokeSOEvent(SettingStateIndex.Value));
+            SoundEffectEvent.InvokeSOEvent(2);
         }
     }
 }
