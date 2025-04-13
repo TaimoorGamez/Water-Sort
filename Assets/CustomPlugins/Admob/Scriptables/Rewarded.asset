@@ -19,4 +19,5 @@ MonoBehaviour:
   CanMultiplyCoins: {fileID: 0}
   CanDoubleDailyReward: {fileID: 0}
   CanRewardUndo: {fileID: 0}
+  AdPlaying: {fileID: 11400000, guid: 70d43a879e72fd6479b2dc4c54eb1403, type: 2}
   ShowToastEvent: {fileID: 11400000, guid: 206e032d1b187244f94f744674e5f04e, type: 2}

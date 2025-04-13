@@ -16,5 +16,8 @@ MonoBehaviour:
   TestId: ca-app-pub-3940256099942544/1033173712
   IsTestAd: 1
   StartAdLoaing: {fileID: 11400000, guid: 50350d665ffba8640af837d04d66618c, type: 2}
+  SelfDestruction: {fileID: 11400000, guid: 20315239fbe864e449d50c954cf3cc50, type: 2}
   AdTimerComplete: {fileID: 11400000, guid: 24b21fec6b11c9741b812319f23efd01, type: 2}
+  AdPlaying: {fileID: 11400000, guid: 70d43a879e72fd6479b2dc4c54eb1403, type: 2}
   NoAdsDB: {fileID: 11400000, guid: 4b5b7094fb1defd4a801e5fb32c564f7, type: 2}
+  AdLoading: {fileID: 8995857686039382670, guid: 8140dc3419c17a3449d97c31847861c3, type: 3}

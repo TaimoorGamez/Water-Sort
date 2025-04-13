@@ -3,15 +3,17 @@ using Core.Events;
 using Core.Variables;
 using Core.DB.Variables;
 using GoogleMobileAds.Api;
+using System.Threading.Tasks;
 
 namespace Core.Plugins.Ads
 {
     [CreateAssetMenu(fileName = "Intertitial", menuName = "ScriptableObjects/Plugin/Admob/Intertitial")]
     public class SOIntertitialAd : AdHandler
     {
-        [SerializeField] SOEvents StartAdLoaing;
-        [SerializeField] SOInterger AdTimerComplete;
+        [SerializeField] SOEvents StartAdLoaing, SelfDestruction;
+        [SerializeField] SOInterger AdTimerComplete, AdPlaying;
         [SerializeField] DBInt NoAdsDB;
+        [SerializeField] GameObject AdLoading;
 
         InterstitialAd _interstitialAd;
         string _adUnitId;
@@ -54,15 +56,19 @@ namespace Core.Plugins.Ads
         {
             get
             {
-                return _interstitialAd != null && _interstitialAd.CanShowAd() && AdTimerComplete.Value == 1;
+                return _interstitialAd != null && _interstitialAd.CanShowAd() && AdTimerComplete.Value == 1 && AdPlaying.Value == 0;
             }
         }
 
-        public override void ShowAd(string detail = "")
+        public override async void ShowAd(string detail = "")
         {
             if (IsAdAvailable)
             {
+                AdPlaying.Value = 1;
+                Instantiate(AdLoading);
+                await Task.Delay(1000);
                 _interstitialAd.Show();
+                SelfDestruction.InvokeSOEvent();
             }
             else
             {
@@ -98,12 +104,14 @@ namespace Core.Plugins.Ads
             // Raised when the ad closed full screen content.
             interstitialAd.OnAdFullScreenContentClosed += () =>
             {
+                AdPlaying.Value = 0;
                 AdTimerComplete.Value = 0;
                 StartAdLoaing.InvokeSOEvent();
             };
             // Raised when the ad failed to open full screen content.
             interstitialAd.OnAdFullScreenContentFailed += (AdError error) =>
             {
+                AdPlaying.Value = 0;
                 AdTimerComplete.Value = 0;
                 StartAdLoaing.InvokeSOEvent();
             };

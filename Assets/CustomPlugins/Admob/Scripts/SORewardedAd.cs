@@ -9,7 +9,7 @@ namespace Core.Plugins.Ads
     public class SORewardedAd : AdHandler
     {
         [SerializeField] SOEvents GiveRewardEvent;
-        [SerializeField] SOInterger CanMultiplyCoins, CanDoubleDailyReward, CanRewardUndo;
+        [SerializeField] SOInterger CanMultiplyCoins, CanDoubleDailyReward, CanRewardUndo, AdPlaying;
         [SerializeField] SOIntegerEvents ShowToastEvent;
 
         RewardedAd _rewardedAd;
@@ -49,7 +49,7 @@ namespace Core.Plugins.Ads
         {
             get
             {
-                return _rewardedAd != null && _rewardedAd.CanShowAd();
+                return _rewardedAd != null && _rewardedAd.CanShowAd() && AdPlaying.Value == 0; 
             }
         }
 
@@ -57,6 +57,7 @@ namespace Core.Plugins.Ads
         {
             if (IsAdAvailable)
             {
+                AdPlaying.Value = 1;
                 _rewardedAd.Show((Reward reward) =>
                 {
                     GrantReward(detail);
@@ -97,6 +98,7 @@ namespace Core.Plugins.Ads
             ad.OnAdFullScreenContentClosed += () =>
             {
                 //Debug.Log("Rewarded ad full screen content closed.");
+                AdPlaying.Value = 0;
                 LoadAd();
             };
             // Raised when the ad failed to open full screen content.
@@ -104,6 +106,7 @@ namespace Core.Plugins.Ads
             {
                 //Debug.LogError("Rewarded ad failed to open full screen content " +
                 //               "with error : " + error);
+                AdPlaying.Value = 0;
                 LoadAd();
             };
         }
