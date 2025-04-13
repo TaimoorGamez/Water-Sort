@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 using Core.Events;
-//using Core.Plugins;
+using Core.Plugins;
 using Core.GamePlay;
 using Core.Variables;
 using Core.DB.Variables;
@@ -10,7 +10,7 @@ namespace Core.Screen
 {
     public class SplashScreen : MonoBehaviour
     {
-        //[SerializeField] Initialization FirebaseInit;
+        [SerializeField] Initialization FirebaseInit;
         [SerializeField] ItemData DefaultCap, DefaultFlame, DefaultSpray;
         [SerializeField] SOEvents InitLevelEvent;
         [SerializeField] DBInt LvlNum, FFT;
@@ -30,7 +30,7 @@ namespace Core.Screen
                 DefaultSpray.IsPurchased = true;
                 FFT.Value = 1;
             }
-            //FirebaseInit.InitPlugin();
+            FirebaseInit.InitPlugin();
             FillImage.DOScaleX(1, _loadingTime).SetEase(Ease.Linear).OnComplete(()=> {
                 if (LvlNum.Value <= MinLvlNum.Value)
                 {

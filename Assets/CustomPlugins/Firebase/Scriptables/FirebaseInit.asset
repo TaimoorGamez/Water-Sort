@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fef6017e2cbc50f48ac8120b9ea33fa6, type: 3}
+  m_Name: FirebaseInit
+  m_EditorClassIdentifier: 
+  IsFirebaseInit: {fileID: 11400000, guid: e26e6baab10951f4d85f4af66b38941c, type: 2}
+  AdData: {fileID: 11400000, guid: 1858b44bb997abb40a0fae20c73efda8, type: 2}
+  AdmobInitilization: {fileID: 11400000, guid: a26288d8f379acf48b848d1bfd607697, type: 2}
