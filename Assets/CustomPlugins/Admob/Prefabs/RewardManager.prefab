@@ -24,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 351130746275653976}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5571441895954660537
 MonoBehaviour:
@@ -49,9 +49,11 @@ MonoBehaviour:
   IntertitialAd: {fileID: 11400000, guid: ee42e038ce12a4745b5685ad50222eab, type: 2}
   NoAdsBuyEvent: {fileID: 11400000, guid: b87b08539310f6242a123f2998bec312, type: 2}
   StartLoadingAdsEvent: {fileID: 11400000, guid: 50350d665ffba8640af837d04d66618c, type: 2}
-  GiveRewardEvent: {fileID: 11400000, guid: e5327f9264e7db64ea7d6bc3f675687b, type: 2}
+  GrantRewardEvent: {fileID: 11400000, guid: b0cddec1f93f06944bf564f0e954a3ac, type: 2}
   CompletePanelRewardEvent: {fileID: 11400000, guid: d3f9633bcdf15f74bad729a77232436a, type: 2}
   DoubleDailyRewardEvent: {fileID: 11400000, guid: 127c260ed06521e4cb0dd4116b0b3e75, type: 2}
+  AddMovesEvent: {fileID: 11400000, guid: 1e292c902e9441c4e92a9c99e653548d, type: 2}
   AdTimerComplete: {fileID: 11400000, guid: 24b21fec6b11c9741b812319f23efd01, type: 2}
   CanRewardSpin: {fileID: 11400000, guid: 615ab864a5d37d24c8441fb69866129d, type: 2}
+  CanAddMoves: {fileID: 11400000, guid: 0ad12b6e7f6be1146a392964966495b2, type: 2}
   CanRewardOnComplete: {fileID: 11400000, guid: 19ab98e1383380b4e999f9e608fe0a0a, type: 2}

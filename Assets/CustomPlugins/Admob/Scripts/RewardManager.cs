@@ -11,22 +11,23 @@ namespace Core.Plugins.Ads
         [SerializeField] DBInt NoAds;
         [SerializeField] AdDataHandler AdData;
         [SerializeField] AdHandler IntertitialAd;
-        [SerializeField] SOEvents NoAdsBuyEvent, StartLoadingAdsEvent, GiveRewardEvent, CompletePanelRewardEvent, DoubleDailyRewardEvent;
-        [SerializeField] SOInterger AdTimerComplete, CanRewardSpin, CanRewardOnComplete;
+        [SerializeField] SOEvents NoAdsBuyEvent, StartLoadingAdsEvent, GrantRewardEvent, CompletePanelRewardEvent, DoubleDailyRewardEvent,
+                                  AddMovesEvent;
+        [SerializeField] SOInterger AdTimerComplete, CanRewardSpin, CanAddMoves, CanRewardOnComplete;
 
         Coroutine _rewardRotine, _adsRotine;
         bool _isEnable = false;
 
         private void OnEnable()
         {
-            //GiveRewardEvent.EventHandler += PlayRewardCorotine;
+            GrantRewardEvent.EventHandler += PlayRewardCorotine;
             StartLoadingAdsEvent.EventHandler += StartLoadingAds;
             NoAdsBuyEvent.EventHandler += StopAds;
         }
 
         private void OnDisable()
         {
-            //GiveRewardEvent.EventHandler -= PlayRewardCorotine;
+            GrantRewardEvent.EventHandler -= PlayRewardCorotine;
             StartLoadingAdsEvent.EventHandler -= StartLoadingAds;
             NoAdsBuyEvent.EventHandler -= StopAds;
             CustomDisable();
@@ -35,60 +36,33 @@ namespace Core.Plugins.Ads
         void PlayRewardCorotine()
         {
             _isEnable = true;
-            //_rewardRotine = StartCoroutine(RewardCorotine());
+            _rewardRotine = StartCoroutine(RewardCorotine());
         }
 
-        //IEnumerator RewardCorotine()
-        //{
-        //    WaitForSeconds wait = new WaitForSeconds(0.01f);
-        //    while (_isEnable)
-        //    {
-        //        yield return wait;
-        //        if (CanRewardGems.GetValue())
-        //        {
-        //            CanRewardGems.SetValue(false);
-        //            RewardExtraGems.Invoke();
-        //            _isEnable = false;
-        //        }
-        //        else if (CanRewardCoins.GetValue())
-        //        {
-        //            CanRewardCoins.SetValue(false);
-        //            RewardExtraCoinsEvent.Invoke();
-        //            _isEnable = false;
-        //        }
-        //        else if (CanRewardSpin.GetValue())
-        //        {
-        //            CanRewardSpin.SetValue(false);
-        //            RewardSpinWheelEvent.Invoke();
-        //            _isEnable = false;
-        //        }
-        //        else if (CanRewardOnComplete.GetValue())
-        //        {
-        //            CanRewardOnComplete.SetValue(false);
-        //            CompletePanelRewardEvent.Invoke();
-        //            _isEnable = false;
-        //        }
-        //        else if (CanReviveReward.GetValue())
-        //        {
-        //            CanReviveReward.SetValue(false);
-        //            RevivePanelRewardEvent.Invoke();
-        //            _isEnable = false;
-        //        }
-        //        else if (CanRewardRoll.GetValue())
-        //        {
-        //            CanRewardRoll.SetValue(false);
-        //            RewardFreeRollEvent.Invoke();
-        //            _isEnable = false;
-        //        }
-        //        else if (CanRewardStars.GetValue())
-        //        {
-        //            CanRewardStars.SetValue(false);
-        //            RewardExtraStars.Invoke();
-        //            _isEnable = false;
-        //        }
-        //    }
-        //    CustomDisable();
-        //}
+        IEnumerator RewardCorotine()
+        {
+            WaitForSeconds wait = new WaitForSeconds(0.01f);
+            while (_isEnable)
+            {
+                yield return wait;
+                if (CanAddMoves.Value == 1)
+                {
+                    CanAddMoves.Value = 0;
+                    AddMovesEvent.InvokeSOEvent();
+                    _isEnable = false;
+                }
+                //else if (CanRewardCoins.GetValue())
+                //{
+                //    CanRewardCoins.SetValue(false);
+                //    RewardExtraCoinsEvent.Invoke();
+                //    _isEnable = false;
+                //}
+            }
+            if (_rewardRotine != null)
+            {
+                StopCoroutine(_rewardRotine);
+            }
+        }
 
         void StartLoadingAds()
         {

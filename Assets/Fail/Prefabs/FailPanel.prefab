@@ -443,6 +443,7 @@ MonoBehaviour:
   UpdateMovesEvent: {fileID: 11400000, guid: fe63d3e2311d8fc45b9e575a701d2292, type: 2}
   RestartLevelEvent: {fileID: 11400000, guid: 4e9a7e556dcd27740a95945b73a22a1d, type: 2}
   DestroyLevelEvent: {fileID: 11400000, guid: 462f5b56355cc214fb4c4775d6a87709, type: 2}
+  MoreMovesEvent: {fileID: 11400000, guid: 1e292c902e9441c4e92a9c99e653548d, type: 2}
   TotalMoves: {fileID: 11400000, guid: c0332282d9024b84dafaab019726f173, type: 2}
   CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
   MainMenuStateIndex: {fileID: 11400000, guid: 5b4f6ec2cf4170d4b973dfba16e1515f, type: 2}
@@ -946,6 +947,30 @@ PrefabInstance:
     - target: {fileID: 2640109034732669052, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
       propertyPath: m_Name
       value: RV
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175025373427661188, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175025373427661188, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 11400000, guid: f262af9c90e54594fac7d6d50edcfa73, type: 2}
+    - target: {fileID: 5175025373427661188, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ShowAd
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175025373427661188, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Core.Plugins.Ads.SORewardedAd, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175025373427661188, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: AddMoves
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175025373427661188, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7530474994064364851, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

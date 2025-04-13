@@ -8,7 +8,7 @@ namespace Core.Screen
     public class FailScreen : MonoBehaviour
     {
         [SerializeField] SOIntegerEvents DestroyStatEvent, ActiveStatEvent, SoundEffectEvent;
-        [SerializeField] SOEvents UpdateMovesEvent, RestartLevelEvent, DestroyLevelEvent;
+        [SerializeField] SOEvents UpdateMovesEvent, RestartLevelEvent, DestroyLevelEvent, MoreMovesEvent;
         [SerializeField] SOInterger TotalMoves, CanPlay, MainMenuStateIndex, GamePlayStateIndex;
         [SerializeField] Transform Body;
 
@@ -17,11 +17,17 @@ namespace Core.Screen
 
         private void OnEnable()
         {
+            MoreMovesEvent.EventHandler += AddMoreMoves;
             Body.DOScale(1, _tweenTime).SetEase(Ease.OutBack);
             SoundEffectEvent.InvokeSOEvent(2);
         }
 
-        public void AddMoreMoves()
+        private void OnDisable()
+        {
+            MoreMovesEvent.EventHandler -= AddMoreMoves;
+        }
+
+        void AddMoreMoves()
         {
             ClosePanel();
             TotalMoves.Value += _extraMoves;

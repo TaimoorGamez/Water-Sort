@@ -8,8 +8,8 @@ namespace Core.Plugins.Ads
     [CreateAssetMenu(fileName = "Rewarded", menuName = "ScriptableObjects/Plugin/Admob/Rewarded")]
     public class SORewardedAd : AdHandler
     {
-        [SerializeField] SOEvents GiveRewardEvent;
-        [SerializeField] SOInterger CanMultiplyCoins, CanDoubleDailyReward, CanRewardUndo, AdPlaying;
+        [SerializeField] SOEvents GrantRewardEvent;
+        [SerializeField] SOInterger CanSpin, CanDoubleDailyReward, CanRewardUndo, CanAddMoves, AdPlaying;
         [SerializeField] SOIntegerEvents ShowToastEvent;
 
         RewardedAd _rewardedAd;
@@ -116,7 +116,7 @@ namespace Core.Plugins.Ads
             switch (rewardName)
             {
                 case "MultiplyCoins":
-                    CanMultiplyCoins.Value = 1;
+                    CanSpin.Value = 1;
                     break;
 
                 case "DoubleDailyReward":
@@ -126,8 +126,12 @@ namespace Core.Plugins.Ads
                 case "RewardUndo":
                     CanRewardUndo.Value = 1;
                     break;
+
+                case "AddMoves":
+                    CanAddMoves.Value = 1;
+                    break;
             }
-            GiveRewardEvent.InvokeSOEvent();
+            GrantRewardEvent.InvokeSOEvent();
         }
     }
 }
