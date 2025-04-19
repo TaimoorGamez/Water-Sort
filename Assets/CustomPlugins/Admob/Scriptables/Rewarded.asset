@@ -16,9 +16,7 @@ MonoBehaviour:
   TestId: ca-app-pub-3940256099942544/5224354917
   IsTestAd: 1
   GrantRewardEvent: {fileID: 11400000, guid: b0cddec1f93f06944bf564f0e954a3ac, type: 2}
-  CanSpin: {fileID: 0}
-  CanDoubleDailyReward: {fileID: 0}
-  CanRewardUndo: {fileID: 0}
+  CanMultiply: {fileID: 11400000, guid: 076e767e42ec7044991d3fa162a3d1d7, type: 2}
   CanAddMoves: {fileID: 11400000, guid: 0ad12b6e7f6be1146a392964966495b2, type: 2}
   AdPlaying: {fileID: 11400000, guid: 70d43a879e72fd6479b2dc4c54eb1403, type: 2}
   ShowToastEvent: {fileID: 11400000, guid: 206e032d1b187244f94f744674e5f04e, type: 2}

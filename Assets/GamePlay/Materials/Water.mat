@@ -100,7 +100,7 @@ Material:
     m_Floats:
     - _AlphaClip: 0
     - _AlphaValue: -14.31
-    - _BackFace: 7
+    - _BackFace: 3.5
     - _Blend: 0
     - _BlendAmount: 0.5
     - _BlendOp: 0
@@ -130,7 +130,7 @@ Material:
     - _GlossinessSource: 0
     - _GlossyReflections: 0
     - _Glow: 0
-    - _GlowStrength: 1
+    - _GlowStrength: 2.5
     - _HideAmount: 0
     - _HideRange: 0
     - _HideRangeMax: 0

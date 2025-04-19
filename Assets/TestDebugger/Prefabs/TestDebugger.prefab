@@ -428,7 +428,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TextScrol: {fileID: 1638194097033927175}
   DebugParent: {fileID: 3017337583627105139}
-  DebuggerTextPrefab: {fileID: 925300748836797381, guid: d54d9c162d4f86b42bd8ff7cf19ce3f0, type: 3}
+  DebuggerTextPrefab: {fileID: 7576785162185652971, guid: d54d9c162d4f86b42bd8ff7cf19ce3f0, type: 3}
   TestDebuggerBtn: {fileID: 1810880059998609465}
   TestDebuggerPanel: {fileID: 6272373740418818097}
 --- !u!1 &7926338909119545784

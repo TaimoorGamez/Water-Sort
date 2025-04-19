@@ -9,7 +9,7 @@ namespace Core.Plugins.Ads
     public class SORewardedAd : AdHandler
     {
         [SerializeField] SOEvents GrantRewardEvent;
-        [SerializeField] SOInterger CanSpin, CanDoubleDailyReward, CanRewardUndo, CanAddMoves, AdPlaying;
+        [SerializeField] SOInterger CanMultiply , CanAddMoves, AdPlaying;
         [SerializeField] SOIntegerEvents ShowToastEvent;
 
         RewardedAd _rewardedAd;
@@ -115,16 +115,8 @@ namespace Core.Plugins.Ads
         {
             switch (rewardName)
             {
-                case "MultiplyCoins":
-                    CanSpin.Value = 1;
-                    break;
-
-                case "DoubleDailyReward":
-                    CanDoubleDailyReward.Value = 1;
-                    break;
-
-                case "RewardUndo":
-                    CanRewardUndo.Value = 1;
+                case "MultiplyReward":
+                    CanMultiply.Value = 1;
                     break;
 
                 case "AddMoves":

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +8,7 @@ namespace Core.TestDebugging
     {
         [SerializeField] ScrollRect TextScrol;
         [SerializeField] RectTransform DebugParent;
-        [SerializeField] Text DebuggerTextPrefab;
+        [SerializeField] TextMeshProUGUI DebuggerTextPrefab;
         [SerializeField] Button TestDebuggerBtn;
         [SerializeField] GameObject TestDebuggerPanel;
 
@@ -27,7 +28,7 @@ namespace Core.TestDebugging
 
         void HandleLogs(string logString, string stackTrace, LogType logtype)
         {
-            Text newLogText = Instantiate(DebuggerTextPrefab, DebugParent);
+            TextMeshProUGUI newLogText = Instantiate(DebuggerTextPrefab, DebugParent);
             newLogText.text = logString;
             LayoutRebuilder.ForceRebuildLayoutImmediate(DebugParent);
             TextScrol.normalizedPosition = new Vector2(0, 0);

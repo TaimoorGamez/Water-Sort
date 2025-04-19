@@ -17,22 +17,32 @@ namespace Core.Screen
         [SerializeField] Currency Coins;
         [SerializeField] DBInt LevelIndex, LvlNum;
         [SerializeField] SOInterger LevelStars, CanPlay, MainMenuStateIndex, LevelMoves, DetailsApplied, GamePlayState, LevelCompleteStateIndex,
-                                     MinLvlCount, MaxLvlCount, TempLvlIndex;
+                                     MinLvlCount, MaxLvlCount, TempLvlIndex, CurrentMultiplayer;
         [SerializeField] SOIntegerEvents SoundEffectEvent, ActiveStateEvent, DestroyStatEvent;
-        [SerializeField] SOEvents DestroyLevelEvent, InitLvlEvent;
-        [SerializeField] RectTransform Body;
-        [SerializeField] RectTransform StarsObj;
+        [SerializeField] SOEvents DestroyLevelEvent, InitLvlEvent, MultiplayRewardEvent;
         [SerializeField] TextMeshProUGUI LevelBonusText, StarsBonusText, DetailsBonusText, MovesBonusText, TotalBonusText;
         [SerializeField] Camera ScreenshotCamera;
         [SerializeField] RenderTexture TargetTexture;
         [SerializeField] RawImage DisplayImage;
         [SerializeField] Image[] StarsImg;
+        [SerializeField] RectTransform Body, StarsObj, NextBtn;
+        [SerializeField] GameObject MultiplayerBar, RvBtn;
 
         float _starsPos = 100, _durationTweeing = 1f;
         bool _onceClicked = true;
         int _levelBonus = 15, _starsBonus = 10, _detailsBonus = 0, _totalBonus = 0; 
         Coroutine _screenShotRotine;
         string _starsDataPath;
+
+        private void OnEnable()
+        {
+            MultiplayRewardEvent.EventHandler += OnMultiplyReward;
+        }
+
+        private void OnDisable()
+        {
+            MultiplayRewardEvent.EventHandler -= OnMultiplyReward;
+        }
 
         void Start()
         {
@@ -43,6 +53,14 @@ namespace Core.Screen
         void OnPanelVisible()
         {
             DestroyStatEvent.InvokeSOEvent(GamePlayState.Value);
+            if (LvlNum.Value >= MinLvlCount.Value)
+            {
+                NextBtn.DOAnchorPos(new Vector2(-120, -430), _durationTweeing).SetEase(Ease.InOutBack).OnComplete(() =>
+                {
+                    MultiplayerBar.SetActive(true);
+                    RvBtn.SetActive(true);
+                });
+            }
             StarsObj.DOAnchorPosY(_starsPos, _durationTweeing).SetEase(Ease.OutBack);
             StarsObj.DOScale(1, _durationTweeing).SetEase(Ease.OutBack).OnComplete(() => {
                 DisplayImage.gameObject.SetActive(true);
@@ -129,6 +147,22 @@ namespace Core.Screen
                 return JsonUtility.FromJson<GameData>(json);
             }
             return new GameData();
+        }
+
+        void OnMultiplyReward()
+        {
+            if (!_onceClicked)
+            {
+                _onceClicked = true;
+                CanPlay.Value = 0;
+                Coins.Amount += (_totalBonus * CurrentMultiplayer.Value);
+                if (TempLvlIndex.Value == -1)
+                {
+                    LvlNum.Value++;
+                    LevelIndex.Value++;
+                }
+                Invoke(nameof(GoNext), 2);
+            }
         }
 
         public void OnClickNext()
