@@ -107,6 +107,7 @@ namespace Core.Screen
         {
             for (int c = 0; c < _currencyIconArray.Length; c++)
             {
+                DOTween.Kill(_currencyIconArray[c]);
                 Destroy(_currencyIconArray[c]);
             }
             if (_depositRotine != null)
