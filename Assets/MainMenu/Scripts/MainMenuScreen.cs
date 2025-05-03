@@ -1,16 +1,25 @@
+using TMPro;
+using DG.Tweening;
 using UnityEngine;
 using Core.Events;
 using Core.Plugins;
 using Core.Variables;
+using Core.DB.Variables;
 
 namespace Core.Screen
 {
     public class MainMenuScreen : MonoBehaviour
     {
+        [SerializeField] DBInt LvlNum;
         [SerializeField] Initialization FirebaseInit, AdmobInit;
         [SerializeField] SOEvents InitLevelEvent;
         [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, SettingStateIndex, TempLvlIndex, IsFirebaseInit;
         [SerializeField] SOIntegerEvents ActiveStateEvent, DestroyStateEvent, ChangeBackgroundEvent;
+        [SerializeField] TextMeshProUGUI[] Lvls;
+        [SerializeField] Transform LevelView;
+        [SerializeField] RectTransform LevelsHolder;
+
+        int _activeLvl = 4;
 
         private void OnEnable()
         {
@@ -33,6 +42,24 @@ namespace Core.Screen
             {
                 FirebaseInit.InitPlugin();
             }
+
+            for (int l = 0; l < Lvls.Length; l++)
+            {
+                if (l < _activeLvl)
+                {
+                    Lvls[l].text = (LvlNum.Value - (_activeLvl - l)).ToString();
+                }
+                else if (l > _activeLvl)
+                {
+                    Lvls[l].text = (LvlNum.Value + (l- _activeLvl)).ToString();
+                }
+                else
+                {
+                    Lvls[l].text = LvlNum.Value.ToString();
+                }
+            }
+
+            LevelView.DOScale(1, 1).SetEase(Ease.OutBack).OnComplete(()=> LevelsHolder.DOAnchorPosY(150,1).SetEase(Ease.OutBack));
         }
 
         public void OnClickPlayButton()
