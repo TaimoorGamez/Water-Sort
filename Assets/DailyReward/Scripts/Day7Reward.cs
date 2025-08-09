@@ -1,15 +1,15 @@
 using TMPro;
 using System;
 using UnityEngine;
-using Core.Economy;
+using Core.DB.Variables;
 
 namespace ProjectCore.DailyReward
 {
     public class Day7Reward : DailyRewardHandler
     {
-        [SerializeField] Currency GemEconomy;
-        [SerializeField] int GemAmount;
-        [SerializeField] TextMeshProUGUI[] GemText;
+        [SerializeField] DBInt RemainingTubes;
+        [SerializeField] int TubeCounts;
+        [SerializeField] TextMeshProUGUI[] TubesText;
 
         protected override void OnEnable()
         {
@@ -24,36 +24,35 @@ namespace ProjectCore.DailyReward
         protected override void UpdateUI()
         {
             base.UpdateUI();
+            for (int i = 0; i < AmountText.Length; i++)
+{
+    AmountText[i].text = Amount.ToString();
+}
 
-            foreach (TextMeshProUGUI txt in AmountText)
-            {
-                txt.text = Amount + " COINS";
-            }
+for (int i = 0; i < TubesText.Length; i++)
+{
+    TubesText[i].text = TubeCounts.ToString();
+}
 
-            foreach (TextMeshProUGUI txt in GemText)
-            {
-                txt.text = GemAmount.ToString() + " GEMS";
-            }
         }
 
         protected override void OnClickBuyButton()
         {
             base.OnClickBuyButton();
-            GemEconomy.Amount += GemAmount;
+            RemainingTubes.Value += TubeCounts;
             try
             {
-                FBEvents.EarnCoinsEvent("Gems", Amount, "DailyReward");
+                FBEvents.EarnCoinsEvent("Tube", Amount, "DailyReward");
             }
             catch (Exception e)
             {
                 Debug.Log("***Exception " + e);
             }
-
         }
 
         protected override void GrantDoubleReward()
         {
-            GemEconomy.Amount += (GemAmount * 2);
+            RemainingTubes.Value += (TubeCounts * 2);
             base.GrantDoubleReward();
         }
     }

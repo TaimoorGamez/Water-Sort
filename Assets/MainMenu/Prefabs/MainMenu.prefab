@@ -365,7 +365,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1828088100631819775
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1732,9 +1732,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LastDate: {fileID: 11400000, guid: c1b6ca48187cef544a4d09e487feb5a2, type: 2}
-  ToDay: {fileID: 0}
+  ToDay: {fileID: 11400000, guid: 4ded294b7c568394e9d67d5850702175, type: 2}
+  UpDateState: {fileID: 11400000, guid: 095179574b1f2944f9fc36cd19aa51e0, type: 2}
   DailyRewardView: {fileID: 3109995994412355707}
+  NotificationIcon: {fileID: 3490708975624450144}
   RemainingTimeText: {fileID: 7855437318104360460}
+  PanelTimer: {fileID: 6992276687796651810}
 --- !u!1 &8020761333599332085
 GameObject:
   m_ObjectHideFlags: 0
@@ -2505,6 +2508,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 646889927895122455, guid: 023649677c2d5bb4caaf3a14fd432720, type: 3}
   m_PrefabInstance: {fileID: 4676960746314183428}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6992276687796651810 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2445007771743941670, guid: 023649677c2d5bb4caaf3a14fd432720, type: 3}
+  m_PrefabInstance: {fileID: 4676960746314183428}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5669007861779478850
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2822,7 +2836,7 @@ PrefabInstance:
       objectReference: {fileID: 1187741445415994898, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
     - target: {fileID: 6840285968148839464, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2248207
+      value: 2879544.2
       objectReference: {fileID: 0}
     - target: {fileID: 7414877830895607215, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_sharedMaterial

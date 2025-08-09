@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using Core.Events;
 using Core.DB.Variables;
@@ -8,10 +9,18 @@ namespace ProjectCore.DailyReward
     {
         [SerializeField] DBInt RewardClaimed;
         [SerializeField] SOEvents UpDateState;
-        [SerializeField] GameObject ClaimBtnsObj, TimerTextObj, RewardsObj;
+        [SerializeField] GameObject ClaimBtnsObj, TimerTextObj;
+        [SerializeField] RectTransform[] RewardItems;
+        [SerializeField] RectTransform Body;
 
-        private void Awake()
+        float _durationTweeing = 1f;
+
+        private void Start()
         {
+            if(RewardClaimed.Value == 1)
+            {
+                UpDateState.InvokeSOEvent();
+            }
             CheckViewState();
         }
 
@@ -20,9 +29,13 @@ namespace ProjectCore.DailyReward
             UpDateState.EventHandler += CheckViewState;
         }
 
+        private void OnDisable()
+        {
+            UpDateState.EventHandler -= CheckViewState;
+        }
+
         private void CheckViewState()
         {
-            RewardsObj.SetActive(false);
             if (RewardClaimed.Value == 0)
             {
                 ClaimBtnsObj.SetActive(true);
@@ -33,11 +46,14 @@ namespace ProjectCore.DailyReward
                 ClaimBtnsObj.SetActive(false);
                 TimerTextObj.SetActive(true);
             }
-            RewardsObj.SetActive(true);
-        }
-        private void OnDisable()
-        {
-            UpDateState.EventHandler -= CheckViewState;
+            Body.DOAnchorPosX(0, _durationTweeing).SetEase(Ease.OutBack).OnComplete(() =>
+            {
+                for (int i = 0; i < RewardItems.Length; i++)
+                {
+                    RewardItems[i].DOScale(Vector3.one, _durationTweeing).SetEase(Ease.OutBack);
+                }
+            });
+
         }
     }
 }

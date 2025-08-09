@@ -31,16 +31,17 @@ namespace ProjectCore.DailyReward
         }
 
         protected virtual void UpdateUI()
-        {
-            foreach (TextMeshProUGUI txt in DayText)
-            {
-                txt.text = "DAY " + RewardDay.ToString();
-            }
+        {for (int i = 0; i < DayText.Length; i++)
+{
+    DayText[i].text = "DAY " + RewardDay.ToString();
+}
 
-            foreach (TextMeshProUGUI txt in AmountText)
-            {
-                txt.text = Amount.ToString();
-            }
+
+           
+            for (int i = 0; i < AmountText.Length; i++)
+{
+    AmountText[i].text = Amount.ToString();
+}
         }
 
         protected void Update()
@@ -64,11 +65,11 @@ namespace ProjectCore.DailyReward
             {
                 if (ToDay.Value < RewardDay)
                 {
-                    ActiveState(0);
+                    ActiveState(2);
                 }
                 else
                 {
-                    ActiveState(2);
+                    ActiveState(0);
                 }
             }
         }
