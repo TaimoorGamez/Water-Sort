@@ -8,15 +8,12 @@ namespace Core.Screen
 {
     public class WaterSortGameScreen : MonoBehaviour
     {
-        [SerializeField] SOEvents UpdateMovesEvent, StartColoringEvent, RestartLevelEvent;
+        [SerializeField] SOEvents UpdateMovesEvent, StartColoringEvent;
         [SerializeField] SOIntegerEvents ActiveStateEvent, SwitchProtectorEvent, ChangeBackgroundEvent;
-        [SerializeField] DBInt LvlNum, LvlIndex;
-        [SerializeField] SOInterger TotalMoves, CanPlay, LevelFailStateIndex, CompletedTubes, GamePlayStateIndex, PauseStateIndex, TempLevelIndex, MinLvl, CurrrentLvl;
-        [SerializeField] Transform ColoringHolder;
+        [SerializeField] DBInt LvlNum;
+        [SerializeField] SOInterger TotalMoves, CanPlay, LevelFailStateIndex, CompletedTubes, GamePlayStateIndex, PauseStateIndex, MinLvl, CurrrentLvl;
         [SerializeField] GameObject SwipeColorsModePanel, PowerButtons, TopBar, PauseBtn;
         [SerializeField] TextMeshProUGUI MovesText;
-
-        string _coloringPath = "ColoringPart/lvl ";
 
         private void OnEnable()
         {
@@ -24,7 +21,6 @@ namespace Core.Screen
             SwitchProtectorEvent.EventHandler += SwitchProtector;
             UpdateMovesEvent.EventHandler += UpdateMovesText;
             StartColoringEvent.EventHandler += PrepareForColoring;
-            RestartLevelEvent.EventHandler += RegenrateColoring;
         }
 
         private void OnDisable()
@@ -32,7 +28,6 @@ namespace Core.Screen
             SwitchProtectorEvent.EventHandler -= SwitchProtector;
             UpdateMovesEvent.EventHandler -= UpdateMovesText;
             StartColoringEvent.EventHandler -= PrepareForColoring;
-            RestartLevelEvent.EventHandler -= RegenrateColoring;
         }
 
         private void Start()
@@ -47,13 +42,6 @@ namespace Core.Screen
                 PowerButtons.SetActive(true);
                 PauseBtn.SetActive(true);
             }
-            Instantiate(Resources.Load(_coloringPath + (TempLevelIndex.Value == -1 ? LvlIndex.Value : TempLevelIndex.Value)), ColoringHolder);
-        }
-
-        void RegenrateColoring()
-        {
-            Destroy(ColoringHolder.GetChild(0).gameObject); 
-            Instantiate(Resources.Load(_coloringPath + (TempLevelIndex.Value == -1 ? LvlIndex.Value : TempLevelIndex.Value)), ColoringHolder);
         }
 
         void SwitchProtector(int state)
