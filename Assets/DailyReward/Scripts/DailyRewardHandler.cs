@@ -16,7 +16,7 @@ namespace ProjectCore.DailyReward
         [SerializeField] protected SOInterger GiveReward;
         [SerializeField] protected FireBaseEvents FBEvents;
         [SerializeField] protected SOEvents UpDateState, DoubleRewardEvent;
-        [SerializeField] protected DBInt ToDay , RewardClaimed;
+        [SerializeField] protected DBInt ToDay, RewardClaimed;
         [SerializeField] protected TextMeshProUGUI[] DayText, AmountText;
         [SerializeField] protected Button BuyButton, DoubleRewardButton;
         [SerializeField] protected GameObject[] RewardState;

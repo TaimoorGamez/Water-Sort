@@ -416,7 +416,7 @@ MonoBehaviour:
   m_text: 00:00:00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
-  m_sharedMaterial: {fileID: -2926908603376855959, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
+  m_sharedMaterial: {fileID: 1187741445415994898, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -440,7 +440,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 26.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1732,7 +1732,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LastDate: {fileID: 11400000, guid: c1b6ca48187cef544a4d09e487feb5a2, type: 2}
-  ToDay: {fileID: 11400000, guid: 4ded294b7c568394e9d67d5850702175, type: 2}
+  ToDay: {fileID: 0}
   DailyRewardView: {fileID: 3109995994412355707}
   RemainingTimeText: {fileID: 7855437318104360460}
 --- !u!1 &8020761333599332085
@@ -2432,7 +2432,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 646889927895122455, guid: 023649677c2d5bb4caaf3a14fd432720, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 646889927895122455, guid: 023649677c2d5bb4caaf3a14fd432720, type: 3}
       propertyPath: m_SizeDelta.y
@@ -2489,10 +2489,6 @@ PrefabInstance:
     - target: {fileID: 7768440963824264063, guid: 023649677c2d5bb4caaf3a14fd432720, type: 3}
       propertyPath: m_Name
       value: DailyPanel
-      objectReference: {fileID: 0}
-    - target: {fileID: 7768440963824264063, guid: 023649677c2d5bb4caaf3a14fd432720, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2710,12 +2706,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 611701851670796904, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_Size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 611701851670796904, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_Value
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1491736852000773736, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1187741445415994898, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
+    - target: {fileID: 1838188795262097137, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1187741445415994898, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
     - target: {fileID: 4262507152424012101, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2800,6 +2804,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4592081820139515765, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1187741445415994898, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
     - target: {fileID: 4935485312869302789, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2808,10 +2816,30 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5330726352146180267, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1187741445415994898, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
     - target: {fileID: 6840285968148839464, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 905007
+      value: 2248207
       objectReference: {fileID: 0}
+    - target: {fileID: 7414877830895607215, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1187741445415994898, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
+    - target: {fileID: 7841891723749465377, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1187741445415994898, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
+    - target: {fileID: 7994426726917101998, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1187741445415994898, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
+    - target: {fileID: 8358261199141841434, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1187741445415994898, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
     - target: {fileID: 8561396819969442813, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_Name
       value: Level View
@@ -2824,6 +2852,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9213957521339812261, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1187741445415994898, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3142,6 +3174,10 @@ PrefabInstance:
       value: CashBar
       objectReference: {fileID: 0}
     - target: {fileID: 1732285249764788040, guid: f743f92d80369774690fccfe4f017d93, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1187741445415994898, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
+    - target: {fileID: 1732285249764788040, guid: f743f92d80369774690fccfe4f017d93, type: 3}
       propertyPath: m_ActiveFontFeatures.Array.data[0]
       value: 1801810542
       objectReference: {fileID: 0}
@@ -3251,6 +3287,10 @@ PrefabInstance:
       propertyPath: m_text
       value: PLAY
       objectReference: {fileID: 0}
+    - target: {fileID: 652321372930365080, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1187741445415994898, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
     - target: {fileID: 652321372930365080, guid: 7983939cce9e1fc428067e95dd63e2bc, type: 3}
       propertyPath: m_ActiveFontFeatures.Array.data[0]
       value: 1801810542

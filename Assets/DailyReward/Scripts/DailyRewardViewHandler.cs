@@ -8,7 +8,7 @@ namespace ProjectCore.DailyReward
     {
         [SerializeField] DBInt RewardClaimed;
         [SerializeField] SOEvents UpDateState;
-        [SerializeField] GameObject ClaimBtnsObj, TimerTextObj, RewardsObj, NotificationObj;
+        [SerializeField] GameObject ClaimBtnsObj, TimerTextObj, RewardsObj;
 
         private void Awake()
         {
@@ -26,13 +26,11 @@ namespace ProjectCore.DailyReward
             if (RewardClaimed.Value == 0)
             {
                 ClaimBtnsObj.SetActive(true);
-                NotificationObj.SetActive(true);
                 TimerTextObj.SetActive(false);
             }
             else
             {
                 ClaimBtnsObj.SetActive(false);
-                NotificationObj.SetActive(false);
                 TimerTextObj.SetActive(true);
             }
             RewardsObj.SetActive(true);

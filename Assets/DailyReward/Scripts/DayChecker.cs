@@ -10,7 +10,7 @@ namespace ProjectCore.DailyReward
     public class DayChecker : MonoBehaviour
     {
         [SerializeField] DBString LastDate;
-        [SerializeField] SOInterger ToDay;
+        [SerializeField] DBInt ToDay;
         [SerializeField] GameObject DailyRewardView;
         [SerializeField] TextMeshProUGUI RemainingTimeText;
 
