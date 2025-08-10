@@ -11,7 +11,7 @@ namespace ProjectCore.DailyReward
     public class DayChecker : MonoBehaviour
     {
         [SerializeField] DBString LastDate;
-        [SerializeField] DBInt ToDay;
+        [SerializeField] DBInt ToDay, RewardClaimed;
         [SerializeField] SOEvents UpDateState;
         [SerializeField] GameObject DailyRewardView, NotificationIcon;
         [SerializeField] TextMeshProUGUI RemainingTimeText, PanelTimer;
@@ -50,6 +50,7 @@ namespace ProjectCore.DailyReward
 
             if (daysGreater >= 1)
             {
+                RewardClaimed.Value = 0;
                 NotificationIcon.SetActive(true);
                 if (daysGreater == 1 && ToDay.Value < 7)
                 {

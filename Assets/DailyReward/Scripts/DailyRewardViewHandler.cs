@@ -11,27 +11,23 @@ namespace ProjectCore.DailyReward
         [SerializeField] SOEvents UpDateState;
         [SerializeField] GameObject ClaimBtnsObj, TimerTextObj;
         [SerializeField] RectTransform[] RewardItems;
-        [SerializeField] RectTransform Body;
+        [SerializeField] RectTransform Body, niddleRotator;
 
         float _durationTweeing = 1f;
-
-        private void Start()
-        {
-            if(RewardClaimed.Value == 1)
-            {
-                UpDateState.InvokeSOEvent();
-            }
-            CheckViewState();
-        }
+        Tween _niddleTween;
 
         private void OnEnable()
         {
             UpDateState.EventHandler += CheckViewState;
+            CheckViewState();
         }
 
         private void OnDisable()
         {
             UpDateState.EventHandler -= CheckViewState;
+
+            if (_niddleTween != null && _niddleTween.IsActive())
+                _niddleTween.Kill();
         }
 
         private void CheckViewState()
@@ -45,6 +41,9 @@ namespace ProjectCore.DailyReward
             {
                 ClaimBtnsObj.SetActive(false);
                 TimerTextObj.SetActive(true);
+
+                _niddleTween = niddleRotator.DORotate(new Vector3(0, 0, -360), _durationTweeing, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart);
+
             }
             Body.DOAnchorPosX(0, _durationTweeing).SetEase(Ease.OutBack).OnComplete(() =>
             {
@@ -54,6 +53,11 @@ namespace ProjectCore.DailyReward
                 }
             });
 
+        }
+
+        public void CloseDailyPanel()
+        {
+            Body.DOAnchorPosX(1500, _durationTweeing).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
         }
     }
 }
