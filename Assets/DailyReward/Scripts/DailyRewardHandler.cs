@@ -8,7 +8,7 @@ using Core.Variables;
 using Core.DB.Variables;
 using Core.Plugins.Firebase;
 
-namespace ProjectCore.DailyReward
+namespace Core.DailyReward
 {
     public class DailyRewardHandler : MonoBehaviour
     {

@@ -2,11 +2,10 @@ using TMPro;
 using System;
 using UnityEngine;
 using Core.Events;
-using Core.Variables;
 using Core.DB.Variables;
 using System.Collections;
 
-namespace ProjectCore.DailyReward
+namespace Core.DailyReward
 {
     public class DayChecker : MonoBehaviour
     {

@@ -3,7 +3,7 @@ using UnityEngine;
 using Core.Events;
 using Core.DB.Variables;
 
-namespace ProjectCore.DailyReward
+namespace Core.DailyReward
 {
     public class DailyRewardViewHandler : MonoBehaviour
     {

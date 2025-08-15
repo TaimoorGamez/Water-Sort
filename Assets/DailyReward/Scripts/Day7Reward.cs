@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using Core.DB.Variables;
 
-namespace ProjectCore.DailyReward
+namespace Core.DailyReward
 {
     public class Day7Reward : DailyRewardHandler
     {
