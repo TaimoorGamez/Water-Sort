@@ -1,77 +1,79 @@
+using DG.Tweening;
 using UnityEngine;
-using System.Collections;
 
 namespace Core.SpinWheel
 {
-    public class SpinWheelView : MonoBehaviour
+    public class SpinWheelView : MonoBehaviour, ISpinWheel
     {
         [SerializeField] Transform SegmentParent;
         [SerializeField] SpinWheelSegment SegmentPrefab;
+        [SerializeField] SpinWheelData SpinWheelData;
 
-        SpinWheelData _spinWheelData;
-        string _dataPath = "SpinWheel/SpinWheelData";
-        Coroutine _loadingRotine;
-
-        private void OnEnable()
-        {
-            StopLoadRotine();
-        }
-
-        private void OnDisable()
-        {
-            StopLoadRotine();
-        }
+        float _segmentAngle, _spinDuration = 5f;
+        bool _onceClicked = false;
 
         void Start()
         {
-            _loadingRotine = StartCoroutine(LoadDataAsync());
-        }
-
-        IEnumerator LoadDataAsync()
-        {
-            ResourceRequest request = Resources.LoadAsync<SpinWheelData>(_dataPath);
-            yield return request;
-
-            _spinWheelData = request.asset as SpinWheelData;
-            if (_spinWheelData == null)
-            {
-                Debug.LogError($"SpinWheelData.asset not found at Resources/{_dataPath}!");
-                yield break;
-            }
-            else
-            {
-                CreateWheelView();
-            }
+            CreateWheelView();
         }
 
         void CreateWheelView()
         {
-            StopLoadRotine();
-            for (int i = 0; i < SegmentParent.childCount; i++)
+            int rewardCount = SpinWheelData.SpinWheelRewards.Length;
+            _segmentAngle = 360f / rewardCount;
+            float fillAmount = 1f / rewardCount;
+            for (int i = 0; i < rewardCount; i++)
             {
-                Destroy(SegmentParent.GetChild(i).gameObject);
-            }
+                SpinWheelConfige reward = SpinWheelData.SpinWheelRewards[i];
 
-            int rewardCount = _spinWheelData.SpinWheelRewards.Length;
-            float angleStep = 360f / rewardCount;
+                SpinWheelSegment segment = Instantiate(SegmentPrefab, SegmentParent);
+                segment.transform.localRotation = Quaternion.Euler(0, 0, -i * _segmentAngle);
+
+                segment.Initialize(reward.Icon, reward.Amount, reward.SegmentGradient, fillAmount);
+            }
+        }
+
+        public void Spin()
+        {
+            if (!_onceClicked)
+            {
+                _onceClicked = true;
+                int rewardIndex = GetWeightedRandomIndex();
+                StopAtReward(rewardIndex);
+            }
+        }
+
+        int GetWeightedRandomIndex()
+        {
+            float totalWeight = 0f;
+            int rewardCount = SpinWheelData.SpinWheelRewards.Length;
 
             for (int i = 0; i < rewardCount; i++)
             {
-                SpinWheelConfige reward = _spinWheelData.SpinWheelRewards[i];
-
-                SpinWheelSegment segment = Instantiate(SegmentPrefab, SegmentParent);
-                segment.transform.localRotation = Quaternion.Euler(0, 0, -i * angleStep);
-
-                segment.Initialize(reward.Icon, reward.Amount, reward.SegmentGradient);
+                totalWeight += SpinWheelData.SpinWheelRewards[i].Weight;
             }
-        }
-
-        void StopLoadRotine()
-        {
-            if (_loadingRotine != null)
+            float randomValue = Random.Range(0, totalWeight);
+            float cumulative = 0f;
+            for (int i = 0; i < rewardCount; i++)
             {
-                StopCoroutine(_loadingRotine);
+                cumulative += SpinWheelData.SpinWheelRewards[i].Weight;
+                if (randomValue <= cumulative)
+                    return i;
             }
+
+            return 0;
         }
+
+        void StopAtReward(int rewardIndex)
+        {
+            float angleDiff = _segmentAngle / 2;
+            float targetAngle = rewardIndex * _segmentAngle;
+            targetAngle += angleDiff;
+            float finalAngle = (360f * 5) + targetAngle;
+            SegmentParent.DOLocalRotate(new Vector3(0, 0, finalAngle), _spinDuration, RotateMode.FastBeyond360).SetEase(Ease.OutQuart).OnComplete(() =>
+            {
+            });
+        }
+
     }
 }
