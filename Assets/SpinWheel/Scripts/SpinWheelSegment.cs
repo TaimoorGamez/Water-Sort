@@ -16,6 +16,11 @@ namespace Core.SpinWheel
             SegmentImage.fillAmount = fillAmount;
             IconImage.sprite = icon;
             AmountText.text = amount.ToString();
+            ChangeGradient(gradient);
+        }
+
+        public void ChangeGradient(Gradient gradient)
+        {
             BackgroundGradient.Gradient = gradient;
         }
     }

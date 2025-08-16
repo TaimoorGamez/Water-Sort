@@ -5,12 +5,14 @@ namespace Core.SpinWheel
 {
     public class SpinWheelView : MonoBehaviour, ISpinWheel
     {
-        [SerializeField] Transform SegmentParent;
+        [SerializeField] Transform SegmentParent, Shine;
         [SerializeField] SpinWheelSegment SegmentPrefab;
         [SerializeField] SpinWheelData SpinWheelData;
+        [SerializeField] Gradient RewardedGradient;
 
-        float _segmentAngle, _spinDuration = 5f;
+        float _segmentAngle, _spinDuration = 5f, _shineDiration = 0.5f;
         bool _onceClicked = false;
+        SpinWheelSegment[] _allSpinSegments;
 
         void Start()
         {
@@ -20,16 +22,16 @@ namespace Core.SpinWheel
         void CreateWheelView()
         {
             int rewardCount = SpinWheelData.SpinWheelRewards.Length;
+            _allSpinSegments = new SpinWheelSegment[rewardCount];
             _segmentAngle = 360f / rewardCount;
             float fillAmount = 1f / rewardCount;
             for (int i = 0; i < rewardCount; i++)
             {
                 SpinWheelConfige reward = SpinWheelData.SpinWheelRewards[i];
-
                 SpinWheelSegment segment = Instantiate(SegmentPrefab, SegmentParent);
                 segment.transform.localRotation = Quaternion.Euler(0, 0, -i * _segmentAngle);
-
                 segment.Initialize(reward.Icon, reward.Amount, reward.SegmentGradient, fillAmount);
+                _allSpinSegments[i] = segment;
             }
         }
 
@@ -72,6 +74,8 @@ namespace Core.SpinWheel
             float finalAngle = (360f * 5) + targetAngle;
             SegmentParent.DOLocalRotate(new Vector3(0, 0, finalAngle), _spinDuration, RotateMode.FastBeyond360).SetEase(Ease.OutQuart).OnComplete(() =>
             {
+                Shine.DOScale(Vector3.one,_shineDiration).SetEase(Ease.OutBack).OnComplete(()=>Shine.localScale = Vector3.zero);
+                _allSpinSegments[rewardIndex].ChangeGradient(RewardedGradient);
             });
         }
 
