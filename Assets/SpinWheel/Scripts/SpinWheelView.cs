@@ -9,7 +9,8 @@ namespace Core.SpinWheel
 {
     public class SpinWheelView : MonoBehaviour, ISpinWheel
     {
-        [SerializeField] SOEvents SpinEvent;
+        [SerializeField] SOIntegerEvents SoundEffectEvent;
+        [SerializeField] SOEvents SpinEvent; 
         [SerializeField] DBInt DailySpin;
         [SerializeField] GameObject SpinBtn, RvBtn, SpinNotification;
         [SerializeField] RectTransform SegmentParent, Shine, RewardPanel, Body, Wheel;
@@ -114,6 +115,7 @@ namespace Core.SpinWheel
             float finalAngle = (360f * 5) + targetAngle;
             SegmentParent.DOLocalRotate(new Vector3(0, 0, finalAngle), _spinDuration, RotateMode.FastBeyond360).SetEase(Ease.OutQuart).OnComplete(() =>
             {
+                SoundEffectEvent.InvokeSOEvent(3);
                 Shine.DOScale(Vector3.one,_tweenDiration).SetEase(Ease.OutBack).OnComplete(()=>Shine.localScale = Vector3.zero).OnComplete(()=>{
                     Shine.localScale = Vector3.zero;
                     RewardIcon.sprite = SpinWheelData.SpinWheelRewards[rewardIndex].Icon;
@@ -130,10 +132,12 @@ namespace Core.SpinWheel
                 });
                 _allSpinSegments[rewardIndex].ChangeGradient(RewardedGradient);
             });
+            SoundEffectEvent.InvokeSOEvent(10);
         }
 
         void CloseRewardPanel()
         {
+            SoundEffectEvent.InvokeSOEvent(5);
             RewardPanel.DOScale(Vector3.zero, _tweenDiration).SetEase(Ease.InBack);
         }
 

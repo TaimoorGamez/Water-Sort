@@ -470,6 +470,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1172952bcef8ce342abbb35b401d8ace, type: 3}
   - {fileID: 8300000, guid: cb3bd050fa7baef4ea51e85e39bdd126, type: 3}
   - {fileID: 8300000, guid: 9bdf65dab4853344789c8ecb036ca8cc, type: 3}
+  - {fileID: 8300000, guid: dc4cdc4b277140945a853626fa61d9ad, type: 3}
   LoopClips:
   - {fileID: 8300000, guid: a6582f934a452a24d81587b976b46ab5, type: 3}
 --- !u!81 &727782122
@@ -1293,14 +1294,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: RewardManager
       objectReference: {fileID: 0}
-    - target: {fileID: 5571441895954660537, guid: 9341b7e213871d74ba37f9885f4df82e, type: 3}
-      propertyPath: CanSpin
-      value: 
-      objectReference: {fileID: 11400000, guid: ed8e496f6fbd0f54e9f16eef0c4e588f, type: 2}
-    - target: {fileID: 5571441895954660537, guid: 9341b7e213871d74ba37f9885f4df82e, type: 3}
-      propertyPath: SpinEvent
-      value: 
-      objectReference: {fileID: 11400000, guid: 0da667833518c34448e30050044c2c68, type: 2}
     - target: {fileID: 9161263357453256233, guid: 9341b7e213871d74ba37f9885f4df82e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

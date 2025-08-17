@@ -53,7 +53,9 @@ MonoBehaviour:
   CompletePanelRewardEvent: {fileID: 11400000, guid: d9b667901fc956341b3a9a423e06b1e2, type: 2}
   AddMovesEvent: {fileID: 11400000, guid: 1e292c902e9441c4e92a9c99e653548d, type: 2}
   DoubleDailyRewardEvent: {fileID: 11400000, guid: c0256ccd2bedb3a46a8200e485434d1b, type: 2}
+  SpinEvent: {fileID: 11400000, guid: 0da667833518c34448e30050044c2c68, type: 2}
   AdTimerComplete: {fileID: 11400000, guid: 24b21fec6b11c9741b812319f23efd01, type: 2}
   CanAddMoves: {fileID: 11400000, guid: 0ad12b6e7f6be1146a392964966495b2, type: 2}
   CanMultiply: {fileID: 11400000, guid: 076e767e42ec7044991d3fa162a3d1d7, type: 2}
   CanDoubleReward: {fileID: 11400000, guid: 717856c9f9fb1af45a0fdf36112c5e1e, type: 2}
+  CanSpin: {fileID: 11400000, guid: ed8e496f6fbd0f54e9f16eef0c4e588f, type: 2}

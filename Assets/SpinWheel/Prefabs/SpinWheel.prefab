@@ -2702,10 +2702,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a3c44c485f90947b7be2bb18f5133f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
   SpinEvent: {fileID: 11400000, guid: 0da667833518c34448e30050044c2c68, type: 2}
   DailySpin: {fileID: 11400000, guid: bb77720219856cd489e9c9a6bb7d54c0, type: 2}
   SpinBtn: {fileID: 5370775561302987242}
   RvBtn: {fileID: 7338787099476382886}
+  SpinNotification: {fileID: 0}
   SegmentParent: {fileID: 9000552268607645853}
   Shine: {fileID: 5178259079997385954}
   RewardPanel: {fileID: 8795339783823399777}
@@ -3160,8 +3162,8 @@ RectTransform:
   m_GameObject: {fileID: 8843356703285908332}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4703981586504006114}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
