@@ -38,7 +38,8 @@ namespace Core.Screen
             }
             for (int i = 0; i < RoomItems.Length; i++)
             {
-                RoomItems[i].transform.DOScale(Vector3.zero,0);
+                RoomItems[i].DOKill();
+                RoomItems[i].transform.localScale = Vector3.zero; // instead of tweening scale to 0 instantly
                 RoomItems[i].gameObject.SetActive(false);
             }
         }
