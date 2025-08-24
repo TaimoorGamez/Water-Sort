@@ -9,7 +9,7 @@ namespace Core.Screen
         [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] RectTransform Body;
 
-        float _tweenTime = 1f;
+        float _tweenTime = 0.5f;
 
         private void OnEnable()
         {

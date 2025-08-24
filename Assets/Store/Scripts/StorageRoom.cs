@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using Core.Events;
@@ -8,12 +9,14 @@ namespace Core.Screen
 {
     public class StorageRoom : MonoBehaviour
     {
+        [SerializeField] SOEvents BuyEvent;
         [SerializeField] SOIntegerEvents ChangeItemStatusEvent;
         [SerializeField] DBInt CurrentActiveItem;
         [SerializeField] ItemView[] RoomItems;
         [SerializeField] RectTransform Content, Viewport;
         [SerializeField] GameObject[] Buttons;
         [SerializeField] Transform ItemHolder;
+        [SerializeField] TextMeshProUGUI VideoText;
         [SerializeField] string ItemPath;
 
         int _selectedItem = -1;
@@ -22,14 +25,16 @@ namespace Core.Screen
 
         private void OnEnable()
         {
+            BuyEvent.EventHandler += PurchaseByAd;
             ChangeItemStatusEvent.EventHandler += ChangeItemStatus;
-
             _selectedItem = CurrentActiveItem.Value;
             _activationRotine = StartCoroutine(ActiveStorageRoom());
+            ChangeItemStatus(_selectedItem);
         }
 
         private void OnDisable()
         {
+            BuyEvent.EventHandler -= PurchaseByAd;
             ChangeItemStatusEvent.EventHandler -= ChangeItemStatus;
             StopActiveRotines();
             if (_currentItem != null)
@@ -56,8 +61,8 @@ namespace Core.Screen
             yield return new WaitForSeconds(0.5f);
             float targetY = Content.rect.height - Viewport.rect.height;
             if (targetY > 200)
-            { 
-                Content.DOAnchorPosY(targetY, 0.25f).SetEase(Ease.OutBack); 
+            {
+                Content.DOAnchorPosY(targetY, 0.25f).SetEase(Ease.OutBack);
             }
             StopActiveRotines();
         }
@@ -73,20 +78,20 @@ namespace Core.Screen
 
         void InitItem(int item)
         {
-            if(_currentItem != null)
+            if (_currentItem != null)
             {
                 Destroy(_currentItem);
             }
-            _currentItem = Instantiate(Resources.Load<GameObject>(ItemPath + RoomItems[item].MyData.ItemId),ItemHolder);
+            _currentItem = Instantiate(Resources.Load<GameObject>(ItemPath + RoomItems[item].MyData.ItemId), ItemHolder);
         }
 
         void ChangeItemStatus(int selectedItem)
         {
+            _selectedItem = selectedItem;
             for (int i = 0; i < RoomItems.Length; i++)
             {
                 if (i == selectedItem)
                 {
-                    _selectedItem = selectedItem;
                     RoomItems[i].SelectItem();
                     InitItem(i);
                     if (i == CurrentActiveItem.Value)
@@ -100,6 +105,7 @@ namespace Core.Screen
                     else
                     {
                         ChangeButton(2);
+                        VideoText.text = RoomItems[_selectedItem].MyData.WatchedVideos + "/" + RoomItems[_selectedItem].MyData.TotalVideos;
                     }
                 }
                 else if (i == CurrentActiveItem.Value)
@@ -115,12 +121,13 @@ namespace Core.Screen
 
         void ChangeButton(int activeButton)
         {
-            for (int b =0; b < Buttons.Length; b++)
+            for (int b = 0; b < Buttons.Length; b++)
             {
                 Buttons[b].SetActive(false);
             }
             Buttons[activeButton].SetActive(true);
         }
+
         public void ChangeActiveItem()
         {
             RoomItems[CurrentActiveItem.Value].UnSelectItem();
@@ -129,6 +136,17 @@ namespace Core.Screen
                 CurrentActiveItem.Value = _selectedItem;
                 RoomItems[CurrentActiveItem.Value].ActiveSelectItem();
                 ChangeButton(0);
+            }
+        }
+
+        void PurchaseByAd()
+        {
+            RoomItems[_selectedItem].MyData.WatchedVideos += 1;
+            VideoText.text = RoomItems[_selectedItem].MyData.WatchedVideos + "/" + RoomItems[_selectedItem].MyData.TotalVideos;
+            if (RoomItems[_selectedItem].MyData.WatchedVideos >= RoomItems[_selectedItem].MyData.TotalVideos)
+            {
+                RoomItems[_selectedItem].MyData.IsPurchased = true;
+                ChangeItemStatus(_selectedItem);
             }
         }
     }

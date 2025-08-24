@@ -20,7 +20,7 @@ namespace Core.Screen
 
         public virtual void UnSelectItem()
         {
-            SelectionObj.DOColor(_unSelectImg,_tweenTime);
+            SelectionObj.DOColor(_unSelectImg, _tweenTime);
         }
 
         public virtual void SelectItem()

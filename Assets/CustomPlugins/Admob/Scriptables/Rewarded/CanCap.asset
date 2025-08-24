@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30405e834a5faa641a32249e3a847fea, type: 3}
-  m_Name: Cap 1
+  m_Script: {fileID: 11500000, guid: 704fa4f1bd56d2745b96b6106e71a541, type: 3}
+  m_Name: CanCap
   m_EditorClassIdentifier: 
-  ItemId: 1
-  TotalVideos: 2
-  TotalCards: 6
-  ItemName: Cap
+  CurrentValue: 0
+  DefaultValue: 0
+  ResetDefault: 1

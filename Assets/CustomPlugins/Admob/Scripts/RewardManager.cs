@@ -12,8 +12,8 @@ namespace Core.Plugins.Ads
         [SerializeField] AdDataHandler AdData;
         [SerializeField] AdHandler IntertitialAd;
         [SerializeField] SOEvents NoAdsBuyEvent, StartLoadingAdsEvent, GrantRewardEvent, CompletePanelRewardEvent, AddMovesEvent,
-                                  DoubleDailyRewardEvent, SpinEvent;
-        [SerializeField] SOInterger AdTimerComplete, CanAddMoves, CanMultiply, CanDoubleReward, CanSpin;
+                                  DoubleDailyRewardEvent, SpinEvent, BuyCaps, BuySprays, BuyFlames;
+        [SerializeField] SOInterger AdTimerComplete, CanAddMoves, CanMultiply, CanDoubleReward, CanSpin, CanCaps, CanSprays, CanFlames;
 
         Coroutine _rewardRotine, _adsRotine;
         bool _isEnable = false;
@@ -67,6 +67,24 @@ namespace Core.Plugins.Ads
                 {
                     CanSpin.Value = 0;
                     SpinEvent.InvokeSOEvent();
+                    _isEnable = false;
+                }
+                else if (CanCaps.Value == 1)
+                {
+                    CanCaps.Value = 0;
+                    BuyCaps.InvokeSOEvent();
+                    _isEnable = false;
+                }
+                else if (CanSprays.Value == 1)
+                {
+                    CanSprays.Value = 0;
+                    BuySprays.InvokeSOEvent();
+                    _isEnable = false;
+                }
+                else if (CanFlames.Value == 1)
+                {
+                    CanFlames.Value = 0;
+                    BuyFlames.InvokeSOEvent();
                     _isEnable = false;
                 }
             }

@@ -17,14 +17,14 @@ namespace Core.GamePlay
 
         public int WatchedVideos
         {
-            get => PlayerPrefs.GetInt(ItemName + "_Videos_" + ItemId, 0);
-            set => PlayerPrefs.SetInt(ItemName + "_Videos_" + ItemId, Mathf.Clamp(value, 0, TotalVideos));
+            get => PlayerPrefs.GetInt(ItemName + "Videos" + ItemId, 0);
+            set => PlayerPrefs.SetInt(ItemName + "Videos" + ItemId, Mathf.Clamp(value, 0, TotalVideos));
         }
 
         public int AvailableCards
         {
-            get => PlayerPrefs.GetInt(ItemName + "_Cards_" + ItemId, 0);
-            set => PlayerPrefs.SetInt(ItemName + "_Cards_" + ItemId, Mathf.Clamp(value, 0, TotalCards));
+            get => PlayerPrefs.GetInt(ItemName + "Cards" + ItemId, 0);
+            set => PlayerPrefs.SetInt(ItemName + "Cards" + ItemId, Mathf.Clamp(value, 0, TotalCards));
         }
     }
 }
