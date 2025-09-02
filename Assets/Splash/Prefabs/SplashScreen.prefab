@@ -434,6 +434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FirebaseInit: {fileID: 11400000, guid: afe62d58c0da7a94abccece5c7df9181, type: 2}
+  SoStore: {fileID: 11400000, guid: f36e8d40c49af0f4bb06dade4b0b7b91, type: 2}
   DefaultCap: {fileID: 11400000, guid: 0b5235d311f6bff409a2d712cac46ce7, type: 2}
   DefaultFlame: {fileID: 11400000, guid: 648b8ab9c0557ff4f8356ad27ea3f86d, type: 2}
   DefaultSpray: {fileID: 11400000, guid: df1c515f3aeae97418add8ba9af41294, type: 2}

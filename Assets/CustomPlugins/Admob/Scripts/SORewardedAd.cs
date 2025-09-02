@@ -9,7 +9,8 @@ namespace Core.Plugins.Ads
     public class SORewardedAd : AdHandler
     {
         [SerializeField] SOEvents GrantRewardEvent;
-        [SerializeField] SOInterger AdPlaying, CanMultiply, CanAddMoves, CanDoubleReward, CanSpin, CanCap, CanSpray, CanFlame;
+        [SerializeField] SOInterger AdPlaying, CanMultiply, CanAddMoves, CanDoubleReward, CanSpin, CanCap, CanSpray,
+                                    CanFlame, CanBlockAds;
         [SerializeField] SOIntegerEvents ShowToastEvent;
 
         RewardedAd _rewardedAd;
@@ -141,6 +142,10 @@ namespace Core.Plugins.Ads
 
                 case "Flames":
                     CanFlame.Value = 1;
+                    break;
+
+                case "AdBlocker":
+                    CanBlockAds.Value = 1;
                     break;
             }
             GrantRewardEvent.InvokeSOEvent();

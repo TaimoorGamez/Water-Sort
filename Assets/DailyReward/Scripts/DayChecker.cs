@@ -81,7 +81,7 @@ namespace Core.DailyReward
 
         private IEnumerator UpdateRemainingTime(float seconds)
         {
-            WaitForSeconds duration = new WaitForSeconds(1);
+            WaitForSeconds duration = new WaitForSeconds(2);
             while (seconds > 1)
             {
                 RemainingTimeText.text = string.Format("{0:00}:{1:00}:{2:00}", Mathf.Floor(seconds / 3600), Mathf.Floor((seconds % 3600) / 60), Mathf.Floor(seconds % 60));

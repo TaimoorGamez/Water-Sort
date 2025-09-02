@@ -12,7 +12,7 @@ namespace Core.Plugins.Ads
     {
         [SerializeField] SOEvents StartAdLoaing, SelfDestruction;
         [SerializeField] SOInterger AdTimerComplete, AdPlaying;
-        [SerializeField] DBInt NoAdsDB;
+        [SerializeField] DBInt NoAdsDB, AdBlocked;
         [SerializeField] GameObject AdLoading;
 
         InterstitialAd _interstitialAd;
@@ -64,11 +64,14 @@ namespace Core.Plugins.Ads
         {
             if (IsAdAvailable)
             {
-                AdPlaying.Value = 1;
-                Instantiate(AdLoading);
-                await Task.Delay(1000);
-                _interstitialAd.Show();
-                SelfDestruction.InvokeSOEvent();
+                if (AdBlocked.Value == 0)
+                {
+                    AdPlaying.Value = 1;
+                    Instantiate(AdLoading);
+                    await Task.Delay(1000);
+                    _interstitialAd.Show();
+                    SelfDestruction.InvokeSOEvent();
+                }
             }
             else
             {

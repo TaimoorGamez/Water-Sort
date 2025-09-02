@@ -1294,6 +1294,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: RewardManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5571441895954660537, guid: 9341b7e213871d74ba37f9885f4df82e, type: 3}
+      propertyPath: CanBlockAds
+      value: 
+      objectReference: {fileID: 11400000, guid: a27ce2a7542335b438374b98f1698c7e, type: 2}
+    - target: {fileID: 5571441895954660537, guid: 9341b7e213871d74ba37f9885f4df82e, type: 3}
+      propertyPath: AdsBlockerEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 324919a299b187c449a0814b3a1343c9, type: 2}
     - target: {fileID: 9161263357453256233, guid: 9341b7e213871d74ba37f9885f4df82e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

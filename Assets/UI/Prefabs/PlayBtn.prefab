@@ -178,8 +178,8 @@ MonoBehaviour:
   - {fileID: 747858617963548094}
   TweenAnimations:
   - {fileID: 11400000, guid: 2598941bc8e34f449b05d736f2f8c2c3, type: 2}
-  - {fileID: 11400000, guid: 0f19a9abb99d32d4dba5ad149a1c52af, type: 2}
-  - {fileID: 11400000, guid: 5d07a16756adbed48b770e2e70a15bc4, type: 2}
+  - {fileID: 11400000, guid: 91bc08a859311a84eb28f5696a9b38ab, type: 2}
+  - {fileID: 11400000, guid: edd5e698d07b10f47a46fa3be0eb4939, type: 2}
   Delays:
   - 0
   - 0.5
@@ -296,17 +296,15 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 0
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
-  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
