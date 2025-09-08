@@ -3,9 +3,9 @@ using UnityEngine;
 using Core.Events;
 using Core.DB.Variables;
 
-namespace Core.DailyReward
+namespace Core.Screen
 {
-    public class DailyRewardViewHandler : MonoBehaviour
+    public class DailyRewardScreen : MonoBehaviour
     {
         [SerializeField] DBInt RewardClaimed;
         [SerializeField] SOEvents UpDateState;

@@ -11,7 +11,7 @@ namespace Core.DailyReward
     {
         [SerializeField] DBString LastDate;
         [SerializeField] DBInt ToDay, RewardClaimed, DailySpin;
-        [SerializeField] SOEvents UpDateState;
+        [SerializeField] SOEvents UpDateState, GenerateTasksEvent;
         [SerializeField] GameObject DailyRewardView, NotificationIcon, SpinNotification;
         [SerializeField] TextMeshProUGUI RemainingTimeText, PanelTimer;
 
@@ -49,6 +49,7 @@ namespace Core.DailyReward
 
             if (daysGreater >= 1)
             {
+                GenerateTasksEvent.EventHandler.Invoke();
                 RewardClaimed.Value = 0;
                 DailySpin.Value = 0;
                 NotificationIcon.SetActive(true);
