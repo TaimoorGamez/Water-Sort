@@ -14,6 +14,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] SOWaterTube OpenTube;
         [SerializeField] SOEvents UndoEvent, RegisterMoveEvent, InitLevelEvent, RestartLevelEvent, UpdateUndoStatusEvent;
         [SerializeField] SOIntegerEvents ToastMsgEvent;
+        [SerializeField] SO2IntergerEvent TaskEvent;
 
         Stack<UndoData> _undoMoves = new Stack<UndoData>();
 
@@ -67,6 +68,7 @@ namespace Core.GamePlay.WaterSort
                     { 
                         UpdateUndoStatusEvent.InvokeSOEvent(); 
                     }
+                    TaskEvent.InvokeSOEvent(3, 1);
                 }
                 else
                 {

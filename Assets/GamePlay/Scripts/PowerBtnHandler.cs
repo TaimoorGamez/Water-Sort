@@ -10,7 +10,7 @@ namespace Core.Screen
     {
         [SerializeField] DBInt RemaingPower;
         [SerializeField] SOEvents PowerEvent, ChangePowerStatusEvent;
-        [SerializeField] Currency CashEconomy;
+        [SerializeField] Currency CashCurrency;
         [SerializeField] GameObject CounterObj, PriceObj, AdObj;
         [SerializeField] TextMeshProUGUI RemaingText;
         [SerializeField] int Price;
@@ -36,7 +36,7 @@ namespace Core.Screen
                 RemaingText.text = RemaingPower.Value.ToString();
                 CounterObj.SetActive(true);
             }
-            else if (CashEconomy.Amount >= Price)
+            else if (CashCurrency.Amount >= Price)
             {
                 PriceObj.SetActive(true);
             }
@@ -52,16 +52,16 @@ namespace Core.Screen
             {
                 RemaingPower.Value--;
             }
-            else if (CashEconomy.Amount >= Price)
+            else if (CashCurrency.Amount >= Price)
             {
-                CashEconomy.Amount-= Price;
+                CashCurrency.Amount-= Price;
             }
             PowerStatus();
         }
 
         public void OnClickPowerBtn()
         {
-            if (RemaingPower.Value > 0 || CashEconomy.Amount >= Price)
+            if (RemaingPower.Value > 0 || CashCurrency.Amount >= Price)
             {
                 PowerEvent.InvokeSOEvent();
             }

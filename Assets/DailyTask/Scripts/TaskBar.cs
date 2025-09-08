@@ -2,13 +2,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Core.DailyTasks;
-using Core.DB.Variables;
 
 namespace Core.Screen
 {
     public class TaskBar : MonoBehaviour
     {
-        [SerializeField] DBInt TaskProgress, TaskClaimed;
         [SerializeField] TextMeshProUGUI TaskDescription, TaskProgressTxt;
         [SerializeField] Image TickImage, ProgressImg;
         [SerializeField] Color CompletedColor, IncompletedColor;
@@ -20,11 +18,11 @@ namespace Core.Screen
             TaskDescription.text = taskData.Description;
             TaskProgressTxt.text = $"{taskData.Progress} / {taskData.Goal}";
             ProgressImg.fillAmount = (float)taskData.Progress / taskData.Goal;
-
+            
             if (taskData.Progress >= taskData.Goal)
             {
                 TickImage.color = CompletedColor;
-                if (TaskClaimed.Value == 0)
+                if (taskData.TaskClaimed == 0)
                 {
                     ProgressBar.SetActive(false);
                     TaskDescription.gameObject.SetActive(false);

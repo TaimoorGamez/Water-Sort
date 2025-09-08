@@ -13,6 +13,7 @@ namespace Core.GamePlay.WaterSort
     {
         [SerializeField] SOIntegerEvents SwipeProtectorEvent, ToastMsgEvent;
         [SerializeField] DBInt LvlIndex, LvlNum;
+        [SerializeField] SO2IntergerEvent TaskEvent;
         [SerializeField] SOInterger IsHiddenLevel, CanPlay, TotalMoves, BtnOnceClicked, MainMenuStateIndex, CurrrentLvl, TempLvlIndex;
         [SerializeField] SOEvents InitLevelEvent, ExtraTubeEvent, RestartLevelEvent, DestroyLevelEvent, StartColoringEvent, ChangeExtraTubeStatEvent,
                                   UpdateMovesEvent;
@@ -213,6 +214,7 @@ namespace Core.GamePlay.WaterSort
                 _totalTubesCount++;
                 _totalTubes.Add(newTube);
                 ChangeExtraTubeStatEvent.InvokeSOEvent();
+                TaskEvent.InvokeSOEvent(5, 1);
             }
             else if(_totalTubes.Count >= 10)
             {

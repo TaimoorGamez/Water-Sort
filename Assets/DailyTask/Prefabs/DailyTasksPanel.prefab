@@ -608,7 +608,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8577819550769593400
 RectTransform:
   m_ObjectHideFlags: 0
@@ -656,7 +656,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7b4a898831abebc4db6abc2ef5027192, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1f6201642f9c1ca4fb24320d7b0b9274, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -988,7 +988,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7816530968299370710
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1036,7 +1036,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7b4a898831abebc4db6abc2ef5027192, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1f6201642f9c1ca4fb24320d7b0b9274, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1290,7 +1290,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6909854290308333083
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1338,7 +1338,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7b4a898831abebc4db6abc2ef5027192, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a7a9f624649347f4b80f2f09c5381e65, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1517,7 +1517,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6688005227778392768
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1565,7 +1565,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7b4a898831abebc4db6abc2ef5027192, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1f6201642f9c1ca4fb24320d7b0b9274, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1664,6 +1664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1614815d24f63274fbf16ad5b53c0603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CashCurrency: {fileID: 11400000, guid: 7eda067dffd0e094b883a13ef89857cd, type: 2}
   SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
   CurrenTaskManager: {fileID: 11400000, guid: 5ac1aa20c516ae748a72ae60cd92f530, type: 2}
   Body: {fileID: 2626488614083792774}
@@ -1672,6 +1673,17 @@ MonoBehaviour:
   - {fileID: 1239926186375061423}
   - {fileID: 230508277175175946}
   - {fileID: 5576637485512577139}
+  RewardImgs:
+  - {fileID: 7816530968299370710}
+  - {fileID: 8577819550769593400}
+  - {fileID: 6688005227778392768}
+  - {fileID: 6909854290308333083}
+  RewardChecks:
+  - {fileID: 475743752600068922}
+  - {fileID: 9162505586461153052}
+  - {fileID: 6283033870193153141}
+  - {fileID: 8424844222034637318}
+  RewardFillBar: {fileID: 4817406923427454599}
 --- !u!1 &8896087438806453962
 GameObject:
   m_ObjectHideFlags: 0
@@ -1768,6 +1780,26 @@ PrefabInstance:
       propertyPath: TaskProgress
       value: 
       objectReference: {fileID: 11400000, guid: 543b2d9c880f9cf43a31839fc39744d4, type: 2}
+    - target: {fileID: 2840759232393831358, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2840759232393831358, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1442573499440375344}
+    - target: {fileID: 2840759232393831358, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ClaimReward
+      objectReference: {fileID: 0}
+    - target: {fileID: 2840759232393831358, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Core.Screen.DailyTaskScreen, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2840759232393831358, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3120029462678417439, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2079,11 +2111,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tick
       objectReference: {fileID: 0}
+    - target: {fileID: 8067820455746508168, guid: 5f6ff6f1e578a354eaaf14c5cc1c5d4f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f6ff6f1e578a354eaaf14c5cc1c5d4f, type: 3}
+--- !u!1 &9162505586461153052 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8067820455746508168, guid: 5f6ff6f1e578a354eaaf14c5cc1c5d4f, type: 3}
+  m_PrefabInstance: {fileID: 1211861635919643284}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &9222276825610745585 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8011198219846579301, guid: 5f6ff6f1e578a354eaaf14c5cc1c5d4f, type: 3}
@@ -2105,6 +2146,26 @@ PrefabInstance:
       propertyPath: TaskProgress
       value: 
       objectReference: {fileID: 11400000, guid: efeb1dd41772d014987d292d6377b3b0, type: 2}
+    - target: {fileID: 2840759232393831358, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2840759232393831358, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1442573499440375344}
+    - target: {fileID: 2840759232393831358, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ClaimReward
+      objectReference: {fileID: 0}
+    - target: {fileID: 2840759232393831358, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Core.Screen.DailyTaskScreen, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2840759232393831358, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3120029462678417439, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2302,6 +2363,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tick
       objectReference: {fileID: 0}
+    - target: {fileID: 8067820455746508168, guid: 5f6ff6f1e578a354eaaf14c5cc1c5d4f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2310,6 +2375,11 @@ PrefabInstance:
 --- !u!224 &8372427614957376491 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8011198219846579301, guid: 5f6ff6f1e578a354eaaf14c5cc1c5d4f, type: 3}
+  m_PrefabInstance: {fileID: 1953903474014349198}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8424844222034637318 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8067820455746508168, guid: 5f6ff6f1e578a354eaaf14c5cc1c5d4f, type: 3}
   m_PrefabInstance: {fileID: 1953903474014349198}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4091368466600870397
@@ -2404,11 +2474,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tick
       objectReference: {fileID: 0}
+    - target: {fileID: 8067820455746508168, guid: 5f6ff6f1e578a354eaaf14c5cc1c5d4f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f6ff6f1e578a354eaaf14c5cc1c5d4f, type: 3}
+--- !u!1 &6283033870193153141 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8067820455746508168, guid: 5f6ff6f1e578a354eaaf14c5cc1c5d4f, type: 3}
+  m_PrefabInstance: {fileID: 4091368466600870397}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &6334888626862208408 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8011198219846579301, guid: 5f6ff6f1e578a354eaaf14c5cc1c5d4f, type: 3}
@@ -2430,6 +2509,22 @@ PrefabInstance:
       propertyPath: TaskProgress
       value: 
       objectReference: {fileID: 11400000, guid: 7cd050be358f33847abebb0638d06ab8, type: 2}
+    - target: {fileID: 2840759232393831358, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2840759232393831358, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1442573499440375344}
+    - target: {fileID: 2840759232393831358, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ClaimReward
+      objectReference: {fileID: 0}
+    - target: {fileID: 2840759232393831358, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Core.Screen.DailyTaskScreen, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 3120029462678417439, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2551,6 +2646,26 @@ PrefabInstance:
       propertyPath: TaskProgress
       value: 
       objectReference: {fileID: 11400000, guid: 28bf4ee661167fc498c39ac4c417e7a3, type: 2}
+    - target: {fileID: 2840759232393831358, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2840759232393831358, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1442573499440375344}
+    - target: {fileID: 2840759232393831358, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ClaimReward
+      objectReference: {fileID: 0}
+    - target: {fileID: 2840759232393831358, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Core.Screen.DailyTaskScreen, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2840759232393831358, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3120029462678417439, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2748,6 +2863,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tick
       objectReference: {fileID: 0}
+    - target: {fileID: 8067820455746508168, guid: 5f6ff6f1e578a354eaaf14c5cc1c5d4f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2756,5 +2875,10 @@ PrefabInstance:
 --- !u!224 &450913894576308951 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8011198219846579301, guid: 5f6ff6f1e578a354eaaf14c5cc1c5d4f, type: 3}
+  m_PrefabInstance: {fileID: 7596597964805519026}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &475743752600068922 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8067820455746508168, guid: 5f6ff6f1e578a354eaaf14c5cc1c5d4f, type: 3}
   m_PrefabInstance: {fileID: 7596597964805519026}
   m_PrefabAsset: {fileID: 0}

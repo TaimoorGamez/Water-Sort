@@ -9,6 +9,7 @@ namespace Core.Economy
     {
         [SerializeField] DBInt _Amount;
         [SerializeField] SOIntegerEvents DepositeEvent, TransactionEvent;
+        [SerializeField] SO2IntergerEvent TaskEvent;
 
         public int Amount
         {
@@ -25,6 +26,7 @@ namespace Core.Economy
                 else if (value < _Amount.Value)
                 {
                     TransactionEvent.InvokeSOEvent(value);
+                    TaskEvent.InvokeSOEvent(2, value);
                 }
                 _Amount.Value = (value);
             }

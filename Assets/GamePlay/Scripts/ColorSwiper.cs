@@ -11,6 +11,7 @@ namespace Core.GamePlay.WaterSort
     public class ColorSwiper : ScriptableObject
     {
         [SerializeField] DBInt LvlNum;
+        [SerializeField] SO2IntergerEvent TaskEvent;
         [SerializeField] SOIntegerEvents ToastMsgEvent, SwitchProtectorEvent;
         [SerializeField] SOEvents SwapColorsModeEvent, ChangeSwipeStateEvent;
         [SerializeField] SOInterger IsSwaping, UsingAnyFeature, MinLvlIndex;
@@ -35,6 +36,7 @@ namespace Core.GamePlay.WaterSort
                 UsingAnyFeature.Value = 1;
                 IsSwaping.Value = 1;
                 SwitchProtectorEvent.InvokeSOEvent(1);
+                TaskEvent.InvokeSOEvent(4, 1);
             }
             else
             {

@@ -1586,7 +1586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22221928a48b22b48bba7cfd068e786d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CoinsEconomy: {fileID: 11400000, guid: 7eda067dffd0e094b883a13ef89857cd, type: 2}
+  CashCurrency: {fileID: 11400000, guid: 7eda067dffd0e094b883a13ef89857cd, type: 2}
   GiveReward: {fileID: 11400000, guid: f7f7f1a8c862cb2468feaa2f0dcf15d5, type: 2}
   FBEvents: {fileID: 11400000, guid: 03c1af551e870f847941f956456f29df, type: 2}
   UpDateState: {fileID: 11400000, guid: 095179574b1f2944f9fc36cd19aa51e0, type: 2}

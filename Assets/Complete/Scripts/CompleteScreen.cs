@@ -14,10 +14,11 @@ namespace Core.Screen
 {
     public class CompleteScreen : MonoBehaviour
     {
-        [SerializeField] Currency Coins;
+        [SerializeField] Currency CashCurrency;
         [SerializeField] DBInt LevelIndex, LvlNum;
         [SerializeField] SOInterger LevelStars, CanPlay, MainMenuStateIndex, LevelMoves, DetailsApplied, GamePlayState, LevelCompleteStateIndex,
                                      MinLvlCount, MaxLvlCount, TempLvlIndex, CurrentMultiplayer;
+        [SerializeField] SO2IntergerEvent TaskEvent;
         [SerializeField] SOIntegerEvents SoundEffectEvent, ActiveStateEvent, DestroyStatEvent;
         [SerializeField] SOEvents DestroyLevelEvent, InitLvlEvent, MultiplayRewardEvent;
         [SerializeField] TextMeshProUGUI LevelBonusText, StarsBonusText, DetailsBonusText, MovesBonusText, TotalBonusText;
@@ -48,6 +49,7 @@ namespace Core.Screen
         {
             _starsDataPath = Path.Combine(Application.persistentDataPath, "starsData.json");
             _screenShotRotine = StartCoroutine(CaptureColoredArea());
+            TaskEvent.InvokeSOEvent(1,1);
         }
 
         void OnPanelVisible()
@@ -155,7 +157,7 @@ namespace Core.Screen
             {
                 _onceClicked = true;
                 CanPlay.Value = 0;
-                Coins.Amount += (_totalBonus * CurrentMultiplayer.Value);
+                CashCurrency.Amount += (_totalBonus * CurrentMultiplayer.Value);
                 if (TempLvlIndex.Value == -1)
                 {
                     LvlNum.Value++;
@@ -171,7 +173,7 @@ namespace Core.Screen
             {
                 _onceClicked = true;
                 CanPlay.Value = 0;
-                Coins.Amount += _totalBonus;
+                CashCurrency.Amount += _totalBonus;
                 if (TempLvlIndex.Value == -1)
                 {
                     LvlNum.Value++;

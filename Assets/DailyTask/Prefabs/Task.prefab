@@ -678,8 +678,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c2d8f357709ad948b30f6844974eecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TaskProgress: {fileID: 0}
-  TaskClaimed: {fileID: 0}
   TaskDescription: {fileID: 3513036245824105699}
   TaskProgressTxt: {fileID: 7593263967174377463}
   TickImage: {fileID: 6510793010470001148}
@@ -885,11 +883,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2970287808710783047, guid: b81e6bca80f4d464b9a7066e1563d726, type: 3}
       propertyPath: m_fontSize
-      value: 35
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2970287808710783047, guid: b81e6bca80f4d464b9a7066e1563d726, type: 3}
       propertyPath: m_fontSizeMax
-      value: 35
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 8162122565025793776, guid: b81e6bca80f4d464b9a7066e1563d726, type: 3}
       propertyPath: m_Pivot.x

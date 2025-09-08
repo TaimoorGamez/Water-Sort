@@ -12,7 +12,7 @@ namespace Core.DailyReward
 {
     public class DailyRewardHandler : MonoBehaviour
     {
-        [SerializeField] protected Currency CoinsEconomy;
+        [SerializeField] protected Currency CashCurrency;
         [SerializeField] protected SOInterger GiveReward;
         [SerializeField] protected FireBaseEvents FBEvents;
         [SerializeField] protected SOEvents UpDateState, DoubleRewardEvent;
@@ -88,7 +88,7 @@ namespace Core.DailyReward
             if (RewardClaimed.Value == 0)
             {
                 RewardClaimed.Value = (1);
-                CoinsEconomy.Amount += Amount;
+                CashCurrency.Amount += Amount;
                 UpdateState();
                 BuyButton.onClick.RemoveListener(OnClickBuyButton);
                 DoubleRewardEvent.EventHandler -= GrantDoubleReward;
@@ -110,7 +110,7 @@ namespace Core.DailyReward
             {
                 _doubleRewardClicked = true;
                 RewardClaimed.Value = (1);
-                CoinsEconomy.Amount += (Amount * 2);
+                CashCurrency.Amount += (Amount * 2);
                 UpdateState();
                 //Debug.Log("Amount " + (Amount * 2));
                 UpDateState.InvokeSOEvent();
