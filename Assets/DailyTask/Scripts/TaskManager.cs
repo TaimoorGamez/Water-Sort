@@ -60,7 +60,6 @@ namespace Core.DailyTasks
                 int index = TaskIndexs[i].Value;
                 _activeTasks[i] = AllTasks[index];
                 _activeTasks[i].Progress = TaskProgress[i].Value;
-                Debug.Log(i);
             }
         }
 
