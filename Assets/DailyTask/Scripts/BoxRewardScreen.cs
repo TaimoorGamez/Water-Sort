@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using Core.Events;
 using Core.GamePlay;
 using Core.Economy;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ namespace Core.DailyTasks
 {
     public class BoxRewardScreen : MonoBehaviour
     {
+        [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] Currency CashCurrency;
         [SerializeField] DBInt[] PowersData;
         [SerializeField] ItemData[] StorItemsData;
@@ -33,13 +35,14 @@ namespace Core.DailyTasks
             {
                 case 0:
                     int randomReward = Random.Range(0, _totalStoreItems);
+                    Debug.Log("Random Reward: " + randomReward);
                     if (randomReward < _flamesLength)
                     {
                         Instantiate(Resources.Load<GameObject>(_flamesPath + randomReward), ItemHolders[0]);
                         PowerImage.sprite = PowerSprites[0];
                         PowersData[0].Value += 1;
                     }
-                    else if(randomReward < _capsLength)
+                    else if(randomReward < _capsLength+_flamesLength)
                     {
                         int capIndex = randomReward - _flamesLength;
                         Instantiate(Resources.Load<GameObject>(_capsPath + capIndex), ItemHolders[0]);
@@ -64,6 +67,8 @@ namespace Core.DailyTasks
 
         void StartUnBoxsing()
         {
+            Debug.Log("Start Unboxing");
+            SoundEffectEvent.InvokeSOEvent(3);
             Cards[_cardIndex].DOAnchorPos(_cardPosition, _unboxingTime).SetEase(Ease.OutQuad);
             Cards[_cardIndex].DOScale(_cardSize, _unboxingTime).SetEase(Ease.OutBack);
             Cards[_cardIndex].DOLocalRotate(new Vector3(0, 360f, 0), _unboxingTime / 2, RotateMode.FastBeyond360)
@@ -73,7 +78,7 @@ namespace Core.DailyTasks
                     euler.z = 0f;
                     Cards[_cardIndex].localEulerAngles = euler;
                     ItemHolders[_cardIndex].gameObject.SetActive(true);
-                    Invoke(nameof(DestroyCard), 1f);
+                    Invoke(nameof(DestroyCard), 1.5f);
                 });
         }
 

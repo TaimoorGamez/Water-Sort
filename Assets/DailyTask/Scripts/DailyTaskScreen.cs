@@ -17,6 +17,7 @@ namespace Core.Screen
         [SerializeField] RectTransform[] RewardImgs;
         [SerializeField] GameObject[] RewardChecks;
         [SerializeField] Image RewardFillBar;
+        [SerializeField] GameObject NotificationObj;
 
         DailyTaskData[] _activeTasks;
 
@@ -50,7 +51,6 @@ namespace Core.Screen
                     {
                         RewardChecks[i].SetActive(false);
                         RewardImgs[i].gameObject.SetActive(true);
-
                         RewardImgs[i].DOScale(1.25f, 0.5f)
                             .SetLoops(-1, LoopType.Yoyo)
                             .SetEase(Ease.InOutSine);
@@ -92,8 +92,11 @@ namespace Core.Screen
 
         public void ClosePanel()
         {
-            Body.DOScale(0, _tweenTime).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
             SoundEffectEvent.InvokeSOEvent(2);
+            Body.DOScale(0, _tweenTime).SetEase(Ease.InBack).OnComplete(() => {
+                NotificationObj.SetActive(false);
+                gameObject.SetActive(false);
+            });
         }
     }
 }

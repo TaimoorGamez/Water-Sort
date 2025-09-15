@@ -945,6 +945,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5667325dd87aba4e8cb26633772049e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
   CashCurrency: {fileID: 11400000, guid: 7eda067dffd0e094b883a13ef89857cd, type: 2}
   PowersData:
   - {fileID: 11400000, guid: ea039cf300a11a34ba289c06a95e577b, type: 2}
@@ -2400,6 +2401,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 4106100877802244878, guid: 3b8a990524e6f5c4a841f31cd5f1b1ff, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 61
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054923169214847206, guid: 3b8a990524e6f5c4a841f31cd5f1b1ff, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 6959870704291013884, guid: 3b8a990524e6f5c4a841f31cd5f1b1ff, type: 3}
       propertyPath: m_Name
       value: Card (1)
@@ -3134,9 +3143,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4106100877802244878, guid: 3b8a990524e6f5c4a841f31cd5f1b1ff, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 61
+      objectReference: {fileID: 0}
     - target: {fileID: 5054923169214847206, guid: 3b8a990524e6f5c4a841f31cd5f1b1ff, type: 3}
       propertyPath: m_text
       value: +1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054923169214847206, guid: 3b8a990524e6f5c4a841f31cd5f1b1ff, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6959870704291013884, guid: 3b8a990524e6f5c4a841f31cd5f1b1ff, type: 3}
       propertyPath: m_Name
@@ -3405,9 +3422,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 4106100877802244878, guid: 3b8a990524e6f5c4a841f31cd5f1b1ff, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 61
+      objectReference: {fileID: 0}
     - target: {fileID: 5054923169214847206, guid: 3b8a990524e6f5c4a841f31cd5f1b1ff, type: 3}
       propertyPath: m_text
       value: +300
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054923169214847206, guid: 3b8a990524e6f5c4a841f31cd5f1b1ff, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6959870704291013884, guid: 3b8a990524e6f5c4a841f31cd5f1b1ff, type: 3}
       propertyPath: m_Name

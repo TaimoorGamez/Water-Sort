@@ -77,7 +77,9 @@ namespace Core.DailyTasks
             for (int t = 0; t < _totalTasks; t++) 
             {
                 if (TaskIndexs[t].Value == index)
+                {
                     _activeTasks[t].Progress += progress;
+                }
             }
         }
     }
