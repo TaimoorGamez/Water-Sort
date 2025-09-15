@@ -6,7 +6,7 @@ using Core.Economy;
 using UnityEngine.UI;
 using Core.DB.Variables;
 
-namespace Core.DailyTasks
+namespace Core.Screen
 {
     public class BoxRewardScreen : MonoBehaviour
     {

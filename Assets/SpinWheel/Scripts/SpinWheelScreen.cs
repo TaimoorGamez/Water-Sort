@@ -7,7 +7,7 @@ using Core.DB.Variables;
 
 namespace Core.SpinWheel
 {
-    public class SpinWheelView : MonoBehaviour, ISpinWheel
+    public class SpinWheelScreen : MonoBehaviour, ISpinWheel
     {
         [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] SOEvents SpinEvent; 

@@ -1,9 +1,8 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Core.DailyTasks;
 
-namespace Core.Screen
+namespace Core.DailyTasks
 {
     public class TaskBar : MonoBehaviour
     {
