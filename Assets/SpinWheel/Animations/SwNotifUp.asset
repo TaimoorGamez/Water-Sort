@@ -18,6 +18,5 @@ MonoBehaviour:
   CanChangeStateOnComlete: 0
   StateOnComplete: 1
   ResetOnComplete: 0
-  ResetOnDisable: 1
-  TargetAction: {x: 1.25, y: 1.25, z: 1}
-  OriginalVallue: {x: 1, y: 1, z: 1}
+  TargetAction: {x: 6, y: 6, z: 1}
+  OriginalVallue: {x: 6, y: 6, z: 1}
