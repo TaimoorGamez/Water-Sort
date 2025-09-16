@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-namespace Core.Screen
+namespace Core.Store
 { public class ImageItemView : ItemView
     {
         [SerializeField] Color32 SelectColor, UnselectColor;

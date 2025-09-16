@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Core.Screen
+namespace Core.Store
 {
     public class MeshItemView : ItemView
     {

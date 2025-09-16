@@ -4,7 +4,7 @@ using Core.Events;
 using Core.GamePlay;
 using UnityEngine.UI;
 
-namespace Core.Screen
+namespace Core.Store
 {
     public class ItemView : MonoBehaviour
     {

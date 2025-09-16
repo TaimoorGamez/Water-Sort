@@ -1,4 +1,5 @@
 using TMPro;
+using Core.Store;
 using UnityEngine;
 using DG.Tweening;
 using Core.Events;
@@ -7,7 +8,7 @@ using System.Collections;
 
 namespace Core.Screen
 {
-    public class StorageRoom : MonoBehaviour
+    public class StorageRoomView : MonoBehaviour
     {
         [SerializeField] SOEvents BuyEvent;
         [SerializeField] SOIntegerEvents ChangeItemStatusEvent;

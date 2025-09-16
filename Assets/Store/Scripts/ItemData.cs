@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Core.GamePlay
+namespace Core.Store
 {
     [CreateAssetMenu(fileName = "NewItem", menuName = "ScriptableObjects/Store/ItemData")]
     public class ItemData : ScriptableObject
