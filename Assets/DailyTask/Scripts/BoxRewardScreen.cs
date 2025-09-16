@@ -35,7 +35,6 @@ namespace Core.Screen
             {
                 case 0:
                     int randomReward = Random.Range(0, _totalStoreItems);
-                    Debug.Log("Random Reward: " + randomReward);
                     if (randomReward < _flamesLength)
                     {
                         Instantiate(Resources.Load<GameObject>(_flamesPath + randomReward), ItemHolders[0]);
@@ -67,7 +66,6 @@ namespace Core.Screen
 
         void StartUnBoxsing()
         {
-            Debug.Log("Start Unboxing");
             SoundEffectEvent.InvokeSOEvent(3);
             Cards[_cardIndex].DOAnchorPos(_cardPosition, _unboxingTime).SetEase(Ease.OutQuad);
             Cards[_cardIndex].DOScale(_cardSize, _unboxingTime).SetEase(Ease.OutBack);

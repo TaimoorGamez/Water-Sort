@@ -421,12 +421,11 @@ MonoBehaviour:
   LastDate: {fileID: 11400000, guid: c1b6ca48187cef544a4d09e487feb5a2, type: 2}
   ToDay: {fileID: 11400000, guid: 4ded294b7c568394e9d67d5850702175, type: 2}
   RewardClaimed: {fileID: 11400000, guid: a41bab151c97e9b4ab791d7c87ae6398, type: 2}
-  DailySpin: {fileID: 11400000, guid: bb77720219856cd489e9c9a6bb7d54c0, type: 2}
   UpDateState: {fileID: 11400000, guid: 095179574b1f2944f9fc36cd19aa51e0, type: 2}
   GenerateTasksEvent: {fileID: 11400000, guid: 67a21a324274d5f4281863c1709ab808, type: 2}
+  ResetSpinWheelEvent: {fileID: 11400000, guid: b6c788075a43b684ba0a2aae9d1ea0d2, type: 2}
   DailyRewardView: {fileID: 0}
-  NotificationIcon: {fileID: 2742523152738584267}
-  SpinNotification: {fileID: 0}
+  NotificationObj: {fileID: 2742523152738584267}
   RemainingTimeText: {fileID: 8897430102173634727}
   PanelTimer: {fileID: 0}
 --- !u!1001 &8560319992025951888
@@ -437,6 +436,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1054929287801422708}
     m_Modifications:
+    - target: {fileID: 528514439931203623, guid: 5ca28afbff7a99b4981a7eb2bd50f735, type: 3}
+      propertyPath: TweenAnimations.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 68d8699d12fb61d4c92aed5ef7b1da16, type: 2}
+    - target: {fileID: 528514439931203623, guid: 5ca28afbff7a99b4981a7eb2bd50f735, type: 3}
+      propertyPath: TweenAnimations.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: ab863f3d822dfd843a892cc4fdb68cc8, type: 2}
     - target: {fileID: 5819561025122674779, guid: 5ca28afbff7a99b4981a7eb2bd50f735, type: 3}
       propertyPath: m_Name
       value: Notification

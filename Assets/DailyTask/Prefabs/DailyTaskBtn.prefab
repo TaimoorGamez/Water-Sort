@@ -674,6 +674,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1903984318701470329}
     m_Modifications:
+    - target: {fileID: 528514439931203623, guid: 5ca28afbff7a99b4981a7eb2bd50f735, type: 3}
+      propertyPath: TweenAnimations.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9eb165b9662c6a94595e81ae31831770, type: 2}
+    - target: {fileID: 528514439931203623, guid: 5ca28afbff7a99b4981a7eb2bd50f735, type: 3}
+      propertyPath: TweenAnimations.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 927eb102dc3dff048830c8f96d2dbae4, type: 2}
     - target: {fileID: 5819561025122674779, guid: 5ca28afbff7a99b4981a7eb2bd50f735, type: 3}
       propertyPath: m_Name
       value: Notification

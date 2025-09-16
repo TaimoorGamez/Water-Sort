@@ -805,6 +805,7 @@ GameObject:
   - component: {fileID: 822361814971322831}
   - component: {fileID: 7019229742718216946}
   - component: {fileID: 8716410742215808551}
+  - component: {fileID: 1050822039622418591}
   m_Layer: 5
   m_Name: SpinWheel Btn
   m_TagString: Untagged
@@ -1035,6 +1036,21 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+--- !u!114 &1050822039622418591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7748744900235372664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99717b1f45abf6840ac31da2924adfcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ResetSpinWheelEvent: {fileID: 11400000, guid: b6c788075a43b684ba0a2aae9d1ea0d2, type: 2}
+  DailySpin: {fileID: 11400000, guid: bb77720219856cd489e9c9a6bb7d54c0, type: 2}
+  NotificationObj: {fileID: 586030929311501963}
 --- !u!1 &7851241394503766485
 GameObject:
   m_ObjectHideFlags: 0
@@ -1376,11 +1392,11 @@ PrefabInstance:
     - target: {fileID: 528514439931203623, guid: 5ca28afbff7a99b4981a7eb2bd50f735, type: 3}
       propertyPath: TweenAnimations.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: d74ffd2bdef66344099e90e6214cf630, type: 2}
+      objectReference: {fileID: 11400000, guid: 2e219fa0a773bb044a8b4b4a4809c129, type: 2}
     - target: {fileID: 528514439931203623, guid: 5ca28afbff7a99b4981a7eb2bd50f735, type: 3}
       propertyPath: TweenAnimations.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 73caa0a7cdddb1a4b8ffc5a746c0d3d6, type: 2}
+      objectReference: {fileID: 11400000, guid: 037e97f68c084564c852fc01be1aaf9e, type: 2}
     - target: {fileID: 5819561025122674779, guid: 5ca28afbff7a99b4981a7eb2bd50f735, type: 3}
       propertyPath: m_Name
       value: Notification
@@ -1486,6 +1502,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ca28afbff7a99b4981a7eb2bd50f735, type: 3}
+--- !u!1 &586030929311501963 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5819561025122674779, guid: 5ca28afbff7a99b4981a7eb2bd50f735, type: 3}
+  m_PrefabInstance: {fileID: 6404466035166291664}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1118692167441130134 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6298107557323146310, guid: 5ca28afbff7a99b4981a7eb2bd50f735, type: 3}
