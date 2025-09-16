@@ -19,12 +19,12 @@ namespace Core.DailyReward
 
         private void OnEnable()
         {
-            UpDateState.EventHandler += UpdateDate;
+            UpDateState.EventHandler += ChangeDay;
         }
 
         private void OnDisable()
         {
-            UpDateState.EventHandler -= UpdateDate;
+            UpDateState.EventHandler -= ChangeDay;
             
             if(_timerRotine != null)
             StopCoroutine(_timerRotine);
@@ -37,8 +37,8 @@ namespace Core.DailyReward
 
         public void ChangeDay()
         {
-            if(_timerRotine != null)
-            StopCoroutine(_timerRotine);
+            if (_timerRotine != null)
+                StopCoroutine(_timerRotine);
 
             NotificationObj.SetActive(false);
             RemainingTimeText.gameObject.SetActive(false);
@@ -62,6 +62,12 @@ namespace Core.DailyReward
                     ToDay.Value = 1;
                 }
                 DailyRewardView.SetActive(true);
+                LastDate.Value = (DateTime.Now.ToString());
+            }
+            else if (daysGreater < 1 && RewardClaimed.Value == 0)
+            {
+                NotificationObj.SetActive(true);
+                DailyRewardView.SetActive(true);
             }
             else
             {
@@ -71,12 +77,6 @@ namespace Core.DailyReward
                 float secondsRemaining = (float)remainingTime.TotalSeconds;
                 _timerRotine = StartCoroutine(UpdateRemainingTime(secondsRemaining));
             }
-        }
-
-        void UpdateDate()
-        {
-            LastDate.Value = (DateTime.Now.ToString()); 
-            ChangeDay();
         }
 
         private IEnumerator UpdateRemainingTime(float seconds)
