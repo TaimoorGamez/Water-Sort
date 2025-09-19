@@ -11,8 +11,8 @@ namespace Core.Plugins.Ads
     public class SOIntertitialAd : AdHandler
     {
         [SerializeField] SOEvents StartAdLoaing, SelfDestruction;
-        [SerializeField] SOInterger AdTimerComplete, AdPlaying;
-        [SerializeField] DBInt NoAdsDB, AdBlocked;
+        [SerializeField] SOInterger AdTimerComplete, AdPlaying, MinLvlIndex;
+        [SerializeField] DBInt NoAdsDB, AdBlocked, LvlNum;
         [SerializeField] GameObject AdLoading;
 
         InterstitialAd _interstitialAd;
@@ -56,7 +56,7 @@ namespace Core.Plugins.Ads
         {
             get
             {
-                return _interstitialAd != null && _interstitialAd.CanShowAd() && AdTimerComplete.Value == 1 && AdPlaying.Value == 0;
+                return _interstitialAd != null && _interstitialAd.CanShowAd() && AdTimerComplete.Value == 1 && AdPlaying.Value == 0 && LvlNum.Value > MinLvlIndex.Value;
             }
         }
 
