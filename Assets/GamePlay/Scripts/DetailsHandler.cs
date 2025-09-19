@@ -15,7 +15,7 @@ namespace Core.GamePlay.Coloring
         [SerializeField] SOInterger LevelStars, DetailsApplied, CompleteStateIndex;
         [SerializeField] SOIntegerEvents SoundEffectEvent, ActiveStateEvent;
         [SerializeField] SOEvents StopLoopEffect;
-        [SerializeField] RectTransform SprayCan, FlameThrower, ColoringImage;
+        [SerializeField] RectTransform SprayCan, FlameThrower, ColoringParts;
         [SerializeField] Vector2Int VerticalRange, HorizontalRange;
         [SerializeField] TextMeshProUGUI InfoText;
         [SerializeField] string[] InfoMsgs;
@@ -86,8 +86,8 @@ namespace Core.GamePlay.Coloring
                     HideRemaingPixles();
                     SoundEffectEvent.InvokeSOEvent(6);
                     StarParticles.Play();
-                    ColoringImage.DOScale(1.1f, _preparationTime);
-                    ColoringImage.DOAnchorPosY(_finalPos, _preparationTime).OnComplete(() =>
+                    ColoringParts.DOScale(0.75f, _preparationTime);
+                    ColoringParts.DOAnchorPosY(_finalPos, _preparationTime).OnComplete(() =>
                     {
                         Invoke(nameof(LevelComplete),2);
                     });

@@ -23,7 +23,7 @@ namespace Core.GamePlay.Coloring
         [SerializeField] Animation BrushAnimtion;
         [SerializeField] ParticleSystem BrushParitcle;
 
-        float _speed = 5, _brushSize = 15, _preparationTime = 1;
+        float _speed = 5, _brushSize = 20, _preparationTime = 1;
         bool _canColor = false, _coloringSound = false, _canShowNextBtn = true, _onceClicked = false, _isReseting = false;
         Coroutine _movingRoutine;
         RectTransform _coloringParTransform;

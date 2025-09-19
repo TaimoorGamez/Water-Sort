@@ -31,6 +31,7 @@ namespace Core.GamePlay.Coloring
         void StartColoring()
         {
             SoundEffectEvent.InvokeSOEvent(3);
+            ColoringImage.DOScale(Vector3.one, _preparationTime);
             ColoringImage.DOAnchorPos(Vector2.zero, _preparationTime).OnComplete(() =>
             {
                 RefferanceBar.gameObject.SetActive(true); 

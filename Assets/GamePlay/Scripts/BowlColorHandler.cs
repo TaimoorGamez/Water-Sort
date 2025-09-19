@@ -60,7 +60,7 @@ namespace Core.GamePlay.Coloring
             {
                 SoundEffectEvent.InvokeSOEvent(0);
                 _propBlock.SetInteger("_Glow", 1);
-                transform.DOLocalMoveY(_orignalPos.y + 0.5f, 0.1f);
+                transform.DOLocalMoveY(_orignalPos.y + 0.2f, 0.1f);
                 WaveParticle.Play();
             }
             else

@@ -43,6 +43,10 @@ namespace Core.Screen
         private void OnDisable()
         {
             MultiplayRewardEvent.EventHandler -= OnMultiplyReward;
+            if (_screenShotRotine != null)
+            {
+                StopCoroutine(_screenShotRotine);
+            }
         }
 
         void Start()
@@ -101,9 +105,7 @@ namespace Core.Screen
             yield return new WaitForSeconds(0.25f);
             // Reset the RenderTexture
             RenderTexture.active = null;
-            //ScreenshotCamera.targetTexture = null;
 
-            // Display the screenshot in the complete panel
             DisplayImage.texture = screenshot;
             string directoryPath = Path.Combine(Application.persistentDataPath, "Paintings");
             if (!Directory.Exists(directoryPath))

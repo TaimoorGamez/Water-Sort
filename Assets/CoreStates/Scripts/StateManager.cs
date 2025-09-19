@@ -67,6 +67,5 @@ namespace Core.States
                 yield break;
             }
         }
-
     }
 }
