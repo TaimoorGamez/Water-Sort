@@ -25,5 +25,8 @@ MonoBehaviour:
   CanSpray: {fileID: 11400000, guid: 4841edbb7652da34c99ba21a8ce0229d, type: 2}
   CanFlame: {fileID: 11400000, guid: e29b56c9fabf8e74ea4d52a94f232e49, type: 2}
   CanBlockAds: {fileID: 11400000, guid: a27ce2a7542335b438374b98f1698c7e, type: 2}
+  CanUndo: {fileID: 11400000, guid: 8727889e42d04014e83e74d6f72104a3, type: 2}
+  CanAddExtraTube: {fileID: 11400000, guid: 0237e9a2868f4f84585b41c8c31f7f05, type: 2}
+  CanSwitchColor: {fileID: 11400000, guid: a9b33c85d37a89d4680975cba556ce21, type: 2}
   ShowToastEvent: {fileID: 11400000, guid: 206e032d1b187244f94f744674e5f04e, type: 2}
   TaskEvents: {fileID: 11400000, guid: 5254f8d222e5a034fa2451644bce9d2e, type: 2}

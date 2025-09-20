@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using Core.Events;
+using Core.Plugins;
 using Core.Economy;
 using Core.DB.Variables;
 
@@ -8,15 +9,18 @@ namespace Core.Screen
 {
     public class PowerBtnHandler : MonoBehaviour
     {
+        [SerializeField] AdHandler RewardedAd;
         [SerializeField] DBInt RemaingPower;
-        [SerializeField] SOEvents PowerEvent, ChangePowerStatusEvent;
+        [SerializeField] SOEvents PowerEvent, ChangePowerStatusEvent, RewardPowerEvent;
         [SerializeField] Currency CashCurrency;
         [SerializeField] GameObject CounterObj, PriceObj, AdObj;
         [SerializeField] TextMeshProUGUI RemaingText;
         [SerializeField] int Price;
+        [SerializeField] string PowerName;
 
         private void OnEnable()
         {
+            RewardPowerEvent.EventHandler += RewardPower;
             ChangePowerStatusEvent.EventHandler += ChangeStatus;
             PowerStatus();
         }
@@ -24,6 +28,7 @@ namespace Core.Screen
         private void OnDisable()
         {
             ChangePowerStatusEvent.EventHandler -= ChangeStatus;
+            RewardPowerEvent.EventHandler -= RewardPower;
         }
 
         void PowerStatus()
@@ -65,6 +70,16 @@ namespace Core.Screen
             {
                 PowerEvent.InvokeSOEvent();
             }
+            else
+            {
+                RewardedAd.ShowAd(PowerName);
+            }
+        }
+
+        void RewardPower()
+        {
+            RemaingPower.Value++;
+            PowerStatus();
         }
     }
 }

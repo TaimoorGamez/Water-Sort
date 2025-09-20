@@ -11,10 +11,10 @@ namespace Core.Plugins.Ads
         [SerializeField] DBInt NoAds;
         [SerializeField] AdDataHandler AdData;
         [SerializeField] AdHandler IntertitialAd;
-        [SerializeField] SOEvents NoAdsBuyEvent, StartLoadingAdsEvent, GrantRewardEvent, CompletePanelRewardEvent, AddMovesEvent,
-                                  DoubleDailyRewardEvent, SpinEvent, BuyCaps, BuySprays, BuyFlames, AdsBlockerEvent;
-        [SerializeField] SOInterger AdTimerComplete, CanAddMoves, CanMultiply, CanDoubleReward, CanSpin, CanCaps, CanSprays,
-                                    CanBlockAds, CanFlames;
+        [SerializeField] SOEvents NoAdsBuyEvent, StartLoadingAdsEvent, GrantRewardEvent, CompletePanelRewardEvent, AddMovesEvent, DoubleDailyRewardEvent,
+                                  SpinEvent, BuyCaps, BuySprays, BuyFlames, AdsBlockerEvent, RewardUndoEvent, RewardExtraTubeEvent, RewardSwitchColor;
+        [SerializeField] SOInterger AdTimerComplete, CanAddMoves, CanMultiply, CanDoubleReward, CanSpin, CanCaps, CanSprays, CanBlockAds, CanFlames, CanUndo,
+                                    CanAddExtraTube, CanSwitchColor;
 
         Coroutine _rewardRotine, _adsRotine;
         bool _isEnable = false;
@@ -50,6 +50,24 @@ namespace Core.Plugins.Ads
                 {
                     CanAddMoves.Value = 0;
                     AddMovesEvent.InvokeSOEvent();
+                    _isEnable = false;
+                }
+                else if (CanUndo.Value == 1)
+                {
+                    CanUndo.Value = 0;
+                    RewardUndoEvent.InvokeSOEvent();
+                    _isEnable = false;
+                }
+                else if (CanAddExtraTube.Value == 1)
+                {
+                    CanAddExtraTube.Value = 0;
+                    RewardExtraTubeEvent.InvokeSOEvent();
+                    _isEnable = false;
+                }
+                else if (CanSwitchColor.Value == 1)
+                {
+                    CanSwitchColor.Value = 0;
+                    RewardSwitchColor.InvokeSOEvent();
                     _isEnable = false;
                 }
                 else if (CanMultiply.Value == 1)

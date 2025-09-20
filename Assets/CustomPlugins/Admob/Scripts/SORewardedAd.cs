@@ -9,8 +9,8 @@ namespace Core.Plugins.Ads
     public class SORewardedAd : AdHandler
     {
         [SerializeField] SOEvents GrantRewardEvent;
-        [SerializeField] SOInterger AdPlaying, CanMultiply, CanAddMoves, CanDoubleReward, CanSpin, CanCap, CanSpray,
-                                    CanFlame, CanBlockAds;
+        [SerializeField] SOInterger AdPlaying, CanMultiply, CanAddMoves, CanDoubleReward, CanSpin, CanCap, CanSpray, CanFlame, CanBlockAds, CanUndo,
+                                    CanAddExtraTube, CanSwitchColor;
         [SerializeField] SOIntegerEvents ShowToastEvent;
         [SerializeField] SO2IntergerEvent TaskEvents;
 
@@ -74,7 +74,6 @@ namespace Core.Plugins.Ads
 
         private void RegisterEventHandlers(RewardedAd ad)
         {
-            // Raised when the ad is estimated to have earned money.
             ad.OnAdPaid += (AdValue adValue) =>
             {
                 //Debug.Log(String.Format("Rewarded ad paid {0} {1}.",
@@ -123,6 +122,18 @@ namespace Core.Plugins.Ads
 
                 case "AddMoves":
                     CanAddMoves.Value = 1;
+                    break;
+
+                case "Undo":
+                    CanUndo.Value = 1;
+                    break;
+
+                case "ExtraTube":
+                    CanAddExtraTube.Value = 1;
+                    break;
+
+                case "SwitchColor":
+                    CanSwitchColor.Value = 1;
                     break;
 
                 case "DoubleReward":
