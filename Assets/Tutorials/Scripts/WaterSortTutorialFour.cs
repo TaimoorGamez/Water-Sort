@@ -22,7 +22,7 @@ namespace Core.GamePlay.WaterSort
 
         Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f);
         int _colorIndex = 0, _colorBowlCounter = 0;
-        Vector3 _bowlYPos = new Vector3(-2, -0.85f, -2.5f);
+        Vector3 _bowlYPos = new Vector3(-2, -1.5f, -2.5f);
         bool _isFirstClick = true;
 
         private void OnEnable()
