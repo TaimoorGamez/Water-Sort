@@ -189,7 +189,7 @@ namespace Core.Screen
         {
             SoundEffectEvent.InvokeSOEvent(3);
             Body.DOAnchorPosX(1500, _durationTweeing).SetEase(Ease.InBack).OnComplete(() => {
-                if (LevelIndex.Value >= MaxLvlCount.Value)
+                if (LevelIndex.Value > MaxLvlCount.Value)
                 {
                     LevelIndex.Value = MinLvlCount.Value;
                 }
