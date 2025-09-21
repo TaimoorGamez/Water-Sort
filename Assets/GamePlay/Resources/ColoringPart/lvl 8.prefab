@@ -138,7 +138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7527752043323805821, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: m_Name
-      value: ColorPart (4)
+      value: ColorPart (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -176,19 +176,19 @@ PrefabInstance:
     - target: {fileID: 1898423574410225127, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
       propertyPath: 'ColoringPart.Array.data[1]'
       value: 
-      objectReference: {fileID: 605562910130827994}
+      objectReference: {fileID: 7237331582128259219}
     - target: {fileID: 1898423574410225127, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
       propertyPath: 'ColoringPart.Array.data[2]'
       value: 
-      objectReference: {fileID: 906203009225879005}
+      objectReference: {fileID: 3593995523850744792}
     - target: {fileID: 1898423574410225127, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
       propertyPath: 'ColoringPart.Array.data[3]'
       value: 
-      objectReference: {fileID: 7237331582128259219}
+      objectReference: {fileID: 605562910130827994}
     - target: {fileID: 1898423574410225127, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
       propertyPath: 'ColoringPart.Array.data[4]'
       value: 
-      objectReference: {fileID: 3593995523850744792}
+      objectReference: {fileID: 906203009225879005}
     - target: {fileID: 7901100041250102920, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -304,7 +304,7 @@ PrefabInstance:
     - target: {fileID: 8155223144613782484, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
       propertyPath: m_Texture
       value: 
-      objectReference: {fileID: 2800000, guid: 57a55e333963d3d48bc6dea1cd30621b, type: 3}
+      objectReference: {fileID: 2800000, guid: d76fcb0f7d9f13144aa3641321c0a815, type: 3}
     - target: {fileID: 8155223144613782485, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
       propertyPath: DefaultColor.b
       value: 0.7254902
@@ -319,7 +319,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8155223144613782485, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
       propertyPath: DefaultColor.rgba
-      value: 4286105680
+      value: 4278208255
       objectReference: {fileID: 0}
     - target: {fileID: 8155223144613782490, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
       propertyPath: m_SizeDelta.x
@@ -334,16 +334,16 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3802831844192468085, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 605562910130827989}
-    - targetCorrespondingSourceObject: {fileID: 3802831844192468085, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 906203009225878994}
-    - targetCorrespondingSourceObject: {fileID: 3802831844192468085, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7237331582128259228}
     - targetCorrespondingSourceObject: {fileID: 3802831844192468085, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3593995523850744791}
+    - targetCorrespondingSourceObject: {fileID: 3802831844192468085, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 605562910130827989}
+    - targetCorrespondingSourceObject: {fileID: 3802831844192468085, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 906203009225878994}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
 --- !u!224 &7427755173846214671 stripped
@@ -374,7 +374,7 @@ PrefabInstance:
     - target: {fileID: 7527752043323805810, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: m_Texture
       value: 
-      objectReference: {fileID: 2800000, guid: d76fcb0f7d9f13144aa3641321c0a815, type: 3}
+      objectReference: {fileID: 2800000, guid: 57a55e333963d3d48bc6dea1cd30621b, type: 3}
     - target: {fileID: 7527752043323805811, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: DefaultColor.b
       value: 0.23529412
@@ -389,7 +389,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7527752043323805811, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: DefaultColor.rgba
-      value: 4278208255
+      value: 4286105680
       objectReference: {fileID: 0}
     - target: {fileID: 7527752043323805820, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: m_Pivot.x
@@ -489,7 +489,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7527752043323805821, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: m_Name
-      value: ColorPart (5)
+      value: ColorPart (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -650,7 +650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7527752043323805821, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: m_Name
-      value: ColorPart (2)
+      value: ColorPart (4)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -811,7 +811,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7527752043323805821, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: m_Name
-      value: ColorPart (3)
+      value: ColorPart (5)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

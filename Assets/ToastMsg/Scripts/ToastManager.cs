@@ -17,7 +17,6 @@ namespace Core.ToastMsg
         {
             ToastMsgEvent.EventHandler += ShowToastMsg;
             _isInit = true;
-            Debug.Log("here");
         }
 
         private void OnDisable()
@@ -30,7 +29,6 @@ namespace Core.ToastMsg
 
         void ShowToastMsg(int toastNum)
         {
-            Debug.Log("toastNum " + toastNum);
             if (_oldMsgScreen == null)
             {
                 _oldMsgScreen = Instantiate(ToastMsgPrefab);
