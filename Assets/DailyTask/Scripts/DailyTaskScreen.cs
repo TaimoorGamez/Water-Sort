@@ -26,7 +26,7 @@ namespace Core.Screen
 
         void OnEnable()
         {
-            Body.DOScale(1, _tweenTime).SetEase(Ease.OutBack);
+            Body.DOScale(0.8f, _tweenTime).SetEase(Ease.OutBack);
             SoundEffectEvent.InvokeSOEvent(2);
             UpdateTasks();
         }

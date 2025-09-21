@@ -168,7 +168,7 @@ PrefabInstance:
     - target: {fileID: 1898423574410225127, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
       propertyPath: 'ColoringPart.Array.data[1]'
       value: 
-      objectReference: {fileID: 2340584033248520691}
+      objectReference: {fileID: 6264434399502016165}
     - target: {fileID: 1898423574410225127, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
       propertyPath: 'ColoringPart.Array.data[2]'
       value: 
@@ -176,11 +176,11 @@ PrefabInstance:
     - target: {fileID: 1898423574410225127, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
       propertyPath: 'ColoringPart.Array.data[3]'
       value: 
-      objectReference: {fileID: 6264434399502016165}
+      objectReference: {fileID: 6046800684785004431}
     - target: {fileID: 1898423574410225127, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
       propertyPath: 'ColoringPart.Array.data[4]'
       value: 
-      objectReference: {fileID: 6046800684785004431}
+      objectReference: {fileID: 2340584033248520691}
     - target: {fileID: 1898423574410225127, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
       propertyPath: 'ColoringPart.Array.data[5]'
       value: 
@@ -318,16 +318,16 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3802831844192468085, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2340584033248520700}
+      addedObject: {fileID: 6264434399502016170}
     - targetCorrespondingSourceObject: {fileID: 3802831844192468085, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3054302547583145312}
     - targetCorrespondingSourceObject: {fileID: 3802831844192468085, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6264434399502016170}
+      addedObject: {fileID: 6046800684785004416}
     - targetCorrespondingSourceObject: {fileID: 3802831844192468085, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6046800684785004416}
+      addedObject: {fileID: 2340584033248520700}
     - targetCorrespondingSourceObject: {fileID: 3802831844192468085, guid: 8bf63d13a6b72e24fa5aac491ab08d31, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7769587048347382776}
@@ -364,7 +364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7527752043323805811, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: DefaultColor.rgba
-      value: 4278210715
+      value: 4284796415
       objectReference: {fileID: 0}
     - target: {fileID: 7527752043323805820, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: m_Pivot.x
@@ -464,7 +464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7527752043323805821, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: m_Name
-      value: ColorPart (5)
+      value: ColorPart (4)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -613,7 +613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7527752043323805821, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: m_Name
-      value: ColorPart (4)
+      value: ColorPart (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -662,7 +662,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7527752043323805811, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: DefaultColor.rgba
-      value: 4284796415
+      value: 4278210715
       objectReference: {fileID: 0}
     - target: {fileID: 7527752043323805820, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: m_Pivot.x
@@ -911,7 +911,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7527752043323805821, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: m_Name
-      value: ColorPart (2)
+      value: ColorPart (5)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
