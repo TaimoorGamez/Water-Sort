@@ -433,6 +433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae6e821ed4f7aa41bf56021cf2de6fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ToastMsnger: {fileID: 11400000, guid: afb4f62d78735e240a4d3ffa87c6ff01, type: 2}
   FirebaseInit: {fileID: 11400000, guid: afe62d58c0da7a94abccece5c7df9181, type: 2}
   SoStore: {fileID: 11400000, guid: f36e8d40c49af0f4bb06dade4b0b7b91, type: 2}
   DefaultCap: {fileID: 11400000, guid: 0b5235d311f6bff409a2d712cac46ce7, type: 2}

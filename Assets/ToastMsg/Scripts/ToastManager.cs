@@ -11,19 +11,26 @@ namespace Core.ToastMsg
 
         ToastScreen _oldMsgScreen;
         int _oldMsgNum = -1;
+        bool _isInit = false;
 
-        private void OnEnable()
+        public void InitToastMsg()
         {
             ToastMsgEvent.EventHandler += ShowToastMsg;
+            _isInit = true;
+            Debug.Log("here");
         }
 
         private void OnDisable()
         {
-            ToastMsgEvent.EventHandler -= ShowToastMsg;
+            if (_isInit)
+            {
+                ToastMsgEvent.EventHandler -= ShowToastMsg;
+            } 
         }
 
         void ShowToastMsg(int toastNum)
         {
+            Debug.Log("toastNum " + toastNum);
             if (_oldMsgScreen == null)
             {
                 _oldMsgScreen = Instantiate(ToastMsgPrefab);

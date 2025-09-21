@@ -79,6 +79,10 @@ namespace Core.GamePlay.WaterSort
             {
                 ToastMsgEvent.InvokeSOEvent(2);
             }
+            else if (UsingAnyFeature.Value == 1)
+            {
+                ToastMsgEvent.InvokeSOEvent(4);
+            }
         }
     }
 }

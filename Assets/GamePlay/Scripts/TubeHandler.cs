@@ -14,7 +14,7 @@ namespace Core.GamePlay.WaterSort
         public Color CurrentColor;
         public CapHandler TubeCap;
 
-        [SerializeField] SOIntegerEvents SoundEffectEvent;
+        [SerializeField] SOIntegerEvents SoundEffectEvent, TaostMsgEvent;
         [SerializeField] SOInterger DoingUndo, IsHiddenLevel, CompletedTubes, IsSwaping, CanPlay, UsingAnyFeature;
         [SerializeField] UndoManager UndoManager;
         [SerializeField] ColorSwiper SwapingManager;
@@ -68,10 +68,17 @@ namespace Core.GamePlay.WaterSort
         {
             if (DoingUndo.Value == 0 && IsSwaping.Value == 0 && CanPlay.Value == 1)
             {
-                if (OpenTube.Tube == null && !IsBussy && !_isDrinkingWater && WaterColors.Count > 0)
+                if (OpenTube.Tube == null && !IsBussy && !_isDrinkingWater)
                 {
-                    TubeState(true);
-                    OpenTube.Tube = this;
+                    if (WaterColors.Count > 0)
+                    {
+                        TubeState(true);
+                        OpenTube.Tube = this;
+                    }
+                    else
+                    {
+                        TaostMsgEvent.InvokeSOEvent(0);
+                    }
                 }
                 else
                 {
@@ -89,12 +96,22 @@ namespace Core.GamePlay.WaterSort
                             {
                                 DrinkWater();
                             }
-                            else if (WaterColors.Count < _totalLiquidLayers && _senderTube.CurrentColor == CurrentColor)
+                            else if (WaterColors.Count < _totalLiquidLayers)
                             {
-                                DrinkWater();
+                                if (_senderTube.CurrentColor == CurrentColor)
+                                {
+                                    DrinkWater();
+                                }
+                                else
+                                {
+                                    TaostMsgEvent.InvokeSOEvent(6);
+                                    OpenTube.Tube.MoveBackIn();
+                                    OpenTube.Tube = null;
+                                }
                             }
                             else
                             {
+                                TaostMsgEvent.InvokeSOEvent(7);
                                 OpenTube.Tube.MoveBackIn();
                                 OpenTube.Tube = null;
                             }
