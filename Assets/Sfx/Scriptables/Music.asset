@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 263c214676a7b4244984af8a5cdcc97c, type: 3}
   m_Name: Music
   m_EditorClassIdentifier: 
-  CurrentValue: 0
-  DefaultValue: 0
+  CurrentValue: 1
+  DefaultValue: 1
   ResetDefault: 1
   PrefName: Music

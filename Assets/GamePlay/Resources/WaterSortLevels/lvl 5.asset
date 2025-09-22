@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Colors:
   - serializedVersion: 2
+    rgba: 4294289920
+  - serializedVersion: 2
     rgba: 4281150930
   - serializedVersion: 2
     rgba: 4291682805
   - serializedVersion: 2
     rgba: 4281498925
-  - serializedVersion: 2
-    rgba: 4294289920
   - serializedVersion: 2
     rgba: 4280167755

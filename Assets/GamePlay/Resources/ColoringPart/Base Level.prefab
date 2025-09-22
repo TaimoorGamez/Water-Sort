@@ -1407,6 +1407,10 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2771613277041554489, guid: f58bc4070534644449bb737b8368f9db, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6714503405944507940, guid: f58bc4070534644449bb737b8368f9db, type: 3}
       propertyPath: ShapeModule.radius.value
       value: 0.015
