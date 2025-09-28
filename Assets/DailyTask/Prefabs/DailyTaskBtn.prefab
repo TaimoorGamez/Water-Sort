@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 2.5
+  m_PixelsPerUnitMultiplier: 10
 --- !u!1 &1997483210097398859
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 2.5
+  m_PixelsPerUnitMultiplier: 10
 --- !u!114 &4366866163113508422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515,7 +515,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 2.5
+  m_PixelsPerUnitMultiplier: 10
 --- !u!1 &6905028428560545553
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,11 +675,11 @@ PrefabInstance:
     m_TransformParent: {fileID: 1903984318701470329}
     m_Modifications:
     - target: {fileID: 528514439931203623, guid: 5ca28afbff7a99b4981a7eb2bd50f735, type: 3}
-      propertyPath: TweenAnimations.Array.data[0]
+      propertyPath: 'TweenAnimations.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 9eb165b9662c6a94595e81ae31831770, type: 2}
     - target: {fileID: 528514439931203623, guid: 5ca28afbff7a99b4981a7eb2bd50f735, type: 3}
-      propertyPath: TweenAnimations.Array.data[1]
+      propertyPath: 'TweenAnimations.Array.data[1]'
       value: 
       objectReference: {fileID: 11400000, guid: 927eb102dc3dff048830c8f96d2dbae4, type: 2}
     - target: {fileID: 5819561025122674779, guid: 5ca28afbff7a99b4981a7eb2bd50f735, type: 3}

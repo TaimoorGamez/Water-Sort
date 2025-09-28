@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 6e61ab4620023af44bb9f6cf38a232e3, type: 2}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -523,15 +523,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
+  m_ActiveFontFeatures: 
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -684,7 +686,7 @@ GameObject:
   - component: {fileID: 2754093329795735727}
   - component: {fileID: 2357470069051035112}
   m_Layer: 5
-  m_Name: BG (1)
+  m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1280,15 +1282,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
+  m_ActiveFontFeatures: 
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -1390,11 +1394,11 @@ PrefabInstance:
     m_TransformParent: {fileID: 7812947024068773236}
     m_Modifications:
     - target: {fileID: 528514439931203623, guid: 5ca28afbff7a99b4981a7eb2bd50f735, type: 3}
-      propertyPath: TweenAnimations.Array.data[0]
+      propertyPath: 'TweenAnimations.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 2e219fa0a773bb044a8b4b4a4809c129, type: 2}
     - target: {fileID: 528514439931203623, guid: 5ca28afbff7a99b4981a7eb2bd50f735, type: 3}
-      propertyPath: TweenAnimations.Array.data[1]
+      propertyPath: 'TweenAnimations.Array.data[1]'
       value: 
       objectReference: {fileID: 11400000, guid: 037e97f68c084564c852fc01be1aaf9e, type: 2}
     - target: {fileID: 5819561025122674779, guid: 5ca28afbff7a99b4981a7eb2bd50f735, type: 3}
