@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704fa4f1bd56d2745b96b6106e71a541, type: 3}
   m_Name: MaxLvlIndex
   m_EditorClassIdentifier: 
-  CurrentValue: 11
-  DefaultValue: 11
+  CurrentValue: 13
+  DefaultValue: 13
   ResetDefault: 1
