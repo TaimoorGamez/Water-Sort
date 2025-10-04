@@ -13,8 +13,8 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] DBInt LvlNum;
         [SerializeField] SO2IntergerEvent TaskEvent;
         [SerializeField] SOIntegerEvents ToastMsgEvent, SwitchProtectorEvent;
-        [SerializeField] SOEvents SwapColorsModeEvent, ChangeSwipeStateEvent;
-        [SerializeField] SOInterger IsSwaping, UsingAnyFeature, MinLvlIndex;
+        [SerializeField] SOEvents SwapColorsModeEvent, ChangeSwipeStateEvent, StartColoringEvent;
+        [SerializeField] SOInterger IsSwaping, UsingAnyFeature, MinLvlIndex, CompletedTubes, CurrrentLvl, SortingCompleted;
         [SerializeField] SODOTween TubeScaleUpTween, TubeScaleDownTween;
 
         Dictionary<int,TubeHandler> SwapingTubes = new Dictionary<int, TubeHandler>();
@@ -22,25 +22,30 @@ namespace Core.GamePlay.WaterSort
         private void OnEnable()
         {
             SwapColorsModeEvent.EventHandler += OnClickSwapBtn;
+            StartColoringEvent.EventHandler += StopSwapping;
         }
 
         private void OnDisable()
         {
             SwapColorsModeEvent.EventHandler -= OnClickSwapBtn;
+            StartColoringEvent.EventHandler -= StopSwapping;
         }
 
         void OnClickSwapBtn()
         {
-            if (UsingAnyFeature.Value != 1 && IsSwaping.Value != 1)
+            if (SortingCompleted.Value == 0 && CompletedTubes.Value < CurrrentLvl.Value-1)
             {
-                UsingAnyFeature.Value = 1;
-                IsSwaping.Value = 1;
-                SwitchProtectorEvent.InvokeSOEvent(1);
-                TaskEvent.InvokeSOEvent(4, 1);
-            }
-            else
-            {
-                ToastMsgEvent.InvokeSOEvent(4);
+                if (UsingAnyFeature.Value != 1 && IsSwaping.Value != 1)
+                {
+                    UsingAnyFeature.Value = 1;
+                    IsSwaping.Value = 1;
+                    SwitchProtectorEvent.InvokeSOEvent(1);
+                    TaskEvent.InvokeSOEvent(4, 1);
+                }
+                else
+                {
+                    ToastMsgEvent.InvokeSOEvent(4);
+                }
             }
         }
 
@@ -89,6 +94,14 @@ namespace Core.GamePlay.WaterSort
             {
                 ToastMsgEvent.InvokeSOEvent(1);
             }
+            SwitchProtectorEvent.InvokeSOEvent(0);
+            SwapingTubes.Clear();
+            IsSwaping.Value = 0;
+            UsingAnyFeature.Value = 0;
+        }
+
+        void StopSwapping()
+        {
             SwitchProtectorEvent.InvokeSOEvent(0);
             SwapingTubes.Clear();
             IsSwaping.Value = 0;

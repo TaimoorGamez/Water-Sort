@@ -793,6 +793,7 @@ MonoBehaviour:
   MainMenuStateIndex: {fileID: 11400000, guid: 5b4f6ec2cf4170d4b973dfba16e1515f, type: 2}
   CurrrentLvl: {fileID: 11400000, guid: 619fe066546f4a1468e58d2c6fff0e67, type: 2}
   TempLvlIndex: {fileID: 11400000, guid: 1ce211a6ca2ede84c9718479db351404, type: 2}
+  SortingCompleted: {fileID: 11400000, guid: 9b677b7c59566db4784009b34e2d581c, type: 2}
   InitLevelEvent: {fileID: 11400000, guid: 30e22fa3534f8ae429ac3af2c42b6b5c, type: 2}
   ExtraTubeEvent: {fileID: 11400000, guid: 144ef759d9080de4684f554d27c681d9, type: 2}
   RestartLevelEvent: {fileID: 11400000, guid: 4e9a7e556dcd27740a95945b73a22a1d, type: 2}
