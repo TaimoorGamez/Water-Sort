@@ -14,7 +14,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] SOIntegerEvents SwipeProtectorEvent, ToastMsgEvent;
         [SerializeField] DBInt LvlIndex, LvlNum;
         [SerializeField] SO2IntergerEvent TaskEvent;
-        [SerializeField] SOInterger IsHiddenLevel, CanPlay, TotalMoves, BtnOnceClicked, MainMenuStateIndex, CurrrentLvl, TempLvlIndex, SortingCompleted;
+        [SerializeField] SOInterger IsHiddenLevel, CanPlay, TotalMoves, BtnOnceClicked, MainMenuStateIndex, CurrrentLvl, TempLvlIndex;
         [SerializeField] SOEvents InitLevelEvent, ExtraTubeEvent, RestartLevelEvent, DestroyLevelEvent, StartColoringEvent, ChangeExtraTubeStatEvent,
                                   UpdateMovesEvent;
         [SerializeField] TubeHandler TubePrefab;
@@ -37,8 +37,6 @@ namespace Core.GamePlay.WaterSort
             RestartLevelEvent.EventHandler += RestartLevel;
             DestroyLevelEvent.EventHandler += DestroyLevel;
             StartColoringEvent.EventHandler += ColoringPreparation;
-
-            SortingCompleted.Value = 0;
         }
 
         private void OnDisable()

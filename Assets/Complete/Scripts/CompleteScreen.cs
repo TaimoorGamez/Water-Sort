@@ -17,7 +17,7 @@ namespace Core.Screen
         [SerializeField] Currency CashCurrency;
         [SerializeField] DBInt LevelIndex, LvlNum;
         [SerializeField] SOInterger LevelStars, CanPlay, MainMenuStateIndex, LevelMoves, DetailsApplied, GamePlayState, LevelCompleteStateIndex,
-                                     MinLvlCount, MaxLvlCount, TempLvlIndex, CurrentMultiplayer;
+                                     MinLvlCount, MaxLvlCount, TempLvlIndex, CurrentMultiplayer,SortingCompleted;
         [SerializeField] SO2IntergerEvent TaskEvent;
         [SerializeField] SOIntegerEvents SoundEffectEvent, ActiveStateEvent, DestroyStatEvent;
         [SerializeField] SOEvents DestroyLevelEvent, InitLvlEvent, MultiplayRewardEvent;
@@ -51,6 +51,7 @@ namespace Core.Screen
 
         void Start()
         {
+            SortingCompleted.Value = 0;
             _starsDataPath = Path.Combine(Application.persistentDataPath, "starsData.json");
             _screenShotRotine = StartCoroutine(CaptureColoredArea());
             TaskEvent.InvokeSOEvent(1,1);
