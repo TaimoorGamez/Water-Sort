@@ -23,7 +23,7 @@ namespace Core.GamePlay.Coloring
         [SerializeField] Animation BrushAnimtion;
         [SerializeField] ParticleSystem BrushParitcle;
 
-        float _speed = 5, _brushSize = 20, _preparationTime = 1, _fillingCOmpletePercentage = 80;
+        float _speed = 5, _brushSize = 20, _preparationTime = 1, _fillingCOmpletePercentage = 75;
         bool _canColor = false, _coloringSound = false, _canShowNextBtn = true, _onceClicked = false, _isReseting = false;
         Coroutine _movingRoutine;
         RectTransform _coloringParTransform;
@@ -97,6 +97,7 @@ namespace Core.GamePlay.Coloring
 
         IEnumerator BrushMovingRoutine()
         {
+            BrushTransform.DOAnchorPosX(0, _preparationTime/2).SetEase(Ease.InBack);
             Vector2 initialOffset = Vector2.zero;
             while (_canColor)
             {
