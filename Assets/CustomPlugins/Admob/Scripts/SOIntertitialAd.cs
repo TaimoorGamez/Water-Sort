@@ -11,7 +11,7 @@ namespace Core.Plugins.Ads
     public class SOIntertitialAd : AdHandler
     {
         [SerializeField] SOEvents StartAdLoaing, SelfDestruction;
-        [SerializeField] SOInterger AdTimerComplete, AdPlaying, MinLvlIndex;
+        [SerializeField] SOInterger AdTimerComplete, AdPlaying, MinLvlIndex, AdmobInitialized;
         [SerializeField] DBInt NoAdsDB, AdBlocked, LvlNum;
         [SerializeField] GameObject AdLoading;
 
@@ -20,6 +20,10 @@ namespace Core.Plugins.Ads
 
         public override void LoadAd()
         {
+            if (AdmobInitialized.Value == 0)
+                return;
+
+
             if (NoAdsDB.Value != 1)
             {
                 if (IsTestAd)

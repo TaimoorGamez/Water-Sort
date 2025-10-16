@@ -10,7 +10,7 @@ namespace Core.Plugins.Ads
     {
         [SerializeField] SOEvents GrantRewardEvent;
         [SerializeField] SOInterger AdPlaying, CanMultiply, CanAddMoves, CanDoubleReward, CanSpin, CanCap, CanSpray, CanFlame, CanBlockAds, CanUndo,
-                                    CanAddExtraTube, CanSwitchColor;
+                                    CanAddExtraTube, CanSwitchColor, AdmobInitialized;
         [SerializeField] SOIntegerEvents ShowToastEvent;
         [SerializeField] SO2IntergerEvent TaskEvents;
 
@@ -19,6 +19,10 @@ namespace Core.Plugins.Ads
 
         public override void LoadAd()
         {
+            if(AdmobInitialized.Value == 0)
+                return;
+            
+
             if (IsTestAd)
             {
                 _adUnitId = TestId;

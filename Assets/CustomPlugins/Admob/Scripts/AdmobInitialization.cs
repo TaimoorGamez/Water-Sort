@@ -1,5 +1,6 @@
 using UnityEngine;
 using Core.Events;
+using Core.Variables;
 using Core.DB.Variables;
 using GoogleMobileAds.Api;
 using GoogleMobileAds.Ump.Api;
@@ -13,6 +14,7 @@ namespace Core.Plugins.Ads
         [SerializeField] DBInt NoAds;
         [SerializeField] SOEvents StartAdLoaing;
         [SerializeField] AdHandler RewardedAd;
+        [SerializeField] SOInterger AdmobInitialized;
 
         public override void InitPlugin()
         {
@@ -87,7 +89,7 @@ namespace Core.Plugins.Ads
                         return;
                     }
                     MobileAds.RaiseAdEventsOnUnityMainThread = true;
-
+                    AdmobInitialized.Value = 1;
                     if (AdData.AdData.Rewarded)
                     {
                         //Debug.Log("Loading rewarded ad");

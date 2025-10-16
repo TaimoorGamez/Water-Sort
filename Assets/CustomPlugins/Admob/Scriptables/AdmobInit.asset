@@ -16,3 +16,4 @@ MonoBehaviour:
   NoAds: {fileID: 11400000, guid: 4b5b7094fb1defd4a801e5fb32c564f7, type: 2}
   StartAdLoaing: {fileID: 11400000, guid: 50350d665ffba8640af837d04d66618c, type: 2}
   RewardedAd: {fileID: 11400000, guid: f262af9c90e54594fac7d6d50edcfa73, type: 2}
+  AdmobInitialized: {fileID: 11400000, guid: a06096bd4fe543e4a83c7359fd3459b7, type: 2}

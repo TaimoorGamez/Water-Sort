@@ -20,6 +20,7 @@ MonoBehaviour:
   AdTimerComplete: {fileID: 11400000, guid: 24b21fec6b11c9741b812319f23efd01, type: 2}
   AdPlaying: {fileID: 11400000, guid: 70d43a879e72fd6479b2dc4c54eb1403, type: 2}
   MinLvlIndex: {fileID: 11400000, guid: 97861f11d658661419c157765ea4ff3c, type: 2}
+  AdmobInitialized: {fileID: 11400000, guid: a06096bd4fe543e4a83c7359fd3459b7, type: 2}
   NoAdsDB: {fileID: 11400000, guid: 4b5b7094fb1defd4a801e5fb32c564f7, type: 2}
   AdBlocked: {fileID: 11400000, guid: 1cfa4b50796a77649840714845d666b1, type: 2}
   LvlNum: {fileID: 11400000, guid: bad89b7dfd4fe324eaaacf6e970340af, type: 2}
