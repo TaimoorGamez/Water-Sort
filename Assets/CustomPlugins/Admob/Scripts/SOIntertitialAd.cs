@@ -20,47 +20,45 @@ namespace Core.Plugins.Ads
 
         public override void LoadAd()
         {
-            if (AdmobInitialized.Value == 0)
+            if (AdmobInitialized.Value == 0 && NoAdsDB.Value == 1)
                 return;
 
 
-            if (NoAdsDB.Value != 1)
+            if (IsTestAd)
             {
-                if (IsTestAd)
-                {
-                    _adUnitId = TestId;
-                }
-                else
-                {
-                    _adUnitId = AdId;
-                }
-
-                if (_interstitialAd != null)
-                {
-                    _interstitialAd.Destroy();
-                    _interstitialAd = null;
-                }
-
-                var adRequest = new AdRequest();
-
-                InterstitialAd.Load(_adUnitId, adRequest,
-                    (InterstitialAd ad, LoadAdError error) =>
-                    {
-                        if (error != null || ad == null)
-                        {
-                            return;
-                        }
-                        _interstitialAd = ad;
-                        RegisterEventHandlers(ad);
-                    });
+                _adUnitId = TestId;
             }
+            else
+            {
+                _adUnitId = AdId;
+            }
+
+            if (_interstitialAd != null)
+            {
+                _interstitialAd.Destroy();
+                _interstitialAd = null;
+            }
+
+            var adRequest = new AdRequest();
+
+            InterstitialAd.Load(_adUnitId, adRequest,
+                (InterstitialAd ad, LoadAdError error) =>
+                {
+                    if (error != null || ad == null)
+                    {
+                        return;
+                    }
+                    _interstitialAd = ad;
+                    RegisterEventHandlers(ad);
+                });
         }
 
         public override bool IsAdAvailable
         {
             get
             {
-                return _interstitialAd != null && _interstitialAd.CanShowAd() && AdTimerComplete.Value == 1 && AdPlaying.Value == 0 && LvlNum.Value > MinLvlIndex.Value;
+                return _interstitialAd != null && _interstitialAd.CanShowAd() && AdTimerComplete.Value == 1 && AdPlaying.Value == 0 
+                    && LvlNum.Value > MinLvlIndex.Value && NoAdsDB.Value != 1;
             }
         }
 
