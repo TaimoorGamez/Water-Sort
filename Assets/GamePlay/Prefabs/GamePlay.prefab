@@ -134,7 +134,6 @@ MonoBehaviour:
   StartColoringEvent: {fileID: 11400000, guid: ed751afbb0214de499cef1891112c6d6, type: 2}
   ActiveStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
   SwitchProtectorEvent: {fileID: 11400000, guid: a23a193df529a5742b69a31e2a0a2720, type: 2}
-  ChangeBackgroundEvent: {fileID: 11400000, guid: b27032bfab4345e41ad29cacede8c6ef, type: 2}
   LvlNum: {fileID: 11400000, guid: bad89b7dfd4fe324eaaacf6e970340af, type: 2}
   TotalMoves: {fileID: 11400000, guid: c0332282d9024b84dafaab019726f173, type: 2}
   CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
@@ -480,7 +479,7 @@ PrefabInstance:
     - target: {fileID: 512353582190022526, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: RewardPowerEvent
       value: 
-      objectReference: {fileID: 11400000, guid: bb76e460331ee5d48ab24171228aa00b, type: 2}
+      objectReference: {fileID: 11400000, guid: 8465ba03ba3aa544daaacb13b162ecb4, type: 2}
     - target: {fileID: 512353582190022526, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: ChangePowerStatusEvent
       value: 

@@ -100,7 +100,7 @@ MonoBehaviour:
   CurrencyShine: {fileID: 2351056498938453773}
   CurrencyTxt: {fileID: 1732285249764788040}
   InitLocation: {fileID: 7745666749122182459}
-  SubmitLocation: {fileID: 0}
+  SubmitLocation: {fileID: 9219987085210159424}
 --- !u!1 &2002883690164383928
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ namespace Core.Screen
     public class WaterSortGameScreen : MonoBehaviour
     {
         [SerializeField] SOEvents UpdateMovesEvent, StartColoringEvent;
-        [SerializeField] SOIntegerEvents ActiveStateEvent, SwitchProtectorEvent, ChangeBackgroundEvent;
+        [SerializeField] SOIntegerEvents ActiveStateEvent, SwitchProtectorEvent;
         [SerializeField] DBInt LvlNum;
         [SerializeField] SOInterger TotalMoves, CanPlay, LevelFailStateIndex, CompletedTubes, GamePlayStateIndex, PauseStateIndex, MinLvl, CurrrentLvl;
         [SerializeField] GameObject SwipeColorsModePanel, PowerButtons, TopBar, PauseBtn;
@@ -17,7 +17,6 @@ namespace Core.Screen
 
         private void OnEnable()
         {
-            ChangeBackgroundEvent.InvokeSOEvent(GamePlayStateIndex.Value);
             SwitchProtectorEvent.EventHandler += SwitchProtector;
             UpdateMovesEvent.EventHandler += UpdateMovesText;
             StartColoringEvent.EventHandler += PrepareForColoring;
