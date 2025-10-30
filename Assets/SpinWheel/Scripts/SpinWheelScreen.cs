@@ -16,7 +16,7 @@ namespace Core.SpinWheel
         [SerializeField] RectTransform SegmentParent, Shine, RewardPanel, Body, Wheel;
         [SerializeField] SpinWheelSegment SegmentPrefab;
         [SerializeField] SpinWheelData SpinWheelData;
-        [SerializeField] Gradient RewardedGradient;
+        [SerializeField] Color RewardedColor;
         [SerializeField] Image RewardIcon;
         [SerializeField] TextMeshProUGUI RewardAmount;
 
@@ -65,7 +65,7 @@ namespace Core.SpinWheel
                 SpinWheelConfige reward = SpinWheelData.SpinWheelRewards[i];
                 SpinWheelSegment segment = Instantiate(SegmentPrefab, SegmentParent);
                 segment.transform.localRotation = Quaternion.Euler(0, 0, -i * _segmentAngle);
-                segment.Initialize(reward.Icon, reward.Amount, reward.SegmentGradient, fillAmount);
+                segment.Initialize(reward.Icon, reward.Amount, reward.SegmentColor, fillAmount);
                 _allSpinSegments[i] = segment;
             }
         }
@@ -122,7 +122,7 @@ namespace Core.SpinWheel
                     RewardAmount.text = "+"+SpinWheelData.SpinWheelRewards[rewardIndex].Amount.ToString();
                     RewardPanel.DOScale(Vector3.one, _tweenDiration).SetEase(Ease.OutBack).OnComplete(() => {
                         Invoke(nameof(CloseRewardPanel), 1);
-                        _allSpinSegments[rewardIndex].ChangeGradient(SpinWheelData.SpinWheelRewards[rewardIndex].SegmentGradient);
+                        _allSpinSegments[rewardIndex].ChangeGradient(SpinWheelData.SpinWheelRewards[rewardIndex].SegmentColor);
                     });
                     DailySpin.Value = 1;
                     SpinBtn.SetActive(false);
@@ -130,7 +130,7 @@ namespace Core.SpinWheel
                     RvBtn.SetActive(true);
                     SpinWheelData.SpinWheelRewards[rewardIndex].ClaimReward();
                 });
-                _allSpinSegments[rewardIndex].ChangeGradient(RewardedGradient);
+                _allSpinSegments[rewardIndex].ChangeGradient(RewardedColor);
             });
             SoundEffectEvent.InvokeSOEvent(10);
         }

@@ -1,3 +1,5 @@
+using System.Drawing;
+
 namespace Core.SpinWheel
 {
     public interface ISpinWheel
@@ -10,7 +12,7 @@ namespace Core.SpinWheel
     {
         [UnityEngine.SerializeField] DB.Variables.DBInt RewardDbs;
 
-        public UnityEngine.Gradient SegmentGradient;
+        public UnityEngine.Color SegmentColor;
         public UnityEngine.Sprite Icon;
         public int Amount;
         public float Weight;

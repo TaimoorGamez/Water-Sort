@@ -14,17 +14,12 @@ namespace Core.Screen
         [SerializeField] Initialization FirebaseInit, AdmobInit;
         [SerializeField] SOEvents InitLevelEvent;
         [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, SettingStateIndex, TempLvlIndex, IsFirebaseInit;
-        [SerializeField] SOIntegerEvents ActiveStateEvent, DestroyStateEvent, ChangeBackgroundEvent;
+        [SerializeField] SOIntegerEvents ActiveStateEvent, DestroyStateEvent;
         [SerializeField] TextMeshProUGUI[] Lvls;
         [SerializeField] Transform LevelView;
         [SerializeField] RectTransform LevelsHolder;
 
         int _activeLvl = 4;
-
-        private void OnEnable()
-        {
-            ChangeBackgroundEvent.InvokeSOEvent(MainMenuStateIndex.Value);
-        }
 
         public void OnclickSettingBtn()
         {
