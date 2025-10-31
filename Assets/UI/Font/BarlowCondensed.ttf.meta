@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e0978430adbdc5340aa153d0848dd039
+guid: e0e8baf0894b466429094396a0e0ecb0
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Bangers
+  - Barlow Condensed ExtraBold
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
