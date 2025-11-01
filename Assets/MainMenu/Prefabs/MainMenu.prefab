@@ -36,18 +36,18 @@ RectTransform:
   - {fileID: 5496460677091814370}
   - {fileID: 7996745687543763383}
   - {fileID: 2853701314689013835}
+  - {fileID: 3528575731794061220}
   - {fileID: 5269123445728577404}
   - {fileID: 2144323082393513200}
-  - {fileID: 3528575731794061220}
   - {fileID: 1056158312109030022}
   - {fileID: 1566750681911002978}
   - {fileID: 1354983074517271024}
-  - {fileID: 4267284753341830318}
-  - {fileID: 8095531242694865961}
-  - {fileID: 5196540385059877139}
   - {fileID: 2507386383421056981}
   - {fileID: 6641967477327445633}
   - {fileID: 5183533048119227992}
+  - {fileID: 5196540385059877139}
+  - {fileID: 4267284753341830318}
+  - {fileID: 8095531242694865961}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3456,7 +3456,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6840285968148839464, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 9353537
+      value: 9379736
       objectReference: {fileID: 0}
     - target: {fileID: 7277540639624644133, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_sharedMaterial

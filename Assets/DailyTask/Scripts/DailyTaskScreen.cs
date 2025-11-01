@@ -12,11 +12,10 @@ namespace Core.Screen
         [SerializeField] Currency CashCurrency;
         [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] TaskManager CurrenTaskManager;
-        [SerializeField] RectTransform Body, BoxPanel;
+        [SerializeField] RectTransform Body, BoxPanel, RewardFillBar;
         [SerializeField] TaskBar[] TaskBars;
         [SerializeField] RectTransform[] RewardImgs;
         [SerializeField] GameObject[] RewardChecks;
-        [SerializeField] Image RewardFillBar;
         [SerializeField] GameObject NotificationObj;
 
         DailyTaskData[] _activeTasks;
@@ -62,8 +61,7 @@ namespace Core.Screen
                     RewardImgs[i].gameObject.SetActive(true);
                 }
             }
-
-            RewardFillBar.fillAmount = (float)_completedTasks / TaskBars.Length;
+            RewardFillBar.DOScaleX((float)_completedTasks / TaskBars.Length, _tweenTime).SetEase(Ease.Linear);
         }
 
        public void ClaimReward(int taskIndex)
