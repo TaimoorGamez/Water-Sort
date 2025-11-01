@@ -27,7 +27,7 @@ RectTransform:
   m_GameObject: {fileID: 427901305698806881}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6699486806501728022}
@@ -525,7 +525,7 @@ MonoBehaviour:
   m_text: DAilY TASKS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
-  m_sharedMaterial: {fileID: 1187741445415994898, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
+  m_sharedMaterial: {fileID: 4775208833711610063, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1718,7 +1718,7 @@ GameObject:
   - component: {fileID: 3026367860683553087}
   - component: {fileID: 3168162073654482516}
   m_Layer: 5
-  m_Name: Cross
+  m_Name: CrossArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2165,10 +2165,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3513036245824105699, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_fontSize
+      value: 45.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513036245824105699, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4775208833711610063, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
     - target: {fileID: 6832002356361076616, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
       propertyPath: m_Name
       value: Task (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7593263967174377463, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_fontSize
+      value: 16.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7593263967174377463, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4775208833711610063, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2260,11 +2276,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1623783988832504125, guid: 0dd2edb2d3decd24ebe63737bb5f9401, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -36
+      value: -35
       objectReference: {fileID: 0}
     - target: {fileID: 1623783988832504125, guid: 0dd2edb2d3decd24ebe63737bb5f9401, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -12.5
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 1623783988832504125, guid: 0dd2edb2d3decd24ebe63737bb5f9401, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2662,10 +2678,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3513036245824105699, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_fontSize
+      value: 45.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513036245824105699, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4775208833711610063, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
     - target: {fileID: 6832002356361076616, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
       propertyPath: m_Name
       value: Task (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7593263967174377463, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_fontSize
+      value: 16.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7593263967174377463, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4775208833711610063, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3021,10 +3053,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3513036245824105699, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_fontSize
+      value: 45.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513036245824105699, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4775208833711610063, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
     - target: {fileID: 6832002356361076616, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
       propertyPath: m_Name
       value: Task (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7593263967174377463, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_fontSize
+      value: 16.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7593263967174377463, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4775208833711610063, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3300,10 +3348,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3513036245824105699, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_fontSize
+      value: 45.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513036245824105699, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4775208833711610063, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
     - target: {fileID: 6832002356361076616, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
       propertyPath: m_Name
       value: Task (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 7593263967174377463, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_fontSize
+      value: 16.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7593263967174377463, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 4775208833711610063, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

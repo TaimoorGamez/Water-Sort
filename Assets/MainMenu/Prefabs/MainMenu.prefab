@@ -1959,7 +1959,7 @@ PrefabInstance:
     - target: {fileID: 3655065284400903652, guid: 5ecab0ccd7f737a4ba12d6f38788a7a4, type: 3}
       propertyPath: SpinNotification
       value: 
-      objectReference: {fileID: 8484328898677921882}
+      objectReference: {fileID: 0}
     - target: {fileID: 7808153759608179138, guid: 5ecab0ccd7f737a4ba12d6f38788a7a4, type: 3}
       propertyPath: m_Name
       value: SpinWheel
@@ -3456,7 +3456,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6840285968148839464, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 9123302
+      value: 9353537
       objectReference: {fileID: 0}
     - target: {fileID: 7277540639624644133, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_sharedMaterial
@@ -3640,6 +3640,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 448749356872666594}
     m_Modifications:
+    - target: {fileID: 327289675228888259, guid: 0abf8a37bfa31114790eb67ede518644, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5184148261647249009, guid: 0abf8a37bfa31114790eb67ede518644, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -3776,7 +3780,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ResetSpinWheelEvent: {fileID: 11400000, guid: b6c788075a43b684ba0a2aae9d1ea0d2, type: 2}
   DailySpin: {fileID: 11400000, guid: bb77720219856cd489e9c9a6bb7d54c0, type: 2}
-  NotificationObj: {fileID: 8484328898677921882}
+  NotificationObj: {fileID: 7770484597814197372}
 --- !u!224 &2853701314689013835 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5244134530736642292, guid: 0abf8a37bfa31114790eb67ede518644, type: 3}
@@ -3787,6 +3791,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6749814614497801520, guid: 0abf8a37bfa31114790eb67ede518644, type: 3}
   m_PrefabInstance: {fileID: 8024441106734268607}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7770484597814197372 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 327289675228888259, guid: 0abf8a37bfa31114790eb67ede518644, type: 3}
+  m_PrefabInstance: {fileID: 8024441106734268607}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8156648910326971546
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3795,6 +3804,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 448749356872666594}
     m_Modifications:
+    - target: {fileID: 1442573499440375344, guid: 568bf01bff5024e4cb3845761564c328, type: 3}
+      propertyPath: NotificationObj
+      value: 
+      objectReference: {fileID: 383794913807229771}
     - target: {fileID: 3953499804440021698, guid: 568bf01bff5024e4cb3845761564c328, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4189,10 +4202,5 @@ PrefabInstance:
 --- !u!224 &1292900074268316581 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7812947024068773236, guid: 16314682e091687419783129eaf79865, type: 3}
-  m_PrefabInstance: {fileID: 9051219474241705681}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8484328898677921882 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 586030929311501963, guid: 16314682e091687419783129eaf79865, type: 3}
   m_PrefabInstance: {fileID: 9051219474241705681}
   m_PrefabAsset: {fileID: 0}
