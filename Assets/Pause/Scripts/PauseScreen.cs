@@ -6,7 +6,7 @@ using Core.DB.Variables;
 
 namespace Core.Screen
 {
-    public class PauseScreen : MonoBehaviour
+    public class PauseScreen : UiScreens
     {
         [SerializeField] DBInt Music, Sound;
         [SerializeField] SOIntegerEvents DestroyStatEvent, ActiveStatEvent, SoundEffectEvent;
@@ -48,10 +48,10 @@ namespace Core.Screen
         public void RestartLevel()
         {
             RestartLevelEvent.InvokeSOEvent();
-            ClosePanel();
+            OnClose();
         }
 
-        public void ClosePanel()
+        public override void OnClose()
         {
             Body.DOScale(0, _tweenTime).SetEase(Ease.InBack).OnComplete(() => {
                 CanPlay.Value = 1;
@@ -65,7 +65,7 @@ namespace Core.Screen
             DestroyLevelEvent.InvokeSOEvent();
             DestroyStatEvent.InvokeSOEvent(GamePlayStateIndex.Value);
             ActiveStatEvent.InvokeSOEvent(MainMenuStateIndex.Value);
-            ClosePanel();
+            OnClose();
         }
     }
 }

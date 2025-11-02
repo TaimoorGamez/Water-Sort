@@ -5,7 +5,7 @@ using Core.Variables;
 
 namespace Core.Screen
 {
-    public class FailScreen : MonoBehaviour
+    public class FailScreen : UiScreens
     {
         [SerializeField] SOIntegerEvents DestroyStatEvent, ActiveStatEvent, SoundEffectEvent;
         [SerializeField] SOEvents UpdateMovesEvent, RestartLevelEvent, DestroyLevelEvent, MoreMovesEvent;
@@ -29,7 +29,7 @@ namespace Core.Screen
 
         void AddMoreMoves()
         {
-            ClosePanel();
+            OnClose();
             TotalMoves.Value += _extraMoves;
             UpdateMovesEvent.InvokeSOEvent();
             CanPlay.Value = 1;
@@ -38,17 +38,17 @@ namespace Core.Screen
         public void RestartLevel()
         {
             RestartLevelEvent.InvokeSOEvent();
-            ClosePanel();
+            OnClose();
         }
         public void GoHome()
         {
             DestroyLevelEvent.InvokeSOEvent();
             DestroyStatEvent.InvokeSOEvent(GamePlayStateIndex.Value);
             ActiveStatEvent.InvokeSOEvent(MainMenuStateIndex.Value);
-            ClosePanel();
+            OnClose();
         }
 
-        void ClosePanel()
+        public override void OnClose()
         {
             Body.DOScale(0, _tweenTime).SetEase(Ease.InBack).OnComplete(() => Destroy(gameObject));
             SoundEffectEvent.InvokeSOEvent(2);

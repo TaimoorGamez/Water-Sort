@@ -9,11 +9,6 @@ namespace Core.Screen
 
         int _currentLayerIndex = 0;
 
-        private void Start()
-        {
-            ChangeActiveLayer(0);
-        }
-
         public void ChangeActiveLayer(int index)
         {
             if (_currentLayerIndex == index)

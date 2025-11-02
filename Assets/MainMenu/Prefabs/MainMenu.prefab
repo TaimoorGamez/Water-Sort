@@ -40,12 +40,12 @@ RectTransform:
   - {fileID: 5269123445728577404}
   - {fileID: 2144323082393513200}
   - {fileID: 3521852175021311182}
+  - {fileID: 4267284753341830318}
   - {fileID: 4187998221918909967}
   - {fileID: 2507386383421056981}
   - {fileID: 6641967477327445633}
   - {fileID: 5183533048119227992}
   - {fileID: 5196540385059877139}
-  - {fileID: 4267284753341830318}
   - {fileID: 8095531242694865961}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1109,7 +1109,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1635667009611085710, guid: 873eaea9811e55248b822e6e2a4daf00, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2622923073895139132, guid: 873eaea9811e55248b822e6e2a4daf00, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1781,25 +1781,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8390174008180652418, guid: 7c07efb60ce3f5948817121cb5a794da, type: 3}
-      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8390174008180652418, guid: 7c07efb60ce3f5948817121cb5a794da, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
       objectReference: {fileID: 3476073962329081790}
-    - target: {fileID: 8390174008180652418, guid: 7c07efb60ce3f5948817121cb5a794da, type: 3}
-      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
-      value: ChangeActiveLayer
-      objectReference: {fileID: 0}
-    - target: {fileID: 8390174008180652418, guid: 7c07efb60ce3f5948817121cb5a794da, type: 3}
-      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
-      value: Core.Screen.BottomHandler, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 8390174008180652418, guid: 7c07efb60ce3f5948817121cb5a794da, type: 3}
-      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_IntArgument
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 8958623928953460817, guid: 7c07efb60ce3f5948817121cb5a794da, type: 3}
       propertyPath: m_SortingLayer
       value: 0
@@ -2530,7 +2514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6840285968148839464, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 14207275
+      value: 14347663
       objectReference: {fileID: 0}
     - target: {fileID: 7277540639624644133, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_sharedMaterial

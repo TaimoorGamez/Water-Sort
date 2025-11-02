@@ -6,7 +6,7 @@ using Core.DB.Variables;
 
 namespace Core.Screen
 {
-    public class SettingScreen : MonoBehaviour
+    public class SettingScreen : UiScreens
     {
         [SerializeField] DBInt Music, Sound;
         [SerializeField] SOEvents UpdateMusicStateEvent, UpdateSoundStateEvent;
@@ -48,7 +48,7 @@ namespace Core.Screen
             SoundOff.SetActive(Sound.Value != 1);
         }
 
-        public void OnCloseSetting()
+        public override void OnClose()
         {
             MusicBtn.DOAnchorPosY(-60, _tweenTime).SetEase(Ease.InBack);
             SoundBtn.DOAnchorPosY(-60, _tweenTime).SetEase(Ease.InBack).OnComplete(()=>DestroyStateEvent.InvokeSOEvent(SettingStateIndex.Value));

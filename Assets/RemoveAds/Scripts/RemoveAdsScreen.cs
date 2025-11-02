@@ -2,12 +2,11 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 using Core.Events;
-using Core.Variables;
 using Core.DB.Variables;
 
 namespace Core.Screen
 {
-    public class RemoveAdsScreen : MonoBehaviour
+    public class RemoveAdsScreen : UiScreens
     {
         [SerializeField] SOEvents AdsBlockerEvent;
         [SerializeField] DBInt AdBlocked;
@@ -15,7 +14,7 @@ namespace Core.Screen
         [SerializeField] RectTransform Body;
         [SerializeField] GameObject RvBtn, TimerObj;
 
-        float _durationTweeing = 0.5f, reseTime = 900;
+        float _durationTweeing = 0.5f;
 
         void OnEnable()
         {
@@ -47,7 +46,7 @@ namespace Core.Screen
             OnClose();
         }
 
-        public void OnClose()
+        public override void OnClose()
         {
             Body.DOAnchorPosX(1500, _durationTweeing).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
         }

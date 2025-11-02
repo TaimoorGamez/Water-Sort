@@ -6,7 +6,7 @@ using Core.DB.Variables;
 
 namespace Core.Screen
 {
-    public class WaterSortGameScreen : MonoBehaviour
+    public class WaterSortGameScreen : UiScreens
     {
         [SerializeField] SOEvents UpdateMovesEvent, StartColoringEvent;
         [SerializeField] SOIntegerEvents ActiveStateEvent, SwitchProtectorEvent;

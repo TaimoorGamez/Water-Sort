@@ -4,10 +4,11 @@ using Core.Events;
 using UnityEngine;
 using UnityEngine.UI;
 using Core.DB.Variables;
+using Core.Screen;
 
 namespace Core.SpinWheel
 {
-    public class SpinWheelScreen : MonoBehaviour, ISpinWheel
+    public class SpinWheelScreen : UiScreens, ISpinWheel
     {
         [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] SOEvents SpinEvent; 
@@ -141,7 +142,7 @@ namespace Core.SpinWheel
             RewardPanel.DOScale(Vector3.zero, _tweenDiration).SetEase(Ease.InBack);
         }
 
-        public void ClosePanel()
+        public override void OnClose()
         {
             Wheel.DOScale(Vector3.zero, _tweenDiration).SetEase(Ease.InBack).OnComplete(() => Body.DOAnchorPosX(-1500, _tweenDiration).SetEase(Ease.InBack).OnComplete(()=>gameObject.SetActive(false)));
         }

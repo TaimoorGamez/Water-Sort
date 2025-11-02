@@ -12,7 +12,7 @@ using System.Collections;
 
 namespace Core.Screen
 {
-    public class CompleteScreen : MonoBehaviour
+    public class CompleteScreen : UiScreens
     {
         [SerializeField] Currency CashCurrency;
         [SerializeField] DBInt LevelIndex, LvlNum;
@@ -166,7 +166,7 @@ namespace Core.Screen
                     LvlNum.Value++;
                     LevelIndex.Value++;
                 }
-                Invoke(nameof(GoNext), 2);
+                Invoke(nameof(OnClose), 2);
             }
         }
 
@@ -182,11 +182,11 @@ namespace Core.Screen
                     LvlNum.Value++;
                     LevelIndex.Value++;
                 }
-                Invoke(nameof(GoNext), 2);
+                Invoke(nameof(OnClose), 2);
             }
         }
 
-        void GoNext()
+        public override void OnClose()
         {
             SoundEffectEvent.InvokeSOEvent(3);
             Body.DOAnchorPosX(1500, _durationTweeing).SetEase(Ease.InBack).OnComplete(() => {

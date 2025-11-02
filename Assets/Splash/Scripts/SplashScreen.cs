@@ -11,7 +11,7 @@ using Core.DB.Variables;
 
 namespace Core.Screen
 {
-    public class SplashScreen : MonoBehaviour
+    public class SplashScreen : UiScreens
     {
         [SerializeField] ToastManager ToastMsnger;
         [SerializeField] Initialization FirebaseInit;

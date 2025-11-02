@@ -6,7 +6,7 @@ using Core.DailyTasks;
 
 namespace Core.Screen
 {
-    public class DailyTaskScreen : MonoBehaviour
+    public class DailyTaskScreen : UiScreens
     {
         [SerializeField] Currency CashCurrency;
         [SerializeField] SOIntegerEvents SoundEffectEvent;
@@ -87,7 +87,7 @@ namespace Core.Screen
             }
         }
 
-        public void ClosePanel()
+        public override void OnClose()
         {
             SoundEffectEvent.InvokeSOEvent(2);
             Body.DOScale(0, _tweenTime).SetEase(Ease.InBack).OnComplete(() => {
