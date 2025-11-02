@@ -8,7 +8,7 @@ using Core.DB.Variables;
 
 namespace Core.Screen
 {
-    public class MainMenuScreen : MonoBehaviour
+    public class MainMenuScreen : UiScreens
     {
         [SerializeField] DBInt LvlNum;
         [SerializeField] Initialization FirebaseInit, AdmobInit;
@@ -62,6 +62,11 @@ namespace Core.Screen
             InitLevelEvent.InvokeSOEvent();
             ActiveStateEvent.InvokeSOEvent(GamePlayStateIndex.Value);
             DestroyStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
+        }
+
+        public override void OnClose()
+        {
+            
         }
     }
 }

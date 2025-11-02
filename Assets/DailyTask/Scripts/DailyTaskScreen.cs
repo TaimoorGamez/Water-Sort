@@ -2,7 +2,6 @@ using DG.Tweening;
 using UnityEngine;
 using Core.Events;
 using Core.Economy;
-using UnityEngine.UI;
 using Core.DailyTasks;
 
 namespace Core.Screen

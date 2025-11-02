@@ -4,7 +4,7 @@ using Core.Events;
 
 namespace Core.Screen
 {
-    public class StoreScreen : MonoBehaviour
+    public class StoreScreen : UiScreens
     {
         [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] RectTransform Body;
@@ -17,7 +17,7 @@ namespace Core.Screen
             Body.DOAnchorPosX(0, _tweenTime).SetEase(Ease.OutBack);
         }
 
-        public void OnClose()
+        public override void OnClose()
         {
             SoundEffectEvent.InvokeSOEvent(3);
             Body.DOAnchorPosX(1500, _tweenTime).SetEase(Ease.InBack).OnComplete(()=> gameObject.SetActive(false));

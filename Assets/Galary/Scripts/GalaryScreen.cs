@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace Core.Screen
 {
-    public class GalaryScreen : MonoBehaviour
+    public class GalaryScreen : UiScreens
     {
         [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] SOInterger MinLvlNum;
@@ -77,7 +77,7 @@ namespace Core.Screen
             }
         }
 
-        public void ClosePanel()
+        public override void OnClose()
         {
             Body.DOScale(0, _tweenTime).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
             SoundEffectEvent.InvokeSOEvent(2);

@@ -5,7 +5,7 @@ using Core.DB.Variables;
 
 namespace Core.Screen
 {
-    public class DailyRewardScreen : MonoBehaviour
+    public class DailyRewardScreen : UiScreens
     {
         [SerializeField] DBInt RewardClaimed;
         [SerializeField] SOEvents UpDateState;
@@ -55,7 +55,7 @@ namespace Core.Screen
 
         }
 
-        public void CloseDailyPanel()
+        public override void OnClose()
         {
             Body.DOAnchorPosX(1500, _durationTweeing).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
         }
