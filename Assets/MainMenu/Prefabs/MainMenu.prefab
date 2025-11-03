@@ -595,7 +595,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2622923073895139132, guid: 873eaea9811e55248b822e6e2a4daf00, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2685893581711010382, guid: 873eaea9811e55248b822e6e2a4daf00, type: 3}
       propertyPath: m_Name
@@ -1125,7 +1125,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2622923073895139132, guid: 873eaea9811e55248b822e6e2a4daf00, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 11
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2685893581711010382, guid: 873eaea9811e55248b822e6e2a4daf00, type: 3}
       propertyPath: m_Name
@@ -1872,7 +1872,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6497666982271032899, guid: 11944ee3af01ab94fb1e459813da68ec, type: 3}
       propertyPath: m_Name
-      value: Galary
+      value: Gallery
       objectReference: {fileID: 0}
     - target: {fileID: 6497666982271032899, guid: 11944ee3af01ab94fb1e459813da68ec, type: 3}
       propertyPath: m_IsActive
@@ -2514,7 +2514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6840285968148839464, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 14347663
+      value: 14562940
       objectReference: {fileID: 0}
     - target: {fileID: 7277540639624644133, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_sharedMaterial
@@ -2732,11 +2732,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2622923073895139132, guid: 873eaea9811e55248b822e6e2a4daf00, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2685893581711010382, guid: 873eaea9811e55248b822e6e2a4daf00, type: 3}
       propertyPath: m_Name
-      value: GalaryBtn
+      value: GalleryBtn
       objectReference: {fileID: 0}
     - target: {fileID: 3666165878735567734, guid: 873eaea9811e55248b822e6e2a4daf00, type: 3}
       propertyPath: m_Pivot.x

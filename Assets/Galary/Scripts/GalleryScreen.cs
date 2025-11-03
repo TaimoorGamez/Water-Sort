@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace Core.Screen
 {
-    public class GalaryScreen : UiScreens
+    public class GalleryScreen : UiScreens
     {
         [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] SOInterger MinLvlNum;
