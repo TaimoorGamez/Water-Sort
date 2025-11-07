@@ -13,7 +13,7 @@ namespace Core.Screen
         [SerializeField] SOEvents RestartLevelEvent, DestroyLevelEvent, UpdateMusicStateEvent, UpdateSoundStateEvent;
         [SerializeField] SOInterger CanPlay, MainMenuStateIndex, GamePlayStateIndex;
         [SerializeField] Transform Body;
-        [SerializeField] GameObject MusicOn, MusicOff, SoundOn, SoundOff;
+        [SerializeField] GameObject MusicOff, SoundOff;
 
         float _tweenTime = 0.25f;
 
@@ -35,13 +35,11 @@ namespace Core.Screen
 
         void UpdateMusicState()
         {
-            MusicOn.SetActive(Music.Value == 1);
             MusicOff.SetActive(Music.Value != 1);
         }
 
         void UpdateSoundState()
         {
-            SoundOn.SetActive(Sound.Value == 1);
             SoundOff.SetActive(Sound.Value != 1);
         }
 
