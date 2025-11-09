@@ -19,7 +19,7 @@ namespace Core.Screen
         [SerializeField] Transform LevelView;
         [SerializeField] RectTransform LevelsHolder;
 
-        int _activeLvl = 4;
+        int _activeLvl = 3;
 
         public void OnclickSettingBtn()
         {
