@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: AdData
   m_EditorClassIdentifier: 
   AdData:
-    Ad_Show_Time: 0
-    Interstitial: 0
-    Rewarded: 0
+    CanShowAds: 1
+    CanPurchase: 1
+    Ad_Show_Time: 45
+    Interstitial: 1
+    Rewarded: 1

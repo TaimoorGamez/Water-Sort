@@ -45,6 +45,7 @@ namespace Core.Plugins
     [System.Serializable]
     public class AdConfig
     {
+        public bool CanShowAds, CanPurchase;
         public float Ad_Show_Time;
         public bool Interstitial, Rewarded;
     }

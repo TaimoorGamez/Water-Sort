@@ -27,6 +27,9 @@ namespace Core.Plugins.Ads
 
         void RequestConsentInfo()
         {
+            if(!AdData.AdData.CanShowAds)
+                return;
+
             ConsentRequestParameters request = new ConsentRequestParameters
             {
                 TagForUnderAgeOfConsent = false
@@ -78,6 +81,9 @@ namespace Core.Plugins.Ads
 
         void InitAds()
         {
+            if (!AdData.AdData.CanShowAds)
+                return;
+            
             try
             {
                 MobileAds.Initialize((InitializationStatus initstatus) =>

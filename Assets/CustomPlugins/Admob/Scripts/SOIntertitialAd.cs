@@ -20,7 +20,7 @@ namespace Core.Plugins.Ads
 
         public override void LoadAd()
         {
-            if (AdmobInitialized.Value == 0 && NoAdsDB.Value == 1)
+            if (AdmobInitialized.Value == 0 || NoAdsDB.Value == 1)
                 return;
 
 
