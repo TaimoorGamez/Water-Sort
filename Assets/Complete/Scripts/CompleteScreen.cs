@@ -34,6 +34,7 @@ namespace Core.Screen
         int _levelBonus = 15, _starsBonus = 10, _detailsBonus = 0, _totalBonus = 0; 
         Coroutine _screenShotRotine;
         string _starsDataPath;
+        Vector2 _nextBtnPosition = new Vector2(-140, -430);
 
         private void OnEnable()
         {
@@ -62,7 +63,7 @@ namespace Core.Screen
             DestroyStatEvent.InvokeSOEvent(GamePlayState.Value);
             if (LvlNum.Value >= MinLvlCount.Value)
             {
-                NextBtn.DOAnchorPos(new Vector2(-120, -430), _durationTweeing).SetEase(Ease.InOutBack).OnComplete(() =>
+                NextBtn.DOAnchorPos(_nextBtnPosition, _durationTweeing).SetEase(Ease.InOutBack).OnComplete(() =>
                 {
                     MultiplayerBar.SetActive(true);
                     RvBtn.SetActive(true);

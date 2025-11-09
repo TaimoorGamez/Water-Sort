@@ -39,13 +39,16 @@ namespace Core.GamePlay.Coloring
         }
         private void OnMouseDown()
         {
+            Debug.Log("OnMouseDown triggered on bowl: ");
             if (CurrentBowl.Bowl == null)
             {
+                Debug.Log("CurrentBowl reference is null!");
                 CurrentBowl.Bowl = this;
                 BowlState(true);
             }
             else
             {
+                Debug.Log("Changing selection from ");
                 CurrentBowl.Bowl.BowlState(false);
                 CurrentBowl.Bowl = this;
                 BowlState(true);
