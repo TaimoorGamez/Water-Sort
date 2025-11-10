@@ -1,53 +1,79 @@
-using System;
+using System.Linq;
 using UnityEngine;
+using Core.Plugins.Ads;
 using UnityEngine.Purchasing;
+using System.Collections.Generic;
 
 namespace Core.Purchase
 {
     [CreateAssetMenu(fileName = "ProjectStore", menuName = "ScriptableObjects/Store/ProjectStore")]
-    public class SOPurchase : ScriptableObject,  IStoreListener
+    public class SOPurchase : ScriptableObject
     {
-        private IStoreController StoreController;
-        private IExtensionProvider m_StoreExtensionProvider;
-        private StoreProduct CurrentProduct;
+        public bool IsInitialized = false;
 
+        [SerializeField] AdDataHandler AdDataConfige;
         [SerializeField] NonConsumableProduct[] NonConsumableProducts;
         [SerializeField] ConsumableProduct[] ConsumableProducts;
 
-        [System.Obsolete]
+        Dictionary<string , StoreProduct> productDictionary;
+        StoreController m_StoreController;
+
+        private void OnEnable()
+        {
+            IsInitialized = false;
+        }
+
         public void InitializePurchasing()
         {
-
-            if (IsInitialized())
+            if (IsInitialized || !AdDataConfige.AdData.CanPurchase)
             {
                 return;
             }
-            var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
-            foreach (NonConsumableProduct product in NonConsumableProducts)
-            {
-                builder.AddProduct(product.ProductID, ProductType.NonConsumable);
-            }
-            foreach (ConsumableProduct product in ConsumableProducts)
-            {
-                builder.AddProduct(product.ProductID, ProductType.Consumable);
-            }
-
-            UnityPurchasing.Initialize(this, builder);
-
+            InitializeIAP();
         }
 
-        public bool IsInitialized()
+        async void InitializeIAP()
         {
-            return StoreController != null && m_StoreExtensionProvider != null;
+            m_StoreController = UnityIAPServices.StoreController();
+
+            m_StoreController.OnPurchasePending += OnPurchasePending;
+            m_StoreController.OnPurchaseConfirmed += OnPurchaseConfirmed;
+            m_StoreController.OnPurchaseFailed += OnPurchaseFailed;
+
+            m_StoreController.OnStoreDisconnected += OnStoreDisconnected;
+            //Debug.Log("Connecting to store.");
+            await m_StoreController.Connect();
+
+            m_StoreController.OnProductsFetchFailed += OnProductsFetchedFailed;
+            m_StoreController.OnProductsFetched += OnProductsFetched;
+            FetchProducts();
         }
 
+        void FetchProducts()
+        {
+            IsInitialized = true;
+            productDictionary = new Dictionary<string, StoreProduct>();
+            List<ProductDefinition> initialProductsToFetch = new List<ProductDefinition>();
+            for (int n = 0; n < NonConsumableProducts.Length; n++)
+            {
+                initialProductsToFetch.Add(new ProductDefinition(NonConsumableProducts[n].ProductID, ProductType.NonConsumable));
+                productDictionary.Add(NonConsumableProducts[n].ProductID, NonConsumableProducts[n]);
+            }
+            for (int c = 0; c < ConsumableProducts.Length; c++)
+            {
+                initialProductsToFetch.Add(new ProductDefinition(ConsumableProducts[c].ProductID, ProductType.Consumable));
+                productDictionary.Add(ConsumableProducts[c].ProductID, ConsumableProducts[c]);
+            }
+            m_StoreController.FetchProducts(initialProductsToFetch);
+        }
 
         public string GetPrice(string productID)
         {
-            if (IsInitialized())
+            //Debug.Log("GetPrice called for productID: " + IsInitialized);
+            if (IsInitialized)
             {
-                return StoreController.products.WithID(productID).metadata.localizedPriceString;
-
+                Product product = m_StoreController.GetProductById(productID);
+                return product.metadata.localizedPriceString;
             }
             else
             {
@@ -55,56 +81,100 @@ namespace Core.Purchase
             }
         }
 
-        public void BuyProduct(StoreProduct buyProduct)
+        public void BuyProduct(string productId)
         {
-            CurrentProduct = buyProduct;
-            Product product = StoreController.products.WithID(buyProduct.ProductID);
+            if (IsInitialized)
+                m_StoreController.PurchaseProduct(productId);
+        }
 
-            if (product != null && product.availableToPurchase)
+        void OnPurchaseFailed(FailedOrder order)
+        {
+            //Product product = GetFirstProductInOrder(order);
+            //if (product == null)
+            //{
+            //    Debug.Log("Could not find product in failed order.");
+            //}
+
+            //Debug.Log($"Purchase failed - Product: '{product?.definition.id}'," +
+            //          $"PurchaseFailureReason: {order.FailureReason.ToString()},"
+            //          + $"Purchase Failure Details: {order.Details}");
+        }
+
+        void OnPurchasePending(PendingOrder order)
+        {
+            Product product = GetFirstProductInOrder(order);
+            if (product is null)
             {
-                Debug.Log(string.Format("Purchasing product asychronously: '{0}'", product.definition.id));
-                StoreController.InitiatePurchase(product);
+                //Debug.Log("Could not find product in order.");
+                return;
             }
-            else
+
+            StoreProduct storeProduct = productDictionary[product.definition.id];
+            storeProduct.BuyProduct();
+
+            m_StoreController.ConfirmPurchase(order);
+        }
+
+        void OnPurchaseConfirmed(Order order)
+        {
+            switch (order)
             {
-
-                Debug.Log("BuyProductID: FAIL. Not purchasing product, either is not found or is not available for purchase");
+                case ConfirmedOrder confirmedOrder:
+                    OnPurchaseConfirmed(confirmedOrder);
+                    break;
+                case FailedOrder failedOrder:
+                    OnPurchaseConfirmationFailed(failedOrder);
+                    break;
+                default:
+                    //Debug.Log("Unknown OnPurchaseConfirmed result.");
+                    break;
             }
         }
 
-        public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
+        void OnPurchaseConfirmed(ConfirmedOrder order)
         {
-            if (args.purchasedProduct.definition.id == CurrentProduct.ProductID)
-            {
-                CurrentProduct.BuyProduct();
-            }
-            else
-            {
-                Debug.Log(string.Format("ProcessPurchase: FAIL. Unrecognized product: '{0}'", args.purchasedProduct.definition.id));
-            }
-
-            return PurchaseProcessingResult.Complete;
+            //Product product = GetFirstProductInOrder(order);
+            //if (product == null)
+            //{
+            //    Debug.Log("Could not find product in purchase confirmation.");
+            //}
+            //Debug.Log($"Purchase confirmed- Product: {product?.definition.id}");
         }
 
-        void IStoreListener.OnInitialized(IStoreController controller, IExtensionProvider extensions)
+        void OnPurchaseConfirmationFailed(FailedOrder order)
         {
-            //Debug.Log("OnInitialized: PASS");
-            StoreController = controller;
+            //Product product = GetFirstProductInOrder(order);
+            //if (product == null)
+            //{
+            //    Debug.Log("Could not find product in failed confirmation.");
+            //}
 
-            m_StoreExtensionProvider = extensions;
+            //Debug.Log($"Confirmation failed - Product: '{product?.definition.id}'," +
+            //          $"PurchaseFailureReason: {order.FailureReason.ToString()},"
+            //          + $"Confirmation Failure Details: {order.Details}");
         }
 
-        void IStoreListener.OnInitializeFailed(InitializationFailureReason error)
+        Product GetFirstProductInOrder(Order order)
         {
-            Debug.Log("OnInitializeFailed InitializationFailureReason:" + error);
+            return order.CartOrdered.Items().First()?.Product;
         }
-        void IStoreListener.OnInitializeFailed(InitializationFailureReason error, string message)
+
+        // Calling StoreController.Connect without a listener on the StoreController.OnStoreDisconnected event will result in warnings.
+        void OnStoreDisconnected(StoreConnectionFailureDescription description)
         {
-            Debug.Log("OnInitializeFailed InitializationFailureReason:" + error);
+            //Debug.Log($"Store disconnected details: {description.message}");
         }
-        void IStoreListener.OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
+
+        // Calling StoreController.Connect without listeners on StoreController.OnProductsFetched and StoreController.OnProductsFetchedFailed will result in warnings.
+        void OnProductsFetched(List<Product> products)
         {
-            Debug.Log(string.Format("OnPurchaseFailed: FAIL. Product: '{0}', PurchaseFailureReason: {1}", product.definition.storeSpecificId, failureReason));
+            //Debug.Log($"Products fetched successfully for {products.Count} products.");
         }
+
+        void OnProductsFetchedFailed(ProductFetchFailed failure)
+        {
+            //Debug.Log($"Products fetch failed for {failure.FailedFetchProducts.Count} products: {failure.FailureReason}");
+        }
+
     }
 }

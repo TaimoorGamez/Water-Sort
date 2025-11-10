@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35161adf7662b0747a7658dfaabc5647, type: 3}
   m_Name: ProjectStore
   m_EditorClassIdentifier: 
+  IsInitialized: 0
+  AdDataConfige: {fileID: 11400000, guid: 1858b44bb997abb40a0fae20c73efda8, type: 2}
   NonConsumableProducts:
   - {fileID: 11400000, guid: 54ff1c1cd0e6d1b4ba11164fa7932359, type: 2}
   ConsumableProducts: []

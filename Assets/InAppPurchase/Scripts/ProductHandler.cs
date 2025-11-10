@@ -26,7 +26,7 @@ namespace Core.Purchase
 
         public void OnClickBuyButton()
         {
-            SoStore.BuyProduct(CurrentProdut);
+            SoStore.BuyProduct(CurrentProdut.ProductID);
         }
     }
 }
