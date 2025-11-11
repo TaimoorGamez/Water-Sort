@@ -151,6 +151,7 @@ MonoBehaviour:
   LvlNum: {fileID: 11400000, guid: bad89b7dfd4fe324eaaacf6e970340af, type: 2}
   FirebaseInit: {fileID: 11400000, guid: afe62d58c0da7a94abccece5c7df9181, type: 2}
   AdmobInit: {fileID: 11400000, guid: a26288d8f379acf48b848d1bfd607697, type: 2}
+  SoStore: {fileID: 11400000, guid: f36e8d40c49af0f4bb06dade4b0b7b91, type: 2}
   InitLevelEvent: {fileID: 11400000, guid: 30e22fa3534f8ae429ac3af2c42b6b5c, type: 2}
   MainMenuStateIndex: {fileID: 11400000, guid: 5b4f6ec2cf4170d4b973dfba16e1515f, type: 2}
   GamePlayStateIndex: {fileID: 11400000, guid: d7723c4d03c616248b6e725f6734b348, type: 2}

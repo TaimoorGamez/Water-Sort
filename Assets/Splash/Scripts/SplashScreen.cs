@@ -4,7 +4,6 @@ using DG.Tweening;
 using Core.Events;
 using Core.Plugins;
 using Core.GamePlay;
-using Core.Purchase;
 using Core.ToastMsg;
 using Core.Variables;
 using Core.DB.Variables;
@@ -15,7 +14,6 @@ namespace Core.Screen
     {
         [SerializeField] ToastManager ToastMsnger;
         [SerializeField] Initialization FirebaseInit;
-        [SerializeField] SOPurchase SoStore;
         [SerializeField] ItemData DefaultCap, DefaultFlame, DefaultSpray;
         [SerializeField] SOEvents InitLevelEvent;
         [SerializeField] DBInt LvlNum, FFT;
@@ -50,7 +48,6 @@ namespace Core.Screen
                 }
                 DestroyStateEvent.InvokeSOEvent(0);
                 LvlManager.AfterEnable();
-                SoStore.InitializePurchasing();
             });
         }
     }

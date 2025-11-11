@@ -3,6 +3,7 @@ using DG.Tweening;
 using UnityEngine;
 using Core.Events;
 using Core.Plugins;
+using Core.Purchase;
 using Core.Variables;
 using Core.DB.Variables;
 
@@ -12,6 +13,7 @@ namespace Core.Screen
     {
         [SerializeField] DBInt LvlNum;
         [SerializeField] Initialization FirebaseInit, AdmobInit;
+        [SerializeField] SOPurchase SoStore;
         [SerializeField] SOEvents InitLevelEvent;
         [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, SettingStateIndex, TempLvlIndex, IsFirebaseInit;
         [SerializeField] SOIntegerEvents ActiveStateEvent, DestroyStateEvent;
@@ -31,7 +33,8 @@ namespace Core.Screen
             TempLvlIndex.Value = -1;
             if(IsFirebaseInit.Value == 1)
             {
-                AdmobInit.InitPlugin();
+                SoStore.InitializePurchasing();
+                Invoke(nameof(InitializeAds), 2f);
             }
             else
             {
@@ -67,6 +70,11 @@ namespace Core.Screen
         public override void OnClose()
         {
             
+        }
+
+        private void InitializeAds()
+        {
+            AdmobInit.InitPlugin();
         }
     }
 }
