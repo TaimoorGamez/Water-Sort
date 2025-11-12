@@ -76,14 +76,18 @@ namespace Core.GamePlay.WaterSort
             if (FirstTube.WaterColors.Count > 0)
             {
                 FirstTube.TubeCap.gameObject.SetActive(false);
-                FirstTube.transform.DOScale(_bowlScale, tweenTime);
-                FirstTube.transform.DOLocalMove(_firstBowlPos, tweenTime).OnComplete(() =>
-                    {
-                        BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
-                        colorBowl.transform.localPosition = FirstTube.transform.localPosition;
-                        colorBowl.SetColor(FirstTube.CurrentColor);
-                        Destroy(FirstTube.gameObject);
-                    });
+                FirstTube.transform.DOKill();
+                Sequence firstSeq = DOTween.Sequence();
+                firstSeq.Join(FirstTube.transform.DOScale(_bowlScale, tweenTime));
+                firstSeq.Join(FirstTube.transform.DOLocalMove(_firstBowlPos, tweenTime));
+                firstSeq.OnComplete(() =>
+                {
+                    BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
+                    colorBowl.transform.localPosition = FirstTube.transform.localPosition;
+                    colorBowl.SetColor(FirstTube.CurrentColor);
+                    Destroy(FirstTube.gameObject, 0.15f);
+
+                });
             }
             else
             {
@@ -93,14 +97,17 @@ namespace Core.GamePlay.WaterSort
             if (SecondTube.WaterColors.Count > 0)
             {
                 SecondTube.TubeCap.gameObject.SetActive(false);
-                SecondTube.transform.DOScale(_bowlScale, tweenTime);
-                SecondTube.transform.DOLocalMove(_secondBowlPos, tweenTime).OnComplete(() =>
-                    {
-                        BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
-                        colorBowl.transform.localPosition = SecondTube.transform.localPosition;
-                        colorBowl.SetColor(SecondTube.CurrentColor);
-                        Destroy(SecondTube.gameObject);
-                    });
+                SecondTube.transform.DOKill();
+                Sequence secondSeq = DOTween.Sequence();
+                secondSeq.Join(SecondTube.transform.DOScale(_bowlScale, tweenTime));
+                secondSeq.Join(SecondTube.transform.DOLocalMove(_secondBowlPos, tweenTime));
+                secondSeq.OnComplete(() =>
+                {
+                    BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
+                    colorBowl.transform.localPosition = SecondTube.transform.localPosition;
+                    colorBowl.SetColor(SecondTube.CurrentColor);
+                    Destroy(SecondTube.gameObject, 0.15f);
+                });
             }
             else
             {
@@ -110,14 +117,17 @@ namespace Core.GamePlay.WaterSort
             if (ThirdTube.WaterColors.Count > 0)
             {
                 ThirdTube.TubeCap.gameObject.SetActive(false);
-                ThirdTube.transform.DOScale(_bowlScale, tweenTime);
-                ThirdTube.transform.DOLocalMove(_thirdBowlPos, tweenTime).OnComplete(() =>
-                    {
-                        BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
-                        colorBowl.transform.localPosition = ThirdTube.transform.localPosition;
-                        colorBowl.SetColor(ThirdTube.CurrentColor);
-                        Destroy(ThirdTube.gameObject);
-                    });
+                ThirdTube.transform.DOKill();
+                Sequence thirdSeq = DOTween.Sequence();
+                thirdSeq.Join(ThirdTube.transform.DOScale(_bowlScale, tweenTime));
+                thirdSeq.Join(ThirdTube.transform.DOLocalMove(_thirdBowlPos, tweenTime));
+                thirdSeq.OnComplete(() =>
+                {
+                    BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
+                    colorBowl.transform.localPosition = ThirdTube.transform.localPosition;
+                    colorBowl.SetColor(ThirdTube.CurrentColor);
+                    Destroy(ThirdTube.gameObject, 0.15f);
+                });
             }
             else
             {
@@ -127,14 +137,17 @@ namespace Core.GamePlay.WaterSort
             if (ForthTube.WaterColors.Count > 0)
             {
                 ForthTube.TubeCap.gameObject.SetActive(false);
-                ForthTube.transform.DOScale(_bowlScale, tweenTime);
-                ForthTube.transform.DOLocalMove(_forthBowlPos, tweenTime).OnComplete(() =>
-                    {
-                        BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
-                        colorBowl.transform.localPosition = ForthTube.transform.localPosition;
-                        colorBowl.SetColor(ForthTube.CurrentColor);
-                        Destroy(ForthTube.gameObject);
-                    });
+                ForthTube.transform.DOKill();
+                Sequence forthSeq = DOTween.Sequence();
+                forthSeq.Join(ForthTube.transform.DOScale(_bowlScale, tweenTime));
+                forthSeq.Join(ForthTube.transform.DOLocalMove(_forthBowlPos, tweenTime));
+                forthSeq.OnComplete(() =>
+                {
+                    BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
+                    colorBowl.transform.localPosition = ForthTube.transform.localPosition;
+                    colorBowl.SetColor(ForthTube.CurrentColor);
+                    Destroy(ForthTube.gameObject, 0.15f);
+                });
             }
             else
             {
@@ -144,14 +157,17 @@ namespace Core.GamePlay.WaterSort
             if (ExtraTube.WaterColors.Count > 0)
             {
                 ExtraTube.TubeCap.gameObject.SetActive(false);
-                ExtraTube.transform.DOScale(_bowlScale, tweenTime);
-                ExtraTube.transform.DOLocalMove(_extraBowlPos, tweenTime).OnComplete(() =>
-                    {
-                        BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
-                        colorBowl.transform.localPosition = ExtraTube.transform.localPosition;
-                        colorBowl.SetColor(ExtraTube.CurrentColor);
-                        Destroy(ExtraTube.gameObject);
-                    });
+                ExtraTube.transform.DOKill();
+                Sequence extraSeq = DOTween.Sequence();
+                extraSeq.Join(ExtraTube.transform.DOScale(_bowlScale, tweenTime));
+                extraSeq.Join(ExtraTube.transform.DOLocalMove(_extraBowlPos, tweenTime));
+                extraSeq.OnComplete(() =>
+                {
+                    BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
+                    colorBowl.transform.localPosition = ExtraTube.transform.localPosition;
+                    colorBowl.SetColor(ExtraTube.CurrentColor);
+                    Destroy(ExtraTube.gameObject, 0.15f);
+                });
             }
             else
             {

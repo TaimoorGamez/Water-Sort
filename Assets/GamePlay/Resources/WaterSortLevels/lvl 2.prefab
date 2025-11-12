@@ -540,8 +540,8 @@ MonoBehaviour:
   InfoTextObj: {fileID: 965580779618376801}
   UndoBtn: {fileID: 5397967031856216456}
   CurrentColors:
-  - {r: 0.9019608, g: 0.21568628, b: 0.29411766, a: 1}
-  - {r: 1, g: 0.627451, b: 0.27450982, a: 1}
+  - {r: 0, g: 0.078431375, b: 1, a: 1}
+  - {r: 0.8039216, g: 0.5882353, b: 0.49019608, a: 1}
   IsUndoBtn: 0
   ExtraTube: 0
   BowlObj: {fileID: 1613508317186387605, guid: f2a0fcc19d7d3f54ca8d4d1cfb5cfbce, type: 3}

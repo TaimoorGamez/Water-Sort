@@ -120,13 +120,16 @@ namespace Core.GamePlay.WaterSort
                 if (ThirdLiquid.WaterColors.Count > 0)
                 {
                     ThirdLiquid.TubeCap.gameObject.SetActive(false);
-                    ThirdLiquid.transform.DOScale(_bowlScale, tweenTime);
-                    ThirdLiquid.transform.DOLocalMove(_thirdBowlPos, tweenTime).OnComplete(() =>
+                    ThirdLiquid.transform.DOKill();
+                    Sequence thirdSeq = DOTween.Sequence();
+                    thirdSeq.Join(ThirdLiquid.transform.DOScale(_bowlScale, tweenTime));
+                    thirdSeq.Join(ThirdLiquid.transform.DOLocalMove(_thirdBowlPos, tweenTime));
+                    thirdSeq.OnComplete(() =>
                     {
                         BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
                         colorBowl.transform.localPosition = ThirdLiquid.transform.localPosition;
                         colorBowl.SetColor(ThirdLiquid.CurrentColor);
-                        Destroy(ThirdLiquid.gameObject);
+                        Destroy(ThirdLiquid.gameObject, 0.15f);
                     });
                 }
                 else
@@ -137,13 +140,16 @@ namespace Core.GamePlay.WaterSort
                 if (OtherLiquid.WaterColors.Count > 0)
                 {
                     OtherLiquid.TubeCap.gameObject.SetActive(false);
-                    OtherLiquid.transform.DOScale(_bowlScale, tweenTime);
-                    OtherLiquid.transform.DOLocalMove(_otherBowlPos, tweenTime).OnComplete(() =>
+                    OtherLiquid.transform.DOKill();
+                    Sequence otherSeq = DOTween.Sequence();
+                    otherSeq.Join(OtherLiquid.transform.DOScale(_bowlScale, tweenTime));
+                    otherSeq.Join(OtherLiquid.transform.DOLocalMove(_otherBowlPos, tweenTime));
+                    otherSeq.OnComplete(() =>
                     {
                         BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
                         colorBowl.transform.localPosition = OtherLiquid.transform.localPosition;
                         colorBowl.SetColor(OtherLiquid.CurrentColor);
-                        Destroy(OtherLiquid.gameObject);
+                        Destroy(OtherLiquid.gameObject, 0.15f);
                     });
                 }
                 else
@@ -154,13 +160,16 @@ namespace Core.GamePlay.WaterSort
                 if (MyLiquid.WaterColors.Count > 0)
                 {
                     MyLiquid.TubeCap.gameObject.SetActive(false);
-                    MyLiquid.transform.DOScale(_bowlScale, tweenTime);
-                    MyLiquid.transform.DOLocalMove(_firstBowlPos, tweenTime).OnComplete(() =>
+                    MyLiquid.transform.DOKill();
+                    Sequence mySeq = DOTween.Sequence();
+                    mySeq.Join(MyLiquid.transform.DOScale(_bowlScale, tweenTime));
+                    mySeq.Join(MyLiquid.transform.DOLocalMove(_firstBowlPos, tweenTime));
+                    mySeq.OnComplete(() =>
                     {
                         BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
                         colorBowl.transform.localPosition = MyLiquid.transform.localPosition;
                         colorBowl.SetColor(MyLiquid.CurrentColor);
-                        Destroy(MyLiquid.gameObject);
+                        Destroy(MyLiquid.gameObject, 0.15f);
                     });
                 }
                 else

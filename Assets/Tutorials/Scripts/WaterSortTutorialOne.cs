@@ -75,16 +75,22 @@ namespace Core.GamePlay.WaterSort
         {
             float tweenTime = 1;
             InfoTextObj.SetActive(false);
-            transform.DOScale(_bowlScale, tweenTime);
-            transform.DOLocalMove(_bowlPos, tweenTime).OnComplete(()=> {
-                if (CurrenTube.WaterColors.Count>0)
+            transform.DOKill();
+            Sequence seq = DOTween.Sequence();
+            seq.Join(transform.DOScale(_bowlScale, tweenTime));
+            seq.Join(transform.DOLocalMove(_bowlPos, tweenTime));
+            seq.OnComplete(() =>
+            {
+                if (CurrenTube != null && CurrenTube.WaterColors.Count > 0)
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
                     colorBowl.transform.localPosition = transform.localPosition;
                     colorBowl.SetColor(CurrenTube.CurrentColor);
                 }
-                Destroy(gameObject);
+                if (gameObject != null)
+                    Destroy(gameObject, 0.15f);
             });
+
         }
     }
 }

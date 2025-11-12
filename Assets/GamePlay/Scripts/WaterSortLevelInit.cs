@@ -231,13 +231,14 @@ namespace Core.GamePlay.WaterSort
                 if (currentTube.WaterColors.Count > 0)
                 {
                     currentTube.TubeCap.gameObject.SetActive(false);
+                    currentTube.transform.DOKill();
                     currentTube.transform.DOScale(_bowlScale, tweenTime);
                     currentTube.transform.DOLocalMove(BowlPositions[t], tweenTime).OnComplete(() =>
                     {
                         BowlColorHandler colorBowl = Instantiate(BowlObj, transform);
                         colorBowl.transform.position = currentTube.transform.position;
                         colorBowl.SetColor(currentTube.CurrentColor);
-                        Destroy(currentTube.gameObject, 0.1f);
+                        Destroy(currentTube.gameObject, 0.15f);
                     });
                 }
                 else
