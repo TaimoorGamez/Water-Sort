@@ -95,7 +95,7 @@ namespace Core.Screen
         {
             ScreenshotCamera.targetTexture = TargetTexture;
             ScreenshotCamera.Render(); 
-            int currentLvl = TempLvlIndex.Value != -1 ? TempLvlIndex.Value : LevelIndex.Value;
+            int currentLvl = TempLvlIndex.Value != -1 ? TempLvlIndex.Value : LvlNum.Value;
             yield return new WaitForSeconds(0.01f);
             // Create a new Texture2D
             Texture2D screenshot = new Texture2D(TargetTexture.width, TargetTexture.height, TextureFormat.RGB24, false);

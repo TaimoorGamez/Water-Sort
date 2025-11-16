@@ -68,7 +68,7 @@ namespace Core.Screen
                     }
                 }
             }
-            int totalRows = Mathf.CeilToInt((starsData.Levels.Count - MinLvlNum.Value) / 3f);
+            int totalRows = Mathf.CeilToInt((starsData.Levels.Count - MinLvlNum.Value) / 2f);
             Content.sizeDelta = new Vector2(Content.sizeDelta.x, totalRows * _rowHeight);
             if (totalRows > 3)
             {
