@@ -33,6 +33,7 @@ namespace Core.Screen
         {
             _activeTasks = CurrenTaskManager.GetActiveTasks();
             int _completedTasks = 0;
+            _taskClaimed = 0;
             for (int i = 0; i < TaskBars.Length; i++)
             {
                 TaskBars[i].SetTask(_activeTasks[i]);
@@ -41,17 +42,9 @@ namespace Core.Screen
                     _completedTasks++;
                     if (_activeTasks[i].TaskClaimed == 1)
                     {
-                        _completedTasks++;
-                        RewardChecks[i].SetActive(true);
-                        RewardImgs[i].gameObject.SetActive(false);
-                    }
-                    else
-                    {
-                        RewardChecks[i].SetActive(false);
-                        RewardImgs[i].gameObject.SetActive(true);
-                        RewardImgs[i].DOScale(1.25f, 0.5f)
-                            .SetLoops(-1, LoopType.Yoyo)
-                            .SetEase(Ease.InOutSine);
+                        RewardChecks[_taskClaimed].SetActive(true);
+                        RewardImgs[_taskClaimed].gameObject.SetActive(false);
+                        _taskClaimed++;
                     }
                 }
                 else
