@@ -1,5 +1,80 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &192077727869783910
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2923928808655725264}
+  - component: {fileID: 6134528309714798403}
+  - component: {fileID: 7641114143630163303}
+  m_Layer: 5
+  m_Name: circle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &2923928808655725264
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 192077727869783910}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3317255059155800264}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 150, y: 0}
+  m_SizeDelta: {x: 150, y: 150}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &6134528309714798403
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 192077727869783910}
+  m_CullTransparentMesh: 1
+--- !u!114 &7641114143630163303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 192077727869783910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.29411766}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 7b4a898831abebc4db6abc2ef5027192, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &965580779618376801
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,6 +399,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2124074817992025952}
+  - {fileID: 2923928808655725264}
   - {fileID: 4298855729681823684}
   m_Father: {fileID: 6017741503500419412}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -459,7 +535,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4629510652355691034, guid: 780440981a73a0347b6401976879e349, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4629510652355691034, guid: 780440981a73a0347b6401976879e349, type: 3}
       propertyPath: m_LocalPosition.z
@@ -536,9 +612,10 @@ MonoBehaviour:
   MyLiquid: {fileID: 8370839497526712387}
   OtherLiquid: {fileID: 2056577080806075522}
   ThirdLiquid: {fileID: 1671450998538359033}
-  HandObj: {fileID: 7276909665040472890}
   InfoTextObj: {fileID: 965580779618376801}
   UndoBtn: {fileID: 5397967031856216456}
+  HandObj: {fileID: 5544683389306859722}
+  TutorialCircle: {fileID: 2923928808655725264}
   CurrentColors:
   - {r: 0, g: 0.078431375, b: 1, a: 1}
   - {r: 0.8039216, g: 0.5882353, b: 0.49019608, a: 1}
@@ -767,9 +844,10 @@ MonoBehaviour:
   MyLiquid: {fileID: 0}
   OtherLiquid: {fileID: 0}
   ThirdLiquid: {fileID: 0}
-  HandObj: {fileID: 7276909665040472890}
   InfoTextObj: {fileID: 3295146771323555393}
   UndoBtn: {fileID: 0}
+  HandObj: {fileID: 5544683389306859722}
+  TutorialCircle: {fileID: 0}
   CurrentColors: []
   IsUndoBtn: 1
   ExtraTube: 0
@@ -816,7 +894,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 731274067031566630, guid: f9032a19e55d8cd489f713145ed43649, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -130
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 731274067031566630, guid: f9032a19e55d8cd489f713145ed43649, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -884,11 +962,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 731274067031566630, guid: f9032a19e55d8cd489f713145ed43649, type: 3}
   m_PrefabInstance: {fileID: 5103895360099310060}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7276909665040472890 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2461334847493489366, guid: f9032a19e55d8cd489f713145ed43649, type: 3}
-  m_PrefabInstance: {fileID: 5103895360099310060}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5174588355139713215
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -907,7 +980,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4629510652355691034, guid: 780440981a73a0347b6401976879e349, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4629510652355691034, guid: 780440981a73a0347b6401976879e349, type: 3}
       propertyPath: m_LocalPosition.z
@@ -984,9 +1057,10 @@ MonoBehaviour:
   MyLiquid: {fileID: 0}
   OtherLiquid: {fileID: 0}
   ThirdLiquid: {fileID: 0}
-  HandObj: {fileID: 7276909665040472890}
   InfoTextObj: {fileID: 965580779618376801}
   UndoBtn: {fileID: 5397967031856216456}
+  HandObj: {fileID: 5544683389306859722}
+  TutorialCircle: {fileID: 2923928808655725264}
   CurrentColors: []
   IsUndoBtn: 0
   ExtraTube: 1
@@ -1030,7 +1104,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4629510652355691034, guid: 780440981a73a0347b6401976879e349, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4629510652355691034, guid: 780440981a73a0347b6401976879e349, type: 3}
       propertyPath: m_LocalPosition.z

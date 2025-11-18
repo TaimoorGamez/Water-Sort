@@ -13,12 +13,14 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] SOIntegerEvents SwitchProtectorEvent;
         [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
         [SerializeField] TubeHandler FirstTube, SecondTube, ThirdTube, ForthTube, ExtraTube;
-        [SerializeField] GameObject HandObj, InfoTextObj;
+        [SerializeField] GameObject InfoTextObj;
+        [SerializeField] Transform HandObj, TutorialCircle;
         [SerializeField] Color[] CurrentColors;
         [SerializeField] BowlColorHandler BowlObj;
 
         Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f), _firstBowlPos = new Vector3(1, -2.3f, -2), _secondBowlPos = new Vector3(-1, -2.3f, -2), 
-                _thirdBowlPos = new Vector3(-2, -2.3f, -2), _forthBowlPos = new Vector3(0, -2.3f, -2), _extraBowlPos = new Vector3(2, -2.3f, -2);
+                _thirdBowlPos = new Vector3(-2, -2.3f, -2), _forthBowlPos = new Vector3(0, -2.3f, -2), _extraBowlPos = new Vector3(2, -2.3f, -2),
+                _btnPosition = new Vector3(-100,-510,0);
         int _colorIndex = 0;
 
         private void OnEnable()
@@ -66,7 +68,10 @@ namespace Core.GamePlay.WaterSort
             }
             SwitchProtectorEvent.InvokeSOEvent(0);
             CanPlay.Value = 1;
-            HandObj.SetActive(true);
+            HandObj.gameObject.SetActive(true);
+            TutorialCircle.gameObject.SetActive(true);
+            TutorialCircle.DOScale(1, 1f).SetEase(Ease.Linear);
+            HandObj.DOLocalMove(_btnPosition, 1f).SetEase(Ease.InBack);
         }
 
         void ColoringPreparation()

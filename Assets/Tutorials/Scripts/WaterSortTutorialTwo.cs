@@ -14,7 +14,8 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] SOIntegerEvents SwitchProtectorEvent;
         [SerializeField] CapsuleCollider MyCollider, SecondCollider, ThirdCollider;
         [SerializeField] TubeHandler MyLiquid, OtherLiquid, ThirdLiquid;
-        [SerializeField] GameObject HandObj, InfoTextObj, UndoBtn;
+        [SerializeField] GameObject InfoTextObj, UndoBtn;
+        [SerializeField] Transform HandObj, TutorialCircle;
         [SerializeField] Color[] CurrentColors;
         [SerializeField] bool IsUndoBtn, ExtraTube;
         [SerializeField] BowlColorHandler BowlObj;
@@ -68,26 +69,26 @@ namespace Core.GamePlay.WaterSort
             SwitchProtectorEvent.InvokeSOEvent(0);
             MyCollider.enabled = true;
             CanPlay.Value = 1;
-            HandObj.SetActive(true);
+            HandObj.gameObject.SetActive(true);
         }
 
         void OnMouseDown()
         {
-            if (CanPlay.Value == 1)
+            if (CanPlay.Value != 1)
+                return;
+
+            if (ExtraTube && _isFirstClick)
             {
-                if (ExtraTube && _isFirstClick)
-                {
-                    _isFirstClick = false;
-                    MyCollider.enabled = false;
-                    Invoke(nameof(ShowUndoBtn), 1.5f);
-                }
-                else if (_isFirstClick)
-                {
-                    _isFirstClick = false;
-                    MyCollider.enabled = false;
-                    HandObj.transform.DOLocalMoveX(135f, 0.35f).SetEase(Ease.InOutBack);
-                    ThirdCollider.enabled = true;
-                }
+                _isFirstClick = false;
+                MyCollider.enabled = false;
+                Invoke(nameof(ShowUndoBtn), 1.5f);
+            }
+            else if (_isFirstClick)
+            {
+                _isFirstClick = false;
+                MyCollider.enabled = false;
+                HandObj.DOLocalMoveX(135f, 0.35f).SetEase(Ease.InOutBack);
+                ThirdCollider.enabled = true;
             }
         }
 
@@ -96,7 +97,7 @@ namespace Core.GamePlay.WaterSort
             if (_isFirstClick)
             {
                 _isFirstClick = false;
-                HandObj.SetActive(false);
+                HandObj.gameObject.SetActive(false);
                 MyCollider.enabled = true;
                 SecondCollider.enabled = true;
                 ThirdCollider.enabled = true;
@@ -106,7 +107,10 @@ namespace Core.GamePlay.WaterSort
         void ShowUndoBtn()
         {
             InfoTextObj.SetActive(true);
-            HandObj.transform.DOLocalMove(new Vector3(175f, -530f, 0), 0.35f).SetEase(Ease.InOutBack);
+            TutorialCircle.gameObject.SetActive(true);
+            TutorialCircle.DOScale(1, 1f).SetEase(Ease.Linear).OnComplete(()=> {
+                HandObj.DOLocalMove(new Vector3(175f, -510f, 0), 1f).SetEase(Ease.InBack);
+            });
             UndoBtn.SetActive(true);
         }
 
