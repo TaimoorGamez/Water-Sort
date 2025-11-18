@@ -25,7 +25,7 @@ namespace Core.GamePlay.Coloring
         [SerializeField] Texture2D CloudTexture;
         [SerializeField] ParticleSystem StarParticles;
 
-        float _speed = 5, _brushSize = 25, _preparationTime = 0.5f, _finalPos = 175;
+        float _speed = 5, _brushSize = 25, _preparationTime = 0.5f, _finalPos = 175, _detailFillingTime = 0.1f;
         bool _canSpray = false, _effectCheck = false, _canShowNextBtn = true, _onceClicked = true, _canThrowFlame = false;
         Coroutine _movingRoutine;
         Camera _currentCamera;
@@ -82,7 +82,7 @@ namespace Core.GamePlay.Coloring
                 {
                     _canThrowFlame = false;
                     FlameThrower.gameObject.SetActive(false);
-                    Details.DOFillAmount(1, _preparationTime);
+                    Details.DOFillAmount(1, _detailFillingTime);
                     HideRemaingPixles();
                     SoundEffectEvent.InvokeSOEvent(6);
                     StarParticles.Play();
@@ -363,7 +363,7 @@ namespace Core.GamePlay.Coloring
             }
             _partTexture.SetPixels32(_compoundPixels);
             _partTexture.Apply();
-            Details.fillAmount += 0.0025f;
+            Details.fillAmount += 0.025f;
             float totalFilling = ((float)_flamePixlesCounter / _totalColorPixles) * 100;
             if (totalFilling >= 75 && _canShowNextBtn)
             {
