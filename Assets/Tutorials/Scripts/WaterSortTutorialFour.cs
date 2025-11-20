@@ -116,7 +116,7 @@ namespace Core.GamePlay.WaterSort
                     if (_isFirstClick)
                     {
                         _isFirstClick = false;
-                        Destroy(HandObj);
+                        Destroy(HandObj.gameObject);
                         ColliderOne.enabled = true;
                         ColliderTwo.enabled = true;
                         ColliderThree.enabled = true;
