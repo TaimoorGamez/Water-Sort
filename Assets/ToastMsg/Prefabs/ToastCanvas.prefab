@@ -125,6 +125,8 @@ MonoBehaviour:
   - Limit reached! You can't add more than 10 tubes.
   - Colors should be same
   - Tube is full - limit is 4 colors
+  - Select any two tubes to swap colors
+  - Now select the second tube to swap
 --- !u!1 &2537257690940891550
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,10 +161,10 @@ RectTransform:
   - {fileID: 8878958949145462105}
   m_Father: {fileID: 8408766951589449972}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: -100}
-  m_SizeDelta: {x: 420, y: 90}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 100}
+  m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3989763027572449073
 CanvasRenderer:

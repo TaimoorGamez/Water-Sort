@@ -40,7 +40,7 @@ namespace Core.GamePlay.WaterSort
                     UsingAnyFeature.Value = 1;
                     IsSwaping.Value = 1;
                     SwitchProtectorEvent.InvokeSOEvent(1);
-                    TaskEvent.InvokeSOEvent(4, 1);
+                    ToastMsgEvent.InvokeSOEvent(8);
                 }
                 else
                 {
@@ -48,7 +48,6 @@ namespace Core.GamePlay.WaterSort
                 }
             }
         }
-
 
         public void AddTubeForSwaping(TubeHandler tube)
         {
@@ -58,6 +57,7 @@ namespace Core.GamePlay.WaterSort
                 {
                     if (SwapingTubes.Count < 1)
                     {
+                        ToastMsgEvent.InvokeSOEvent(9);
                         TubeScaleUpTween.TargetObj = tube.gameObject;
                         TubeScaleUpTween.PlayAnimation();
                     }
@@ -89,6 +89,7 @@ namespace Core.GamePlay.WaterSort
                 {
                     ChangeSwipeStateEvent.InvokeSOEvent();
                 }
+                TaskEvent.InvokeSOEvent(4, 1);
             }
             else
             {

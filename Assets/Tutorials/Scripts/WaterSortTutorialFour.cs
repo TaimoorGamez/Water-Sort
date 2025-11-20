@@ -14,16 +14,17 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
         [SerializeField] CapsuleCollider ColliderOne, ColliderTwo, ColliderThree, ColliderFour, ColliderFive;
         [SerializeField] TubeHandler FirstTube, SecondTube, ThirdTube, ForthTube, FifthTube, SixthTube;
-        [SerializeField] GameObject HandObj, InfoTextObj;
+        [SerializeField] GameObject InfoTextObj;
         [SerializeField] Color[] CurrentColors;
         [SerializeField] bool IsSwipButton, IsFirstTube, IsLastTube;
         [SerializeField] BowlColorHandler BowlObj;
-        [SerializeField] Transform BowlParent;
+        [SerializeField] Transform BowlParent, Circle, HandObj;
 
         Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f);
         int _colorIndex = 0, _colorBowlCounter = 0;
         Vector3 _bowlYPos = new Vector3(-2, -1.5f, -2.5f);
         bool _isFirstClick = true;
+        float _tutorialAnimationTime = 1;
 
         private void OnEnable()
         {
@@ -88,7 +89,11 @@ namespace Core.GamePlay.WaterSort
             }
             SwitchProtectorEvent.InvokeSOEvent(0);
             CanPlay.Value = 1;
-            HandObj.SetActive(true);
+            Circle.gameObject.SetActive(true);
+            Circle.DOScale(1, _tutorialAnimationTime).SetEase(Ease.Linear).OnComplete(() => {
+                HandObj.gameObject.SetActive(true);
+                HandObj.DOLocalMoveY(-510, _tutorialAnimationTime).SetEase(Ease.InBack);
+            });
         }
 
         private void OnMouseDown()
@@ -100,7 +105,7 @@ namespace Core.GamePlay.WaterSort
                     if (_isFirstClick)
                     {
                         _isFirstClick = false;
-                        HandObj.transform.DOLocalMoveX(-45f, 0.35f).SetEase(Ease.InOutBack);
+                        HandObj.DOLocalMoveX(-45f, _tutorialAnimationTime).SetEase(Ease.InOutBack);
                         ColliderThree.enabled = false;
                         ColliderTwo.enabled = true;
                         enabled = false;
@@ -127,7 +132,7 @@ namespace Core.GamePlay.WaterSort
             if (_isFirstClick)
             {
                 _isFirstClick = false;
-                HandObj.transform.DOLocalMove(new Vector3(225, 0, 0), 0.35f).SetEase(Ease.InOutBack);
+                HandObj.DOLocalMove(new Vector3(225, 0, 0), _tutorialAnimationTime).SetEase(Ease.InOutBack);
                 ColliderThree.enabled = true;
             }
         }

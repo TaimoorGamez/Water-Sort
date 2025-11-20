@@ -18,5 +18,5 @@ MonoBehaviour:
   CanChangeStateOnComlete: 0
   StateOnComplete: 1
   ResetOnComplete: 0
-  TargetAction: {x: 0, y: 180, z: 0}
+  TargetAction: {x: 0, y: -180, z: 0}
   OriginalVallue: {x: 0, y: 0, z: 0}
