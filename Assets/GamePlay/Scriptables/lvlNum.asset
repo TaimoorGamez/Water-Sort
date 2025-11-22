@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 263c214676a7b4244984af8a5cdcc97c, type: 3}
   m_Name: lvlNum
   m_EditorClassIdentifier: 
-  CurrentValue: 7
+  CurrentValue: 11
   DefaultValue: 1
   ResetDefault: 1
   PrefName: lvlNum
