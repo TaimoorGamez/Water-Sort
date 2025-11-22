@@ -879,8 +879,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -80, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -85, y: 0}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7526363897411402390
 CanvasRenderer:
@@ -2708,6 +2708,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5109178882314550344, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
+      propertyPath: m_fontSize
+      value: 65
+      objectReference: {fileID: 0}
     - target: {fileID: 7730847568165053100, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
       propertyPath: m_Name
       value: RV
@@ -2715,6 +2719,14 @@ PrefabInstance:
     - target: {fileID: 7730847568165053100, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8249174629354313321, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -115
+      objectReference: {fileID: 0}
+    - target: {fileID: 8249174629354313321, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 22.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

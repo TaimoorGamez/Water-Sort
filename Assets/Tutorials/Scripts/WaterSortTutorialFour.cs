@@ -21,8 +21,8 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] Transform BowlParent, Circle, HandObj;
 
         Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f);
-        int _colorIndex = 0, _colorBowlCounter = 0;
-        Vector3 _bowlYPos = new Vector3(-2, -1.5f, -2.5f);
+        int _colorIndex = 0;
+        Vector3 _bowlYPos = new Vector3(-2, 4.5f, 0);
         bool _isFirstClick = true;
         float _tutorialAnimationTime = 1;
 
@@ -155,14 +155,7 @@ namespace Core.GamePlay.WaterSort
                     colorBowl.SetColor(FirstTube.CurrentColor);
                     Destroy(FirstTube.gameObject, 0.15f);
                 });
-                if (_colorBowlCounter == 5)
-                {
-                    _bowlYPos = new Vector3(-2, -0.85f, -4);
-                }
-                else
-                {
-                    _bowlYPos += new Vector3(1, 0, 0);
-                }
+                _bowlYPos += new Vector3(1, 0, 0);
             }
             else
             {
@@ -183,14 +176,7 @@ namespace Core.GamePlay.WaterSort
                     colorBowl.SetColor(SecondTube.CurrentColor);
                     Destroy(SecondTube.gameObject, 0.15f);
                 });
-                if (_colorBowlCounter == 5)
-                {
-                    _bowlYPos = new Vector3(-2, -0.85f, -4);
-                }
-                else
-                {
-                    _bowlYPos += new Vector3(1, 0, 0);
-                }
+                _bowlYPos += new Vector3(1, 0, 0);
             }
             else
             {
@@ -211,14 +197,7 @@ namespace Core.GamePlay.WaterSort
                         colorBowl.SetColor(ThirdTube.CurrentColor);
                         Destroy(ThirdTube.gameObject, 0.15f);
                 });
-                if (_colorBowlCounter == 5)
-                {
-                    _bowlYPos = new Vector3(-2, -0.85f, -4);
-                }
-                else
-                {
-                    _bowlYPos += new Vector3(1, 0, 0);
-                }
+                _bowlYPos += new Vector3(1, 0, 0);
             }
             else
             {
@@ -239,14 +218,7 @@ namespace Core.GamePlay.WaterSort
                     colorBowl.SetColor(ForthTube.CurrentColor);
                     Destroy(ForthTube.gameObject, 0.15f);
                 });
-                if (_colorBowlCounter == 5)
-                {
-                    _bowlYPos = new Vector3(-2, -0.85f, -4);
-                }
-                else
-                {
-                    _bowlYPos += new Vector3(1, 0, 0);
-                }
+                _bowlYPos += new Vector3(1, 0, 0);
             }
             else
             {
@@ -268,14 +240,7 @@ namespace Core.GamePlay.WaterSort
                     Destroy(FifthTube.gameObject, 0.15f);
 
                 });
-                if (_colorBowlCounter == 5)
-                {
-                    _bowlYPos = new Vector3(-2, -0.85f, -4);
-                }
-                else
-                {
-                    _bowlYPos += new Vector3(1, 0, 0);
-                }
+                _bowlYPos += new Vector3(1, 0, 0);
             }
             else
             {
@@ -296,14 +261,7 @@ namespace Core.GamePlay.WaterSort
                     colorBowl.SetColor(SixthTube.CurrentColor);
                     Destroy(SixthTube.gameObject, 0.15f);
                 });
-                if (_colorBowlCounter == 5)
-                {
-                    _bowlYPos = new Vector3(-2, -0.85f, -4);
-                }
-                else
-                {
-                    _bowlYPos += new Vector3(1, 0, 0);
-                }
+                _bowlYPos += new Vector3(1, 0, 0);
             }
             else
             {

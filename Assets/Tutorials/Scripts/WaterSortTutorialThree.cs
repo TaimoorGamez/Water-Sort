@@ -18,8 +18,8 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] Color[] CurrentColors;
         [SerializeField] BowlColorHandler BowlObj;
 
-        Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f), _firstBowlPos = new Vector3(1, -2.3f, -2), _secondBowlPos = new Vector3(-1, -2.3f, -2), 
-                _thirdBowlPos = new Vector3(-2, -2.3f, -2), _forthBowlPos = new Vector3(0, -2.3f, -2), _extraBowlPos = new Vector3(2, -2.3f, -2),
+        Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f), _firstBowlPos = new Vector3(1, 4.5f, 0), _secondBowlPos = new Vector3(-1, 4.5f, 0), 
+                _thirdBowlPos = new Vector3(-2, 4.5f, 0), _forthBowlPos = new Vector3(0, 4.5f, 0), _extraBowlPos = new Vector3(2, 4.5f, 0),
                 _btnPosition = new Vector3(-100,-510,0);
         int _colorIndex = 0;
 

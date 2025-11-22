@@ -22,8 +22,8 @@ namespace Core.GamePlay.WaterSort
 
         int _colorIndex = 0;
         bool _isFirstClick = true; 
-        Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f), _firstBowlPos = new Vector3(0, -2.3f, -2), _otherBowlPos = new Vector3(-1, -2.3f, -2), 
-                _thirdBowlPos = new Vector3(1, -2.3f, -2);
+        Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f), _firstBowlPos = new Vector3(0, 4.5f, 0), _otherBowlPos = new Vector3(-1, 4.5f, 0), 
+                _thirdBowlPos = new Vector3(1, 4.5f, 0);
 
         private void OnEnable()
         {
