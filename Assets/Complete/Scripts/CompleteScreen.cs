@@ -34,7 +34,7 @@ namespace Core.Screen
         int _levelBonus = 15, _starsBonus = 10, _detailsBonus = 0, _totalBonus = 0; 
         Coroutine _screenShotRotine;
         string _starsDataPath;
-        Vector2 _nextBtnPosition = new Vector2(-125, -430);
+        Vector2 _nextBtnPosition = new Vector2(-135, -430);
 
         private void OnEnable()
         {

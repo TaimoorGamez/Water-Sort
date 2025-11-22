@@ -18,7 +18,7 @@ namespace Core.DailyReward
         [SerializeField] protected SOEvents UpDateState, DoubleRewardEvent;
         [SerializeField] protected DBInt ToDay, RewardClaimed;
         [SerializeField] protected TextMeshProUGUI[] DayText, AmountText;
-        [SerializeField] protected Button BuyButton, DoubleRewardButton;
+        [SerializeField] protected Button ClaimButton;
         [SerializeField] protected GameObject[] RewardState;
         [SerializeField] protected int RewardDay, Amount;
 
@@ -58,7 +58,7 @@ namespace Core.DailyReward
             if (ToDay.Value == RewardDay && RewardClaimed.Value == 0)
             {
                 ActiveState(1);
-                BuyButton.onClick.AddListener(OnClickBuyButton);
+                ClaimButton.onClick.AddListener(OnClickBuyButton);
                 DoubleRewardEvent.EventHandler += GrantDoubleReward;
             }
             else
@@ -90,7 +90,7 @@ namespace Core.DailyReward
                 RewardClaimed.Value = (1);
                 CashCurrency.Amount += Amount;
                 UpdateState();
-                BuyButton.onClick.RemoveListener(OnClickBuyButton);
+                ClaimButton.onClick.RemoveListener(OnClickBuyButton);
                 DoubleRewardEvent.EventHandler -= GrantDoubleReward;
                 UpDateState.InvokeSOEvent();
                 try
@@ -114,7 +114,7 @@ namespace Core.DailyReward
                 UpdateState();
                 //Debug.Log("Amount " + (Amount * 2));
                 UpDateState.InvokeSOEvent();
-                BuyButton.onClick.RemoveListener(OnClickBuyButton);
+                ClaimButton.onClick.RemoveListener(OnClickBuyButton);
                 DoubleRewardEvent.EventHandler -= GrantDoubleReward;
             }
         }
