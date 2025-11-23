@@ -4,6 +4,7 @@ using UnityEngine;
 using Core.Events;
 using Core.GamePlay;
 using Core.Variables;
+using UnityEngine.UI;
 using System.Collections;
 
 namespace Core.Screen
@@ -14,9 +15,10 @@ namespace Core.Screen
         [SerializeField] SOInterger MinLvlNum;
         [SerializeField] PaintingView PaintingObj;
         [SerializeField] Transform Body;
-        [SerializeField] RectTransform Content, Viewport;
+        [SerializeField] RectTransform Content;
+        [SerializeField] ScrollRect GalaryScroll;
 
-        float _tweenTime = 0.5f, _rowHeight = 150;
+        float _tweenTime = 0.5f;
         string _starsDataPath, _directoryPath;
         Coroutine _paintingRotine;
 
@@ -68,13 +70,7 @@ namespace Core.Screen
                     }
                 }
             }
-            int totalRows = Mathf.CeilToInt((starsData.Levels.Count - MinLvlNum.Value) / 2f);
-            Content.sizeDelta = new Vector2(Content.sizeDelta.x, totalRows * _rowHeight);
-            if (totalRows > 3)
-            {
-                float targetY = Content.rect.height - Viewport.rect.height;
-                Content.DOAnchorPosY(targetY, 1f).SetEase(Ease.OutBack);
-            }
+            GalaryScroll.DOVerticalNormalizedPos(0f, 1).SetEase(Ease.OutBack);
         }
 
         public override void OnClose()
