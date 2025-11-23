@@ -315,7 +315,7 @@ namespace Core.GamePlay.WaterSort
         {
             WaterColors[WaterColors.Count - 1] = currentColor;
             CurrentColor = currentColor;
-            MyLiquid[WaterColors.Count-1].SetColor(currentColor);
+            MyLiquid[WaterColors.Count-1].ChangeColor(currentColor);
         }
 
         void TubeState(bool state)

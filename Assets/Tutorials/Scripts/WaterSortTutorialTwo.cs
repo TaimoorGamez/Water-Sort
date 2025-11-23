@@ -133,7 +133,7 @@ namespace Core.GamePlay.WaterSort
                         BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
                         colorBowl.transform.localPosition = ThirdLiquid.transform.localPosition;
                         colorBowl.SetColor(ThirdLiquid.CurrentColor);
-                        Destroy(ThirdLiquid.gameObject, 0.15f);
+                        Destroy(ThirdLiquid.gameObject, 0.2f);
                     });
                 }
                 else
@@ -153,7 +153,7 @@ namespace Core.GamePlay.WaterSort
                         BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
                         colorBowl.transform.localPosition = OtherLiquid.transform.localPosition;
                         colorBowl.SetColor(OtherLiquid.CurrentColor);
-                        Destroy(OtherLiquid.gameObject, 0.15f);
+                        Destroy(OtherLiquid.gameObject, 0.2f);
                     });
                 }
                 else
@@ -173,7 +173,7 @@ namespace Core.GamePlay.WaterSort
                         BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
                         colorBowl.transform.localPosition = MyLiquid.transform.localPosition;
                         colorBowl.SetColor(MyLiquid.CurrentColor);
-                        Destroy(MyLiquid.gameObject, 0.15f);
+                        Destroy(MyLiquid.gameObject, 0.2f);
                     });
                 }
                 else

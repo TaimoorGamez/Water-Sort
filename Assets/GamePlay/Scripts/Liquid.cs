@@ -27,6 +27,17 @@ namespace Core.GamePlay.WaterSort
             _propBlock.SetFloat("_TransparencyRange", 1);
             MySkin.SetPropertyBlock(_propBlock);
         }
+        public void ChangeColor(Color currentColor)
+        {
+            _propBlock.SetColor("_BaseColor", currentColor);
+            _propBlock.SetFloat("_TransparencyRange", 0);
+            MySkin.SetPropertyBlock(_propBlock);
+            DOTween.To(() => 0f, x =>
+            {
+                _propBlock.SetFloat("_TransparencyRange", x);
+                MySkin.SetPropertyBlock(_propBlock);
+            }, 1f, 1);
+        }
 
         public void SetGlow(bool state)
         {
