@@ -1,7 +1,6 @@
 using UnityEngine;
 using Core.Events;
 using Core.DB.Variables;
-using System.Collections.Generic;
 
 namespace Core.Sfx
 {
@@ -14,7 +13,6 @@ namespace Core.Sfx
         [SerializeField] AudioClip[] EffectClips, LoopClips;
 
         AudioSource _bgSource = null, _btnSource = null, _effectSource = null, _loopSource = null;
-        Stack<AudioSource> _walkSources = new Stack<AudioSource>();
         float _bgVolume = 0.6f;
 
         private void OnEnable()
@@ -179,7 +177,8 @@ namespace Core.Sfx
 
         void StopLoopSounds()
         {
-            _loopSource.Stop();
+            if (_loopSource != null)
+                _loopSource.Stop();
         }
     }
 }
