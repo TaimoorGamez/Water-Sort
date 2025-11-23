@@ -12,7 +12,6 @@ namespace Core.Screen
         [SerializeField] SOIntegerEvents DestroyStatEvent, ActiveStatEvent, SoundEffectEvent;
         [SerializeField] SOEvents RestartLevelEvent, DestroyLevelEvent, UpdateMusicStateEvent, UpdateSoundStateEvent;
         [SerializeField] SOInterger CanPlay, MainMenuStateIndex, GamePlayStateIndex;
-        [SerializeField] Transform Body;
         [SerializeField] GameObject MusicOff, SoundOff;
 
         float _tweenTime = 0.25f;
@@ -21,10 +20,9 @@ namespace Core.Screen
         {
             UpdateMusicStateEvent.EventHandler += UpdateMusicState;
             UpdateSoundStateEvent.EventHandler += UpdateSoundState;
-            SoundEffectEvent.InvokeSOEvent(2);
-            Body.DOScale(1, _tweenTime).SetEase(Ease.OutBack);
             UpdateMusicState();
             UpdateSoundState();
+            OnOpen();
         }
 
         private void OnDisable()
@@ -49,21 +47,27 @@ namespace Core.Screen
             OnClose();
         }
 
-        public override void OnClose()
-        {
-            Body.DOScale(0, _tweenTime).SetEase(Ease.InBack).OnComplete(() => {
-                CanPlay.Value = 1;
-                Destroy(gameObject);
-            });
-            SoundEffectEvent.InvokeSOEvent(2);
-        }
-
         public void GoHome()
         {
             DestroyLevelEvent.InvokeSOEvent();
             DestroyStatEvent.InvokeSOEvent(GamePlayStateIndex.Value);
             ActiveStatEvent.InvokeSOEvent(MainMenuStateIndex.Value);
             OnClose();
+        }
+
+        public override void OnOpen()
+        {
+            SoundEffectEvent.InvokeSOEvent(3);
+            Body.DOScale(1, _transitionDuration).SetEase(Ease.OutBack);
+        }
+
+        public override void OnClose()
+        {
+            SoundEffectEvent.InvokeSOEvent(2);
+            Body.DOScale(0, _transitionDuration / 2).SetEase(Ease.InBack).OnComplete(() => {
+                CanPlay.Value = 1;
+                Destroy(gameObject);
+            });
         }
     }
 }

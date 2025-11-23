@@ -241,6 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af31f1675a8c74643a527e03e7adf200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Body: {fileID: 3628387078049701384}
   Music: {fileID: 11400000, guid: 49c28a4a2c59429439aed711312140c2, type: 2}
   Sound: {fileID: 11400000, guid: 09754934285b3444699e95c33f208b73, type: 2}
   DestroyStatEvent: {fileID: 11400000, guid: 853f6ddba0535194baa5c23d4d561386, type: 2}
@@ -253,7 +254,6 @@ MonoBehaviour:
   CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
   MainMenuStateIndex: {fileID: 11400000, guid: 5b4f6ec2cf4170d4b973dfba16e1515f, type: 2}
   GamePlayStateIndex: {fileID: 11400000, guid: d7723c4d03c616248b6e725f6734b348, type: 2}
-  Body: {fileID: 3628387078049701384}
   MusicOff: {fileID: 369774902778894935}
   SoundOff: {fileID: 1204486397448896320}
 --- !u!1 &3739587517877274683
@@ -360,7 +360,7 @@ RectTransform:
   m_GameObject: {fileID: 6497454512241738639}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2948802567379493466}

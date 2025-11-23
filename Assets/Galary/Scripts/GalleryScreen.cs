@@ -14,18 +14,15 @@ namespace Core.Screen
         [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] SOInterger MinLvlNum;
         [SerializeField] PaintingView PaintingObj;
-        [SerializeField] Transform Body;
         [SerializeField] RectTransform Content;
         [SerializeField] ScrollRect GalaryScroll;
 
-        float _tweenTime = 0.5f;
         string _starsDataPath, _directoryPath;
         Coroutine _paintingRotine;
 
         private void OnEnable()
         {
-            Body.DOScale(1, _tweenTime).SetEase(Ease.OutBack);
-            SoundEffectEvent.InvokeSOEvent(2);
+            OnOpen();
         }
 
         private void OnDisable()
@@ -73,10 +70,16 @@ namespace Core.Screen
             GalaryScroll.DOVerticalNormalizedPos(0f, 1).SetEase(Ease.OutBack);
         }
 
+        public override void OnOpen()
+        {
+            SoundEffectEvent.InvokeSOEvent(3);
+            Body.DOScale(1, _transitionDuration).SetEase(Ease.OutBack);
+        }
+
         public override void OnClose()
         {
-            Body.DOScale(0, _tweenTime).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
             SoundEffectEvent.InvokeSOEvent(2);
+            Body.DOScale(0, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
         }
     }
 }

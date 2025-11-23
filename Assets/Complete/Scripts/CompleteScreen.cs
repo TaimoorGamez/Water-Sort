@@ -26,7 +26,7 @@ namespace Core.Screen
         [SerializeField] RenderTexture TargetTexture;
         [SerializeField] RawImage DisplayImage;
         [SerializeField] Image[] StarsImg;
-        [SerializeField] RectTransform Body, StarsObj, NextBtn;
+        [SerializeField] RectTransform StarsObj, NextBtn;
         [SerializeField] GameObject MultiplayerBar, RvBtn;
 
         float _starsPos = 100, _durationTweeing = 1f;
@@ -118,8 +118,7 @@ namespace Core.Screen
             yield return new WaitForSeconds(2.5f);
 
             DestroyLevelEvent.InvokeSOEvent();
-            Body.DOAnchorPosX(0, _durationTweeing).SetEase(Ease.OutBack);
-            SoundEffectEvent.InvokeSOEvent(3);
+            OnOpen();
             Invoke(nameof(OnPanelVisible), _durationTweeing);
             for (int s = 0; s < LevelStars.Value; s++)
             {
@@ -187,10 +186,16 @@ namespace Core.Screen
             }
         }
 
-        public override void OnClose()
+        public override void OnOpen()
         {
             SoundEffectEvent.InvokeSOEvent(3);
-            Body.DOAnchorPosX(1500, _durationTweeing).SetEase(Ease.InBack).OnComplete(() => {
+            Body.DOAnchorPosX(0, _transitionDuration).SetEase(Ease.OutBack);
+        }
+
+        public override void OnClose()
+        {
+            SoundEffectEvent.InvokeSOEvent(2);
+            Body.DOAnchorPosX(1500, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => {
                 if (LevelIndex.Value > MaxLvlCount.Value)
                 {
                     LevelIndex.Value = MinLvlCount.Value;

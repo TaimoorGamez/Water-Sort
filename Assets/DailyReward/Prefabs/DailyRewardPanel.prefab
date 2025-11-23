@@ -516,15 +516,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60172c24f41396d408fd79ea45a234b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Body: {fileID: 945120077677839109}
   RewardClaimed: {fileID: 11400000, guid: a41bab151c97e9b4ab791d7c87ae6398, type: 2}
   UpDateState: {fileID: 11400000, guid: 095179574b1f2944f9fc36cd19aa51e0, type: 2}
+  SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
   ClaimBtnsObj: {fileID: 4412746668331281506}
   TimerTextObj: {fileID: 6508165681689343583}
   RewardItems:
   - {fileID: 1534567961475254114}
   - {fileID: 1488022180748477325}
-  Body: {fileID: 945120077677839109}
-  niddleRotator: {fileID: 2351217371183733516}
+  NiddleRotator: {fileID: 2351217371183733516}
 --- !u!1 &7881700941977893044
 GameObject:
   m_ObjectHideFlags: 0

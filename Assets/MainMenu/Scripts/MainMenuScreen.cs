@@ -67,11 +67,6 @@ namespace Core.Screen
             DestroyStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
         }
 
-        public override void OnClose()
-        {
-            
-        }
-
         private void InitializeAds()
         {
             AdmobInit.InitPlugin();

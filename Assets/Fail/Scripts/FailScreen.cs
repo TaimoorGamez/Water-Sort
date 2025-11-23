@@ -10,16 +10,13 @@ namespace Core.Screen
         [SerializeField] SOIntegerEvents DestroyStatEvent, ActiveStatEvent, SoundEffectEvent;
         [SerializeField] SOEvents UpdateMovesEvent, RestartLevelEvent, DestroyLevelEvent, MoreMovesEvent;
         [SerializeField] SOInterger TotalMoves, CanPlay, MainMenuStateIndex, GamePlayStateIndex;
-        [SerializeField] Transform Body;
 
         int _extraMoves = 10;
-        float _tweenTime = 0.25f;
 
         private void OnEnable()
         {
             MoreMovesEvent.EventHandler += AddMoreMoves;
-            Body.DOScale(1, _tweenTime).SetEase(Ease.OutBack);
-            SoundEffectEvent.InvokeSOEvent(2);
+            OnOpen();
         }
 
         private void OnDisable()
@@ -48,10 +45,16 @@ namespace Core.Screen
             OnClose();
         }
 
+        public override void OnOpen()
+        {
+            SoundEffectEvent.InvokeSOEvent(3);
+            Body.DOScale(1, _transitionDuration).SetEase(Ease.OutBack);
+        }
+
         public override void OnClose()
         {
-            Body.DOScale(0, _tweenTime).SetEase(Ease.InBack).OnComplete(() => Destroy(gameObject));
             SoundEffectEvent.InvokeSOEvent(2);
+            Body.DOScale(0, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => Destroy(gameObject));
         }
     }
 }

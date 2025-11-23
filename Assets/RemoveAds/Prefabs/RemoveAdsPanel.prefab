@@ -1471,10 +1471,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24de00bb671e9844d94c14e9eccc9b4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Body: {fileID: 7684202431330903828}
   AdsBlockerEvent: {fileID: 11400000, guid: 324919a299b187c449a0814b3a1343c9, type: 2}
+  SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
   AdBlocked: {fileID: 11400000, guid: 1cfa4b50796a77649840714845d666b1, type: 2}
   AdBlockingTime: {fileID: 11400000, guid: 8d198cd093198ad458f78ec5d4d3aec0, type: 2}
-  Body: {fileID: 7684202431330903828}
   RvBtn: {fileID: 5662243184362970638}
   TimerObj: {fileID: 2578349615801444065}
 --- !u!1001 &154521081794275378

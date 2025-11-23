@@ -15,8 +15,6 @@ namespace Core.Screen
         [SerializeField] RectTransform MusicBtn, SoundBtn;
         [SerializeField] GameObject MusicOff, SoundOff;
 
-        float _tweenTime = 0.5f;
-
         private void OnEnable()
         {
             UpdateMusicStateEvent.EventHandler += UpdateMusicState;
@@ -27,8 +25,8 @@ namespace Core.Screen
         {
             UpdateMusicState();
             UpdateSoundState();
-            MusicBtn.DOAnchorPosY(-150, _tweenTime).SetEase(Ease.OutBack);
-            SoundBtn.DOAnchorPosY(-240, _tweenTime).SetEase(Ease.OutBack);
+            MusicBtn.DOAnchorPosY(-150, _transitionDuration).SetEase(Ease.OutBack);
+            SoundBtn.DOAnchorPosY(-240, _transitionDuration).SetEase(Ease.OutBack);
             SoundEffectEvent.InvokeSOEvent(2);
         }
 
@@ -50,8 +48,8 @@ namespace Core.Screen
 
         public override void OnClose()
         {
-            MusicBtn.DOAnchorPosY(-60, _tweenTime).SetEase(Ease.InBack);
-            SoundBtn.DOAnchorPosY(-60, _tweenTime).SetEase(Ease.InBack).OnComplete(()=>DestroyStateEvent.InvokeSOEvent(SettingStateIndex.Value));
+            MusicBtn.DOAnchorPosY(-60, _transitionDuration).SetEase(Ease.InBack);
+            SoundBtn.DOAnchorPosY(-60, _transitionDuration).SetEase(Ease.InBack).OnComplete(()=>DestroyStateEvent.InvokeSOEvent(SettingStateIndex.Value));
             SoundEffectEvent.InvokeSOEvent(2);
         }
     }

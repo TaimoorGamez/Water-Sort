@@ -9,9 +9,9 @@ namespace Core.Screen
     public class RemoveAdsScreen : UiScreens
     {
         [SerializeField] SOEvents AdsBlockerEvent;
+        [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] DBInt AdBlocked;
         [SerializeField] DBString AdBlockingTime;
-        [SerializeField] RectTransform Body;
         [SerializeField] GameObject RvBtn, TimerObj;
 
         float _durationTweeing = 0.5f;
@@ -19,7 +19,6 @@ namespace Core.Screen
         void OnEnable()
         {
             AdsBlockerEvent.EventHandler += BlockAdForTime;
-            Body.DOAnchorPosX(0, _durationTweeing).SetEase(Ease.OutBack);
             if (AdBlocked.Value == 1)
             {
                 RvBtn.SetActive(false);
@@ -30,6 +29,7 @@ namespace Core.Screen
                 RvBtn.SetActive(true);
                 TimerObj.SetActive(false);
             }
+            OnOpen();
         }
 
         void OnDisable()
@@ -46,9 +46,16 @@ namespace Core.Screen
             OnClose();
         }
 
+        public override void OnOpen()
+        {
+            SoundEffectEvent.InvokeSOEvent(3);
+            Body.DOAnchorPosX(0, _transitionDuration).SetEase(Ease.OutBack);
+        }
+
         public override void OnClose()
         {
-            Body.DOAnchorPosX(1500, _durationTweeing).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
+            SoundEffectEvent.InvokeSOEvent(2);
+            Body.DOAnchorPosX(1500, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
         }
     }
 }

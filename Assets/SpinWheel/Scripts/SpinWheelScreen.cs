@@ -3,10 +3,10 @@ using DG.Tweening;
 using Core.Events;
 using UnityEngine;
 using UnityEngine.UI;
+using Core.SpinWheel;
 using Core.DB.Variables;
-using Core.Screen;
 
-namespace Core.SpinWheel
+namespace Core.Screen
 {
     public class SpinWheelScreen : UiScreens, ISpinWheel
     {
@@ -14,7 +14,7 @@ namespace Core.SpinWheel
         [SerializeField] SOEvents SpinEvent; 
         [SerializeField] DBInt DailySpin;
         [SerializeField] GameObject SpinBtn, RvBtn, SpinNotification;
-        [SerializeField] RectTransform SegmentParent, Shine, RewardPanel, Body, Wheel;
+        [SerializeField] RectTransform SegmentParent, Shine, RewardPanel, Wheel;
         [SerializeField] SpinWheelSegment SegmentPrefab;
         [SerializeField] SpinWheelData SpinWheelData;
         [SerializeField] Color RewardedColor;
@@ -28,21 +28,20 @@ namespace Core.SpinWheel
         private void OnEnable()
         {
             SpinEvent.EventHandler += RewardedSpin;
-            Body.DOAnchorPosX(0, _tweenDiration).SetEase(Ease.OutBack).OnComplete(()=>Wheel.DOScale(Vector3.one, _tweenDiration).SetEase(Ease.OutBack).OnComplete(()=> {
-                if (DailySpin.Value == 0)
-                {
-                    SpinBtn.SetActive(true);
-                    RvBtn.SetActive(false);
-                    _onceClicked = false;
-                    SpinNotification.SetActive(true);
-                }
-                else
-                {
-                    RvBtn.SetActive(true);
-                    SpinBtn.SetActive(false);
-                    SpinNotification.SetActive(false);
-                }
-            }));
+            if (DailySpin.Value == 0)
+            {
+                SpinBtn.SetActive(true);
+                RvBtn.SetActive(false);
+                _onceClicked = false;
+                SpinNotification.SetActive(true);
+            }
+            else
+            {
+                RvBtn.SetActive(true);
+                SpinBtn.SetActive(false);
+                SpinNotification.SetActive(false);
+            }
+            OnOpen();
         }
 
         private void OnDisable()
@@ -138,13 +137,26 @@ namespace Core.SpinWheel
 
         void CloseRewardPanel()
         {
-            SoundEffectEvent.InvokeSOEvent(5);
-            RewardPanel.DOScale(Vector3.zero, _tweenDiration).SetEase(Ease.InBack);
+            SoundEffectEvent.InvokeSOEvent(2);
+            RewardPanel.DOScale(Vector3.zero, _transitionDuration/2).SetEase(Ease.InBack);
+        }
+
+        public override void OnOpen()
+        {
+            SoundEffectEvent.InvokeSOEvent(3);
+            Body.DOAnchorPosX(0, _transitionDuration).SetEase(Ease.OutBack).OnComplete(() => {
+                SoundEffectEvent.InvokeSOEvent(5);
+                Wheel.DOScale(Vector3.one, _transitionDuration).SetEase(Ease.OutBack);
+            });
         }
 
         public override void OnClose()
         {
-            Wheel.DOScale(Vector3.zero, _tweenDiration).SetEase(Ease.InBack).OnComplete(() => Body.DOAnchorPosX(-1500, _tweenDiration).SetEase(Ease.InBack).OnComplete(()=>gameObject.SetActive(false)));
+            SoundEffectEvent.InvokeSOEvent(5);
+            Wheel.DOScale(Vector3.zero, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => {
+                SoundEffectEvent.InvokeSOEvent(2);
+                Body.DOAnchorPosX(-1500, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
+            });
         }
 
     }

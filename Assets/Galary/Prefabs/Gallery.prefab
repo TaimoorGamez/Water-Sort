@@ -794,10 +794,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf2b9024f461b446b22547385be273a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Body: {fileID: 6291503782256565250}
   SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
   MinLvlNum: {fileID: 11400000, guid: 97861f11d658661419c157765ea4ff3c, type: 2}
   PaintingObj: {fileID: 2103683321289657488, guid: 99551eeec7c8f5543a37ff943cabad8e, type: 3}
-  Body: {fileID: 6291503782256565250}
   Content: {fileID: 8483314078615144374}
   GalaryScroll: {fileID: 1857063367227648627}
 --- !u!1 &6835985423197684959
@@ -870,7 +870,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 5508.652}
+  m_AnchoredPosition: {x: 0, y: 5507.0083}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2678594146645852283
