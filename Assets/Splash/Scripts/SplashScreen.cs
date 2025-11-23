@@ -6,6 +6,7 @@ using Core.Plugins;
 using Core.GamePlay;
 using Core.ToastMsg;
 using Core.Variables;
+using UnityEngine.UI;
 using Core.DB.Variables;
 
 namespace Core.Screen
@@ -21,6 +22,7 @@ namespace Core.Screen
         [SerializeField] LevelManager LvlManager;
         [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, MinLvlNum;
         [SerializeField] Transform FillImage;
+        [SerializeField] Image LogoImage;
 
         float _loadingTime = 2;
 
@@ -34,6 +36,7 @@ namespace Core.Screen
                 FFT.Value = 1;
             }
             FirebaseInit.InitPlugin();
+            LogoImage.DOFillAmount(1, _loadingTime).SetEase(Ease.Linear);
             FillImage.DOScaleX(1, _loadingTime).SetEase(Ease.Linear).OnComplete(()=>
             {
                 ToastMsnger.InitToastMsg();
