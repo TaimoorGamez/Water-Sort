@@ -19,7 +19,7 @@ namespace Core.GamePlay.Coloring
         [SerializeField] Vector2Int VerticalRange, HorizontalRange;
         [SerializeField] TextMeshProUGUI InfoText;
         [SerializeField] string[] InfoMsgs;
-        [SerializeField] GameObject NextBtn, TouchProtector, BubbleParticle, FlameParticles;
+        [SerializeField] GameObject NextBtn, TouchProtector, BubbleParticle, FlameParticles, TextHolder;
         [SerializeField] Image Details;
         [SerializeField] RawImage CompoundImg;
         [SerializeField] Texture2D CloudTexture;
@@ -68,7 +68,7 @@ namespace Core.GamePlay.Coloring
                     StopCoroutine(_movingRoutine);
                     _movingRoutine = null;
                 }
-                InfoText.gameObject.SetActive(false);
+                TextHolder.SetActive(false);
                 NextBtn.SetActive(false);
 
                 if (DetailsApplied.Value == 0)
@@ -136,7 +136,7 @@ namespace Core.GamePlay.Coloring
                     RectTransformUtility.ScreenPointToLocalPointInRectangle(
                         coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 initialPoint);
                     initialOffset = SprayCan.anchoredPosition - initialPoint;
-                    InfoText.gameObject.SetActive(false);
+                    TextHolder.SetActive(false);
                     if (!_effectCheck)
                     {
                         _effectCheck = true;
@@ -177,7 +177,7 @@ namespace Core.GamePlay.Coloring
                     StopLoopEffect.InvokeSOEvent();
                     _effectCheck = false;
                     if (_canShowNextBtn)
-                    { InfoText.gameObject.SetActive(true); }
+                    { TextHolder.SetActive(true); }
                 }
                 yield return null; // Yield until the next frame
             }
@@ -275,7 +275,7 @@ namespace Core.GamePlay.Coloring
                     RectTransformUtility.ScreenPointToLocalPointInRectangle(
                         coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 initialPoint);
                     initialOffset = FlameThrower.anchoredPosition - initialPoint;
-                    InfoText.gameObject.SetActive(false);
+                    TextHolder.SetActive(false);
                     if (!_effectCheck)
                     {
                         _effectCheck = true;
@@ -314,7 +314,7 @@ namespace Core.GamePlay.Coloring
                     StopLoopEffect.InvokeSOEvent();
                     _effectCheck = false;
                     if (_canShowNextBtn)
-                    { InfoText.gameObject.SetActive(true); }
+                    { TextHolder.SetActive(true); }
                 }
                 yield return null; // Yield until the next frame
             }

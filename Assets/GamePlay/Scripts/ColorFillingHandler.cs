@@ -19,7 +19,7 @@ namespace Core.GamePlay.Coloring
         [SerializeField] Vector2Int VerticalRange, HorizontalRange;
         [SerializeField] TextMeshProUGUI InfoText;
         [SerializeField] string[] InfoMsgs;
-        [SerializeField] GameObject NextBtn, TouchProtector, DetailsHandler, ResetButton;
+        [SerializeField] GameObject NextBtn, TouchProtector, DetailsHandler, ResetButton, TextHolder;
         [SerializeField] Animation BrushAnimtion;
         [SerializeField] ParticleSystem BrushParitcle;
 
@@ -69,7 +69,7 @@ namespace Core.GamePlay.Coloring
             BrushTransform.gameObject.SetActive(true);
             BrushTransform.DOAnchorPosX(175, _preparationTime).SetEase(Ease.OutBack).OnComplete(() =>
             {
-                InfoText.gameObject.SetActive(true);
+                TextHolder.SetActive(true);
             });
             ColoringPart[_paintingCounter].MyAnimation.Play("CurrentColoringPart");
         }
@@ -106,7 +106,7 @@ namespace Core.GamePlay.Coloring
                     RectTransformUtility.ScreenPointToLocalPointInRectangle(
                         _coloringParTransform, Input.mousePosition, _currentCamera, out Vector2 initialPoint);
                     initialOffset = BrushTransform.anchoredPosition - initialPoint;
-                    InfoText.gameObject.SetActive(false);
+                    TextHolder.SetActive(false);
                     if (!_coloringSound)
                     {
                         _coloringSound = true;
@@ -148,7 +148,7 @@ namespace Core.GamePlay.Coloring
                     _coloringSound = false;
                     initialOffset = Vector2.zero;
                     if(_canShowNextBtn)
-                       InfoText.gameObject.SetActive(true);
+                       TextHolder.SetActive(true);
                 }
                 yield return null; // Yield until the next frame
             }
@@ -239,7 +239,7 @@ namespace Core.GamePlay.Coloring
                     StopCoroutine(_movingRoutine);
                     _movingRoutine = null;
                 }
-                InfoText.gameObject.SetActive(false);
+                TextHolder.SetActive(false);
                 NextBtn.SetActive(false);
                 ResetButton.SetActive(false);
                 FillRemaingPixles();
@@ -259,7 +259,7 @@ namespace Core.GamePlay.Coloring
                     _partPixles = _partTexture.GetPixels32();
                     InfoText.text = InfoMsgs[0];
                     BrushTransform.gameObject.SetActive(true);
-                    InfoText.gameObject.SetActive(true);
+                    TextHolder.SetActive(true);
                     TouchProtector.SetActive(false);
                     ColoringPart[_paintingCounter].MyAnimation.Play("CurrentColoringPart");
                     _canShowNextBtn = true;
@@ -287,7 +287,7 @@ namespace Core.GamePlay.Coloring
                     StopCoroutine(_movingRoutine);
                     _movingRoutine = null;
                 }
-                InfoText.gameObject.SetActive(false);
+                TextHolder.SetActive(false);
                 NextBtn.SetActive(false);
                 ResetButton.SetActive(false);
                 CurrentBowl.Bowl.BowlState(false);
@@ -315,7 +315,7 @@ namespace Core.GamePlay.Coloring
             _canShowNextBtn = true;
             InfoText.text = InfoMsgs[0];
             BrushTransform.gameObject.SetActive(true);
-            InfoText.gameObject.SetActive(true);
+            TextHolder.SetActive(true);
             ColoringPart[_paintingCounter].MyAnimation.Play("CurrentColoringPart");
         }
     }
