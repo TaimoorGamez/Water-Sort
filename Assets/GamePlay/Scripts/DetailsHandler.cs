@@ -11,11 +11,11 @@ namespace Core.GamePlay.Coloring
 {
     public class DetailsHandler : MonoBehaviour
     {
-        [SerializeField] DBInt CurrentSpray, CurrentFlame;
+        [SerializeField] DBInt CurrentSpray, CurrentFlame, Sound;
         [SerializeField] SOInterger LevelStars, DetailsApplied, CompleteStateIndex;
         [SerializeField] SOIntegerEvents SoundEffectEvent, ActiveStateEvent;
-        [SerializeField] SOEvents StopLoopEffect;
         [SerializeField] RectTransform SprayCan, FlameThrower, ColoringParts;
+        [SerializeField] AudioSource SpraySound, FlameSound;
         [SerializeField] Vector2Int VerticalRange, HorizontalRange;
         [SerializeField] TextMeshProUGUI InfoText;
         [SerializeField] string[] InfoMsgs;
@@ -62,7 +62,8 @@ namespace Core.GamePlay.Coloring
             {
                 _onceClicked = true;
                 TouchProtector.SetActive(true);
-                StopLoopEffect.InvokeSOEvent();
+                SpraySound.Stop();
+                FlameSound.Stop();
                 if (_movingRoutine != null)
                 {
                     StopCoroutine(_movingRoutine);
@@ -142,6 +143,8 @@ namespace Core.GamePlay.Coloring
                         _effectCheck = true;
                         BubbleParticle.SetActive(true);
                         _sprayAnimation.Play("SprayOn");
+                        if (Sound.Value == 1)
+                            SpraySound.Play();
                     }
                 }
 
@@ -174,7 +177,7 @@ namespace Core.GamePlay.Coloring
                     initialOffset = Vector2.zero;
                     BubbleParticle.SetActive(false);
                     _sprayAnimation.Play("SprayOff");
-                    StopLoopEffect.InvokeSOEvent();
+                    SpraySound.Stop();
                     _effectCheck = false;
                     if (_canShowNextBtn)
                     { TextHolder.SetActive(true); }
@@ -280,6 +283,8 @@ namespace Core.GamePlay.Coloring
                     {
                         _effectCheck = true;
                         FlameParticles.SetActive(true);
+                        if (Sound.Value == 1)
+                            FlameSound.Play();
                     }
                 }
 
@@ -311,7 +316,7 @@ namespace Core.GamePlay.Coloring
                 {
                     initialOffset = Vector2.zero;
                     FlameParticles.SetActive(false);
-                    StopLoopEffect.InvokeSOEvent();
+                    FlameSound.Stop();
                     _effectCheck = false;
                     if (_canShowNextBtn)
                     { TextHolder.SetActive(true); }

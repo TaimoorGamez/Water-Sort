@@ -352,7 +352,6 @@ MonoBehaviour:
   UpdateMusicStateEvent: {fileID: 11400000, guid: 2b6c09a194e061b4397d43430881c4eb, type: 2}
   UpdateSoundStateEvent: {fileID: 11400000, guid: 9af50a3288a8bce43b8d368385473552, type: 2}
   SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
-  LoopEffectsEvent: {fileID: 11400000, guid: 093c4e46c9b68704ebb3fe930639824c, type: 2}
   Music: {fileID: 11400000, guid: 49c28a4a2c59429439aed711312140c2, type: 2}
   Sound: {fileID: 11400000, guid: 09754934285b3444699e95c33f208b73, type: 2}
   BgMusic: {fileID: 8300000, guid: 2cea9b92d1387a8449f31294dc7f90d8, type: 3}
@@ -381,6 +380,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d22fff54976390444b92f7e2e7493245, type: 3}
   LoopClips:
   - {fileID: 8300000, guid: a6582f934a452a24d81587b976b46ab5, type: 3}
+  - {fileID: 8300000, guid: b61afeb24d2f1444b9625f2bcf913ed0, type: 3}
+  - {fileID: 8300000, guid: b03dbf391de474f489fc4cfc758e8d51, type: 3}
 --- !u!81 &727782122
 AudioListener:
   m_ObjectHideFlags: 0
@@ -454,7 +455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.54901963, b: 0.88235295, a: 1}
+  m_Color: {r: 0, g: 0.627451, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0

@@ -3,19 +3,21 @@ using UnityEngine;
 using DG.Tweening;
 using Core.Events;
 using Core.Variables;
+using Core.DB.Variables;
 using System.Collections;
 
 namespace Core.GamePlay.Coloring
 {
     public class ColorFillingHandler : MonoBehaviour
     {
+        [SerializeField] DBInt Sound;
         [SerializeField] SOColorBowl CurrentBowl;
         [SerializeField] SOInterger LevelStars;
-        [SerializeField] SOIntegerEvents LoopEffectEvent;
-        [SerializeField] SOEvents StartColoringEvent, ColorSelectedEvent, StopLoopEffect, HideColorBowlEvent;
+        [SerializeField] SOEvents StartColoringEvent, ColorSelectedEvent, HideColorBowlEvent;
         [SerializeField] SOColor CurrentColor;
         [SerializeField] ColorFilling[] ColoringPart;
         [SerializeField] RectTransform BrushTransform;
+        [SerializeField] AudioSource BurshSound;
         [SerializeField] Vector2Int VerticalRange, HorizontalRange;
         [SerializeField] TextMeshProUGUI InfoText;
         [SerializeField] string[] InfoMsgs;
@@ -111,8 +113,9 @@ namespace Core.GamePlay.Coloring
                     {
                         _coloringSound = true;
                         BrushAnimtion.Play();
-                        LoopEffectEvent.InvokeSOEvent(0);
                         ResetButton.SetActive(true);
+                        if (Sound.Value == 1)
+                            BurshSound.Play();
                     }
                 }
 
@@ -144,7 +147,7 @@ namespace Core.GamePlay.Coloring
                 if (Input.GetMouseButtonUp(0))
                 {
                     BrushAnimtion.Stop();
-                    StopLoopEffect.InvokeSOEvent();
+                    BurshSound.Stop();
                     _coloringSound = false;
                     initialOffset = Vector2.zero;
                     if(_canShowNextBtn)
@@ -245,7 +248,7 @@ namespace Core.GamePlay.Coloring
                 FillRemaingPixles();
                 CurrentBowl.Bowl.BowlState(false);
                 _coloredPixlesCounter = 0;
-                StopLoopEffect.InvokeSOEvent();
+                BurshSound.Stop();
                 if (LevelStars.Value > 2 && !CurrentColor.Value.Equals(ColoringPart[_paintingCounter - 1].DefaultColor))
                 {
                     LevelStars.Value--;
@@ -292,7 +295,7 @@ namespace Core.GamePlay.Coloring
                 ResetButton.SetActive(false);
                 CurrentBowl.Bowl.BowlState(false);
                 _coloredPixlesCounter = 0;
-                StopLoopEffect.InvokeSOEvent();
+                BurshSound.Stop();
                 byte alphaThreshold = 50;
                 _partPixles = _partTexture.GetPixels32();
                 for (int i = 0; i < _partPixles.Length; i++)

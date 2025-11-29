@@ -60,8 +60,7 @@ namespace Core.Screen
             { 
                 textNum = Random.Range(1,9);
             }
-            _textObj = Resources.Load<GameObject>(textFolder + textNum);
-            Instantiate(_textObj, transform);
+            _textObj = Instantiate(Resources.Load<GameObject>(textFolder + textNum), transform);
             SoundEffectEvent.InvokeSOEvent(_textSoundIndex + textNum);
             SortingCompleted.Value = 0;
             _starsDataPath = Path.Combine(Application.persistentDataPath, "starsData.json");

@@ -7,7 +7,7 @@ namespace Core.Sfx
     public class SoundManager : MonoBehaviour
     {
         [SerializeField] SOEvents OnOffBGMusic, OnOffSounds, PlayBtnClick, StopLoopSoundEffect, UpdateMusicStateEvent, UpdateSoundStateEvent;
-        [SerializeField] SOIntegerEvents SoundEffectEvent, LoopEffectsEvent;
+        [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] DBInt Music, Sound;
         [SerializeField] AudioClip BgMusic, BtnClick;
         [SerializeField] AudioClip[] EffectClips, LoopClips;
@@ -21,8 +21,6 @@ namespace Core.Sfx
             OnOffSounds.EventHandler += ChangeSoundState;
             PlayBtnClick.EventHandler += PlayBtnSound;
             SoundEffectEvent.EventHandler += PlaySoundEffect;
-            LoopEffectsEvent.EventHandler += PlayLoopSounds;
-            StopLoopSoundEffect.EventHandler += StopLoopSounds;
         }
 
         private void OnDisable()
@@ -31,8 +29,6 @@ namespace Core.Sfx
             OnOffSounds.EventHandler -= ChangeSoundState;
             PlayBtnClick.EventHandler -= PlayBtnSound;
             SoundEffectEvent.EventHandler -= PlaySoundEffect;
-            LoopEffectsEvent.EventHandler -= PlayLoopSounds;
-            StopLoopSoundEffect.EventHandler -= StopLoopSounds;
         }
 
         private void Start()
@@ -162,23 +158,6 @@ namespace Core.Sfx
                     _effectSource.PlayOneShot(EffectClips[effectNum]);
                 }
             }
-        }
-
-        void PlayLoopSounds(int effectNum)
-        {
-            if (Sound.Value == 1)
-            {
-                {
-                    _loopSource.clip = LoopClips[effectNum];
-                    _loopSource.Play();
-                }
-            }
-        }
-
-        void StopLoopSounds()
-        {
-            if (_loopSource != null)
-                _loopSource.Stop();
         }
     }
 }
