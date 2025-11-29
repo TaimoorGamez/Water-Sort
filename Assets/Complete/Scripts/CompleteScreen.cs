@@ -122,7 +122,7 @@ namespace Core.Screen
             Invoke(nameof(OnPanelVisible), _durationTweeing);
             for (int s = 0; s < LevelStars.Value; s++)
             {
-                StarsImg[s].material = null;
+                StarsImg[s].color = Color.white;
             }
             yield return new WaitForSeconds(0.1f);
 
