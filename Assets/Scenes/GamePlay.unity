@@ -370,6 +370,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9bdf65dab4853344789c8ecb036ca8cc, type: 3}
   - {fileID: 8300000, guid: dc4cdc4b277140945a853626fa61d9ad, type: 3}
   - {fileID: 8300000, guid: a455262974e52294eb500c9ede217da8, type: 3}
+  - {fileID: 8300000, guid: 6270d6ee1f3403641b272c88261a0a3e, type: 3}
+  - {fileID: 8300000, guid: dc5dd51932813fd4aaba7bd4e1ad4a72, type: 3}
+  - {fileID: 8300000, guid: 979086cc5cb7f944dac2e53e8e729a88, type: 3}
+  - {fileID: 8300000, guid: c0ac58186a4be3c428fc282388544c7c, type: 3}
+  - {fileID: 8300000, guid: 84c6a277dccfee34ba050f2a739df517, type: 3}
+  - {fileID: 8300000, guid: 8e9293b19842a6f42a2054f5c0ca722c, type: 3}
+  - {fileID: 8300000, guid: 7a496a2359189084ba8974b41ce1cb8d, type: 3}
+  - {fileID: 8300000, guid: f4be6b026a113a2439bef9b506e34bf0, type: 3}
+  - {fileID: 8300000, guid: d22fff54976390444b92f7e2e7493245, type: 3}
   LoopClips:
   - {fileID: 8300000, guid: a6582f934a452a24d81587b976b46ab5, type: 3}
 --- !u!81 &727782122
@@ -406,7 +415,6 @@ GameObject:
   - component: {fileID: 1072098274}
   - component: {fileID: 1072098277}
   - component: {fileID: 1072098276}
-  - component: {fileID: 1072098275}
   m_Layer: 5
   m_Name: BG
   m_TagString: Untagged
@@ -433,50 +441,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1072098275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1072098273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c8e4bb9796eb7042ae25a0d856721af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gradient:
-    serializedVersion: 2
-    key0: {r: 0.11764706, g: 0.8431373, b: 0.6862745, a: 1}
-    key1: {r: 0.29411766, g: 0.5294118, b: 0.9607843, a: 1}
-    key2: {r: 0, g: 0, b: 0, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
-    key4: {r: 0, g: 0, b: 0, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
-    key6: {r: 0, g: 0, b: 0, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 0
-    ctime1: 65535
-    ctime2: 0
-    ctime3: 0
-    ctime4: 0
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 65535
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_ColorSpace: -1
-    m_NumColorKeys: 2
-    m_NumAlphaKeys: 2
-  gradientType: 0
-  blendMode: 0
 --- !u!114 &1072098276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,7 +454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.54901963, b: 0.88235295, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0

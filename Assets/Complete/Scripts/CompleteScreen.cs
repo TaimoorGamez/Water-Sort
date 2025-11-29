@@ -29,12 +29,15 @@ namespace Core.Screen
         [SerializeField] RectTransform StarsObj, NextBtn;
         [SerializeField] GameObject MultiplayerBar, RvBtn;
 
+
         float _starsPos = 100, _durationTweeing = 1f;
         bool _onceClicked = true;
-        int _levelBonus = 15, _starsBonus = 10, _detailsBonus = 0, _totalBonus = 0; 
+        int _levelBonus = 15, _starsBonus = 10, _detailsBonus = 0, _totalBonus = 0, _textSoundIndex = 12; 
         Coroutine _screenShotRotine;
         string _starsDataPath;
         Vector2 _nextBtnPosition = new Vector2(-135, -430);
+        string textFolder = "Appreciation/Text ";
+        GameObject _textObj;
 
         private void OnEnable()
         {
@@ -52,43 +55,18 @@ namespace Core.Screen
 
         void Start()
         {
+            int textNum = 0;
+            if (LevelStars.Value > 2)
+            { 
+                textNum = Random.Range(1,9);
+            }
+            _textObj = Resources.Load<GameObject>(textFolder + textNum);
+            Instantiate(_textObj, transform);
+            SoundEffectEvent.InvokeSOEvent(_textSoundIndex + textNum);
             SortingCompleted.Value = 0;
             _starsDataPath = Path.Combine(Application.persistentDataPath, "starsData.json");
             _screenShotRotine = StartCoroutine(CaptureColoredArea());
             TaskEvent.InvokeSOEvent(1,1);
-        }
-
-        void OnPanelVisible()
-        {
-            DestroyStatEvent.InvokeSOEvent(GamePlayState.Value);
-            if (LvlNum.Value >= MinLvlCount.Value)
-            {
-                NextBtn.DOAnchorPos(_nextBtnPosition, _durationTweeing).SetEase(Ease.InOutBack).OnComplete(() =>
-                {
-                    MultiplayerBar.SetActive(true);
-                    RvBtn.SetActive(true);
-                });
-            }
-            StarsObj.DOAnchorPosY(_starsPos, _durationTweeing).SetEase(Ease.OutBack);
-            StarsObj.DOScale(1, _durationTweeing).SetEase(Ease.OutBack).OnComplete(() => {
-                DisplayImage.gameObject.SetActive(true);
-                SoundEffectEvent.InvokeSOEvent(7);
-                DisplayImage.transform.DOScale(1, _durationTweeing/2).SetEase(Ease.OutBack);
-
-            });
-            DOTween.To(() => 0, x => LevelBonusText.text = x.ToString(), _levelBonus, _durationTweeing);
-            if (LevelMoves.Value > 0)
-            { DOTween.To(() => 0, x => MovesBonusText.text = x.ToString(), LevelMoves.Value, _durationTweeing); }
-            if (DetailsApplied.Value == 1)
-            {
-                _detailsBonus = 20;
-                DOTween.To(() => 0, x => DetailsBonusText.text = x.ToString(), _detailsBonus, _durationTweeing); 
-            }
-            _starsBonus *= LevelStars.Value;
-            DOTween.To(() => 0, x => StarsBonusText.text = x.ToString(), _starsBonus, _durationTweeing);
-            _totalBonus = (_levelBonus + LevelMoves.Value + _detailsBonus + _starsBonus);
-            DOTween.To(() => 0, x => TotalBonusText.text = x.ToString(), _totalBonus, _durationTweeing).SetDelay(_durationTweeing);
-            TotalBonusText.rectTransform.DOScale(1, _durationTweeing).SetEase(Ease.OutBack).SetDelay(_durationTweeing);
         }
 
         IEnumerator CaptureColoredArea()
@@ -144,6 +122,39 @@ namespace Core.Screen
             _onceClicked = false;
         }
 
+        void OnPanelVisible()
+        {
+            DestroyStatEvent.InvokeSOEvent(GamePlayState.Value);
+            if (LvlNum.Value >= MinLvlCount.Value)
+            {
+                NextBtn.DOAnchorPos(_nextBtnPosition, _durationTweeing).SetEase(Ease.InOutBack).OnComplete(() =>
+                {
+                    MultiplayerBar.SetActive(true);
+                    RvBtn.SetActive(true);
+                });
+            }
+            StarsObj.DOAnchorPosY(_starsPos, _durationTweeing).SetEase(Ease.OutBack);
+            StarsObj.DOScale(1, _durationTweeing).SetEase(Ease.OutBack).OnComplete(() => {
+                DisplayImage.gameObject.SetActive(true);
+                SoundEffectEvent.InvokeSOEvent(7);
+                DisplayImage.transform.DOScale(1, _durationTweeing / 2).SetEase(Ease.OutBack);
+
+            });
+            DOTween.To(() => 0, x => LevelBonusText.text = x.ToString(), _levelBonus, _durationTweeing);
+            if (LevelMoves.Value > 0)
+            { DOTween.To(() => 0, x => MovesBonusText.text = x.ToString(), LevelMoves.Value, _durationTweeing); }
+            if (DetailsApplied.Value == 1)
+            {
+                _detailsBonus = 20;
+                DOTween.To(() => 0, x => DetailsBonusText.text = x.ToString(), _detailsBonus, _durationTweeing);
+            }
+            _starsBonus *= LevelStars.Value;
+            DOTween.To(() => 0, x => StarsBonusText.text = x.ToString(), _starsBonus, _durationTweeing);
+            _totalBonus = (_levelBonus + LevelMoves.Value + _detailsBonus + _starsBonus);
+            DOTween.To(() => 0, x => TotalBonusText.text = x.ToString(), _totalBonus, _durationTweeing).SetDelay(_durationTweeing);
+            TotalBonusText.rectTransform.DOScale(1, _durationTweeing).SetEase(Ease.OutBack).SetDelay(_durationTweeing);
+        }
+
         GameData LoadStars()
         {
             if (File.Exists(_starsDataPath))
@@ -188,8 +199,9 @@ namespace Core.Screen
 
         public override void OnOpen()
         {
-            SoundEffectEvent.InvokeSOEvent(3);
-            Body.DOAnchorPosX(0, _transitionDuration).SetEase(Ease.OutBack);
+           Destroy(_textObj);
+           SoundEffectEvent.InvokeSOEvent(3);
+           Body.DOAnchorPosX(0, _transitionDuration).SetEase(Ease.OutBack);
         }
 
         public override void OnClose()
