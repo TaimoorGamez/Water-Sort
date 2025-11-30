@@ -82,7 +82,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6436194094479500849, guid: b69d479de7d90cc43a44d94fb0edd05b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 6436194094479500849, guid: b69d479de7d90cc43a44d94fb0edd05b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -98,7 +98,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8030287987114528894, guid: b69d479de7d90cc43a44d94fb0edd05b, type: 3}
       propertyPath: m_Name
-      value: AppreciationText Variant
+      value: Text 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

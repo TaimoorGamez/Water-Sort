@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5008071325882782979, guid: 920af7754dad78941adb0fcb0442332b, type: 3}
       propertyPath: m_Name
-      value: AppreciationText Variant
+      value: Text 1
       objectReference: {fileID: 0}
     - target: {fileID: 7939886424032726475, guid: 920af7754dad78941adb0fcb0442332b, type: 3}
       propertyPath: m_text
@@ -86,7 +86,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8331829027139920716, guid: 920af7754dad78941adb0fcb0442332b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 8331829027139920716, guid: 920af7754dad78941adb0fcb0442332b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
