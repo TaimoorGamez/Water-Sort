@@ -354,7 +354,7 @@ MonoBehaviour:
   SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
   Music: {fileID: 11400000, guid: 49c28a4a2c59429439aed711312140c2, type: 2}
   Sound: {fileID: 11400000, guid: 09754934285b3444699e95c33f208b73, type: 2}
-  BgMusic: {fileID: 8300000, guid: 2cea9b92d1387a8449f31294dc7f90d8, type: 3}
+  BgMusic: {fileID: 8300000, guid: 5f73bd103aac0174f8e51b2379bf8894, type: 3}
   BtnClick: {fileID: 8300000, guid: a6e027322946cce408dc5ecab6f40252, type: 3}
   EffectClips:
   - {fileID: 8300000, guid: 48c68a02d6afab84ea7411589a47fce7, type: 3}
