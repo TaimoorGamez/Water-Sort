@@ -212,7 +212,7 @@ namespace Core.Screen
                     LevelIndex.Value = MinLvlCount.Value;
                 }
 
-                if (LevelIndex.Value <= MinLvlCount.Value)
+                if (LvlNum.Value <= MinLvlCount.Value)
                 {
                     InitLvlEvent.InvokeSOEvent();
                     ActiveStateEvent.InvokeSOEvent(GamePlayState.Value);
