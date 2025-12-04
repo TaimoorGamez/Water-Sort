@@ -1,10 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id">
-  <string name="gcm_defaultSenderId" translatable="false">313429515515</string>
-  <string name="google_storage_bucket" translatable="false">test-firebase-b0ac5.firebasestorage.app</string>
-  <string name="project_id" translatable="false">test-firebase-b0ac5</string>
-  <string name="google_api_key" translatable="false">AIzaSyC42fgw4bzzQGbbFg2O5QGbQ2y9MKH3T7c</string>
-  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyC42fgw4bzzQGbbFg2O5QGbQ2y9MKH3T7c</string>
-  <string name="google_app_id" translatable="false">1:313429515515:android:14ba21fa82ebef1794645e</string>
-  <string name="default_web_client_id" translatable="false">313429515515-4ns4leht0mr9ivh9o30nq7v0c25tsrfh.apps.googleusercontent.com</string>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id">
+  <string name="gcm_defaultSenderId" translatable="false">629614082318</string>
+  <string name="google_storage_bucket" translatable="false">sort-paint-anime-art-puz-d825c.firebasestorage.app</string>
+  <string name="project_id" translatable="false">sort-paint-anime-art-puz-d825c</string>
+  <string name="google_api_key" translatable="false">AIzaSyCRXBfiVgKFpA6yWjsLtmbMvrMUW7hq3oM</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCRXBfiVgKFpA6yWjsLtmbMvrMUW7hq3oM</string>
+  <string name="google_app_id" translatable="false">1:629614082318:android:dfb94ba951fca3b0143f5f</string>
 </resources>
