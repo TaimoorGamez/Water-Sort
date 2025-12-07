@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 2800000, guid: f5880952c7f5c4c40b0e83930bb53b05, type: 3}
     - target: {fileID: 7527752043323805811, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: DefaultColor.rgba
-      value: 4282451280
+      value: 4285414425
       objectReference: {fileID: 0}
     - target: {fileID: 7527752043323805820, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: m_Pivot.x
@@ -151,7 +151,7 @@ PrefabInstance:
       objectReference: {fileID: 2800000, guid: eb09a2fabad76d24b9dd5c734a12eeeb, type: 3}
     - target: {fileID: 7527752043323805811, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: DefaultColor.rgba
-      value: 4278249215
+      value: 4278223610
       objectReference: {fileID: 0}
     - target: {fileID: 7527752043323805820, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: m_Pivot.x
@@ -288,7 +288,7 @@ PrefabInstance:
       objectReference: {fileID: 2800000, guid: 1ccab1f4d8794444c8cc2dc3fff1dcf5, type: 3}
     - target: {fileID: 7527752043323805811, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: DefaultColor.rgba
-      value: 4278255405
+      value: 4278254335
       objectReference: {fileID: 0}
     - target: {fileID: 7527752043323805820, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: m_Pivot.x
@@ -619,7 +619,7 @@ PrefabInstance:
       objectReference: {fileID: 2800000, guid: c69072649e0a8ca4493f703250d5ff53, type: 3}
     - target: {fileID: 7527752043323805811, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: DefaultColor.rgba
-      value: 4279837545
+      value: 4294574240
       objectReference: {fileID: 0}
     - target: {fileID: 7527752043323805820, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: m_Pivot.x
