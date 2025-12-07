@@ -22,6 +22,7 @@ namespace Core.Screen
         [SerializeField] RectTransform LevelsHolder;
 
         int _activeLvl = 3;
+        string _privacyLink = "https://sites.google.com/view/sortpaint-privacy-policy/";
 
         public void OnclickSettingBtn()
         {
@@ -34,7 +35,7 @@ namespace Core.Screen
             if(IsFirebaseInit.Value == 1)
             {
                 SoStore.InitializePurchasing();
-                Invoke(nameof(InitializeAds), 2f);
+                Invoke(nameof(InitializeAds), 1f);
             }
             else
             {
@@ -65,6 +66,11 @@ namespace Core.Screen
             InitLevelEvent.InvokeSOEvent();
             ActiveStateEvent.InvokeSOEvent(GamePlayStateIndex.Value);
             DestroyStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
+        }
+
+        public void OpenPrivacyPolicy()
+        {
+            Application.OpenURL(_privacyLink);
         }
 
         private void InitializeAds()
