@@ -10,16 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2848dcf50390384478d67428ac268cda, type: 3}
-  m_Name: lvl 8
+  m_Name: lvl 22
   m_EditorClassIdentifier: 
   Colors:
   - serializedVersion: 2
-    rgba: 4288395775
+    rgba: 4288399615
   - serializedVersion: 2
-    rgba: 4294901940
+    rgba: 4285414425
   - serializedVersion: 2
-    rgba: 4294964480
+    rgba: 4278223610
   - serializedVersion: 2
-    rgba: 4278192880
+    rgba: 4278190320
   - serializedVersion: 2
-    rgba: 4278254335
+    rgba: 4280540410
+  - serializedVersion: 2
+    rgba: 4294574240
+  - serializedVersion: 2
+    rgba: 4294963200
