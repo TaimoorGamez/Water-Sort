@@ -87,10 +87,9 @@ namespace Core.GamePlay.Coloring
                     HideRemaingPixles();
                     SoundEffectEvent.InvokeSOEvent(6);
                     StarParticles.Play();
-                    ColoringParts.DOScale(0.75f, _preparationTime);
-                    ColoringParts.DOAnchorPosY(_finalPos, _preparationTime).OnComplete(() =>
+                    ColoringParts.DOScale(1.5f, _preparationTime).SetEase(Ease.OutBack).OnComplete(() =>
                     {
-                        Invoke(nameof(LevelComplete),2);
+                        Invoke(nameof(LevelComplete), 2);
                     });
                 }
             }
@@ -98,7 +97,11 @@ namespace Core.GamePlay.Coloring
 
         void LevelComplete()
         {
-            ActiveStateEvent.InvokeSOEvent(CompleteStateIndex.Value);
+            ColoringParts.DOScale(0.75f, _preparationTime);
+            ColoringParts.DOAnchorPosY(_finalPos, _preparationTime).OnComplete(() =>
+            {
+                ActiveStateEvent.InvokeSOEvent(CompleteStateIndex.Value);
+            });
         }
 
         void PrepareCompounD()

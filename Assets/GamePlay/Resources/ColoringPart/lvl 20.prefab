@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 2800000, guid: 437818006575ad64697d9b62df9a6592, type: 3}
     - target: {fileID: 7527752043323805811, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: DefaultColor.rgba
-      value: 4291992335
+      value: 4285414425
       objectReference: {fileID: 0}
     - target: {fileID: 7527752043323805820, guid: caeaa4bc5332acb44b0b868094bc7fd2, type: 3}
       propertyPath: m_Pivot.x
