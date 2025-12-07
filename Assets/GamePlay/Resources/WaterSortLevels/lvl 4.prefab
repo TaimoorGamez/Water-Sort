@@ -282,6 +282,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -963,7 +964,7 @@ MonoBehaviour:
   InfoTextObj: {fileID: 3044361965994056459}
   CurrentColors:
   - {r: 0.7647059, g: 0.15686275, b: 0.15686275, a: 1}
-  - {r: 0, g: 0.60784316, b: 1, a: 1}
+  - {r: 0.09803922, g: 0.23529412, b: 0.43137255, a: 1}
   - {r: 0, g: 0.92156863, b: 0.9411765, a: 1}
   - {r: 1, g: 0.7254902, b: 0.60784316, a: 1}
   IsSwipButton: 1
