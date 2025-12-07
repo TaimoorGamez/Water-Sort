@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f485eb260d76ed4ab3e4de83638f194, type: 3}
+  m_Name: DailyTaskManager
+  m_EditorClassIdentifier: 
+  TaskEvent: {fileID: 11400000, guid: 5254f8d222e5a034fa2451644bce9d2e, type: 2}
+  GenerateDailyTasksEvent: {fileID: 11400000, guid: 67a21a324274d5f4281863c1709ab808, type: 2}
+  AllTasks:
+  - TaskId: 0
+    Description: Watch 2 Rewarded Ads
+    Goal: 2
+  - TaskId: 1
+    Description: Complete 3 levels
+    Goal: 3
+  - TaskId: 2
+    Description: Spend 200 coins
+    Goal: 200
+  - TaskId: 3
+    Description: Use Undo 3 times
+    Goal: 3
+  - TaskId: 4
+    Description: Use Color Swap 2 times
+    Goal: 2
+  - TaskId: 5
+    Description: Use Extra Bottle once
+    Goal: 1
+  TaskIndexs:
+  - {fileID: 11400000, guid: 310157f91c869a644a47f8cd95e3a1ff, type: 2}
+  - {fileID: 11400000, guid: b674689e5878f4f418e6a459ab310a79, type: 2}
+  - {fileID: 11400000, guid: 71ce8c65db0fd65478adecd6ed70464d, type: 2}
+  - {fileID: 11400000, guid: 50fc55f1f7c9ae04b97587b6a3ecb132, type: 2}
