@@ -126,10 +126,8 @@ namespace Core.GamePlay.WaterSort
                 {
                     ThirdLiquid.TubeCap.gameObject.SetActive(false);
                     ThirdLiquid.transform.DOKill();
-                    Sequence thirdSeq = DOTween.Sequence();
-                    thirdSeq.Join(ThirdLiquid.transform.DOScale(_bowlScale, tweenTime));
-                    thirdSeq.Join(ThirdLiquid.transform.DOLocalMove(_thirdBowlPos, tweenTime));
-                    thirdSeq.OnKill(() =>
+                    ThirdLiquid.transform.DOScale(_bowlScale, tweenTime);
+                    ThirdLiquid.transform.DOLocalMove(_thirdBowlPos, tweenTime).OnKill(() =>
                     {
                         BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
                         colorBowl.transform.localPosition = ThirdLiquid.transform.localPosition;
@@ -146,10 +144,8 @@ namespace Core.GamePlay.WaterSort
                 {
                     OtherLiquid.TubeCap.gameObject.SetActive(false);
                     OtherLiquid.transform.DOKill();
-                    Sequence otherSeq = DOTween.Sequence();
-                    otherSeq.Join(OtherLiquid.transform.DOScale(_bowlScale, tweenTime));
-                    otherSeq.Join(OtherLiquid.transform.DOLocalMove(_otherBowlPos, tweenTime));
-                    otherSeq.OnKill(() =>
+                    OtherLiquid.transform.DOScale(_bowlScale, tweenTime);
+                    OtherLiquid.transform.DOLocalMove(_otherBowlPos, tweenTime).OnKill(() =>
                     {
                         BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
                         colorBowl.transform.localPosition = OtherLiquid.transform.localPosition;
@@ -166,10 +162,8 @@ namespace Core.GamePlay.WaterSort
                 {
                     MyLiquid.TubeCap.gameObject.SetActive(false);
                     MyLiquid.transform.DOKill();
-                    Sequence mySeq = DOTween.Sequence();
-                    mySeq.Join(MyLiquid.transform.DOScale(_bowlScale, tweenTime));
-                    mySeq.Join(MyLiquid.transform.DOLocalMove(_firstBowlPos, tweenTime));
-                    mySeq.OnKill(() =>
+                    MyLiquid.transform.DOScale(_bowlScale, tweenTime);
+                    MyLiquid.transform.DOLocalMove(_firstBowlPos, tweenTime).OnKill(() =>
                     {
                         BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
                         colorBowl.transform.localPosition = MyLiquid.transform.localPosition;

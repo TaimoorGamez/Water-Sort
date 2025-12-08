@@ -76,10 +76,8 @@ namespace Core.GamePlay.WaterSort
             float tweenTime = 1;
             InfoTextObj.SetActive(false);
             transform.DOKill();
-            Sequence seq = DOTween.Sequence();
-            seq.Join(transform.DOScale(_bowlScale, tweenTime));
-            seq.Join(transform.DOLocalMove(_bowlPos, tweenTime));
-            seq.OnKill(() =>
+            transform.DOScale(_bowlScale, tweenTime);
+            transform.DOLocalMove(_bowlPos, tweenTime).OnKill(() =>
             {
                 if (CurrenTube != null && CurrenTube.WaterColors.Count > 0)
                 {
