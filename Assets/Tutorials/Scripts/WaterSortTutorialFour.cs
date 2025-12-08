@@ -148,7 +148,7 @@ namespace Core.GamePlay.WaterSort
                 Sequence firstSeq = DOTween.Sequence();
                 firstSeq.Join(FirstTube.transform.DOScale(_bowlScale, tweenTime));
                 firstSeq.Join(FirstTube.transform.DOLocalMove(_bowlYPos, tweenTime));
-                firstSeq.OnComplete(() =>
+                firstSeq.OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
                     colorBowl.transform.localPosition = FirstTube.transform.localPosition;
@@ -169,7 +169,7 @@ namespace Core.GamePlay.WaterSort
                 Sequence secondSeq = DOTween.Sequence();
                 secondSeq.Join(SecondTube.transform.DOScale(_bowlScale, tweenTime));
                 secondSeq.Join(SecondTube.transform.DOLocalMove(_bowlYPos, tweenTime));
-                secondSeq.OnComplete(() =>
+                secondSeq.OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
                     colorBowl.transform.localPosition = SecondTube.transform.localPosition;
@@ -190,7 +190,7 @@ namespace Core.GamePlay.WaterSort
                 Sequence thirdSeq = DOTween.Sequence();
                 thirdSeq.Join(ThirdTube.transform.DOScale(_bowlScale, tweenTime));
                 thirdSeq.Join(ThirdTube.transform.DOLocalMove(_bowlYPos, tweenTime));
-                thirdSeq.OnComplete(() =>
+                thirdSeq.OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
                         colorBowl.transform.localPosition = ThirdTube.transform.localPosition;
@@ -211,7 +211,7 @@ namespace Core.GamePlay.WaterSort
                 Sequence forthSeq = DOTween.Sequence();
                 forthSeq.Join(ForthTube.transform.DOScale(_bowlScale, tweenTime));
                 forthSeq.Join(ForthTube.transform.DOLocalMove(_bowlYPos, tweenTime));
-                forthSeq.OnComplete(() =>
+                forthSeq.OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
                     colorBowl.transform.localPosition = ForthTube.transform.localPosition;
@@ -232,7 +232,7 @@ namespace Core.GamePlay.WaterSort
                 Sequence fifthSeq = DOTween.Sequence();
                 fifthSeq.Join(FifthTube.transform.DOScale(_bowlScale, tweenTime));
                 fifthSeq.Join(FifthTube.transform.DOLocalMove(_bowlYPos, tweenTime));
-                fifthSeq.OnComplete(() =>
+                fifthSeq.OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
                     colorBowl.transform.localPosition = FifthTube.transform.localPosition;
@@ -254,7 +254,7 @@ namespace Core.GamePlay.WaterSort
                 Sequence sixthSeq = DOTween.Sequence();
                 sixthSeq.Join(SixthTube.transform.DOScale(_bowlScale, tweenTime));
                 sixthSeq.Join(SixthTube.transform.DOLocalMove(_bowlYPos, tweenTime));
-                sixthSeq.OnComplete(() =>
+                sixthSeq.OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
                     colorBowl.transform.localPosition = SixthTube.transform.localPosition;

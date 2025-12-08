@@ -233,7 +233,7 @@ namespace Core.GamePlay.WaterSort
                     currentTube.TubeCap.gameObject.SetActive(false);
                     currentTube.transform.DOKill();
                     currentTube.transform.DOScale(_bowlScale, tweenTime);
-                    currentTube.transform.DOLocalMove(BowlPositions[t], tweenTime).OnComplete(() =>
+                    currentTube.transform.DOLocalMove(BowlPositions[t], tweenTime).OnKill(() =>
                     {
                         BowlColorHandler colorBowl = Instantiate(BowlObj, transform);
                         colorBowl.transform.position = currentTube.transform.position;
