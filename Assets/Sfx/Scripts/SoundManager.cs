@@ -6,7 +6,7 @@ namespace Core.Sfx
 {
     public class SoundManager : MonoBehaviour
     {
-        [SerializeField] SOEvents OnOffBGMusic, OnOffSounds, PlayBtnClick, StopLoopSoundEffect, UpdateMusicStateEvent, UpdateSoundStateEvent;
+        [SerializeField] SOEvents OnOffBGMusic, OnOffSounds, PlayBtnClick, UpdateMusicStateEvent, UpdateSoundStateEvent;
         [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] DBInt Music, Sound;
         [SerializeField] AudioClip BgMusic, BtnClick;

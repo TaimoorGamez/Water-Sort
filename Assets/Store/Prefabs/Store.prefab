@@ -2056,6 +2056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d28672c870ebd7249bd1889f7f368933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemInstances: {fileID: 11400000, guid: 035c2f0a3e224c64db9b71e9c86114af, type: 2}
   BuyEvent: {fileID: 11400000, guid: 168e6c4d490dc6d4b8f7a27da3ed63e0, type: 2}
   ChangeItemStatusEvent: {fileID: 11400000, guid: fc450b4d657426942b071bd8616feb19, type: 2}
   CurrentActiveItem: {fileID: 11400000, guid: 03ee6a9ec23765f4fa4a254ffb256dc1, type: 2}
@@ -2074,7 +2075,6 @@ MonoBehaviour:
   - {fileID: 1788939178515468398}
   ItemHolder: {fileID: 2024753824}
   VideoText: {fileID: 3854405410401488522}
-  ItemPath: Store/Cap/
 --- !u!1 &543846791142718099
 GameObject:
   m_ObjectHideFlags: 0
@@ -2542,6 +2542,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3831021506615494939}
+  - component: {fileID: 2082829031435825910}
+  - component: {fileID: 387586647533786541}
   - component: {fileID: -1278338171855373972}
   m_Layer: 5
   m_Name: Store
@@ -2571,6 +2573,44 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2082829031435825910
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3223925056509414579}
+  m_CullTransparentMesh: 1
+--- !u!114 &387586647533786541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3223925056509414579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.98039216}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 2cbb5e1fc6c8cbd479c979d0fc9fc012, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &-1278338171855373972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2585,6 +2625,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Body: {fileID: 5228803007865272703}
   SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
+  StoreItemsList: {fileID: 11400000, guid: 9c58c415efded7b488c3eeba18e5e38f, type: 2}
+  CapItemsDictionary: {fileID: 11400000, guid: 035c2f0a3e224c64db9b71e9c86114af, type: 2}
+  FlameItemsDictionary: {fileID: 11400000, guid: cf4593384f21ac1499205a8458e72aaf, type: 2}
+  SprayItemsDictionary: {fileID: 11400000, guid: 867607d45b110f34d9315d803c01ef51, type: 2}
+  FillImage: {fileID: 9064336660895032566}
+  LoadingText: {fileID: 8852204569882383714}
+  Loading: {fileID: 1797412761274587602}
+  FlameItemsPath: Store/Flame/
+  SprayItemsPath: Store/Spray/
+  CapItemsPath: Store/Cap/
+  MaxFlameThrowers: 4
+  MaxSprayCans: 8
+  MaxCaps: 6
 --- !u!1 &3229780168958179758
 GameObject:
   m_ObjectHideFlags: 0
@@ -2933,6 +2986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d28672c870ebd7249bd1889f7f368933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemInstances: {fileID: 11400000, guid: cf4593384f21ac1499205a8458e72aaf, type: 2}
   BuyEvent: {fileID: 11400000, guid: df30de6c151b22f4fba3cc2ea4e007ab, type: 2}
   ChangeItemStatusEvent: {fileID: 11400000, guid: fc450b4d657426942b071bd8616feb19, type: 2}
   CurrentActiveItem: {fileID: 11400000, guid: 63e6496758809f14cb2d76d028c3fcbf, type: 2}
@@ -2949,7 +3003,6 @@ MonoBehaviour:
   - {fileID: 1074964729749819697}
   ItemHolder: {fileID: 1936743982}
   VideoText: {fileID: 2541443341748096981}
-  ItemPath: Store/Flame/
 --- !u!1 &3623857064505699915
 GameObject:
   m_ObjectHideFlags: 0
@@ -4773,6 +4826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d28672c870ebd7249bd1889f7f368933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemInstances: {fileID: 11400000, guid: 867607d45b110f34d9315d803c01ef51, type: 2}
   BuyEvent: {fileID: 11400000, guid: 93af9fcb0ee15484287cb23899da625b, type: 2}
   ChangeItemStatusEvent: {fileID: 11400000, guid: fc450b4d657426942b071bd8616feb19, type: 2}
   CurrentActiveItem: {fileID: 11400000, guid: 3ca6af44fe0017c4ebe32d1bba84d8ff, type: 2}
@@ -4793,7 +4847,6 @@ MonoBehaviour:
   - {fileID: 3509954880773815148}
   ItemHolder: {fileID: 1936743982}
   VideoText: {fileID: 2097501665791403400}
-  ItemPath: Store/Spray/
 --- !u!1 &8332939741730857814
 GameObject:
   m_ObjectHideFlags: 0
@@ -9361,6 +9414,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3831021506615494939}
     m_Modifications:
+    - target: {fileID: 895020223597209493, guid: c5e1a1bd52a6a3b449b2d1adc6896644, type: 3}
+      propertyPath: m_text
+      value: Loading...     0%
+      objectReference: {fileID: 0}
     - target: {fileID: 6738889630947477267, guid: c5e1a1bd52a6a3b449b2d1adc6896644, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -9450,9 +9507,30 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e1a1bd52a6a3b449b2d1adc6896644, type: 3}
+--- !u!1 &1797412761274587602 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7945238574925228837, guid: c5e1a1bd52a6a3b449b2d1adc6896644, type: 3}
+  m_PrefabInstance: {fileID: 8553066873994916599}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &3114170333554324964 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6738889630947477267, guid: c5e1a1bd52a6a3b449b2d1adc6896644, type: 3}
+  m_PrefabInstance: {fileID: 8553066873994916599}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8852204569882383714 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 895020223597209493, guid: c5e1a1bd52a6a3b449b2d1adc6896644, type: 3}
+  m_PrefabInstance: {fileID: 8553066873994916599}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!224 &9064336660895032566 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 826523963614189057, guid: c5e1a1bd52a6a3b449b2d1adc6896644, type: 3}
   m_PrefabInstance: {fileID: 8553066873994916599}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8715419440857959324

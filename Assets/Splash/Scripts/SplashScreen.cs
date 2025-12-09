@@ -1,3 +1,4 @@
+using TMPro;
 using Core.Store;
 using UnityEngine;
 using DG.Tweening;
@@ -22,9 +23,11 @@ namespace Core.Screen
         [SerializeField] LevelManager LvlManager;
         [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, MinLvlNum;
         [SerializeField] Transform FillImage;
+        [SerializeField] TextMeshProUGUI LoadingText;
         [SerializeField] Image LogoImage;
 
         float _loadingTime = 2;
+        string _loadingTxt = "Loading...     ";
 
         private void Start()
         {
@@ -37,7 +40,12 @@ namespace Core.Screen
             }
             FirebaseInit.InitPlugin();
             LogoImage.DOFillAmount(1, _loadingTime).SetEase(Ease.Linear);
-            FillImage.DOScaleX(1, _loadingTime).SetEase(Ease.Linear).OnComplete(()=>
+            FillImage.DOScaleX(1f, _loadingTime).SetEase(Ease.Linear).OnUpdate(() =>
+            {
+                float currentX = FillImage.localScale.x;
+                int percent = (int)(currentX * 100f);
+                LoadingText.text = _loadingTxt + percent + "%";
+            }).OnComplete(() =>
             {
                 ToastMsnger.InitToastMsg();
                 if (LvlNum.Value <= MinLvlNum.Value)

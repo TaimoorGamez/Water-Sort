@@ -6,21 +6,21 @@ using Core.Events;
 using Core.Variables;
 using Core.DB.Variables;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Core.Screen
 {
     public class StorageRoomView : MonoBehaviour
     {
+        [SerializeField] SODictionary_Int_Gameobject ItemInstances;
         [SerializeField] SOEvents BuyEvent;
         [SerializeField] SOIntegerEvents ChangeItemStatusEvent;
-        [SerializeField] SOAsyncIList StoreItemsList;
         [SerializeField] DBInt CurrentActiveItem;
         [SerializeField] ItemView[] RoomItems;
         [SerializeField] RectTransform Content, Viewport;
         [SerializeField] GameObject[] Buttons;
         [SerializeField] Transform ItemHolder;
         [SerializeField] TextMeshProUGUI VideoText;
-        [SerializeField] string ItemPath;
 
         int _selectedItem = -1;
         Coroutine _activationRotine;
@@ -47,13 +47,18 @@ namespace Core.Screen
             for (int i = 0; i < RoomItems.Length; i++)
             {
                 RoomItems[i].DOKill();
-                RoomItems[i].transform.localScale = Vector3.zero; // instead of tweening scale to 0 instantly
+                RoomItems[i].transform.localScale = Vector3.zero; 
                 RoomItems[i].gameObject.SetActive(false);
             }
         }
 
         IEnumerator ActiveStorageRoom()
         {
+            if (ItemInstances.DictionaryValue == null)
+            {
+                ItemInstances.DictionaryValue = new Dictionary<int, GameObject>();
+            }
+
             for (int i = 0; i < RoomItems.Length; i++)
             {
                 RoomItems[i].gameObject.SetActive(true);
@@ -85,7 +90,7 @@ namespace Core.Screen
             {
                 Destroy(_currentItem);
             }
-            _currentItem = Instantiate(Resources.Load<GameObject>(ItemPath + RoomItems[item].MyData.ItemId), ItemHolder);
+            _currentItem = Instantiate(ItemInstances.DictionaryValue[item], ItemHolder);
         }
 
         void ChangeItemStatus(int selectedItem)
