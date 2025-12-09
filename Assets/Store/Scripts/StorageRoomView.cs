@@ -3,6 +3,7 @@ using Core.Store;
 using UnityEngine;
 using DG.Tweening;
 using Core.Events;
+using Core.Variables;
 using Core.DB.Variables;
 using System.Collections;
 
@@ -12,6 +13,7 @@ namespace Core.Screen
     {
         [SerializeField] SOEvents BuyEvent;
         [SerializeField] SOIntegerEvents ChangeItemStatusEvent;
+        [SerializeField] SOAsyncIList StoreItemsList;
         [SerializeField] DBInt CurrentActiveItem;
         [SerializeField] ItemView[] RoomItems;
         [SerializeField] RectTransform Content, Viewport;
