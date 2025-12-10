@@ -15,9 +15,9 @@ namespace Core.Screen
         [SerializeField] DBInt LvlNum;
         [SerializeField] Initialization FirebaseInit;
         [SerializeField] AdmobInitialization AdmobInit;
-        [SerializeField] SOPurchase SoStore;
+        [SerializeField] InAppPurchase InAppPurchaser;
         [SerializeField] SOEvents InitLevelEvent;
-        [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, SettingStateIndex, TempLvlIndex, IsFirebaseInit;
+        [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, SettingStateIndex, TempLvlIndex, IsFirebaseInit, InAppInitialized, AdmobInitialized;
         [SerializeField] SOIntegerEvents ActiveStateEvent, DestroyStateEvent;
         [SerializeField] TextMeshProUGUI[] Lvls;
         [SerializeField] Transform LevelView;
@@ -36,8 +36,15 @@ namespace Core.Screen
             TempLvlIndex.Value = -1;
             if(IsFirebaseInit.Value == 1)
             {
-                SoStore.InitializePurchasing();
-                Invoke(nameof(InitializeAds), 1f);
+                if (InAppInitialized.Value == 0)
+                {
+                    InAppPurchaser.InitializePurchasing();
+                    Invoke(nameof(InitializeAds), 1f);
+                }
+                else 
+                {
+                    InitializeAds();
+                }
             }
             else
             {
@@ -77,7 +84,8 @@ namespace Core.Screen
 
         private void InitializeAds()
         {
-            AdmobInit.InitPlugin();
+            if(AdmobInitialized.Value == 0)
+                AdmobInit.InitPlugin();
         }
     }
 }

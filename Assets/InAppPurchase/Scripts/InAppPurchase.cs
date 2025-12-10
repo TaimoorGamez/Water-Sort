@@ -1,16 +1,15 @@
 using System.Linq;
 using UnityEngine;
+using Core.Variables;
 using Core.Plugins.Ads;
 using UnityEngine.Purchasing;
 using System.Collections.Generic;
 
 namespace Core.Purchase
 {
-    [CreateAssetMenu(fileName = "ProjectStore", menuName = "ScriptableObjects/Store/ProjectStore")]
-    public class SOPurchase : ScriptableObject
+    public class InAppPurchase : MonoBehaviour
     {
-        public bool IsInitialized = false;
-
+        [SerializeField] SOInterger IsInitialized;
         [SerializeField] AdDataHandler AdDataConfige;
         [SerializeField] NonConsumableProduct[] NonConsumableProducts;
         [SerializeField] ConsumableProduct[] ConsumableProducts;
@@ -18,14 +17,9 @@ namespace Core.Purchase
         Dictionary<string , StoreProduct> productDictionary;
         StoreController m_StoreController;
 
-        private void OnEnable()
-        {
-            IsInitialized = false;
-        }
-
         public void InitializePurchasing()
         {
-            if (IsInitialized || !AdDataConfige.AdData.CanPurchase)
+            if (IsInitialized.Value == 1 || !AdDataConfige.AdData.CanPurchase)
             {
                 return;
             }
@@ -51,7 +45,7 @@ namespace Core.Purchase
 
         void FetchProducts()
         {
-            IsInitialized = true;
+            IsInitialized.Value = 1;
             productDictionary = new Dictionary<string, StoreProduct>();
             List<ProductDefinition> initialProductsToFetch = new List<ProductDefinition>();
             for (int n = 0; n < NonConsumableProducts.Length; n++)
@@ -70,7 +64,7 @@ namespace Core.Purchase
         public string GetPrice(string productID)
         {
             //Debug.Log("GetPrice called for productID: " + IsInitialized);
-            if (IsInitialized)
+            if (IsInitialized.Value == 1)
             {
                 Product product = m_StoreController.GetProductById(productID);
                 return product.metadata.localizedPriceString;
@@ -83,21 +77,20 @@ namespace Core.Purchase
 
         public void BuyProduct(string productId)
         {
-            if (IsInitialized)
+            if (IsInitialized.Value == 1)
                 m_StoreController.PurchaseProduct(productId);
         }
-
         void OnPurchaseFailed(FailedOrder order)
         {
-            //Product product = GetFirstProductInOrder(order);
-            //if (product == null)
-            //{
-            //    Debug.Log("Could not find product in failed order.");
-            //}
+            var product = GetFirstProductInOrder(order);
+            if (product == null)
+            {
+                Debug.Log("Could not find product in failed order.");
+            }
 
-            //Debug.Log($"Purchase failed - Product: '{product?.definition.id}'," +
-            //          $"PurchaseFailureReason: {order.FailureReason.ToString()},"
-            //          + $"Purchase Failure Details: {order.Details}");
+            Debug.Log($"Purchase failed - Product: '{product?.definition.id}'," +
+                      $"PurchaseFailureReason: {order.FailureReason.ToString()},"
+                      + $"Purchase Failure Details: {order.Details}");
         }
 
         void OnPurchasePending(PendingOrder order)

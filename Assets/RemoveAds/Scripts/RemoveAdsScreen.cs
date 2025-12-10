@@ -14,8 +14,6 @@ namespace Core.Screen
         [SerializeField] DBString AdBlockingTime;
         [SerializeField] GameObject RvBtn, TimerObj;
 
-        float _durationTweeing = 0.5f;
-
         void OnEnable()
         {
             AdsBlockerEvent.EventHandler += BlockAdForTime;
