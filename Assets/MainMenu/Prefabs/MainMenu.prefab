@@ -48,6 +48,7 @@ RectTransform:
   - {fileID: 5183533048119227992}
   - {fileID: 5196540385059877139}
   - {fileID: 8095531242694865961}
+  - {fileID: 1037941485188179573}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -152,7 +153,7 @@ MonoBehaviour:
   Body: {fileID: 0}
   LvlNum: {fileID: 11400000, guid: bad89b7dfd4fe324eaaacf6e970340af, type: 2}
   FirebaseInit: {fileID: 11400000, guid: afe62d58c0da7a94abccece5c7df9181, type: 2}
-  AdmobInit: {fileID: 11400000, guid: a26288d8f379acf48b848d1bfd607697, type: 2}
+  AdmobInit: {fileID: 5482662183019724456}
   SoStore: {fileID: 11400000, guid: f36e8d40c49af0f4bb06dade4b0b7b91, type: 2}
   InitLevelEvent: {fileID: 11400000, guid: 30e22fa3534f8ae429ac3af2c42b6b5c, type: 2}
   MainMenuStateIndex: {fileID: 11400000, guid: 5b4f6ec2cf4170d4b973dfba16e1515f, type: 2}
@@ -174,6 +175,59 @@ MonoBehaviour:
   - {fileID: 2561061876647646383}
   LevelView: {fileID: 7996745687543763383}
   LevelsHolder: {fileID: 6404440936354553857}
+--- !u!1 &2781161423881564698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1037941485188179573}
+  - component: {fileID: 5482662183019724456}
+  m_Layer: 5
+  m_Name: AdmobInitialization
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1037941485188179573
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2781161423881564698}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 448749356872666594}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5482662183019724456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2781161423881564698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e687eb7691e5ce846a2e883728bcac0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AdData: {fileID: 11400000, guid: 1858b44bb997abb40a0fae20c73efda8, type: 2}
+  NoAds: {fileID: 11400000, guid: 4b5b7094fb1defd4a801e5fb32c564f7, type: 2}
+  StartAdLoaing: {fileID: 11400000, guid: 50350d665ffba8640af837d04d66618c, type: 2}
+  RewardedAd: {fileID: 11400000, guid: f262af9c90e54594fac7d6d50edcfa73, type: 2}
+  AdmobInitialized: {fileID: 11400000, guid: a06096bd4fe543e4a83c7359fd3459b7, type: 2}
 --- !u!1 &8842380249327387017
 GameObject:
   m_ObjectHideFlags: 0
@@ -2590,7 +2644,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6840285968148839464, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 17389376
+      value: 17427156
       objectReference: {fileID: 0}
     - target: {fileID: 7277540639624644133, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_sharedMaterial

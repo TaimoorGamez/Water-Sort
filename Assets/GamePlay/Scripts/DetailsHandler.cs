@@ -87,7 +87,7 @@ namespace Core.GamePlay.Coloring
                     HideRemaingPixles();
                     SoundEffectEvent.InvokeSOEvent(6);
                     StarParticles.Play();
-                    ColoringParts.DOScale(1.5f, _preparationTime).SetEase(Ease.OutBack).OnComplete(() =>
+                    ColoringParts.DOScale(1.35f, _preparationTime).SetEase(Ease.OutBack).OnComplete(() =>
                     {
                         Invoke(nameof(LevelComplete), 2);
                     });

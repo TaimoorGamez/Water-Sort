@@ -1,10 +1,11 @@
 using TMPro;
-using DG.Tweening;
 using UnityEngine;
 using Core.Events;
+using DG.Tweening;
 using Core.Plugins;
 using Core.Purchase;
 using Core.Variables;
+using Core.Plugins.Ads;
 using Core.DB.Variables;
 
 namespace Core.Screen
@@ -12,7 +13,8 @@ namespace Core.Screen
     public class MainMenuScreen : UiScreens
     {
         [SerializeField] DBInt LvlNum;
-        [SerializeField] Initialization FirebaseInit, AdmobInit;
+        [SerializeField] Initialization FirebaseInit;
+        [SerializeField] AdmobInitialization AdmobInit;
         [SerializeField] SOPurchase SoStore;
         [SerializeField] SOEvents InitLevelEvent;
         [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, SettingStateIndex, TempLvlIndex, IsFirebaseInit;

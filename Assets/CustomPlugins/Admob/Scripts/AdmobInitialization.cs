@@ -7,8 +7,7 @@ using GoogleMobileAds.Ump.Api;
 
 namespace Core.Plugins.Ads
 {
-    [CreateAssetMenu(fileName = "AdmobInit", menuName = "ScriptableObjects/Plugin/Admob/Init")]
-    public class AdmobInitialization : Initialization
+    public class AdmobInitialization : MonoBehaviour
     {
         [SerializeField] AdDataHandler AdData;
         [SerializeField] DBInt NoAds;
@@ -16,7 +15,7 @@ namespace Core.Plugins.Ads
         [SerializeField] AdHandler RewardedAd;
         [SerializeField] SOInterger AdmobInitialized;
 
-        public override void InitPlugin()
+        public void InitPlugin()
         {
             #if UNITY_EDITOR
                 InitAds();  
