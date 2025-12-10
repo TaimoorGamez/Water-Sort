@@ -31,7 +31,6 @@ namespace Core.Screen
 
         private async void OnDisable()
         {
-            // Ensure everything is cleaned when the screen goes away
             await ClearEverythingAsync();
         }
 
@@ -79,13 +78,8 @@ namespace Core.Screen
 
                 if (handle.Status == AsyncOperationStatus.Succeeded)
                 {
-                    GameObject prefab = handle.Result;
-
-                    if (!CapItemsDictionary.DictionaryValue.ContainsKey(i))
-                        CapItemsDictionary.DictionaryValue.Add(i, prefab);
+                        CapItemsDictionary.DictionaryValue.Add(i, handle.Result);
                 }
-
-                Addressables.Release(handle);
 
                 // update progress
                 loadedCount++;
@@ -108,13 +102,8 @@ namespace Core.Screen
 
                 if (handle.Status == AsyncOperationStatus.Succeeded)
                 {
-                    GameObject prefab = handle.Result;
-
-                    if (!FlameItemsDictionary.DictionaryValue.ContainsKey(i))
-                        FlameItemsDictionary.DictionaryValue.Add(i, prefab);
+                        FlameItemsDictionary.DictionaryValue.Add(i, handle.Result);
                 }
-
-                Addressables.Release(handle);
 
                 loadedCount++;
                 float progress = (float)loadedCount / (float)totalCount;
@@ -136,13 +125,8 @@ namespace Core.Screen
 
                 if (handle.Status == AsyncOperationStatus.Succeeded)
                 {
-                    GameObject prefab = handle.Result;
-
-                    if (!SprayItemsDictionary.DictionaryValue.ContainsKey(i))
-                        SprayItemsDictionary.DictionaryValue.Add(i, prefab);
+                    SprayItemsDictionary.DictionaryValue.Add(i, handle.Result);
                 }
-
-                Addressables.Release(handle);
 
                 loadedCount++;
                 float progress = (float)loadedCount / (float)totalCount;
@@ -174,7 +158,7 @@ namespace Core.Screen
                 });
         }
 
-        public async Task ClearEverythingAsync(bool clearDiskCache = false)
+        async Task ClearEverythingAsync(bool clearDiskCache = false)
         {
             if (_isClearing) return;
             _isClearing = true;
@@ -212,14 +196,9 @@ namespace Core.Screen
                 StoreItemsList.ListValue = default;
 
             // 3) Destroy all GameObjects stored inside dictionaries and clear them
-            if (CapItemsDictionary.DictionaryValue != null)
-                CapItemsDictionary.DictionaryValue.Clear();
-
-            if (FlameItemsDictionary.DictionaryValue != null)
-                FlameItemsDictionary.DictionaryValue.Clear();
-
-            if (SprayItemsDictionary.DictionaryValue != null)
-                SprayItemsDictionary.DictionaryValue.Clear();
+            await ClearDictionaryAsync(CapItemsDictionary);
+            await ClearDictionaryAsync(FlameItemsDictionary);
+            await ClearDictionaryAsync(SprayItemsDictionary);
 
             // 5) Wait one frame so Unity processes Destroy()
             await Task.Yield();
@@ -247,5 +226,21 @@ namespace Core.Screen
 
             _isClearing = false;
         }
+
+        async Task ClearDictionaryAsync(SODictionary_Int_Gameobject dictionary)
+        {
+            if (dictionary.DictionaryValue == null) return;
+            foreach (var kvp in dictionary.DictionaryValue)
+            {
+                GameObject obj = kvp.Value;
+                if (obj != null)
+                {
+                    Addressables.Release(obj);
+                }
+            }
+            dictionary.DictionaryValue.Clear();
+            await Task.Yield();
+        }
+
     }
 }
