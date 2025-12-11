@@ -4,8 +4,11 @@ using Core.Events;
 using Core.Variables;
 using Core.DB.Variables;
 using System.Collections;
+using System.Threading.Tasks;
 using Core.GamePlay.Coloring;
 using System.Collections.Generic;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Core.GamePlay.WaterSort
 {
@@ -21,7 +24,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] Vector3[] TubePositions, BowlPositions;
         [SerializeField] BowlColorHandler BowlObj;
 
-        string _sortingLvlPath = "WaterSortLevels/lvl ";
+        string _sortingLvlPath = "Level/Sort/";
         List<TubeHandler> _colorTubes = new List<TubeHandler>();
         List<TubeHandler> _totalTubes = new List<TubeHandler>();
         Coroutine lvlMakingRotine;
@@ -63,37 +66,56 @@ namespace Core.GamePlay.WaterSort
                 IsHiddenLevel.Value = 0;
             }
 
-            if (LvlIndex.Value < 5)
+            if (TempLvlIndex.Value == -1)
             {
-                Instantiate(Resources.Load(_sortingLvlPath + LvlIndex.Value), transform);
-                CurrrentLvl.Value = LvlIndex.Value;
+                LoadAddressableLevels<GameObject>(_sortingLvlPath + LvlIndex.Value);
             }
             else
             {
-                if (TempLvlIndex.Value == -1)
-                {
-                    _levelColors = Resources.Load<SOColors>(_sortingLvlPath + LvlIndex.Value);
-                    CurrrentLvl.Value = _levelColors.Colors.Length;
-                    _totalTubesCount = CurrrentLvl.Value + 2;
-                    lvlMakingRotine = StartCoroutine(GenerateLvl());
-                    TotalMoves.Value = CurrrentLvl.Value * _maxColorsInTube;
-                }
-                else
-                {
-                    InitCustomLvl();
-                }
+                LoadAddressableLevels<GameObject>(_sortingLvlPath + TempLvlIndex.Value);
             }
-            UpdateMovesEvent.InvokeSOEvent();
         }
-
-        void InitCustomLvl()
+        async void LoadAddressableLevels<T>(string path)
         {
-            _levelColors = Resources.Load<SOColors>(_sortingLvlPath + TempLvlIndex.Value);
-            CurrrentLvl.Value = _levelColors.Colors.Length;
-            _totalTubesCount = CurrrentLvl.Value + 2;
-            lvlMakingRotine = StartCoroutine(GenerateLvl());
-            TotalMoves.Value = CurrrentLvl.Value * _maxColorsInTube;
+            AsyncOperationHandle<T> lvlHandle = Addressables.LoadAssetAsync<T>(path);
+            await lvlHandle.Task;
+
+            if (lvlHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError($"Failed to load Addressable prefab at: {path}");
+                return;
+            }
+
+            if (LvlIndex.Value < 5)
+            {
+                GameObject lvlObj = Instantiate(lvlHandle.Result as GameObject, transform);
+                CurrrentLvl.Value = LvlIndex.Value;
+
+                await Task.Yield();  // frame 1
+                await Task.Yield();  // frame 2
+
+                while (lvlObj == null)
+                    await Task.Yield();
+            }
+            else 
+            {
+                _levelColors = null;
+                _levelColors = lvlHandle.Result as SOColors;
+                CurrrentLvl.Value = _levelColors.Colors.Length;
+                _totalTubesCount = CurrrentLvl.Value + 2;
+                lvlMakingRotine = StartCoroutine(GenerateLvl());
+                TotalMoves.Value = CurrrentLvl.Value * _maxColorsInTube;
+
+                await Task.Yield();  // frame 1
+                await Task.Yield();  // frame 2
+
+                while (_levelColors == null)
+                    await Task.Yield();
+            }
+            await Task.Yield();
+
             UpdateMovesEvent.InvokeSOEvent();
+            Addressables.Release(lvlHandle);
         }
 
         IEnumerator GenerateLvl()

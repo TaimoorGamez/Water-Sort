@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468a46d0ae32c3544b7d98094e6448a9, type: 3}
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
-  m_DefaultGroup: b153a53c3a77704438a28072b9d20c4c
+  m_DefaultGroup: e698bc0b006ba3c43869a964694f51f0
   m_currentHash:
     serializedVersion: 2
-    Hash: aed57a7c7c2c8b4e681b066abb0f9b8c
+    Hash: 791f286c59827aa15eb1431f22ff6308
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_CatalogRequestsTimeout: 0
@@ -62,6 +62,8 @@ MonoBehaviour:
   m_GroupAssets:
   - {fileID: 11400000, guid: 4a820367a2e01d44998909e346866049, type: 2}
   - {fileID: 11400000, guid: c8ca8667db2d2844f99409b16d6665ce, type: 2}
+  - {fileID: 11400000, guid: 02bd3539289ea6d4facaedc4238187c8, type: 2}
+  - {fileID: 11400000, guid: a6c15f86b6a2b5e49baa757a9d1b0eff, type: 2}
   m_BuildSettings:
     m_LogResourceManagerExceptions: 1
     m_BundleBuildPath: Temp/com.unity.addressables/AssetBundles
@@ -101,6 +103,8 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - store_item
+    - gameplay_item
+    - lvl_part
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 5cf09e92517bdcd4a85a3526ccf3dd67, type: 2}

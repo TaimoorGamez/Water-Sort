@@ -1,0 +1,168 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Duplicate Asset Isolation
+  m_EditorClassIdentifier: 
+  m_GroupName: Duplicate Asset Isolation
+  m_GUID: dff97c7702fa71a459c3ce0b6cea2dd0
+  m_SerializeEntries:
+  - m_GUID: 055ad55a897044741b69b00106acf6b6
+    m_Address: Assets/Store/Sprites/Sprays/Spray 7.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0648c05403788fe4095f92ccc4937e15
+    m_Address: Assets/GamePlay/Materials/CapMaterial.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1916618bd29574842af33d36055fbbad
+    m_Address: Assets/Store/Sprites/FlameThrowers/FlameThrower 1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2a7441b4bc1432d409dac992c2b210d0
+    m_Address: Assets/3dModles/source/Straw2.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2cbb5e1fc6c8cbd479c979d0fc9fc012
+    m_Address: Assets/UI/Sprites/WhiteBox.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 31ab64420807e5f41904e2e8aa96ed4e
+    m_Address: Assets/GamePlay/Materials/BubbleParticle.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 51d97e25f381d0d4e8128e82ffe88fe9
+    m_Address: Assets/Store/Sprites/Sprays/Spray 5.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 526cd5b151b03ec469ffc1c7d66f1202
+    m_Address: Assets/GamePlay/Materials/BurnParticle.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5c675c2f404c2ff448c20a09a3ed6306
+    m_Address: Assets/Store/Sprites/FlameThrowers/FlameThrower 3.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5e905450cdbec564faf5b836073f59da
+    m_Address: Assets/Store/Sprites/FlameThrowers/FlameThrower 2.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6030f8cfc8c3f4240ba884e4f9390a7a
+    m_Address: Assets/3dModles/source/StarCap.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6ea1484259cff3e4b871298fbe94c291
+    m_Address: Assets/Store/Sprites/Sprays/Spray 6.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 73d322b871438d1499fdb6f986a62bb2
+    m_Address: Assets/Store/Sprites/Sprays/Spray 2.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 77d1fdfd3b8de894faab8906ea12909f
+    m_Address: Assets/3dModles/source/Cap.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 791a65b602174354ea7f244638f8b16d
+    m_Address: Assets/Store/Sprites/FlameThrowers/FlameThrower 0.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7bbed8cfa51c81744a6622512201e5df
+    m_Address: Assets/3dModles/source/solder.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 871f0c39985d2f4459bfa45a2a86b484
+    m_Address: Assets/GamePlay/Shaders/SimpleFillShader.shadergraph
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8a643f4b445e7484b889ff32d116ac47
+    m_Address: Assets/3dModles/source/Queen.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8c7e9b0d53d447b4896a67f3b26191b3
+    m_Address: Assets/Sfx/Events/SoundEffectEvents.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 90bdf829cd630d0428119c277335ba73
+    m_Address: Assets/Store/Sprites/Sprays/Spray 0.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a08810e2288b18b4c8e35d6da3b58571
+    m_Address: Assets/UI/Sprites/Bubble.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aa8a40203f4e84d42aa3ffe6cc5f62b4
+    m_Address: Assets/UI/Sprites/T_Splash.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b00be155c9f723745bfcd5013dc085ea
+    m_Address: Assets/Store/Sprites/Sprays/Spray 1.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b03dbf391de474f489fc4cfc758e8d51
+    m_Address: Assets/Sfx/Sounds/Flames.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b61afeb24d2f1444b9625f2bcf913ed0
+    m_Address: Assets/Sfx/Sounds/spray.mp3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d15c6bf3ada060c42958f16597fd51dd
+    m_Address: Assets/Store/Sprites/Sprays/Spray 3.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ed751afbb0214de499cef1891112c6d6
+    m_Address: Assets/GamePlay/Events/StartColoringEvent.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fbb064191ba78884aa3c1c4a3dbb5af7
+    m_Address: Assets/Store/Sprites/Sprays/Spray 4.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fc1deaabe79eb0940b4315b2aee83d3c
+    m_Address: Assets/3dModles/source/Flower.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 473b0375ea61a5543942b5d8193a6fef, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 3ef803efd88a55e41956c055de177427, type: 2}
+    - {fileID: 11400000, guid: 89b9b167295055246beba98598c09564, type: 2}
