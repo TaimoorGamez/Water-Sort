@@ -20,7 +20,7 @@ namespace Core.GamePlay.WaterSort
 
         async void LoadCapItem(string path)
         {
-            AsyncOperationHandle<CapAnimation> capHandle = Addressables.LoadAssetAsync<CapAnimation>(path);
+            AsyncOperationHandle<GameObject> capHandle = Addressables.LoadAssetAsync<GameObject>(path);
             await capHandle.Task;
 
             if (capHandle.Status != AsyncOperationStatus.Succeeded)
@@ -30,11 +30,10 @@ namespace Core.GamePlay.WaterSort
             }
 
             _myAnimation = null;
-
-            _myAnimation = Instantiate(capHandle.Result, transform);
-
+            GameObject obj = Instantiate(capHandle.Result, transform);
             await Task.Yield();
             await Task.Yield();
+            _myAnimation = obj.GetComponent<CapAnimation>();
 
             while (_myAnimation == null)
                 await Task.Yield();

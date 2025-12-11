@@ -68,11 +68,14 @@ namespace Core.GamePlay.WaterSort
 
             if (TempLvlIndex.Value == -1)
             {
-                LoadAddressableLevels<GameObject>(_sortingLvlPath + LvlIndex.Value);
+                if (LvlIndex.Value < 5)
+                    LoadAddressableLevels<GameObject>(_sortingLvlPath + LvlIndex.Value);
+                else
+                    LoadAddressableLevels<SOColors>(_sortingLvlPath + LvlIndex.Value);
             }
             else
             {
-                LoadAddressableLevels<GameObject>(_sortingLvlPath + TempLvlIndex.Value);
+                LoadAddressableLevels<SOColors>(_sortingLvlPath + TempLvlIndex.Value);
             }
         }
         async void LoadAddressableLevels<T>(string path)

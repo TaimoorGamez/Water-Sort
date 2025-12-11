@@ -61,7 +61,7 @@ namespace Core.GamePlay.Coloring
 
         async void LoadSprayObj(string path)
         {
-            AsyncOperationHandle<Animation> sprayHandle = Addressables.LoadAssetAsync<Animation>(path);
+            AsyncOperationHandle<GameObject> sprayHandle = Addressables.LoadAssetAsync<GameObject>(path);
             await sprayHandle.Task;
 
             if (sprayHandle.Status != AsyncOperationStatus.Succeeded)
@@ -70,10 +70,10 @@ namespace Core.GamePlay.Coloring
                 return;
             }
 
-            _sprayAnimation = Instantiate(sprayHandle.Result, SprayCan);
-
+            GameObject obj = Instantiate(sprayHandle.Result, SprayCan);
             await Task.Yield();
             await Task.Yield();
+            _sprayAnimation = obj.GetComponent<Animation>();
 
             while (_sprayAnimation == null)
                 await Task.Yield();
