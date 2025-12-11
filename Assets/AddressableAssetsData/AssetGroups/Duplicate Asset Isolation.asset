@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Duplicate Asset Isolation
   m_EditorClassIdentifier: 
   m_GroupName: Duplicate Asset Isolation
-  m_GUID: d1d374810bd694c4da2d3a8bd7d96581
+  m_GUID: 4d5ebe0bb91cefb428fa5ed23fb65aec
   m_SerializeEntries:
   - m_GUID: 055ad55a897044741b69b00106acf6b6
     m_Address: Assets/Store/Sprites/Sprays/Spray 7.png
@@ -36,7 +36,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2a7441b4bc1432d409dac992c2b210d0
-    m_Address: Assets/3dModles/source/Straw2.fbx
+    m_Address: Assets/3dModles/source/Straw.fbx
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -184,5 +184,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 473b0375ea61a5543942b5d8193a6fef, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 3ef803efd88a55e41956c055de177427, type: 2}
-    - {fileID: 11400000, guid: 89b9b167295055246beba98598c09564, type: 2}
+    - {fileID: 11400000, guid: 068f892f5ae676040954cd6fb8b4f92d, type: 2}
+    - {fileID: 11400000, guid: 588a79ce7d172c947a508f1fc00b26d1, type: 2}
