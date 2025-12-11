@@ -1,11 +1,14 @@
 using TMPro;
 using UnityEngine;
-using DG.Tweening;
 using Core.Events;
-using Core.Variables;
+using DG.Tweening;
 using UnityEngine.UI;
+using Core.Variables;
 using Core.DB.Variables;
 using System.Collections;
+using System.Threading.Tasks;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Core.GamePlay.Coloring
 {
@@ -34,7 +37,7 @@ namespace Core.GamePlay.Coloring
         Color32[] _cloudPixles, _compoundPixels;
         const int _bubbleThreshold = 32;
         Color32 _fillColor = new Color32(0, 0, 0, 0);
-        string _sprayPath = "Sprays/Spray ", _flamePath = "Flames/Flame ";
+        string _sprayPath = "GamePlay/Spray/", _flamePath = "GamePlayFlame/";
         Animation _sprayAnimation;
 
         private void OnDisable()
@@ -52,8 +55,30 @@ namespace Core.GamePlay.Coloring
         private void Start()
         {
             _currentCamera = Camera.main;
-            _sprayAnimation = Instantiate(Resources.Load<Animation>(_sprayPath + CurrentSpray.Value),SprayCan);
+            LoadSprayObj(_sprayPath + CurrentSpray.Value);
             Invoke(nameof(PrepareCompounD),0.1f);
+        }
+
+        async void LoadSprayObj(string path)
+        {
+            AsyncOperationHandle<Animation> sprayHandle = Addressables.LoadAssetAsync<Animation>(path);
+            await sprayHandle.Task;
+
+            if (sprayHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError($"Failed to load Addressable prefab at: {path}");
+                return;
+            }
+
+            _sprayAnimation = Instantiate(sprayHandle.Result, SprayCan);
+
+            await Task.Yield();
+            await Task.Yield();
+
+            while (_sprayAnimation == null)
+                await Task.Yield();
+
+            Addressables.Release(sprayHandle);
         }
 
         public void OnNextBtnClick()
@@ -267,7 +292,29 @@ namespace Core.GamePlay.Coloring
             _canShowNextBtn = true;
             _canThrowFlame = true;
             _movingRoutine = StartCoroutine(FlamesThrowingRoutine());
-            Instantiate(Resources.Load(_flamePath + CurrentFlame.Value), FlameThrower);
+            LoadFlameObj(_flamePath + CurrentFlame.Value);
+        }
+
+        async void LoadFlameObj(string path)
+        {
+            AsyncOperationHandle<GameObject> flameHandle = Addressables.LoadAssetAsync<GameObject>(path);
+            await flameHandle.Task;
+
+            if (flameHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError($"Failed to load Addressable prefab at: {path}");
+                return;
+            }
+
+            GameObject flameObj = Instantiate(flameHandle.Result, FlameThrower);
+
+            await Task.Yield();
+            await Task.Yield();
+
+            while (flameObj == null)
+                await Task.Yield();
+
+            Addressables.Release(flameHandle);
         }
 
         IEnumerator FlamesThrowingRoutine()

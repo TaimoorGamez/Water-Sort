@@ -40,21 +40,21 @@ namespace Core.Screen
                     int randomReward = Random.Range(0, _totalStoreItems);
                     if (randomReward < _flamesLength)
                     {
-                        LoadRewardItem<GameObject>(_flamesPath + randomReward);
+                        LoadRewardItem(_flamesPath + randomReward);
                         PowerImage.sprite = PowerSprites[0];
                         PowersData[0].Value += 1;
                     }
                     else if(randomReward < _capsLength+_flamesLength)
                     {
                         int capIndex = randomReward - _flamesLength;
-                        LoadRewardItem<GameObject>(_capsPath + capIndex);
+                        LoadRewardItem(_capsPath + capIndex);
                         PowerImage.sprite = PowerSprites[1];
                         PowersData[1].Value += 1;
                     }
                     else
                     {
                         int sprayIndex = randomReward - (_flamesLength +_capsLength);
-                        LoadRewardItem<GameObject>(_spraysPath + sprayIndex);
+                        LoadRewardItem(_spraysPath + sprayIndex);
                         PowerImage.sprite = PowerSprites[2];
                         PowersData[2].Value += 1;
                     }
@@ -67,9 +67,9 @@ namespace Core.Screen
             StartUnBoxsing();
         }
 
-        async void LoadRewardItem<T>(string path)
+        async void LoadRewardItem(string path)
         {
-            AsyncOperationHandle<T> itemHandle = Addressables.LoadAssetAsync<T>(path);
+            AsyncOperationHandle<GameObject> itemHandle = Addressables.LoadAssetAsync<GameObject>(path);
             await itemHandle.Task;
 
             if (itemHandle.Status != AsyncOperationStatus.Succeeded)
@@ -78,7 +78,7 @@ namespace Core.Screen
                 return;
             }
 
-            GameObject itemObj = Instantiate(itemHandle.Result as GameObject, ItemHolders[0]);
+            GameObject itemObj = Instantiate(itemHandle.Result, ItemHolders[0]);
             
             await Task.Yield();
             await Task.Yield();
@@ -88,7 +88,6 @@ namespace Core.Screen
 
             Addressables.Release(itemHandle);
         }
-
 
         void StartUnBoxsing()
         {

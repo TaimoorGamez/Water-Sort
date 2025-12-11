@@ -2,6 +2,9 @@ using UnityEngine;
 using Core.Events;
 using Core.Variables;
 using Core.DB.Variables;
+using System.Threading.Tasks;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Core.GamePlay.WaterSort
 {
@@ -12,7 +15,7 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] SOInterger TempLevelIndex;
         [SerializeField] Transform ColoringHolder;
          
-        string _coloringPath = "ColoringPart/lvl ";
+        string _coloringPath = "Level/Coloring/";
 
         
         private void OnEnable()
@@ -31,8 +34,31 @@ namespace Core.GamePlay.WaterSort
 
         void InitColoring()
         {
-            Instantiate(Resources.Load(_coloringPath + (TempLevelIndex.Value == -1 ? LvlIndex.Value : TempLevelIndex.Value)), ColoringHolder);
+            LoadColoringLvl(_coloringPath + (TempLevelIndex.Value == -1 ? LvlIndex.Value : TempLevelIndex.Value));
         }
+
+        async void LoadColoringLvl(string path)
+        {
+            AsyncOperationHandle<GameObject> coloringHandle = Addressables.LoadAssetAsync<GameObject>(path);
+            await coloringHandle.Task;
+
+            if (coloringHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError($"Failed to load Addressable prefab at: {path}");
+                return;
+            }
+
+            GameObject lvlObj = Instantiate(coloringHandle.Result, ColoringHolder);
+
+            await Task.Yield();
+            await Task.Yield();
+
+            while (lvlObj == null)
+                await Task.Yield();
+
+            Addressables.Release(coloringHandle);
+        }
+
         void RegenrateColoring()
         {
             DestroyColoring();
