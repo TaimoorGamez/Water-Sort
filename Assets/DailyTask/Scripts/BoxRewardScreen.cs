@@ -5,6 +5,9 @@ using Core.Events;
 using Core.Economy;
 using UnityEngine.UI;
 using Core.DB.Variables;
+using System.Threading.Tasks;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Core.Screen
 {
@@ -22,7 +25,7 @@ namespace Core.Screen
         float _tweenTime = 0.5f, _unboxingTime = 1, _cardSize = 1.25f;
         int _cardIndex = 0, _totalStoreItems = 18, _flamesLength = 4, _capsLength = 6;
         Vector2 _cardPosition = new Vector2(0, -350);
-        string _flamesPath = "FlameStorage/Flame ", _capsPath = "CapStorage/Cap ", _spraysPath = "SprayStorage/Spray ";
+        string _flamesPath = "Store/Flame/", _capsPath = "Store/Cap/", _spraysPath = "Store/Spray/";
 
         private void Start()
         {
@@ -37,21 +40,21 @@ namespace Core.Screen
                     int randomReward = Random.Range(0, _totalStoreItems);
                     if (randomReward < _flamesLength)
                     {
-                        Instantiate(Resources.Load<GameObject>(_flamesPath + randomReward), ItemHolders[0]);
+                        LoadRewardItem<GameObject>(_flamesPath + randomReward);
                         PowerImage.sprite = PowerSprites[0];
                         PowersData[0].Value += 1;
                     }
                     else if(randomReward < _capsLength+_flamesLength)
                     {
                         int capIndex = randomReward - _flamesLength;
-                        Instantiate(Resources.Load<GameObject>(_capsPath + capIndex), ItemHolders[0]);
+                        LoadRewardItem<GameObject>(_capsPath + capIndex);
                         PowerImage.sprite = PowerSprites[1];
                         PowersData[1].Value += 1;
                     }
                     else
                     {
                         int sprayIndex = randomReward - (_flamesLength +_capsLength);
-                        Instantiate(Resources.Load<GameObject>(_spraysPath + sprayIndex), ItemHolders[0]);
+                        LoadRewardItem<GameObject>(_spraysPath + sprayIndex);
                         PowerImage.sprite = PowerSprites[2];
                         PowersData[2].Value += 1;
                     }
@@ -63,6 +66,29 @@ namespace Core.Screen
             }
             StartUnBoxsing();
         }
+
+        async void LoadRewardItem<T>(string path)
+        {
+            AsyncOperationHandle<T> itemHandle = Addressables.LoadAssetAsync<T>(path);
+            await itemHandle.Task;
+
+            if (itemHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError($"Failed to load Addressable prefab at: {path}");
+                return;
+            }
+
+            GameObject itemObj = Instantiate(itemHandle.Result as GameObject, ItemHolders[0]);
+            
+            await Task.Yield();
+            await Task.Yield();
+
+            while (itemObj == null)
+                await Task.Yield();
+
+            Addressables.Release(itemHandle);
+        }
+
 
         void StartUnBoxsing()
         {
