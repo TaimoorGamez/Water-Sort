@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7762670876502865170
+--- !u!1001 &1758687423701763956
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,11 +8,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5261437392952019416, guid: 743ecff37e4ff6546b3934001fdc6770, type: 3}
+      propertyPath: ClipToPlay
+      value: 
+      objectReference: {fileID: 8300000, guid: 84c6a277dccfee34ba050f2a739df517, type: 3}
     - target: {fileID: 1027960744937249701, guid: 743ecff37e4ff6546b3934001fdc6770, type: 3}
       propertyPath: m_text
-      value: 'Great!
-
-'
+      value: Excellent!
       objectReference: {fileID: 0}
     - target: {fileID: 4939163289972797180, guid: 743ecff37e4ff6546b3934001fdc6770, type: 3}
       propertyPath: m_Pivot.x
@@ -45,18 +47,6 @@ PrefabInstance:
     - target: {fileID: 4939163289972797180, guid: 743ecff37e4ff6546b3934001fdc6770, type: 3}
       propertyPath: m_SizeDelta.y
       value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939163289972797180, guid: 743ecff37e4ff6546b3934001fdc6770, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939163289972797180, guid: 743ecff37e4ff6546b3934001fdc6770, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939163289972797180, guid: 743ecff37e4ff6546b3934001fdc6770, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4939163289972797180, guid: 743ecff37e4ff6546b3934001fdc6770, type: 3}
       propertyPath: m_LocalPosition.x
@@ -108,13 +98,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6420954591829295227, guid: 743ecff37e4ff6546b3934001fdc6770, type: 3}
       propertyPath: m_text
-      value: 'Great!
-
-'
+      value: Excellent!
       objectReference: {fileID: 0}
     - target: {fileID: 8262920981620512947, guid: 743ecff37e4ff6546b3934001fdc6770, type: 3}
       propertyPath: m_Name
-      value: Text 6
+      value: Text 0 (3) Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

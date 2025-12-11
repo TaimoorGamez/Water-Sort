@@ -9,6 +9,9 @@ using Core.Variables;
 using UnityEngine.UI;
 using Core.DB.Variables;
 using System.Collections;
+using System.Threading.Tasks;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Core.Screen
 {
@@ -32,11 +35,11 @@ namespace Core.Screen
 
         float _starsPos = 100, _durationTweeing = 1f;
         bool _onceClicked = true;
-        int _levelBonus = 15, _starsBonus = 10, _detailsBonus = 0, _totalBonus = 0, _textSoundIndex = 12; 
+        int _levelBonus = 15, _starsBonus = 10, _detailsBonus = 0, _totalBonus = 0; 
         Coroutine _screenShotRotine;
         string _starsDataPath;
         Vector2 _nextBtnPosition = new Vector2(-135, -430);
-        string textFolder = "Appreciation/Text ";
+        string textFolder = "Appreation/Text/";
         GameObject _textObj;
 
         private void OnEnable()
@@ -60,12 +63,35 @@ namespace Core.Screen
             { 
                 textNum = Random.Range(1,9);
             }
-            _textObj = Instantiate(Resources.Load<GameObject>(textFolder + textNum), transform);
-            SoundEffectEvent.InvokeSOEvent(_textSoundIndex + textNum);
+            LoadAppreationText(textFolder + textNum);
             SortingCompleted.Value = 0;
             _starsDataPath = Path.Combine(Application.persistentDataPath, "starsData.json");
             _screenShotRotine = StartCoroutine(CaptureColoredArea());
             TaskEvent.InvokeSOEvent(1,1);
+        }
+
+
+        async void LoadAppreationText(string path)
+        {
+            AsyncOperationHandle<GameObject> txtHandle = Addressables.LoadAssetAsync<GameObject>(path);
+            await txtHandle.Task;
+
+            if (txtHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError($"Failed to load Addressable prefab at: {path}");
+                return;
+            }
+
+            _textObj = null;
+            _textObj = Instantiate(txtHandle.Result, transform);
+
+            await Task.Yield();
+            await Task.Yield();
+
+            while (_textObj == null)
+                await Task.Yield();
+
+            Addressables.Release(txtHandle);
         }
 
         IEnumerator CaptureColoredArea()
@@ -198,7 +224,9 @@ namespace Core.Screen
 
         public override void OnOpen()
         {
-           Destroy(_textObj);
+            if (_textObj != null)
+                Destroy(_textObj);
+
            SoundEffectEvent.InvokeSOEvent(3);
            Body.DOAnchorPosX(0, _transitionDuration).SetEase(Ease.OutBack);
         }

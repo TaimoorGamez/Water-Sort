@@ -10,7 +10,7 @@ namespace Core.Sfx
         [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] DBInt Music, Sound;
         [SerializeField] AudioClip BgMusic, BtnClick;
-        [SerializeField] AudioClip[] EffectClips, LoopClips;
+        [SerializeField] AudioClip[] EffectClips;
 
         AudioSource _bgSource = null, _btnSource = null, _effectSource = null, _loopSource = null;
         float _bgVolume = 0.6f;
