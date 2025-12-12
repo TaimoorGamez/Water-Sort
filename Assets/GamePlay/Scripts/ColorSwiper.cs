@@ -13,7 +13,6 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] DBInt LvlNum;
         [SerializeField] SO2IntergerEvent TaskEvent;
         [SerializeField] SOIntegerEvents ToastMsgEvent, SwitchProtectorEvent;
-        [SerializeField] SOEvents SwapColorsModeEvent, ChangeSwipeStateEvent, StartColoringEvent;
         [SerializeField] SOInterger IsSwaping, UsingAnyFeature, MinLvlIndex, CompletedTubes, CurrrentLvl, SortingCompleted;
         [SerializeField] SODOTween TubeScaleUpTween, TubeScaleDownTween;
 
@@ -21,14 +20,14 @@ namespace Core.GamePlay.WaterSort
 
         private void OnEnable()
         {
-            SwapColorsModeEvent.EventHandler += OnClickSwapBtn;
-            StartColoringEvent.EventHandler += StopSwapping;
+            SimpleEventsHolder.SwapColorsEvent += OnClickSwapBtn;
+            SimpleEventsHolder.StartColoringEvent += StopSwapping;
         }
 
         private void OnDisable()
         {
-            SwapColorsModeEvent.EventHandler -= OnClickSwapBtn;
-            StartColoringEvent.EventHandler -= StopSwapping;
+            SimpleEventsHolder.SwapColorsEvent -= OnClickSwapBtn;
+            SimpleEventsHolder.StartColoringEvent -= StopSwapping;
         }
 
         void OnClickSwapBtn()
@@ -87,7 +86,7 @@ namespace Core.GamePlay.WaterSort
                 SwapingTubes[1].SwapeColor(oneColor);
                 if (LvlNum.Value >= MinLvlIndex.Value)
                 {
-                    ChangeSwipeStateEvent.InvokeSOEvent();
+                    SimpleEventsHolder.UpdateSwapStateEvent?.Invoke();
                 }
                 TaskEvent.InvokeSOEvent(4, 1);
             }

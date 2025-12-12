@@ -9,7 +9,6 @@ namespace Core.Screen
     public class SettingScreen : UiScreens
     {
         [SerializeField] DBInt Music, Sound;
-        [SerializeField] SOEvents UpdateMusicStateEvent, UpdateSoundStateEvent;
         [SerializeField] SOIntegerEvents DestroyStateEvent, SoundEffectEvent;
         [SerializeField] SOInterger SettingStateIndex;
         [SerializeField] RectTransform MusicBtn, SoundBtn;
@@ -17,8 +16,8 @@ namespace Core.Screen
 
         private void OnEnable()
         {
-            UpdateMusicStateEvent.EventHandler += UpdateMusicState;
-            UpdateSoundStateEvent.EventHandler += UpdateSoundState;
+            SimpleEventsHolder.UpdateMusicStateEvent += UpdateMusicState;
+            SimpleEventsHolder.UpdateSoundStateEvent += UpdateSoundState;
         }
 
         private void Start()
@@ -32,8 +31,8 @@ namespace Core.Screen
 
         private void OnDisable()
         {
-            UpdateMusicStateEvent.EventHandler -= UpdateMusicState;
-            UpdateSoundStateEvent.EventHandler -= UpdateSoundState;
+            SimpleEventsHolder.UpdateMusicStateEvent -= UpdateMusicState;
+            SimpleEventsHolder.UpdateSoundStateEvent -= UpdateSoundState;
         }
 
         void UpdateMusicState()

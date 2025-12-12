@@ -10,7 +10,6 @@ namespace Core.GamePlay.WaterSort
 {
     public class ColoringLevelInit : MonoBehaviour
     {
-        [SerializeField] SOEvents InitLevelEvent, RestartLevelEvent, DestroyLevelEvent;
         [SerializeField] DBInt LvlIndex;
         [SerializeField] SOInterger TempLevelIndex;
         [SerializeField] Transform ColoringHolder;
@@ -21,16 +20,16 @@ namespace Core.GamePlay.WaterSort
 
         private void OnEnable()
         {
-            InitLevelEvent.EventHandler += InitColoring;
-            RestartLevelEvent.EventHandler += RegenrateColoring;
-            DestroyLevelEvent.EventHandler += DestroyColoring;
+            SimpleEventsHolder.InitLvlEvent += InitColoring;
+            SimpleEventsHolder.RestartLevelEvent += RegenrateColoring;
+            SimpleEventsHolder.DestroyLevelEvent += DestroyColoring;
         }
 
         private async void OnDisable()
         {
-            InitLevelEvent.EventHandler -= InitColoring;
-            RestartLevelEvent.EventHandler -= RegenrateColoring;
-            DestroyLevelEvent.EventHandler -= DestroyColoring;
+            SimpleEventsHolder.InitLvlEvent -= InitColoring;
+            SimpleEventsHolder.RestartLevelEvent -= RegenrateColoring;
+            SimpleEventsHolder.DestroyLevelEvent -= DestroyColoring;
             await ReleaseHandler();
         }
 

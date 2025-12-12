@@ -19,7 +19,6 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] UndoManager UndoManager;
         [SerializeField] ColorSwiper SwapingManager;
         [SerializeField] SOWaterTube OpenTube;
-        [SerializeField] SOEvents CheckCompleteEvent;
         [SerializeField] ParticleSystem WaveParticle, DropsParticle, CompleteParticle;
         [SerializeField] LineRenderer WaterLine;
         [SerializeField] Transform AnchorPos1, AnchorPos2;
@@ -265,7 +264,7 @@ namespace Core.GamePlay.WaterSort
             TubeCap.PlayCelebration(CurrentColor);
             yield return new WaitForSeconds(2f);
             CompletedTubes.Value ++;
-            CheckCompleteEvent.InvokeSOEvent();
+            SimpleEventsHolder.CheckCompleteEvent?.Invoke();
             if (_celebrationRotine != null)
             {
                 StopCoroutine(_celebrationRotine);

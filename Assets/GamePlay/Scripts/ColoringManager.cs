@@ -13,7 +13,6 @@ namespace Core.GamePlay.Coloring
     {
         [SerializeField] DBInt LevelIndex;
         [SerializeField] SOInterger TempLevelIndex;
-        [SerializeField] SOEvents StartColoringEvent;
         [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] RectTransform ColoringImage;
         [SerializeField] Transform RefferanceBar;
@@ -24,12 +23,12 @@ namespace Core.GamePlay.Coloring
 
         private void OnEnable()
         {
-            StartColoringEvent.EventHandler += StartColoring;
+            SimpleEventsHolder.StartColoringEvent += StartColoring;
         }
 
         private async void OnDisable()
         {
-            StartColoringEvent.EventHandler -= StartColoring;
+            SimpleEventsHolder.StartColoringEvent -= StartColoring;
             await ReleaseHandler();
         }
 

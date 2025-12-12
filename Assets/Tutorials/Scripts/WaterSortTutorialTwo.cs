@@ -10,7 +10,6 @@ namespace Core.GamePlay.WaterSort
     public class WaterSortTutorialTwo : MonoBehaviour
     {
         [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
-        [SerializeField] SOEvents StartColoringEvent;
         [SerializeField] SOIntegerEvents SwitchProtectorEvent;
         [SerializeField] CapsuleCollider MyCollider, SecondCollider, ThirdCollider;
         [SerializeField] TubeHandler MyLiquid, OtherLiquid, ThirdLiquid;
@@ -30,7 +29,7 @@ namespace Core.GamePlay.WaterSort
 
             if (!IsUndoBtn && !ExtraTube)
             {
-                StartColoringEvent.EventHandler += ColoringPreparation;
+                SimpleEventsHolder.StartColoringEvent += ColoringPreparation;
             }
         }
 
@@ -38,7 +37,7 @@ namespace Core.GamePlay.WaterSort
         {
             if (!IsUndoBtn && !ExtraTube)
             {
-                StartColoringEvent.EventHandler -= ColoringPreparation;
+                SimpleEventsHolder.StartColoringEvent -= ColoringPreparation;
             }
         }
 
@@ -102,6 +101,7 @@ namespace Core.GamePlay.WaterSort
                 SecondCollider.enabled = true;
                 ThirdCollider.enabled = true;
             }
+            SimpleEventsHolder.UndoEvent?.Invoke();
         }
 
         void ShowUndoBtn()

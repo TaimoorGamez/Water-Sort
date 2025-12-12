@@ -1,14 +1,12 @@
 using UnityEngine;
 using DG.Tweening;
 using Core.Events;
-using Core.Variables;
 
 namespace Core.GamePlay.Coloring
 {
     public class BowlColorHandler : MonoBehaviour
     {
         [SerializeField] SOIntegerEvents SoundEffectEvent;
-        [SerializeField] SOEvents ColorSelectionEvent, HideColorBowlEvent; 
         [SerializeField] SOColor CurrentColor;
         [SerializeField] SOColorBowl CurrentBowl;
         [SerializeField] Renderer MySkin;
@@ -20,12 +18,12 @@ namespace Core.GamePlay.Coloring
 
         private void OnEnable()
         {
-            HideColorBowlEvent.EventHandler += HideNow;
+            SimpleEventsHolder.HideColorBowlEvent += HideNow;
         }
 
         private void OnDisable()
         {
-            HideColorBowlEvent.EventHandler -= HideNow;
+            SimpleEventsHolder.HideColorBowlEvent -= HideNow;
         }
 
         public void SetColor(Color currentColor)
@@ -51,7 +49,7 @@ namespace Core.GamePlay.Coloring
                 BowlState(true);
             }
             CurrentColor.Value = _bowlColor;
-            ColorSelectionEvent.InvokeSOEvent();
+            SimpleEventsHolder.ColorSelectedEvent?.Invoke();
         }
 
         public void BowlState(bool state)

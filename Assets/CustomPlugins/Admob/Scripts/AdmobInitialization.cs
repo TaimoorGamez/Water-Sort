@@ -1,9 +1,9 @@
 using UnityEngine;
-using Core.Events;
 using Core.Variables;
 using Core.DB.Variables;
 using GoogleMobileAds.Api;
 using GoogleMobileAds.Ump.Api;
+using Core.Events;
 
 namespace Core.Plugins.Ads
 {
@@ -11,7 +11,6 @@ namespace Core.Plugins.Ads
     {
         [SerializeField] AdDataHandler AdData;
         [SerializeField] DBInt NoAds;
-        [SerializeField] SOEvents StartAdLoaing;
         [SerializeField] AdHandler RewardedAd;
         [SerializeField] SOInterger AdmobInitialized;
 
@@ -103,8 +102,7 @@ namespace Core.Plugins.Ads
 
                     if (AdData.AdData.Interstitial && NoAds.Value == 0)
                     {
-                        //Debug.Log("Invoking start ad loading event");
-                        StartAdLoaing.InvokeSOEvent();
+                        SimpleEventsHolder.StartAdLoaing?.Invoke();
                     }
                 });
             }

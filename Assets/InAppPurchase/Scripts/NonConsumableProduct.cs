@@ -8,14 +8,32 @@ namespace Core.Purchase
     public class NonConsumableProduct : StoreProduct
     {
         [SerializeField] DBInt ProductDB;
-        [SerializeField] SOEvents ProductEvent;
+        [SerializeField] string EventKey;
 
         public override void BuyProduct()
         {
             if (ProductDB.Value != 1)
             {
-                ProductDB.Value = (1);
-                ProductEvent.InvokeSOEvent();
+                ProductDB.Value = 1;
+                InvokeEventFromKey();
+            }
+        }
+
+        void InvokeEventFromKey()
+        {
+            if (string.IsNullOrEmpty(EventKey))
+            {
+                Debug.LogWarning($"{name}: EventKey is empty!");
+                return;
+            }
+
+            if (EventDictionariesHolder.NonConsumableProductsEvents.TryGetValue(EventKey, out var evt))
+            {
+                evt?.Invoke();
+            }
+            else
+            {
+                Debug.LogWarning($"{name}: No event registered for key '{EventKey}'");
             }
         }
     }

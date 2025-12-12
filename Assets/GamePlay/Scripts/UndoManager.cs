@@ -12,7 +12,6 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] DBInt LvlNum;
         [SerializeField] SOInterger DoingUndo, UsingAnyFeature, CanPlay, GamePlayStateIndex, MinLvlIndex;
         [SerializeField] SOWaterTube OpenTube;
-        [SerializeField] SOEvents UndoEvent, RegisterMoveEvent, InitLevelEvent, RestartLevelEvent, UpdateUndoStatusEvent;
         [SerializeField] SOIntegerEvents ToastMsgEvent;
         [SerializeField] SO2IntergerEvent TaskEvent;
 
@@ -20,7 +19,7 @@ namespace Core.GamePlay.WaterSort
 
         public void AddUndo(TubeHandler senderTube, TubeHandler getterTube, int liquidLayers)
         {
-            RegisterMoveEvent.InvokeSOEvent();
+            SimpleEventsHolder.RegisterMoveEvent?.Invoke();
             UndoData newUndo = new UndoData();
             newUndo.SenderTube = senderTube;
             newUndo.GetterTube = getterTube;
@@ -30,16 +29,16 @@ namespace Core.GamePlay.WaterSort
 
         private void OnEnable()
         {
-            UndoEvent.EventHandler += OnUndoBtnClick;
-            RestartLevelEvent.EventHandler += RestForNewLevel;
-            InitLevelEvent.EventHandler += RestForNewLevel;
+            SimpleEventsHolder.UndoEvent += OnUndoBtnClick;
+            SimpleEventsHolder.RestartLevelEvent += RestForNewLevel;
+            SimpleEventsHolder.InitLvlEvent += RestForNewLevel;
         }
 
         private void OnDisable()
         {
-            UndoEvent.EventHandler -= OnUndoBtnClick;
-            RestartLevelEvent.EventHandler -= RestForNewLevel;
-            InitLevelEvent.EventHandler -= RestForNewLevel;
+            SimpleEventsHolder.UndoEvent -= OnUndoBtnClick;
+            SimpleEventsHolder.RestartLevelEvent -= RestForNewLevel;
+            SimpleEventsHolder.InitLvlEvent -= RestForNewLevel;
         }
 
         void RestForNewLevel()
@@ -65,8 +64,8 @@ namespace Core.GamePlay.WaterSort
                     OpenTube.Tube.RemoveFromCompleted();
                     lastMove.SenderTube.UndoWater(lastMove.GetterTube, lastMove.LiquidLayers);
                     if (LvlNum.Value >= MinLvlIndex.Value)
-                    { 
-                        UpdateUndoStatusEvent.InvokeSOEvent(); 
+                    {
+                        SimpleEventsHolder.UpdateUndoStatusEvent?.Invoke();
                     }
                     TaskEvent.InvokeSOEvent(3, 1);
                 }

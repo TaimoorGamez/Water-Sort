@@ -23,7 +23,6 @@ namespace Core.Screen
                                      MinLvlCount, MaxLvlCount, TempLvlIndex, CurrentMultiplayer,SortingCompleted;
         [SerializeField] SO2IntergerEvent TaskEvent;
         [SerializeField] SOIntegerEvents SoundEffectEvent, ActiveStateEvent, DestroyStatEvent;
-        [SerializeField] SOEvents DestroyLevelEvent, InitLvlEvent, MultiplayRewardEvent;
         [SerializeField] TextMeshProUGUI LevelBonusText, StarsBonusText, DetailsBonusText, MovesBonusText, TotalBonusText;
         [SerializeField] Camera ScreenshotCamera;
         [SerializeField] RenderTexture TargetTexture;
@@ -45,12 +44,12 @@ namespace Core.Screen
 
         private void OnEnable()
         {
-            MultiplayRewardEvent.EventHandler += OnMultiplyReward;
+            SimpleEventsHolder.MultiplayRewardEvent += OnMultiplyReward;
         }
 
         private async void OnDisable()
         {
-            MultiplayRewardEvent.EventHandler -= OnMultiplyReward;
+            SimpleEventsHolder.MultiplayRewardEvent -= OnMultiplyReward;
             if (_screenShotRotine != null)
             {
                 StopCoroutine(_screenShotRotine);
@@ -120,7 +119,7 @@ namespace Core.Screen
             File.WriteAllBytes(filePath, screenshot.EncodeToPNG());
             yield return new WaitForSeconds(2.5f);
 
-            DestroyLevelEvent.InvokeSOEvent();
+            SimpleEventsHolder.DestroyLevelEvent?.Invoke();
             OnOpen();
             Invoke(nameof(OnPanelVisible), _durationTweeing);
             for (int s = 0; s < LevelStars.Value; s++)
@@ -242,7 +241,7 @@ namespace Core.Screen
 
                 if (LvlNum.Value <= MinLvlCount.Value)
                 {
-                    InitLvlEvent.InvokeSOEvent();
+                    SimpleEventsHolder.InitLvlEvent?.Invoke();        
                     ActiveStateEvent.InvokeSOEvent(GamePlayState.Value);
                 }
                 else

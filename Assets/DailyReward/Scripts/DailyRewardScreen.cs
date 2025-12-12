@@ -8,7 +8,6 @@ namespace Core.Screen
     public class DailyRewardScreen : UiScreens
     {
         [SerializeField] DBInt RewardClaimed;
-        [SerializeField] SOEvents UpDateState;
         [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] GameObject ClaimBtnsObj, TimerTextObj;
         [SerializeField] RectTransform[] RewardItems;
@@ -19,13 +18,13 @@ namespace Core.Screen
 
         private void OnEnable()
         {
-            UpDateState.EventHandler += CheckViewState;
+            SimpleEventsHolder.UpDateDailyRewardState += CheckViewState;
             CheckViewState();
         }
 
         private void OnDisable()
         {
-            UpDateState.EventHandler -= CheckViewState;
+            SimpleEventsHolder.UpDateDailyRewardState -= CheckViewState;
 
             if (_niddleTween != null && _niddleTween.IsActive())
                 _niddleTween.Kill();

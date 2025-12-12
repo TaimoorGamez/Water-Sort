@@ -6,7 +6,6 @@ namespace Core.GamePlay.WaterSort
 {
     public class FlowerAnimation : CapAnimation
     {
-        [SerializeField] SOEvents StartColoringEvent;
         [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] Renderer MySkin;
         [SerializeField] Texture MyTexture;
@@ -16,12 +15,12 @@ namespace Core.GamePlay.WaterSort
 
         private void OnEnable()
         {
-            StartColoringEvent.EventHandler += HideNow;
+            SimpleEventsHolder.StartColoringEvent += HideNow;
         }
 
         private void OnDisable()
         {
-            StartColoringEvent.EventHandler -= HideNow;
+            SimpleEventsHolder.StartColoringEvent -= HideNow;
         }
 
         public override void PlayCapAnimation(Color currentColor)

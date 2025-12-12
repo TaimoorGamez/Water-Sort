@@ -6,19 +6,18 @@ namespace Core.Screen
 {
     public class SpinWheelNotificationHandler : MonoBehaviour
     {
-        [SerializeField] SOEvents ResetSpinWheelEvent;
         [SerializeField] DBInt DailySpin;
         [SerializeField] GameObject NotificationObj;
 
         private void OnEnable()
         {
             UpdateNotificationStatus();
-            ResetSpinWheelEvent.EventHandler += ResetSpinWheel;
+            SimpleEventsHolder.ResetSpinWheelEvent += ResetSpinWheel;
         }
 
         private void OnDisable()
         {
-            ResetSpinWheelEvent.EventHandler -= ResetSpinWheel;
+            SimpleEventsHolder.ResetSpinWheelEvent -= ResetSpinWheel;
         }
 
         void ResetSpinWheel()

@@ -15,7 +15,6 @@ namespace Core.DailyReward
         [SerializeField] protected Currency CashCurrency;
         [SerializeField] protected SOInterger GiveReward;
         [SerializeField] protected FireBaseEvents FBEvents;
-        [SerializeField] protected SOEvents UpDateState, DoubleRewardEvent;
         [SerializeField] protected DBInt ToDay, RewardClaimed;
         [SerializeField] protected TextMeshProUGUI[] DayText, AmountText;
         [SerializeField] protected Button ClaimButton;
@@ -59,7 +58,7 @@ namespace Core.DailyReward
             {
                 ActiveState(1);
                 ClaimButton.onClick.AddListener(OnClickBuyButton);
-                DoubleRewardEvent.EventHandler += GrantDoubleReward;
+                SimpleEventsHolder.DoubleDailyRewardEvent += GrantDoubleReward;
             }
             else
             {
@@ -91,8 +90,8 @@ namespace Core.DailyReward
                 CashCurrency.Amount += Amount;
                 UpdateState();
                 ClaimButton.onClick.RemoveListener(OnClickBuyButton);
-                DoubleRewardEvent.EventHandler -= GrantDoubleReward;
-                UpDateState.InvokeSOEvent();
+                SimpleEventsHolder.DoubleDailyRewardEvent -= GrantDoubleReward;
+                SimpleEventsHolder.UpDateDailyRewardState?.Invoke();
                 try
                 {
                     FBEvents.EarnCoinsEvent("Coins", Amount, "DailyReward");
@@ -112,10 +111,9 @@ namespace Core.DailyReward
                 RewardClaimed.Value = (1);
                 CashCurrency.Amount += (Amount * 2);
                 UpdateState();
-                //Debug.Log("Amount " + (Amount * 2));
-                UpDateState.InvokeSOEvent();
+                SimpleEventsHolder.UpDateDailyRewardState?.Invoke();
                 ClaimButton.onClick.RemoveListener(OnClickBuyButton);
-                DoubleRewardEvent.EventHandler -= GrantDoubleReward;
+                SimpleEventsHolder.DoubleDailyRewardEvent -= GrantDoubleReward;
             }
         }
 

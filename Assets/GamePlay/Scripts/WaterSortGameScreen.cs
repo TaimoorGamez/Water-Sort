@@ -8,7 +8,6 @@ namespace Core.Screen
 {
     public class WaterSortGameScreen : UiScreens
     {
-        [SerializeField] SOEvents UpdateMovesEvent, StartColoringEvent;
         [SerializeField] SOIntegerEvents ActiveStateEvent, SwitchProtectorEvent;
         [SerializeField] DBInt LvlNum;
         [SerializeField] SOInterger TotalMoves, CanPlay, LevelFailStateIndex, CompletedTubes, GamePlayStateIndex, PauseStateIndex, MinLvl, CurrrentLvl;
@@ -18,15 +17,15 @@ namespace Core.Screen
         private void OnEnable()
         {
             SwitchProtectorEvent.EventHandler += SwitchProtector;
-            UpdateMovesEvent.EventHandler += UpdateMovesText;
-            StartColoringEvent.EventHandler += PrepareForColoring;
+            SimpleEventsHolder.UpdateMovesEvent += UpdateMovesText;
+            SimpleEventsHolder.StartColoringEvent += PrepareForColoring;
         }
 
         private void OnDisable()
         {
             SwitchProtectorEvent.EventHandler -= SwitchProtector;
-            UpdateMovesEvent.EventHandler -= UpdateMovesText;
-            StartColoringEvent.EventHandler -= PrepareForColoring;
+            SimpleEventsHolder.UpdateMovesEvent -= UpdateMovesText;
+            SimpleEventsHolder.StartColoringEvent -= PrepareForColoring;
         }
 
         private void Start()

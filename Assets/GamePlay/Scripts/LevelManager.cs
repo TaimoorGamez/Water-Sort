@@ -10,12 +10,11 @@ namespace Core.GamePlay
     {
         [SerializeField] SOInterger CompletedTubes, CurrrentLvl, CanPlay, LevelCompleteStateIndex, TotalMoves, SortingCompleted;
         [SerializeField] DBInt LvlNum;
-        [SerializeField] SOEvents CheckCompleteEvent, StartColoringEvent, RegisterMoveEvent, UpdateMovesEvent;
 
         public void AfterEnable()
         {
-            CheckCompleteEvent.EventHandler = CheckComplete;
-            RegisterMoveEvent.EventHandler = CheckMoves;
+            SimpleEventsHolder.CheckCompleteEvent = CheckComplete;
+            SimpleEventsHolder.RegisterMoveEvent = CheckMoves;
         }
 
         void CheckComplete()
@@ -24,14 +23,14 @@ namespace Core.GamePlay
             {
                 CompletedTubes.Value = 0;
                 SortingCompleted.Value = 1;
-                StartColoringEvent.InvokeSOEvent();
+                SimpleEventsHolder.StartColoringEvent?.Invoke();
             }
         }
 
         void CheckMoves()
         {
             TotalMoves.Value--;
-            UpdateMovesEvent.InvokeSOEvent();
+            SimpleEventsHolder.UpdateMovesEvent?.Invoke();
         }
     }
 }

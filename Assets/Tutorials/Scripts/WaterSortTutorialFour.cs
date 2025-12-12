@@ -10,7 +10,6 @@ namespace Core.GamePlay.WaterSort
     public class WaterSortTutorialFour : MonoBehaviour
     {
         [SerializeField] SOIntegerEvents SwitchProtectorEvent;
-        [SerializeField] SOEvents StartColoringEvent;
         [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
         [SerializeField] CapsuleCollider ColliderOne, ColliderTwo, ColliderThree, ColliderFour, ColliderFive;
         [SerializeField] TubeHandler FirstTube, SecondTube, ThirdTube, ForthTube, FifthTube, SixthTube;
@@ -30,7 +29,7 @@ namespace Core.GamePlay.WaterSort
         {
             if (IsSwipButton)
             {
-                StartColoringEvent.EventHandler += ColoringPreparation;
+                SimpleEventsHolder.StartColoringEvent += ColoringPreparation;
             }
         }
 
@@ -38,7 +37,7 @@ namespace Core.GamePlay.WaterSort
         {
             if (IsSwipButton)
             {
-                StartColoringEvent.EventHandler -= ColoringPreparation;
+                SimpleEventsHolder.StartColoringEvent -= ColoringPreparation;
             }
         }
 
@@ -135,6 +134,7 @@ namespace Core.GamePlay.WaterSort
                 HandObj.DOLocalMove(new Vector3(225, 0, 0), _tutorialAnimationTime).SetEase(Ease.InOutBack);
                 ColliderThree.enabled = true;
             }
+            SimpleEventsHolder.SwapColorsEvent?.Invoke();
         }
 
         void ColoringPreparation()

@@ -13,7 +13,6 @@ namespace Core.Screen
     public class StorageRoomView : MonoBehaviour
     {
         [SerializeField] SODictionary_Int_Gameobject ItemInstances;
-        [SerializeField] SOEvents BuyEvent;
         [SerializeField] SOIntegerEvents ChangeItemStatusEvent;
         [SerializeField] DBInt CurrentActiveItem;
         [SerializeField] ItemView[] RoomItems;
@@ -21,6 +20,7 @@ namespace Core.Screen
         [SerializeField] GameObject[] Buttons;
         [SerializeField] Transform ItemHolder;
         [SerializeField] TextMeshProUGUI VideoText;
+        [SerializeField] string BuyEventName;
 
         int _selectedItem = -1;
         Coroutine _activationRotine;
@@ -28,7 +28,14 @@ namespace Core.Screen
 
         private void OnEnable()
         {
-            BuyEvent.EventHandler += PurchaseByAd;
+            if (EventDictionariesHolder.StoreBuyEvents.TryGetValue(BuyEventName, out var evt))
+            {
+                evt += PurchaseByAd;
+            }
+            else
+            {
+                Debug.Log($"Buy event key '{BuyEventName}' does not exist.");
+            }
             ChangeItemStatusEvent.EventHandler += ChangeItemStatus;
             _selectedItem = CurrentActiveItem.Value;
             _activationRotine = StartCoroutine(ActiveStorageRoom());
@@ -37,7 +44,14 @@ namespace Core.Screen
 
         private void OnDisable()
         {
-            BuyEvent.EventHandler -= PurchaseByAd;
+            if (EventDictionariesHolder.StoreBuyEvents.TryGetValue(BuyEventName, out var evt))
+            {
+                evt -= PurchaseByAd;
+            }
+            else
+            {
+                Debug.Log($"Buy event key '{BuyEventName}' does not exist.");
+            }
             ChangeItemStatusEvent.EventHandler -= ChangeItemStatus;
             StopActiveRotines();
             if (_currentItem != null)

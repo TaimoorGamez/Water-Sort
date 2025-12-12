@@ -8,7 +8,6 @@ namespace Core.Screen
 {
     public class RemoveAdsScreen : UiScreens
     {
-        [SerializeField] SOEvents AdsBlockerEvent;
         [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] DBInt AdBlocked;
         [SerializeField] DBString AdBlockingTime;
@@ -16,7 +15,7 @@ namespace Core.Screen
 
         void OnEnable()
         {
-            AdsBlockerEvent.EventHandler += BlockAdForTime;
+            SimpleEventsHolder.AdsBlockerEvent += BlockAdForTime;
             if (AdBlocked.Value == 1)
             {
                 RvBtn.SetActive(false);
@@ -32,7 +31,7 @@ namespace Core.Screen
 
         void OnDisable()
         {
-            AdsBlockerEvent.EventHandler -= BlockAdForTime;
+            SimpleEventsHolder.AdsBlockerEvent -= BlockAdForTime;
         }
 
         void BlockAdForTime()

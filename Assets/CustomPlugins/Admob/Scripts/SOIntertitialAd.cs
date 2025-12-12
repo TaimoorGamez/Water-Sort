@@ -1,5 +1,5 @@
-using UnityEngine;
 using Core.Events;
+using UnityEngine;
 using Core.Variables;
 using Core.DB.Variables;
 using GoogleMobileAds.Api;
@@ -10,7 +10,6 @@ namespace Core.Plugins.Ads
     [CreateAssetMenu(fileName = "Intertitial", menuName = "ScriptableObjects/Plugin/Admob/Intertitial")]
     public class SOIntertitialAd : AdHandler
     {
-        [SerializeField] SOEvents StartAdLoaing, SelfDestruction;
         [SerializeField] SOInterger AdTimerComplete, AdPlaying, MinLvlIndex, AdmobInitialized;
         [SerializeField] DBInt NoAdsDB, AdBlocked, LvlNum;
         [SerializeField] GameObject AdLoading;
@@ -72,13 +71,13 @@ namespace Core.Plugins.Ads
                     Instantiate(AdLoading);
                     await Task.Delay(1000);
                     _interstitialAd.Show();
-                    SelfDestruction.InvokeSOEvent();
+                    SimpleEventsHolder.SelfDestructionEvent?.Invoke();
                 }
             }
             else
             {
                 AdTimerComplete.Value = 0;
-                StartAdLoaing.InvokeSOEvent();
+                SimpleEventsHolder.StartAdLoaing?.Invoke();
             }
         }
 
@@ -111,14 +110,14 @@ namespace Core.Plugins.Ads
             {
                 AdPlaying.Value = 0;
                 AdTimerComplete.Value = 0;
-                StartAdLoaing.InvokeSOEvent();
+                SimpleEventsHolder.StartAdLoaing?.Invoke();
             };
             // Raised when the ad failed to open full screen content.
             interstitialAd.OnAdFullScreenContentFailed += (AdError error) =>
             {
                 AdPlaying.Value = 0;
                 AdTimerComplete.Value = 0;
-                StartAdLoaing.InvokeSOEvent();
+                SimpleEventsHolder.StartAdLoaing?.Invoke();
             };
         }
     }

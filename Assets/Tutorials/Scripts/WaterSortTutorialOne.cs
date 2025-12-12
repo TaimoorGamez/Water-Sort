@@ -10,7 +10,6 @@ namespace Core.GamePlay.WaterSort
     public class WaterSortTutorialOne : MonoBehaviour
     {
         [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
-        [SerializeField] SOEvents StartColoringEvent;
         [SerializeField] SOIntegerEvents SwitchProtectorEvent;
         [SerializeField] CapsuleCollider MyCollider, OtherCollider;
         [SerializeField] TubeHandler CurrenTube;
@@ -23,12 +22,12 @@ namespace Core.GamePlay.WaterSort
 
         private void OnEnable()
         {
-            StartColoringEvent.EventHandler += ColoringPreparation;
+            SimpleEventsHolder.StartColoringEvent += ColoringPreparation;
         }
 
         private void OnDisable()
         {
-            StartColoringEvent.EventHandler -= ColoringPreparation;
+            SimpleEventsHolder.StartColoringEvent -= ColoringPreparation;
         }
 
         private void Start()

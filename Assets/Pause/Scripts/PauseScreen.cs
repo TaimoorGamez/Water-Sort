@@ -10,14 +10,13 @@ namespace Core.Screen
     {
         [SerializeField] DBInt Music, Sound;
         [SerializeField] SOIntegerEvents DestroyStatEvent, ActiveStatEvent, SoundEffectEvent;
-        [SerializeField] SOEvents RestartLevelEvent, DestroyLevelEvent, UpdateMusicStateEvent, UpdateSoundStateEvent;
         [SerializeField] SOInterger CanPlay, MainMenuStateIndex, GamePlayStateIndex;
         [SerializeField] GameObject MusicOff, SoundOff;
 
         private void OnEnable()
         {
-            UpdateMusicStateEvent.EventHandler += UpdateMusicState;
-            UpdateSoundStateEvent.EventHandler += UpdateSoundState;
+            SimpleEventsHolder.UpdateMusicStateEvent += UpdateMusicState;
+            SimpleEventsHolder.UpdateSoundStateEvent += UpdateSoundState;
             UpdateMusicState();
             UpdateSoundState();
             OnOpen();
@@ -25,8 +24,8 @@ namespace Core.Screen
 
         private void OnDisable()
         {
-            UpdateMusicStateEvent.EventHandler -= UpdateMusicState;
-            UpdateSoundStateEvent.EventHandler -= UpdateSoundState;
+            SimpleEventsHolder.UpdateMusicStateEvent -= UpdateMusicState;
+            SimpleEventsHolder.UpdateSoundStateEvent -= UpdateSoundState;
         }
 
         void UpdateMusicState()
@@ -41,13 +40,13 @@ namespace Core.Screen
 
         public void RestartLevel()
         {
-            RestartLevelEvent.InvokeSOEvent();
+            SimpleEventsHolder.RestartLevelEvent?.Invoke();
             OnClose();
         }
 
         public void GoHome()
         {
-            DestroyLevelEvent.InvokeSOEvent();
+            SimpleEventsHolder.DestroyLevelEvent?.Invoke();
             DestroyStatEvent.InvokeSOEvent(GamePlayStateIndex.Value);
             ActiveStatEvent.InvokeSOEvent(MainMenuStateIndex.Value);
             OnClose();

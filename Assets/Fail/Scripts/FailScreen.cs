@@ -8,38 +8,37 @@ namespace Core.Screen
     public class FailScreen : UiScreens
     {
         [SerializeField] SOIntegerEvents DestroyStatEvent, ActiveStatEvent, SoundEffectEvent;
-        [SerializeField] SOEvents UpdateMovesEvent, RestartLevelEvent, DestroyLevelEvent, MoreMovesEvent;
         [SerializeField] SOInterger TotalMoves, CanPlay, MainMenuStateIndex, GamePlayStateIndex;
 
         int _extraMoves = 10;
 
         private void OnEnable()
         {
-            MoreMovesEvent.EventHandler += AddMoreMoves;
+            SimpleEventsHolder.MoreMovesEvent += AddMoreMoves;
             OnOpen();
         }
 
         private void OnDisable()
         {
-            MoreMovesEvent.EventHandler -= AddMoreMoves;
+            SimpleEventsHolder.MoreMovesEvent -= AddMoreMoves;
         }
 
         void AddMoreMoves()
         {
             OnClose();
             TotalMoves.Value += _extraMoves;
-            UpdateMovesEvent.InvokeSOEvent();
+            SimpleEventsHolder.UpdateMovesEvent?.Invoke();
             CanPlay.Value = 1;
         }
 
         public void RestartLevel()
         {
-            RestartLevelEvent.InvokeSOEvent();
+            SimpleEventsHolder.RestartLevelEvent?.Invoke();
             OnClose();
         }
         public void GoHome()
         {
-            DestroyLevelEvent.InvokeSOEvent();
+            SimpleEventsHolder.DestroyLevelEvent?.Invoke();
             DestroyStatEvent.InvokeSOEvent(GamePlayStateIndex.Value);
             ActiveStatEvent.InvokeSOEvent(MainMenuStateIndex.Value);
             OnClose();

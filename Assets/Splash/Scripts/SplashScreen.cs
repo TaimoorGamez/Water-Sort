@@ -17,7 +17,6 @@ namespace Core.Screen
         [SerializeField] ToastManager ToastMsnger;
         [SerializeField] Initialization FirebaseInit;
         [SerializeField] ItemData DefaultCap, DefaultFlame, DefaultSpray;
-        [SerializeField] SOEvents InitLevelEvent;
         [SerializeField] DBInt LvlNum, FFT;
         [SerializeField] SOIntegerEvents ActiveStateEvent, DestroyStateEvent;
         [SerializeField] LevelManager LvlManager;
@@ -50,7 +49,7 @@ namespace Core.Screen
                 ToastMsnger.InitToastMsg();
                 if (LvlNum.Value <= MinLvlNum.Value)
                 {
-                    InitLevelEvent.InvokeSOEvent();
+                    SimpleEventsHolder.InitLvlEvent?.Invoke();
                     ActiveStateEvent.InvokeSOEvent(GamePlayStateIndex.Value);
                 }
                 else

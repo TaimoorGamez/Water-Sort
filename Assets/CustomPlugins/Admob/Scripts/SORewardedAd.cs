@@ -8,7 +8,6 @@ namespace Core.Plugins.Ads
     [CreateAssetMenu(fileName = "Rewarded", menuName = "ScriptableObjects/Plugin/Admob/Rewarded")]
     public class SORewardedAd : AdHandler
     {
-        [SerializeField] SOEvents GrantRewardEvent;
         [SerializeField] SOInterger AdPlaying, CanMultiply, CanAddMoves, CanDoubleReward, CanSpin, CanCap, CanSpray, CanFlame, CanBlockAds, CanUndo,
                                     CanAddExtraTube, CanSwitchColor, AdmobInitialized;
         [SerializeField] SOIntegerEvents ShowToastEvent;
@@ -164,7 +163,7 @@ namespace Core.Plugins.Ads
                     CanBlockAds.Value = 1;
                     break;
             }
-            GrantRewardEvent.InvokeSOEvent();
+            SimpleEventsHolder.GrantRewardEvent?.Invoke();
             TaskEvents.InvokeSOEvent(0,1);
         }
     }

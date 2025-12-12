@@ -7,7 +7,6 @@ namespace Core.Screen
 {
     public class PaintingView : MonoBehaviour
     {
-        [SerializeField] SOEvents InitLevelEvent;
         [SerializeField] SOIntegerEvents ActiveStateEvent, DestroyStateEvent;
         [SerializeField] SOInterger GamePlayStateIndex, MainMenuStateIndex, TempLvlIndex;
         [SerializeField] RawImage PaintingImg;
@@ -31,7 +30,7 @@ namespace Core.Screen
             TempLvlIndex.Value = _currentLvl;
             ActiveStateEvent.InvokeSOEvent(GamePlayStateIndex.Value);
             DestroyStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
-            InitLevelEvent.InvokeSOEvent();
+            SimpleEventsHolder.InitLvlEvent?.Invoke();
         }
     }
 }

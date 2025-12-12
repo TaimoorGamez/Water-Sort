@@ -11,7 +11,6 @@ namespace Core.Screen
     public class SpinWheelScreen : UiScreens, ISpinWheel
     {
         [SerializeField] SOIntegerEvents SoundEffectEvent;
-        [SerializeField] SOEvents SpinEvent; 
         [SerializeField] DBInt DailySpin;
         [SerializeField] GameObject SpinBtn, RvBtn, SpinNotification;
         [SerializeField] RectTransform SegmentParent, Shine, RewardPanel, Wheel;
@@ -27,7 +26,7 @@ namespace Core.Screen
 
         private void OnEnable()
         {
-            SpinEvent.EventHandler += RewardedSpin;
+            SimpleEventsHolder.RewardSpinWheelEvent += RewardedSpin;
             if (DailySpin.Value == 0)
             {
                 SpinBtn.SetActive(true);
@@ -46,7 +45,7 @@ namespace Core.Screen
 
         private void OnDisable()
         {
-            SpinEvent.EventHandler -= RewardedSpin;
+            SimpleEventsHolder.RewardSpinWheelEvent -= RewardedSpin;
         }
 
         void Start()

@@ -9,7 +9,6 @@ namespace Core.DailyTasks
     public class TaskManager : ScriptableObject
     {
         [SerializeField] SO2IntergerEvent TaskEvent;
-        [SerializeField] SOEvents GenerateDailyTasksEvent;
         [SerializeField] DailyTaskData[] AllTasks;
         [SerializeField] DBInt[] TaskIndexs;
 
@@ -19,13 +18,13 @@ namespace Core.DailyTasks
         private void OnEnable()
         {
             RetrevePreviousTasks();
-            GenerateDailyTasksEvent.EventHandler += GenerateDailyTasks;
+            SimpleEventsHolder.GenerateDailyTasksEvent += GenerateDailyTasks;
             TaskEvent.EventHandler += AddTaskProgress;
         }
 
         private void OnDisable()
         {
-            GenerateDailyTasksEvent.EventHandler -= GenerateDailyTasks;
+            SimpleEventsHolder.GenerateDailyTasksEvent -= GenerateDailyTasks;
             TaskEvent.EventHandler -= AddTaskProgress;
         }
 

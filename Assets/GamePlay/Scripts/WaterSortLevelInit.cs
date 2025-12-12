@@ -18,8 +18,6 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] DBInt LvlIndex, LvlNum;
         [SerializeField] SO2IntergerEvent TaskEvent;
         [SerializeField] SOInterger IsHiddenLevel, CanPlay, TotalMoves, BtnOnceClicked, MainMenuStateIndex, CurrrentLvl, TempLvlIndex;
-        [SerializeField] SOEvents InitLevelEvent, ExtraTubeEvent, RestartLevelEvent, DestroyLevelEvent, StartColoringEvent, ChangeExtraTubeStatEvent,
-                                  UpdateMovesEvent;
         [SerializeField] Vector3[] TubePositions, BowlPositions;
         [SerializeField] BowlColorHandler BowlObj;
 
@@ -37,20 +35,20 @@ namespace Core.GamePlay.WaterSort
 
         private void OnEnable()
         {
-            InitLevelEvent.EventHandler += InitNewLevel;
-            ExtraTubeEvent.EventHandler += OnAddTubeClick;
-            RestartLevelEvent.EventHandler += RestartLevel;
-            DestroyLevelEvent.EventHandler += DestroyLevel;
-            StartColoringEvent.EventHandler += ColoringPreparation;
+            SimpleEventsHolder.InitLvlEvent += InitNewLevel;
+            SimpleEventsHolder.ExtraTubeEvent += OnAddTubeClick;
+            SimpleEventsHolder.RestartLevelEvent += RestartLevel;
+            SimpleEventsHolder.DestroyLevelEvent += DestroyLevel;
+            SimpleEventsHolder.StartColoringEvent += ColoringPreparation;
         }
 
         private async void OnDisable()
         {
-            InitLevelEvent.EventHandler -= InitNewLevel;
-            ExtraTubeEvent.EventHandler -= OnAddTubeClick;
-            RestartLevelEvent.EventHandler -= RestartLevel;
-            DestroyLevelEvent.EventHandler -= DestroyLevel;
-            StartColoringEvent.EventHandler -= ColoringPreparation;
+            SimpleEventsHolder.InitLvlEvent -= InitNewLevel;
+            SimpleEventsHolder.ExtraTubeEvent -= OnAddTubeClick;
+            SimpleEventsHolder.RestartLevelEvent -= RestartLevel;
+            SimpleEventsHolder.DestroyLevelEvent -= DestroyLevel;
+            SimpleEventsHolder.StartColoringEvent -= ColoringPreparation;
             await ReleaseHandler();
         }
 
@@ -146,7 +144,7 @@ namespace Core.GamePlay.WaterSort
             }
             await Task.Yield();
 
-            UpdateMovesEvent.InvokeSOEvent();
+            SimpleEventsHolder.UpdateMovesEvent?.Invoke();
         }
 
         IEnumerator GenerateLvl()
@@ -266,7 +264,7 @@ namespace Core.GamePlay.WaterSort
                 newTube.transform.position = TubePositions[_totalTubesCount];
                 _totalTubesCount++;
                 _totalTubes.Add(newTube);
-                ChangeExtraTubeStatEvent.InvokeSOEvent();
+                SimpleEventsHolder.UpdateExtraTubeStatEvent?.Invoke();
                 TaskEvent.InvokeSOEvent(5, 1);
             }
             else if(_totalTubes.Count >= 10)

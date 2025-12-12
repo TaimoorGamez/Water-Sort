@@ -13,7 +13,6 @@ namespace Core.GamePlay.Coloring
         [SerializeField] DBInt Sound;
         [SerializeField] SOColorBowl CurrentBowl;
         [SerializeField] SOInterger LevelStars;
-        [SerializeField] SOEvents StartColoringEvent, ColorSelectedEvent, HideColorBowlEvent;
         [SerializeField] SOColor CurrentColor;
         [SerializeField] ColorFilling[] ColoringPart;
         [SerializeField] RectTransform BrushTransform;
@@ -38,14 +37,14 @@ namespace Core.GamePlay.Coloring
 
         private void OnEnable()
         {
-            StartColoringEvent.EventHandler += StartColoring;
-            ColorSelectedEvent.EventHandler += ColorSelected;
+            SimpleEventsHolder.StartColoringEvent += StartColoring;
+            SimpleEventsHolder.ColorSelectedEvent += ColorSelected;
         }
 
         private void OnDisable()
         {
-            StartColoringEvent.EventHandler -= StartColoring;
-            ColorSelectedEvent.EventHandler -= ColorSelected;
+            SimpleEventsHolder.StartColoringEvent -= StartColoring;
+            SimpleEventsHolder.ColorSelectedEvent -= ColorSelected;
             _canColor = false;
             if (_movingRoutine != null)
             {
@@ -270,7 +269,7 @@ namespace Core.GamePlay.Coloring
                 }
                 else 
                 {
-                    HideColorBowlEvent.InvokeSOEvent();
+                    SimpleEventsHolder.HideColorBowlEvent?.Invoke();
                     DetailsHandler.SetActive(true);
                 }
             }

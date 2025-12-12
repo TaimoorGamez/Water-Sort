@@ -11,7 +11,6 @@ namespace Core.DailyReward
     {
         [SerializeField] DBString LastDate;
         [SerializeField] DBInt ToDay, RewardClaimed;
-        [SerializeField] SOEvents UpDateState, GenerateTasksEvent, ResetSpinWheelEvent;
         [SerializeField] GameObject DailyRewardView, NotificationObj;
         [SerializeField] TextMeshProUGUI RemainingTimeText, PanelTimer;
 
@@ -19,12 +18,12 @@ namespace Core.DailyReward
 
         private void OnEnable()
         {
-            UpDateState.EventHandler += ChangeDay;
+            SimpleEventsHolder.UpDateDailyRewardState += ChangeDay;
         }
 
         private void OnDisable()
         {
-            UpDateState.EventHandler -= ChangeDay;
+            SimpleEventsHolder.UpDateDailyRewardState -= ChangeDay;
             
             if(_timerRotine != null)
             StopCoroutine(_timerRotine);
@@ -49,8 +48,8 @@ namespace Core.DailyReward
 
             if (daysGreater >= 1)
             {
-                GenerateTasksEvent.EventHandler.Invoke();
-                ResetSpinWheelEvent.EventHandler.Invoke();
+                SimpleEventsHolder.GenerateDailyTasksEvent?.Invoke();
+                SimpleEventsHolder.ResetSpinWheelEvent?.Invoke();
                 RewardClaimed.Value = 0;
                 NotificationObj.SetActive(true);
                 if (daysGreater == 1 && ToDay.Value < 7)

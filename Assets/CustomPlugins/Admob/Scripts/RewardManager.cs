@@ -11,8 +11,6 @@ namespace Core.Plugins.Ads
         [SerializeField] DBInt NoAds;
         [SerializeField] AdDataHandler AdData;
         [SerializeField] AdHandler IntertitialAd;
-        [SerializeField] SOEvents NoAdsBuyEvent, StartLoadingAdsEvent, GrantRewardEvent, CompletePanelRewardEvent, AddMovesEvent, DoubleDailyRewardEvent,
-                                  SpinEvent, BuyCaps, BuySprays, BuyFlames, AdsBlockerEvent, RewardUndoEvent, RewardExtraTubeEvent, RewardSwitchColor;
         [SerializeField] SOInterger AdTimerComplete, CanAddMoves, CanMultiply, CanDoubleReward, CanSpin, CanCaps, CanSprays, CanBlockAds, CanFlames, CanUndo,
                                     CanAddExtraTube, CanSwitchColor;
 
@@ -21,16 +19,16 @@ namespace Core.Plugins.Ads
 
         private void OnEnable()
         {
-            GrantRewardEvent.EventHandler += PlayRewardCorotine;
-            StartLoadingAdsEvent.EventHandler += StartLoadingAds;
-            NoAdsBuyEvent.EventHandler += StopAds;
+            SimpleEventsHolder.GrantRewardEvent += PlayRewardCorotine;
+            SimpleEventsHolder.StartLoadingAdsEvent += StartLoadingAds;
+            SimpleEventsHolder.NoAdsBuyEvent += StopAds;
         }
 
         private void OnDisable()
         {
-            GrantRewardEvent.EventHandler -= PlayRewardCorotine;
-            StartLoadingAdsEvent.EventHandler -= StartLoadingAds;
-            NoAdsBuyEvent.EventHandler -= StopAds;
+            SimpleEventsHolder.GrantRewardEvent -= PlayRewardCorotine;
+            SimpleEventsHolder.StartLoadingAdsEvent -= StartLoadingAds;
+            SimpleEventsHolder.NoAdsBuyEvent -= StopAds;
             CustomDisable();
         }
 
@@ -49,67 +47,67 @@ namespace Core.Plugins.Ads
                 if (CanAddMoves.Value == 1)
                 {
                     CanAddMoves.Value = 0;
-                    AddMovesEvent.InvokeSOEvent();
+                    SimpleEventsHolder.AddMovesEvent?.Invoke();
                     _isEnable = false;
                 }
                 else if (CanUndo.Value == 1)
                 {
                     CanUndo.Value = 0;
-                    RewardUndoEvent.InvokeSOEvent();
+                    SimpleEventsHolder.RewardUndoEvent?.Invoke();
                     _isEnable = false;
                 }
                 else if (CanAddExtraTube.Value == 1)
                 {
                     CanAddExtraTube.Value = 0;
-                    RewardExtraTubeEvent.InvokeSOEvent();
+                    SimpleEventsHolder.RewardExtraTubeEvent?.Invoke();
                     _isEnable = false;
                 }
                 else if (CanSwitchColor.Value == 1)
                 {
                     CanSwitchColor.Value = 0;
-                    RewardSwitchColor.InvokeSOEvent();
+                    SimpleEventsHolder.RewardSwapColor?.Invoke();
                     _isEnable = false;
                 }
                 else if (CanMultiply.Value == 1)
                 {
                     CanMultiply.Value = 0;
-                    CompletePanelRewardEvent.InvokeSOEvent();
+                    SimpleEventsHolder.MultiplayRewardEvent?.Invoke();
                     _isEnable = false;
                 }
                 else if (CanDoubleReward.Value == 1)
                 {
                     CanDoubleReward.Value = 0;
-                    DoubleDailyRewardEvent.InvokeSOEvent();
+                    SimpleEventsHolder.DoubleDailyRewardEvent?.Invoke();
                     _isEnable = false;
                 }
                 else if (CanSpin.Value == 1)
                 {
                     CanSpin.Value = 0;
-                    SpinEvent.InvokeSOEvent();
+                    SimpleEventsHolder.RewardSpinWheelEvent?.Invoke();
                     _isEnable = false;
                 }
                 else if (CanCaps.Value == 1)
                 {
                     CanCaps.Value = 0;
-                    BuyCaps.InvokeSOEvent();
+                    SimpleEventsHolder.BuyCaps?.Invoke();
                     _isEnable = false;
                 }
                 else if (CanSprays.Value == 1)
                 {
                     CanSprays.Value = 0;
-                    BuySprays.InvokeSOEvent();
+                    SimpleEventsHolder.BuySprays?.Invoke();
                     _isEnable = false;
                 }
                 else if (CanFlames.Value == 1)
                 {
                     CanFlames.Value = 0;
-                    BuyFlames.InvokeSOEvent();
+                    SimpleEventsHolder.BuyFlames?.Invoke();
                     _isEnable = false;
                 }
                 else if (CanBlockAds.Value == 1)
                 {
                     CanBlockAds.Value = 0;
-                    AdsBlockerEvent.InvokeSOEvent();
+                    SimpleEventsHolder.AdsBlockerEvent?.Invoke();
                     _isEnable = false;
                 }
             }

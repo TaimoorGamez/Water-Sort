@@ -9,7 +9,6 @@ namespace Core.GamePlay.WaterSort
 {
     public class WaterSortTutorialThree : MonoBehaviour
     {
-        [SerializeField] SOEvents StartColoringEvent;
         [SerializeField] SOIntegerEvents SwitchProtectorEvent;
         [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
         [SerializeField] TubeHandler FirstTube, SecondTube, ThirdTube, ForthTube, ExtraTube;
@@ -25,12 +24,12 @@ namespace Core.GamePlay.WaterSort
 
         private void OnEnable()
         {
-            StartColoringEvent.EventHandler += ColoringPreparation;
+            SimpleEventsHolder.StartColoringEvent += ColoringPreparation;
         }
 
         private void OnDisable()
         {
-            StartColoringEvent.EventHandler -= ColoringPreparation;
+            SimpleEventsHolder.StartColoringEvent -= ColoringPreparation;
         }
 
         private void Start()

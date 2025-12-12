@@ -3,17 +3,16 @@ using Core.Events;
 
 public class SelfDestruct : MonoBehaviour
 {
-    [SerializeField] SOEvents SelfDestructionEvent;
     [SerializeField] float BlasTime;
 
     private void OnEnable()
     {
-        SelfDestructionEvent.EventHandler += BlastNow;
+        SimpleEventsHolder.SelfDestructionEvent += BlastNow;
     }
 
     private void OnDisable()
     {
-        SelfDestructionEvent.EventHandler -= BlastNow;
+        SimpleEventsHolder.SelfDestructionEvent -= BlastNow;
     }
 
     void BlastNow()
