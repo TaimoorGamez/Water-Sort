@@ -14,8 +14,6 @@ namespace Core.Screen
         [SerializeField] SOInterger CanPlay, MainMenuStateIndex, GamePlayStateIndex;
         [SerializeField] GameObject MusicOff, SoundOff;
 
-        float _tweenTime = 0.25f;
-
         private void OnEnable()
         {
             UpdateMusicStateEvent.EventHandler += UpdateMusicState;

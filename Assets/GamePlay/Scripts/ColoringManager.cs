@@ -66,6 +66,9 @@ namespace Core.GamePlay.Coloring
 
         async Task ReleaseHandler()
         {
+            if(!_referenceHandle.IsValid())
+                return;
+
             Addressables.Release(_referenceHandle);
             while (_referenceHandle.IsValid())
                 await Task.Yield();

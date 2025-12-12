@@ -313,6 +313,9 @@ namespace Core.GamePlay.WaterSort
 
         async void ReleaseLevel()
         {
+            if(!_lvlHandle.IsValid())
+                return;
+
             Addressables.Release(_lvlHandle);
             while (_lvlHandle.IsValid())
                 await Task.Yield();
@@ -322,6 +325,9 @@ namespace Core.GamePlay.WaterSort
         {
             ReleaseLevel();
             await Task.Yield();
+            if (!_tubeHandle.IsValid())
+                return;
+
             Addressables.Release(_tubeHandle);
             while (_tubeHandle.IsValid())
                 await Task.Yield();

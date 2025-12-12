@@ -1,7 +1,7 @@
+using Core.Events;
 using Core.Store;
 using DG.Tweening;
 using UnityEngine;
-using Core.Events;
 using Core.Economy;
 using UnityEngine.UI;
 using Core.DB.Variables;
@@ -26,6 +26,7 @@ namespace Core.Screen
         int _cardIndex = 0, _totalStoreItems = 18, _flamesLength = 4, _capsLength = 6;
         Vector2 _cardPosition = new Vector2(0, -350);
         string _flamesPath = "Store/Flame/", _capsPath = "Store/Cap/", _spraysPath = "Store/Spray/";
+        AsyncOperationHandle _itemHandle;
 
         private void Start()
         {
@@ -69,24 +70,22 @@ namespace Core.Screen
 
         async void LoadRewardItem(string path)
         {
-            AsyncOperationHandle<GameObject> itemHandle = Addressables.LoadAssetAsync<GameObject>(path);
-            await itemHandle.Task;
+            _itemHandle = Addressables.LoadAssetAsync<GameObject>(path);
+            await _itemHandle.Task;
 
-            if (itemHandle.Status != AsyncOperationStatus.Succeeded)
+            if (_itemHandle.Status != AsyncOperationStatus.Succeeded)
             {
                 Debug.LogError($"Failed to load Addressable prefab at: {path}");
                 return;
             }
 
-            GameObject itemObj = Instantiate(itemHandle.Result, ItemHolders[0]);
+            GameObject itemObj = Instantiate(_itemHandle.Result as GameObject, ItemHolders[0]);
             
             await Task.Yield();
             await Task.Yield();
 
             while (itemObj == null)
                 await Task.Yield();
-
-            Addressables.Release(itemHandle);
         }
 
         void StartUnBoxsing()
@@ -117,6 +116,21 @@ namespace Core.Screen
             {
                 Body.DOAnchorPosX(1500, _tweenTime).SetEase(Ease.OutBack).OnComplete(() => gameObject.SetActive(false));
             }
+        }
+
+        private async void OnDisable()
+        {
+            await ReleaseHandler();
+        }
+
+        async Task ReleaseHandler()
+        {
+            if (!_itemHandle.IsValid())
+                return;
+
+            Addressables.Release(_itemHandle);
+            while (_itemHandle.IsValid())
+                await Task.Yield();
         }
     }
 }

@@ -19,19 +19,19 @@ namespace Core.GamePlay.WaterSort
         AsyncOperationHandle _coloringHandle;
 
 
-        private async void OnEnable()
+        private void OnEnable()
         {
             InitLevelEvent.EventHandler += InitColoring;
             RestartLevelEvent.EventHandler += RegenrateColoring;
             DestroyLevelEvent.EventHandler += DestroyColoring;
-            await ReleaseHandler();
         }
 
-        private void OnDisable()
+        private async void OnDisable()
         {
             InitLevelEvent.EventHandler -= InitColoring;
             RestartLevelEvent.EventHandler -= RegenrateColoring;
             DestroyLevelEvent.EventHandler -= DestroyColoring;
+            await ReleaseHandler();
         }
 
         void InitColoring()
@@ -73,6 +73,9 @@ namespace Core.GamePlay.WaterSort
 
         async Task ReleaseHandler()
         {
+            if(!_coloringHandle.IsValid())
+                return;
+
             Addressables.Release(_coloringHandle);
             while (_coloringHandle.IsValid())
                 await Task.Yield();

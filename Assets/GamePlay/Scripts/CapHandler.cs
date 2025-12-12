@@ -58,6 +58,9 @@ namespace Core.GamePlay.WaterSort
 
         async Task ReleaseHandler()
         {
+            if (!_capHandle.IsValid())
+                return;
+
             Addressables.Release(_capHandle);
             while (_capHandle.IsValid())
                 await Task.Yield();

@@ -255,6 +255,9 @@ namespace Core.Screen
 
         async Task ReleaseHandler()
         {
+            if(!_txtHandle.IsValid())
+                return;
+
             Addressables.Release(_txtHandle);
             while (_txtHandle.IsValid())
                 await Task.Yield();

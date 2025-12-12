@@ -56,13 +56,19 @@ namespace Core.GamePlay.Coloring
 
         async Task ReleaseHandler()
         {
+            if (!_sprayHandle.IsValid())
+                return;
+
             Addressables.Release(_sprayHandle);
             while (_sprayHandle.IsValid())
-                await Task.Yield();
+            { await Task.Yield(); }
+
+            if (!_flameHandle.IsValid())
+                return;
 
             Addressables.Release(_flameHandle);
             while (_flameHandle.IsValid())
-                await Task.Yield();
+            { await Task.Yield(); }
         }
 
         private void Start()
