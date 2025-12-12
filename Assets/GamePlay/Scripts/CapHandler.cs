@@ -12,6 +12,7 @@ namespace Core.GamePlay.WaterSort
         
         string _capsPath = "GamePlay/Cap/";
         CapAnimation _myAnimation;
+        AsyncOperationHandle _capHandle;
 
         private void Start()
         {
@@ -20,25 +21,23 @@ namespace Core.GamePlay.WaterSort
 
         async void LoadCapItem(string path)
         {
-            AsyncOperationHandle<GameObject> capHandle = Addressables.LoadAssetAsync<GameObject>(path);
-            await capHandle.Task;
+            _capHandle = Addressables.LoadAssetAsync<GameObject>(path);
+            await _capHandle.Task;
 
-            if (capHandle.Status != AsyncOperationStatus.Succeeded)
+            if (_capHandle.Status != AsyncOperationStatus.Succeeded)
             {
                 Debug.LogError($"Failed to load Addressable prefab at: {path}");
                 return;
             }
 
             _myAnimation = null;
-            GameObject obj = Instantiate(capHandle.Result, transform);
+            GameObject obj = Instantiate(_capHandle.Result as GameObject, transform);
             await Task.Yield();
             await Task.Yield();
             _myAnimation = obj.GetComponent<CapAnimation>();
 
             while (_myAnimation == null)
                 await Task.Yield();
-
-            Addressables.Release(capHandle);
         }
 
         public void PlayCelebration(Color currentColor)
@@ -50,6 +49,18 @@ namespace Core.GamePlay.WaterSort
         public void HideCap()
         {
            _myAnimation.gameObject.SetActive(false);
+        }
+
+        private async void OnDisable()
+        {
+            await ReleaseHandler();
+        }
+
+        async Task ReleaseHandler()
+        {
+            Addressables.Release(_capHandle);
+            while (_capHandle.IsValid())
+                await Task.Yield();
         }
     }
 }

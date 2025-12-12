@@ -1,6 +1,6 @@
-using UnityEngine;
-using DG.Tweening;
 using Core.Events;
+using DG.Tweening;
+using UnityEngine;
 using Core.Variables;
 using Core.DB.Variables;
 using System.Threading.Tasks;
@@ -20,15 +20,17 @@ namespace Core.GamePlay.Coloring
 
         float _preparationTime = 1;
         string _refferancePath = "Level/Reference/";
+        AsyncOperationHandle _referenceHandle;
 
         private void OnEnable()
         {
             StartColoringEvent.EventHandler += StartColoring;
         }
 
-        private void OnDisable()
+        private async void OnDisable()
         {
             StartColoringEvent.EventHandler -= StartColoring;
+            await ReleaseHandler();
         }
 
         void StartColoring()
@@ -44,24 +46,29 @@ namespace Core.GamePlay.Coloring
 
         async void LoadReferenceObj(string path)
         {
-            AsyncOperationHandle<GameObject> referenceHandle = Addressables.LoadAssetAsync<GameObject>(path);
-            await referenceHandle.Task;
+            _referenceHandle = Addressables.LoadAssetAsync<GameObject>(path);
+            await _referenceHandle.Task;
 
-            if (referenceHandle.Status != AsyncOperationStatus.Succeeded)
+            if (_referenceHandle.Status != AsyncOperationStatus.Succeeded)
             {
                 Debug.LogError($"Failed to load Addressable prefab at: {path}");
                 return;
             }
 
-            GameObject referenceObj = Instantiate(referenceHandle.Result, RefferanceBar.GetChild(0));
+            GameObject referenceObj = Instantiate(_referenceHandle.Result as GameObject, RefferanceBar.GetChild(0));
 
             await Task.Yield();
             await Task.Yield();
 
             while (referenceObj == null)
                 await Task.Yield();
+        }
 
-            Addressables.Release(referenceHandle);
+        async Task ReleaseHandler()
+        {
+            Addressables.Release(_referenceHandle);
+            while (_referenceHandle.IsValid())
+                await Task.Yield();
         }
     }
 }

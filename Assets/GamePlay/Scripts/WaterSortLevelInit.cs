@@ -20,11 +20,12 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] SOInterger IsHiddenLevel, CanPlay, TotalMoves, BtnOnceClicked, MainMenuStateIndex, CurrrentLvl, TempLvlIndex;
         [SerializeField] SOEvents InitLevelEvent, ExtraTubeEvent, RestartLevelEvent, DestroyLevelEvent, StartColoringEvent, ChangeExtraTubeStatEvent,
                                   UpdateMovesEvent;
-        [SerializeField] TubeHandler TubePrefab;
         [SerializeField] Vector3[] TubePositions, BowlPositions;
         [SerializeField] BowlColorHandler BowlObj;
 
         string _sortingLvlPath = "Level/Sort/";
+        string _tubePath = "GamePlay/WaterSort/Tube";
+        TubeHandler _tubePrefab;
         List<TubeHandler> _colorTubes = new List<TubeHandler>();
         List<TubeHandler> _totalTubes = new List<TubeHandler>();
         Coroutine lvlMakingRotine;
@@ -32,6 +33,7 @@ namespace Core.GamePlay.WaterSort
         SOColors _levelColors;
         Dictionary<int, List<Color32>> _currentLevelColors = new Dictionary<int, List<Color32>>();
         Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f);
+        AsyncOperationHandle _lvlHandle, _tubeHandle;
 
         private void OnEnable()
         {
@@ -42,13 +44,19 @@ namespace Core.GamePlay.WaterSort
             StartColoringEvent.EventHandler += ColoringPreparation;
         }
 
-        private void OnDisable()
+        private async void OnDisable()
         {
             InitLevelEvent.EventHandler -= InitNewLevel;
             ExtraTubeEvent.EventHandler -= OnAddTubeClick;
             RestartLevelEvent.EventHandler -= RestartLevel;
             DestroyLevelEvent.EventHandler -= DestroyLevel;
             StartColoringEvent.EventHandler -= ColoringPreparation;
+            await ReleaseHandler();
+        }
+
+        private void Start()
+        {
+            LoadWaterSortTube();
         }
 
         void InitNewLevel()
@@ -78,12 +86,33 @@ namespace Core.GamePlay.WaterSort
                 LoadAddressableLevels<SOColors>(_sortingLvlPath + TempLvlIndex.Value);
             }
         }
+
+        async void LoadWaterSortTube()
+        {
+            _tubeHandle = Addressables.LoadAssetAsync<GameObject>(_tubePath);
+            await _tubeHandle.Task;
+
+            if (_tubeHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.LogError($"Failed to load Addressable prefab at: {_tubePath}");
+                return;
+            }
+            _tubePrefab = null;
+            GameObject tubeObj = _tubeHandle.Result as GameObject;
+            _tubePrefab = tubeObj.GetComponent<TubeHandler>();
+
+            await Task.Yield();  // frame 1
+
+            while (_tubePrefab == null)
+                await Task.Yield();
+        }
+
         async void LoadAddressableLevels<T>(string path)
         {
-            AsyncOperationHandle<T> lvlHandle = Addressables.LoadAssetAsync<T>(path);
-            await lvlHandle.Task;
+            _lvlHandle = Addressables.LoadAssetAsync<T>(path);
+            await _lvlHandle.Task;
 
-            if (lvlHandle.Status != AsyncOperationStatus.Succeeded)
+            if (_lvlHandle.Status != AsyncOperationStatus.Succeeded)
             {
                 Debug.LogError($"Failed to load Addressable prefab at: {path}");
                 return;
@@ -91,7 +120,7 @@ namespace Core.GamePlay.WaterSort
 
             if (LvlIndex.Value < 5)
             {
-                GameObject lvlObj = Instantiate(lvlHandle.Result as GameObject, transform);
+                GameObject lvlObj = Instantiate(_lvlHandle.Result as GameObject, transform);
                 CurrrentLvl.Value = LvlIndex.Value;
 
                 await Task.Yield();  // frame 1
@@ -103,7 +132,7 @@ namespace Core.GamePlay.WaterSort
             else 
             {
                 _levelColors = null;
-                _levelColors = lvlHandle.Result as SOColors;
+                _levelColors = _lvlHandle.Result as SOColors;
                 CurrrentLvl.Value = _levelColors.Colors.Length;
                 _totalTubesCount = CurrrentLvl.Value + 2;
                 lvlMakingRotine = StartCoroutine(GenerateLvl());
@@ -118,14 +147,13 @@ namespace Core.GamePlay.WaterSort
             await Task.Yield();
 
             UpdateMovesEvent.InvokeSOEvent();
-            Addressables.Release(lvlHandle);
         }
 
         IEnumerator GenerateLvl()
         {
             for (int t = 0; t < _totalTubesCount; t++)
             {
-                TubeHandler newTube = Instantiate(TubePrefab, transform);
+                TubeHandler newTube = Instantiate(_tubePrefab, transform);
                 newTube.transform.position = TubePositions[t];
                 _totalTubes.Add(newTube);
                 if (t < CurrrentLvl.Value)
@@ -200,7 +228,7 @@ namespace Core.GamePlay.WaterSort
             SwipeProtectorEvent.InvokeSOEvent(1);
             for (int t = 0; t < _totalTubesCount; t++)
             {
-                TubeHandler newTube = Instantiate(TubePrefab, transform);
+                TubeHandler newTube = Instantiate(_tubePrefab, transform);
                 newTube.transform.position = TubePositions[t];
                 if (t < CurrrentLvl.Value)
                 {
@@ -234,7 +262,7 @@ namespace Core.GamePlay.WaterSort
         {
             if (_totalTubesCount < 10 && CanPlay.Value == 1)
             {
-                TubeHandler newTube = Instantiate(TubePrefab, transform);
+                TubeHandler newTube = Instantiate(_tubePrefab, transform);
                 newTube.transform.position = TubePositions[_totalTubesCount];
                 _totalTubesCount++;
                 _totalTubes.Add(newTube);
@@ -275,11 +303,30 @@ namespace Core.GamePlay.WaterSort
 
         void DestroyLevel()
         {
+            ReleaseLevel();
             int childCount = transform.childCount;
             for (int i = childCount - 1; i >= 0; i--)
             {
                 Destroy(transform.GetChild(i).gameObject);
             }
+        }
+
+        async void ReleaseLevel()
+        {
+            Addressables.Release(_lvlHandle);
+            while (_lvlHandle.IsValid())
+                await Task.Yield();
+        }
+
+        async Task ReleaseHandler()
+        {
+            ReleaseLevel();
+            await Task.Yield();
+            Addressables.Release(_tubeHandle);
+            while (_tubeHandle.IsValid())
+                await Task.Yield();
+
+            await Task.Yield();
         }
     }
 }

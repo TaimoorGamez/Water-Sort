@@ -16,13 +16,15 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] Transform ColoringHolder;
          
         string _coloringPath = "Level/Coloring/";
+        AsyncOperationHandle _coloringHandle;
 
-        
-        private void OnEnable()
+
+        private async void OnEnable()
         {
             InitLevelEvent.EventHandler += InitColoring;
             RestartLevelEvent.EventHandler += RegenrateColoring;
             DestroyLevelEvent.EventHandler += DestroyColoring;
+            await ReleaseHandler();
         }
 
         private void OnDisable()
@@ -39,24 +41,22 @@ namespace Core.GamePlay.WaterSort
 
         async void LoadColoringLvl(string path)
         {
-            AsyncOperationHandle<GameObject> coloringHandle = Addressables.LoadAssetAsync<GameObject>(path);
-            await coloringHandle.Task;
+            _coloringHandle = Addressables.LoadAssetAsync<GameObject>(path);
+            await _coloringHandle.Task;
 
-            if (coloringHandle.Status != AsyncOperationStatus.Succeeded)
+            if (_coloringHandle.Status != AsyncOperationStatus.Succeeded)
             {
                 Debug.LogError($"Failed to load Addressable prefab at: {path}");
                 return;
             }
 
-            GameObject lvlObj = Instantiate(coloringHandle.Result, ColoringHolder);
+            GameObject lvlObj = Instantiate(_coloringHandle.Result as GameObject, ColoringHolder);
 
             await Task.Yield();
             await Task.Yield();
 
             while (lvlObj == null)
                 await Task.Yield();
-
-            Addressables.Release(coloringHandle);
         }
 
         void RegenrateColoring()
@@ -64,9 +64,18 @@ namespace Core.GamePlay.WaterSort
             DestroyColoring();
             InitColoring();
         }
-        void DestroyColoring()
+
+        async void DestroyColoring()
         {
+            await ReleaseHandler();
             Destroy(ColoringHolder.GetChild(0).gameObject);
+        }
+
+        async Task ReleaseHandler()
+        {
+            Addressables.Release(_coloringHandle);
+            while (_coloringHandle.IsValid())
+                await Task.Yield();
         }
     }
 }

@@ -1,7 +1,7 @@
 using TMPro;
 using System.IO;
-using DG.Tweening;
 using UnityEngine;
+using DG.Tweening;
 using Core.Events;
 using Core.Economy;
 using Core.GamePlay;
@@ -41,19 +41,21 @@ namespace Core.Screen
         Vector2 _nextBtnPosition = new Vector2(-135, -430);
         string textFolder = "Appreation/Text/";
         GameObject _textObj;
+        AsyncOperationHandle _txtHandle;
 
         private void OnEnable()
         {
             MultiplayRewardEvent.EventHandler += OnMultiplyReward;
         }
 
-        private void OnDisable()
+        private async void OnDisable()
         {
             MultiplayRewardEvent.EventHandler -= OnMultiplyReward;
             if (_screenShotRotine != null)
             {
                 StopCoroutine(_screenShotRotine);
             }
+            await ReleaseHandler();
         }
 
         void Start()
@@ -73,25 +75,23 @@ namespace Core.Screen
 
         async void LoadAppreationText(string path)
         {
-            AsyncOperationHandle<GameObject> txtHandle = Addressables.LoadAssetAsync<GameObject>(path);
-            await txtHandle.Task;
+            _txtHandle = Addressables.LoadAssetAsync<GameObject>(path);
+            await _txtHandle.Task;
 
-            if (txtHandle.Status != AsyncOperationStatus.Succeeded)
+            if (_txtHandle.Status != AsyncOperationStatus.Succeeded)
             {
                 Debug.LogError($"Failed to load Addressable prefab at: {path}");
                 return;
             }
 
             _textObj = null;
-            _textObj = Instantiate(txtHandle.Result, transform);
+            _textObj = Instantiate(_txtHandle.Result as GameObject, transform);
 
             await Task.Yield();
             await Task.Yield();
 
             while (_textObj == null)
                 await Task.Yield();
-
-            Addressables.Release(txtHandle);
         }
 
         IEnumerator CaptureColoredArea()
@@ -251,6 +251,13 @@ namespace Core.Screen
                 }
                 DestroyStatEvent.InvokeSOEvent(LevelCompleteStateIndex.Value);
             });
+        }
+
+        async Task ReleaseHandler()
+        {
+            Addressables.Release(_txtHandle);
+            while (_txtHandle.IsValid())
+                await Task.Yield();
         }
     }
 }
