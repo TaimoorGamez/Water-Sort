@@ -10,7 +10,6 @@ namespace Core.GamePlay.WaterSort
     public class WaterSortTutorialTwo : MonoBehaviour
     {
         [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
-        [SerializeField] SOIntegerEvents SwitchProtectorEvent;
         [SerializeField] CapsuleCollider MyCollider, SecondCollider, ThirdCollider;
         [SerializeField] TubeHandler MyLiquid, OtherLiquid, ThirdLiquid;
         [SerializeField] GameObject InfoTextObj, UndoBtn;
@@ -65,7 +64,7 @@ namespace Core.GamePlay.WaterSort
                 OtherLiquid.SetColor(CurrentColors[_colorIndex]);
                 yield return new WaitForSeconds(0.1f);
             }
-            SwitchProtectorEvent.InvokeSOEvent(0);
+            SingleIntegerEventsHolder.SwitchProtectorEvent?.Invoke(0);
             MyCollider.enabled = true;
             CanPlay.Value = 1;
             HandObj.gameObject.SetActive(true);

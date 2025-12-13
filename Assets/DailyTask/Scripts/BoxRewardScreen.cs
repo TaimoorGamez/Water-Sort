@@ -1,6 +1,6 @@
-using Core.Events;
 using Core.Store;
 using DG.Tweening;
+using Core.Events;
 using UnityEngine;
 using Core.Economy;
 using UnityEngine.UI;
@@ -11,13 +11,11 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Core.Screen
 {
-    public class BoxRewardScreen : MonoBehaviour
+    public class BoxRewardScreen : UiScreens
     {
-        [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] Currency CashCurrency;
         [SerializeField] DBInt[] PowersData;
         [SerializeField] ItemData[] StorItemsData;
-        [SerializeField] RectTransform Body;
         [SerializeField] RectTransform[] Cards, ItemHolders;
         [SerializeField] Sprite[] PowerSprites;
         [SerializeField] Image PowerImage;
@@ -30,7 +28,13 @@ namespace Core.Screen
 
         private void Start()
         {
-            Body.DOAnchorPosX(0, _tweenTime).SetEase(Ease.OutBack).OnComplete(()=> CardReward());
+            OnOpen();
+        }
+
+        public override void OnOpen()
+        {
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
+            Body.DOAnchorPosX(0, _tweenTime).SetEase(Ease.OutBack).OnComplete(() => CardReward());
         }
 
         void CardReward()
@@ -90,7 +94,7 @@ namespace Core.Screen
 
         void StartUnBoxsing()
         {
-            SoundEffectEvent.InvokeSOEvent(3);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
             Cards[_cardIndex].DOAnchorPos(_cardPosition, _unboxingTime).SetEase(Ease.OutQuad);
             Cards[_cardIndex].DOScale(_cardSize, _unboxingTime).SetEase(Ease.OutBack);
             Cards[_cardIndex].DOLocalRotate(new Vector3(0, 360f, 0), _unboxingTime / 2, RotateMode.FastBeyond360)
@@ -114,8 +118,14 @@ namespace Core.Screen
             }
             else
             {
-                Body.DOAnchorPosX(1500, _tweenTime).SetEase(Ease.OutBack).OnComplete(() => gameObject.SetActive(false));
+                OnClose();
             }
+        }
+
+        public override void OnClose()
+        {
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
+            Body.DOAnchorPosX(1500, _tweenTime).SetEase(Ease.OutBack).OnComplete(() => gameObject.SetActive(false));
         }
 
         private async void OnDisable()

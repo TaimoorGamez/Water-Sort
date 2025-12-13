@@ -8,7 +8,6 @@ namespace Core.States
 {
     public class StateManager : MonoBehaviour
     {
-        [SerializeField] SOIntegerEvents ActiveStateEvent, DeactiveStateEvent, DestroyStateEvent;
         [SerializeField] GameState[] AllStates;
         [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, LeveCompleteStateIndex;
 
@@ -16,15 +15,15 @@ namespace Core.States
 
         private void OnEnable()
         {
-            ActiveStateEvent.EventHandler += ActiveeState;
-            DeactiveStateEvent.EventHandler += DeactiveState;
-            DestroyStateEvent.EventHandler += DestroyState;
+            SingleIntegerEventsHolder.ActiveStateEvent += ActiveeState;
+            SingleIntegerEventsHolder.DeActiveStateEvent += DeactiveState;
+            SingleIntegerEventsHolder.DestroyStatEvent += DestroyState;
         }
         private void OnDisable()
         {
-            ActiveStateEvent.EventHandler -= ActiveeState;
-            DeactiveStateEvent.EventHandler -= DeactiveState;
-            DestroyStateEvent.EventHandler -= DestroyState;
+            SingleIntegerEventsHolder.ActiveStateEvent -= ActiveeState;
+            SingleIntegerEventsHolder.DeActiveStateEvent -= DeactiveState;
+            SingleIntegerEventsHolder.DestroyStatEvent -= DestroyState;
         }
 
         private void Start()

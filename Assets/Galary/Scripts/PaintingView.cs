@@ -7,7 +7,6 @@ namespace Core.Screen
 {
     public class PaintingView : MonoBehaviour
     {
-        [SerializeField] SOIntegerEvents ActiveStateEvent, DestroyStateEvent;
         [SerializeField] SOInterger GamePlayStateIndex, MainMenuStateIndex, TempLvlIndex;
         [SerializeField] RawImage PaintingImg;
         [SerializeField] Image[] Stars;
@@ -28,8 +27,8 @@ namespace Core.Screen
         public void GenerateCustomLvl()
         {
             TempLvlIndex.Value = _currentLvl;
-            ActiveStateEvent.InvokeSOEvent(GamePlayStateIndex.Value);
-            DestroyStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
+            SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(GamePlayStateIndex.Value);
+            SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(MainMenuStateIndex.Value);
             SimpleEventsHolder.InitLvlEvent?.Invoke();
         }
     }

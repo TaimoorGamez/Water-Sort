@@ -6,7 +6,6 @@ namespace Core.GamePlay.WaterSort
 {
     public class FlowerAnimation : CapAnimation
     {
-        [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] Renderer MySkin;
         [SerializeField] Texture MyTexture;
 
@@ -32,7 +31,7 @@ namespace Core.GamePlay.WaterSort
             MySkin.SetPropertyBlock(_propBlock); 
             transform.DOLocalMoveY(0,0.2f).OnComplete(() =>
             {
-                SoundEffectEvent.InvokeSOEvent(9);
+                SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(9);
                 DOTween.To(() => 0f, value =>
                 {
                     _propBlock.SetFloat("_ColorRange", value);

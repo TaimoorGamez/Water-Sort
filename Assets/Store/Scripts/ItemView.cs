@@ -1,7 +1,5 @@
 using UnityEngine;
 using DG.Tweening;
-using Core.Events;
-using Core.GamePlay;
 using UnityEngine.UI;
 
 namespace Core.Store
@@ -10,7 +8,6 @@ namespace Core.Store
     {
         public ItemData MyData;
 
-        [SerializeField] protected SOIntegerEvents ChangeItemStatusEvent;
         [SerializeField] protected Image SelectionObj;
 
         [SerializeField] Color32 SelectedImg, ActiveImg;

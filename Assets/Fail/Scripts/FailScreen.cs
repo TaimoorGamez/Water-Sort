@@ -7,7 +7,6 @@ namespace Core.Screen
 {
     public class FailScreen : UiScreens
     {
-        [SerializeField] SOIntegerEvents DestroyStatEvent, ActiveStatEvent, SoundEffectEvent;
         [SerializeField] SOInterger TotalMoves, CanPlay, MainMenuStateIndex, GamePlayStateIndex;
 
         int _extraMoves = 10;
@@ -39,20 +38,20 @@ namespace Core.Screen
         public void GoHome()
         {
             SimpleEventsHolder.DestroyLevelEvent?.Invoke();
-            DestroyStatEvent.InvokeSOEvent(GamePlayStateIndex.Value);
-            ActiveStatEvent.InvokeSOEvent(MainMenuStateIndex.Value);
+            SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(GamePlayStateIndex.Value);
+            SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(MainMenuStateIndex.Value);
             OnClose();
         }
 
         public override void OnOpen()
         {
-            SoundEffectEvent.InvokeSOEvent(3);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
             Body.DOScale(1, _transitionDuration).SetEase(Ease.OutBack);
         }
 
         public override void OnClose()
         {
-            SoundEffectEvent.InvokeSOEvent(2);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             Body.DOScale(0, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => Destroy(gameObject));
         }
     }

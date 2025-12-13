@@ -16,7 +16,6 @@ namespace Core.GamePlay.Coloring
     {
         [SerializeField] DBInt CurrentSpray, CurrentFlame, Sound;
         [SerializeField] SOInterger LevelStars, DetailsApplied, CompleteStateIndex;
-        [SerializeField] SOIntegerEvents SoundEffectEvent, ActiveStateEvent;
         [SerializeField] RectTransform SprayCan, FlameThrower, ColoringParts;
         [SerializeField] AudioSource SpraySound, FlameSound;
         [SerializeField] Vector2Int VerticalRange, HorizontalRange;
@@ -127,7 +126,7 @@ namespace Core.GamePlay.Coloring
                     FlameThrower.gameObject.SetActive(false);
                     Details.DOFillAmount(1, _detailFillingTime);
                     HideRemaingPixles();
-                    SoundEffectEvent.InvokeSOEvent(6);
+                    SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(6);
                     StarParticles.Play();
                     ColoringParts.DOScale(1.35f, _preparationTime).SetEase(Ease.OutBack).OnComplete(() =>
                     {
@@ -142,7 +141,7 @@ namespace Core.GamePlay.Coloring
             ColoringParts.DOScale(0.75f, _preparationTime);
             ColoringParts.DOAnchorPosY(_finalPos, _preparationTime).OnComplete(() =>
             {
-                ActiveStateEvent.InvokeSOEvent(CompleteStateIndex.Value);
+                SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(CompleteStateIndex.Value);
             });
         }
 
@@ -240,7 +239,7 @@ namespace Core.GamePlay.Coloring
             }
 
             _bubbleCounter++;
-            SoundEffectEvent.InvokeSOEvent(5);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(5);
             // Save the new position as the last applied position
             _lastAppliedCenterX = centerX;
             _lastAppliedCenterY = centerY;

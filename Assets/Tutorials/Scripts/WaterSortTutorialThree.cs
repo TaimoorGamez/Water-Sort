@@ -9,7 +9,6 @@ namespace Core.GamePlay.WaterSort
 {
     public class WaterSortTutorialThree : MonoBehaviour
     {
-        [SerializeField] SOIntegerEvents SwitchProtectorEvent;
         [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
         [SerializeField] TubeHandler FirstTube, SecondTube, ThirdTube, ForthTube, ExtraTube;
         [SerializeField] GameObject InfoTextObj;
@@ -65,7 +64,7 @@ namespace Core.GamePlay.WaterSort
                 ThirdTube.SetColor(CurrentColors[_colorIndex]);
                 yield return new WaitForSeconds(0.1f);
             }
-            SwitchProtectorEvent.InvokeSOEvent(0);
+            SingleIntegerEventsHolder.SwitchProtectorEvent?.Invoke(0);
             CanPlay.Value = 1;
             HandObj.gameObject.SetActive(true);
             TutorialCircle.gameObject.SetActive(true);

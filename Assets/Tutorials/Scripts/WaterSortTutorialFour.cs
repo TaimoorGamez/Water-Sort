@@ -9,7 +9,6 @@ namespace Core.GamePlay.WaterSort
 {
     public class WaterSortTutorialFour : MonoBehaviour
     {
-        [SerializeField] SOIntegerEvents SwitchProtectorEvent;
         [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
         [SerializeField] CapsuleCollider ColliderOne, ColliderTwo, ColliderThree, ColliderFour, ColliderFive;
         [SerializeField] TubeHandler FirstTube, SecondTube, ThirdTube, ForthTube, FifthTube, SixthTube;
@@ -86,7 +85,7 @@ namespace Core.GamePlay.WaterSort
                 }
                 ForthTube.SetColor(CurrentColors[_colorIndex]);
             }
-            SwitchProtectorEvent.InvokeSOEvent(0);
+            SingleIntegerEventsHolder.SwitchProtectorEvent?.Invoke(0);
             CanPlay.Value = 1;
             Circle.gameObject.SetActive(true);
             Circle.DOScale(1, _tutorialAnimationTime).SetEase(Ease.Linear).OnComplete(() => {

@@ -17,7 +17,6 @@ namespace Core.Screen
         [SerializeField] AdmobInitialization AdmobInit;
         [SerializeField] InAppPurchase InAppPurchaser;
         [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, TempLvlIndex, IsFirebaseInit, InAppInitialized, AdmobInitialized;
-        [SerializeField] SOIntegerEvents ActiveStateEvent, DestroyStateEvent;
         [SerializeField] TextMeshProUGUI[] Lvls;
         [SerializeField] Transform LevelView;
         [SerializeField] RectTransform LevelsHolder;
@@ -67,8 +66,8 @@ namespace Core.Screen
         public void OnClickPlayButton()
         {
             SimpleEventsHolder.InitLvlEvent?.Invoke();
-            ActiveStateEvent.InvokeSOEvent(GamePlayStateIndex.Value);
-            DestroyStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
+            SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(GamePlayStateIndex.Value);
+            SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(MainMenuStateIndex.Value);
         }
 
         public void OpenPrivacyPolicy()

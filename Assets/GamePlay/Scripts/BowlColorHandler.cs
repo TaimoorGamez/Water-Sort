@@ -6,7 +6,6 @@ namespace Core.GamePlay.Coloring
 {
     public class BowlColorHandler : MonoBehaviour
     {
-        [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] SOColor CurrentColor;
         [SerializeField] SOColorBowl CurrentBowl;
         [SerializeField] Renderer MySkin;
@@ -56,7 +55,7 @@ namespace Core.GamePlay.Coloring
         {
             if (state)
             {
-                SoundEffectEvent.InvokeSOEvent(0);
+                SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(0);
                 _propBlock.SetInteger("_Glow", 1);
                 transform.DOLocalMoveY(_orignalPos.y + 0.2f, 0.1f);
                 WaveParticle.Play();

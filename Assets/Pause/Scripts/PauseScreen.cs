@@ -9,7 +9,6 @@ namespace Core.Screen
     public class PauseScreen : UiScreens
     {
         [SerializeField] DBInt Music, Sound;
-        [SerializeField] SOIntegerEvents DestroyStatEvent, ActiveStatEvent, SoundEffectEvent;
         [SerializeField] SOInterger CanPlay, MainMenuStateIndex, GamePlayStateIndex;
         [SerializeField] GameObject MusicOff, SoundOff;
 
@@ -52,20 +51,20 @@ namespace Core.Screen
         public void GoHome()
         {
             SimpleEventsHolder.DestroyLevelEvent?.Invoke();
-            DestroyStatEvent.InvokeSOEvent(GamePlayStateIndex.Value);
-            ActiveStatEvent.InvokeSOEvent(MainMenuStateIndex.Value);
+            SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(GamePlayStateIndex.Value);
+            SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(MainMenuStateIndex.Value);
             OnClose();
         }
 
         public override void OnOpen()
         {
-            SoundEffectEvent.InvokeSOEvent(3);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
             Body.DOScale(1, _transitionDuration).SetEase(Ease.OutBack);
         }
 
         public override void OnClose()
         {
-            SoundEffectEvent.InvokeSOEvent(2);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             Body.DOScale(0, _transitionDuration / 2).SetEase(Ease.InBack).OnComplete(() => {
                 CanPlay.Value = 1;
                 Destroy(gameObject);

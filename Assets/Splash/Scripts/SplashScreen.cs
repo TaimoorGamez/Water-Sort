@@ -13,11 +13,9 @@ namespace Core.Screen
 {
     public class SplashScreen : UiScreens
     {
-        [SerializeField] ToastManager ToastMsnger;
         [SerializeField] Initialization FirebaseInit;
         [SerializeField] ItemData DefaultCap, DefaultFlame, DefaultSpray;
         [SerializeField] DBInt LvlNum, FFT;
-        [SerializeField] SOIntegerEvents ActiveStateEvent, DestroyStateEvent;
         [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, MinLvlNum;
         [SerializeField] Transform FillImage;
         [SerializeField] TextMeshProUGUI LoadingText;
@@ -44,17 +42,16 @@ namespace Core.Screen
                 LoadingText.text = _loadingTxt + percent + "%";
             }).OnComplete(() =>
             {
-                ToastMsnger.InitToastMsg();
                 if (LvlNum.Value <= MinLvlNum.Value)
                 {
                     SimpleEventsHolder.InitLvlEvent?.Invoke();
-                    ActiveStateEvent.InvokeSOEvent(GamePlayStateIndex.Value);
+                    SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(GamePlayStateIndex.Value);
                 }
                 else
                 {
-                    ActiveStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
+                    SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(MainMenuStateIndex.Value);
                 }
-                DestroyStateEvent.InvokeSOEvent(0);
+                SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(0);
             });
         }
     }

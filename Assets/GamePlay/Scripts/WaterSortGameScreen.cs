@@ -8,7 +8,6 @@ namespace Core.Screen
 {
     public class WaterSortGameScreen : UiScreens
     {
-        [SerializeField] SOIntegerEvents ActiveStateEvent, SwitchProtectorEvent;
         [SerializeField] DBInt LvlNum;
         [SerializeField] SOInterger TotalMoves, CanPlay, LevelFailStateIndex, CompletedTubes, GamePlayStateIndex, PauseStateIndex, MinLvl, CurrrentLvl;
         [SerializeField] GameObject SwipeColorsModePanel, PowerButtons, TopBar, PauseBtn;
@@ -16,14 +15,14 @@ namespace Core.Screen
 
         private void OnEnable()
         {
-            SwitchProtectorEvent.EventHandler += SwitchProtector;
+            SingleIntegerEventsHolder.SwitchProtectorEvent += SwitchProtector;
             SimpleEventsHolder.UpdateMovesEvent += UpdateMovesText;
             SimpleEventsHolder.StartColoringEvent += PrepareForColoring;
         }
 
         private void OnDisable()
         {
-            SwitchProtectorEvent.EventHandler -= SwitchProtector;
+            SingleIntegerEventsHolder.SwitchProtectorEvent -= SwitchProtector;
             SimpleEventsHolder.UpdateMovesEvent -= UpdateMovesText;
             SimpleEventsHolder.StartColoringEvent -= PrepareForColoring;
         }
@@ -66,7 +65,7 @@ namespace Core.Screen
         {
             if (CompletedTubes.Value != CurrrentLvl.Value)
             {
-                ActiveStateEvent.InvokeSOEvent(LevelFailStateIndex.Value);
+                SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(LevelFailStateIndex.Value);
             }
         }
 
@@ -79,7 +78,7 @@ namespace Core.Screen
         public void OnClickPause()
         {
             CanPlay.Value = 0;
-            ActiveStateEvent.InvokeSOEvent(PauseStateIndex.Value);
+            SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(PauseStateIndex.Value);
         }
     }
 }

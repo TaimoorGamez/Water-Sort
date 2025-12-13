@@ -39,6 +39,29 @@ namespace Core.Events
         RewardUndoEvent, RewardExtraTubeEvent, RewardSwapColor;
     }
 
+    public static class SingleIntegerEventsHolder
+    {
+        public static GameEventInteger
+
+        //-------------------UI State Events-------------------
+        ActiveStateEvent, DeActiveStateEvent, DestroyStatEvent,
+
+        //-------------------Economy Events-------------------
+        DepositEvent, TransactionEvent,
+
+        //-------------------Game Flow Events-------------------
+        SwitchProtectorEvent,
+
+        //-------------------Store Events-------------------
+        UpdateItemStatusEvent,
+
+        //-------------------Toast Events-------------------
+        ShowToastEvent,
+
+        //-------------------Sound Events-------------------
+        SoundEffectEvent;
+    }
+
     public static class EventDictionariesHolder
     {
         public static Dictionary<string, GameEvent> NonConsumableProductsEvents = new Dictionary<string, GameEvent>(StringComparer.Ordinal)

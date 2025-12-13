@@ -14,10 +14,9 @@ namespace Core.GamePlay.WaterSort
         public Color CurrentColor;
         public CapHandler TubeCap;
 
-        [SerializeField] SOIntegerEvents SoundEffectEvent, TaostMsgEvent;
         [SerializeField] SOInterger DoingUndo, IsHiddenLevel, CompletedTubes, IsSwaping, CanPlay, UsingAnyFeature;
         [SerializeField] UndoManager UndoManager;
-        [SerializeField] ColorSwiper SwapingManager;
+        [SerializeField] ColorSwaper SwapingManager;
         [SerializeField] SOWaterTube OpenTube;
         [SerializeField] ParticleSystem WaveParticle, DropsParticle, CompleteParticle;
         [SerializeField] LineRenderer WaterLine;
@@ -76,7 +75,7 @@ namespace Core.GamePlay.WaterSort
                     }
                     else
                     {
-                        TaostMsgEvent.InvokeSOEvent(0);
+                        SingleIntegerEventsHolder.ShowToastEvent?.Invoke(0);
                     }
                 }
                 else
@@ -103,14 +102,14 @@ namespace Core.GamePlay.WaterSort
                                 }
                                 else
                                 {
-                                    TaostMsgEvent.InvokeSOEvent(6);
+                                    SingleIntegerEventsHolder.ShowToastEvent?.Invoke(6);
                                     OpenTube.Tube.MoveBackIn();
                                     OpenTube.Tube = null;
                                 }
                             }
                             else
                             {
-                                TaostMsgEvent.InvokeSOEvent(7);
+                                SingleIntegerEventsHolder.ShowToastEvent?.Invoke(7);
                                 OpenTube.Tube.MoveBackIn();
                                 OpenTube.Tube = null;
                             }
@@ -120,7 +119,7 @@ namespace Core.GamePlay.WaterSort
             }
             else if (IsSwaping.Value == 1 && CanPlay.Value == 1 && WaterColors.Count > 0)
             {
-                SoundEffectEvent.InvokeSOEvent(0);
+                SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(0);
                 SwapingManager.AddTubeForSwaping(this);
             }
         }
@@ -259,7 +258,7 @@ namespace Core.GamePlay.WaterSort
         IEnumerator CelebrationOnComplete()
         {
             yield return new WaitForSeconds(0.5f);
-            SoundEffectEvent.InvokeSOEvent(4);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(4);
             CompleteParticle.Play();
             TubeCap.PlayCelebration(CurrentColor);
             yield return new WaitForSeconds(2f);
@@ -322,7 +321,7 @@ namespace Core.GamePlay.WaterSort
         {
             if (state)
             {
-                SoundEffectEvent.InvokeSOEvent(0);
+                SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(0);
                 MyLiquid[WaterColors.Count-1].SetGlow(true);
                 if (IsHiddenLevel.Value != 1)
                 {
@@ -353,7 +352,7 @@ namespace Core.GamePlay.WaterSort
 
         void AddColor(Color currentColor, int layers)
         {
-            SoundEffectEvent.InvokeSOEvent(1);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(1);
             _propertyBlock.SetColor("_BaseColor", currentColor);
             WaterLine.SetPropertyBlock(_propertyBlock);
             _pM.startColor = currentColor;

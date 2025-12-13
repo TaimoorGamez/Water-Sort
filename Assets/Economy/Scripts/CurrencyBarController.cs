@@ -10,7 +10,6 @@ namespace Core.Screen
     public class CurrencyBarController : MonoBehaviour
     {
         [SerializeField] DBInt CurrencyWallet;
-        [SerializeField] SOIntegerEvents DepositEvent, TransactionEvent, SoundEffectEvent;
         [SerializeField] GameObject CurrencyIcon, CurrencyShine;
         [SerializeField] TextMeshProUGUI CurrencyTxt;
         [SerializeField] RectTransform InitLocation, SubmitLocation;
@@ -26,14 +25,14 @@ namespace Core.Screen
             CurrencyShine.SetActive(false);
             _currentAmount = CurrencyWallet.Value;
             CurrencyTxt.text = _currentAmount.ToString();
-            DepositEvent.EventHandler += DepositCash;
-            TransactionEvent.EventHandler += TransactCash;
+            SingleIntegerEventsHolder.DepositEvent += DepositCash;
+            SingleIntegerEventsHolder.TransactionEvent += TransactCash;
         }
 
         private void OnDisable()
         {
-            DepositEvent.EventHandler -= DepositCash;
-            TransactionEvent.EventHandler -= TransactCash;
+            SingleIntegerEventsHolder.DepositEvent -= DepositCash;
+            SingleIntegerEventsHolder.TransactionEvent -= TransactCash;
             DepositEnd();
             TransactionEnd();
         }
@@ -93,7 +92,7 @@ namespace Core.Screen
                     CurrencyShine.SetActive(true);
                     _currentAmount += amountSegment;
                     CurrencyTxt.text = _currentAmount.ToString();
-                    SoundEffectEvent.InvokeSOEvent(8);
+                    SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(8);
                 });
                 yield return new WaitForSeconds(0.1f);
             }
@@ -133,7 +132,7 @@ namespace Core.Screen
             int amountSegment = cashAmount / cashCount;
             for (int t = 0; t < cashCount; t++)
             {
-                SoundEffectEvent.InvokeSOEvent(8);
+                SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(8);
                 CurrencyShine.SetActive(true);
                 _currentAmount -= amountSegment;
                 CurrencyTxt.text = _currentAmount.ToString();

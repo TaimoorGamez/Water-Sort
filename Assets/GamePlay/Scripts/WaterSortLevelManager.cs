@@ -14,7 +14,6 @@ namespace Core.GamePlay.WaterSort
 {
     public class WaterSortLevelManager : MonoBehaviour
     {
-        [SerializeField] SOIntegerEvents SwipeProtectorEvent, ToastMsgEvent;
         [SerializeField] DBInt LvlIndex, LvlNum;
         [SerializeField] SO2IntergerEvent TaskEvent;
         [SerializeField] SOInterger IsHiddenLevel, CanPlay, TotalMoves, BtnOnceClicked, MainMenuStateIndex, CurrrentLvl, TempLvlIndex,
@@ -203,7 +202,7 @@ namespace Core.GamePlay.WaterSort
                     _currentLevelColors[c].Add(col);
                 }
             }
-            SwipeProtectorEvent.InvokeSOEvent(0);
+            SingleIntegerEventsHolder.SwitchProtectorEvent?.Invoke(0);
             CanPlay.Value = 1;
             if (lvlMakingRotine != null)
             {
@@ -226,7 +225,7 @@ namespace Core.GamePlay.WaterSort
             DestroyLevel();
             yield return new WaitForSeconds(0.5f); 
             _totalTubesCount = CurrrentLvl.Value + 2;
-            SwipeProtectorEvent.InvokeSOEvent(1);
+            SingleIntegerEventsHolder.SwitchProtectorEvent?.Invoke(1);
             for (int t = 0; t < _totalTubesCount; t++)
             {
                 TubeHandler newTube = Instantiate(_tubePrefab, transform);
@@ -250,7 +249,7 @@ namespace Core.GamePlay.WaterSort
                 }
             }
             yield return new WaitForSeconds(0.1f);
-            SwipeProtectorEvent.InvokeSOEvent(0);
+            SingleIntegerEventsHolder.SwitchProtectorEvent?.Invoke(0);
             CanPlay.Value = 1;
             BtnOnceClicked.Value = 0;
             if (lvlMakingRotine != null)
@@ -272,7 +271,7 @@ namespace Core.GamePlay.WaterSort
             }
             else if(_totalTubes.Count >= 10)
             {
-                ToastMsgEvent.InvokeSOEvent(5);
+                SingleIntegerEventsHolder.ShowToastEvent?.Invoke(5);
             }
         }
 

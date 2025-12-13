@@ -8,7 +8,6 @@ namespace Core.Screen
 {
     public class RemoveAdsScreen : UiScreens
     {
-        [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] DBInt AdBlocked;
         [SerializeField] DBString AdBlockingTime;
         [SerializeField] GameObject RvBtn, TimerObj;
@@ -45,13 +44,13 @@ namespace Core.Screen
 
         public override void OnOpen()
         {
-            SoundEffectEvent.InvokeSOEvent(3);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
             Body.DOAnchorPosX(0, _transitionDuration).SetEase(Ease.OutBack);
         }
 
         public override void OnClose()
         {
-            SoundEffectEvent.InvokeSOEvent(2);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             Body.DOAnchorPosX(1500, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
         }
     }

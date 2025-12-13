@@ -8,7 +8,6 @@ namespace Core.Screen
     public class DailyRewardScreen : UiScreens
     {
         [SerializeField] DBInt RewardClaimed;
-        [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] GameObject ClaimBtnsObj, TimerTextObj;
         [SerializeField] RectTransform[] RewardItems;
         [SerializeField] RectTransform NiddleRotator;
@@ -50,7 +49,7 @@ namespace Core.Screen
 
         public override void OnOpen()
         {
-            SoundEffectEvent.InvokeSOEvent(3);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
             Body.DOAnchorPosX(0, _transitionDuration).SetEase(Ease.OutBack).OnComplete(() =>
             {
                 for (int i = 0; i < RewardItems.Length; i++)
@@ -62,7 +61,7 @@ namespace Core.Screen
 
         public override void OnClose()
         {
-            SoundEffectEvent.InvokeSOEvent(2);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             Body.DOAnchorPosX(1500, _transitionDuration / 2).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
         }
     }

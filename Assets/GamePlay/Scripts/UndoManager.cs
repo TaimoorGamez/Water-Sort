@@ -12,7 +12,6 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] DBInt LvlNum;
         [SerializeField] SOInterger DoingUndo, UsingAnyFeature, CanPlay, GamePlayStateIndex, MinLvlIndex;
         [SerializeField] SOWaterTube OpenTube;
-        [SerializeField] SOIntegerEvents ToastMsgEvent;
         [SerializeField] SO2IntergerEvent TaskEvent;
 
         Stack<UndoData> _undoMoves = new Stack<UndoData>();
@@ -76,11 +75,11 @@ namespace Core.GamePlay.WaterSort
             }
             else if (_undoMoves.Count < 1)
             {
-                ToastMsgEvent.InvokeSOEvent(2);
+                SingleIntegerEventsHolder.ShowToastEvent?.Invoke(2);
             }
             else if (UsingAnyFeature.Value == 1)
             {
-                ToastMsgEvent.InvokeSOEvent(4);
+                SingleIntegerEventsHolder.ShowToastEvent?.Invoke(4);
             }
         }
     }

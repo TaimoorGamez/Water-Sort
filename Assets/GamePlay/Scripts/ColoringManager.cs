@@ -13,7 +13,6 @@ namespace Core.GamePlay.Coloring
     {
         [SerializeField] DBInt LevelIndex;
         [SerializeField] SOInterger TempLevelIndex;
-        [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] RectTransform ColoringImage;
         [SerializeField] Transform RefferanceBar;
 
@@ -34,7 +33,7 @@ namespace Core.GamePlay.Coloring
 
         void StartColoring()
         {
-            SoundEffectEvent.InvokeSOEvent(3);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
             ColoringImage.DOScale(Vector3.one, _preparationTime);
             ColoringImage.DOAnchorPos(Vector2.zero, _preparationTime).OnComplete(() =>
             {

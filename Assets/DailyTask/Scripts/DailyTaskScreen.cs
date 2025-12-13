@@ -9,7 +9,6 @@ namespace Core.Screen
     public class DailyTaskScreen : UiScreens
     {
         [SerializeField] Currency CashCurrency;
-        [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] TaskManager CurrenTaskManager;
         [SerializeField] RectTransform BoxPanel, RewardFillBar;
         [SerializeField] TaskBar[] TaskBars;
@@ -80,12 +79,12 @@ namespace Core.Screen
         }
         public override void OnOpen()
         {
-            SoundEffectEvent.InvokeSOEvent(3);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
             Body.DOScale(0.9f, _transitionDuration).SetEase(Ease.OutBack);
         }
         public override void OnClose()
         {
-            SoundEffectEvent.InvokeSOEvent(2);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             Body.DOScale(0, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => {
                 NotificationObj.SetActive(false);
                 gameObject.SetActive(false);

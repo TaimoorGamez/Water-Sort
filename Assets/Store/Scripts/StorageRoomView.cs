@@ -13,7 +13,6 @@ namespace Core.Screen
     public class StorageRoomView : MonoBehaviour
     {
         [SerializeField] SODictionary_Int_Gameobject ItemInstances;
-        [SerializeField] SOIntegerEvents ChangeItemStatusEvent;
         [SerializeField] DBInt CurrentActiveItem;
         [SerializeField] ItemView[] RoomItems;
         [SerializeField] RectTransform Content, Viewport;
@@ -36,7 +35,7 @@ namespace Core.Screen
             {
                 Debug.Log($"Buy event key '{BuyEventName}' does not exist.");
             }
-            ChangeItemStatusEvent.EventHandler += ChangeItemStatus;
+            SingleIntegerEventsHolder.UpdateItemStatusEvent += ChangeItemStatus;
             _selectedItem = CurrentActiveItem.Value;
             _activationRotine = StartCoroutine(ActiveStorageRoom());
             ChangeItemStatus(_selectedItem);
@@ -52,7 +51,7 @@ namespace Core.Screen
             {
                 Debug.Log($"Buy event key '{BuyEventName}' does not exist.");
             }
-            ChangeItemStatusEvent.EventHandler -= ChangeItemStatus;
+            SingleIntegerEventsHolder.UpdateItemStatusEvent -= ChangeItemStatus;
             StopActiveRotines();
             if (_currentItem != null)
             {

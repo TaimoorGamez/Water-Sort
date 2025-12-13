@@ -10,7 +10,6 @@ namespace Core.Screen
 {
     public class SpinWheelScreen : UiScreens, ISpinWheel
     {
-        [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] DBInt DailySpin;
         [SerializeField] GameObject SpinBtn, RvBtn, SpinNotification;
         [SerializeField] RectTransform SegmentParent, Shine, RewardPanel, Wheel;
@@ -114,7 +113,7 @@ namespace Core.Screen
             float finalAngle = (360f * 5) + targetAngle;
             SegmentParent.DOLocalRotate(new Vector3(0, 0, finalAngle), _spinDuration, RotateMode.FastBeyond360).SetEase(Ease.OutQuart).OnComplete(() =>
             {
-                SoundEffectEvent.InvokeSOEvent(3);
+                SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
                 Shine.DOScale(Vector3.one,_tweenDiration).SetEase(Ease.OutBack).OnComplete(()=>Shine.localScale = Vector3.zero).OnComplete(()=>{
                     Shine.localScale = Vector3.zero;
                     RewardIcon.sprite = SpinWheelData.SpinWheelRewards[rewardIndex].Icon;
@@ -131,29 +130,29 @@ namespace Core.Screen
                 });
                 _allSpinSegments[rewardIndex].ChangeGradient(RewardedColor);
             });
-            SoundEffectEvent.InvokeSOEvent(10);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(10);
         }
 
         void CloseRewardPanel()
         {
-            SoundEffectEvent.InvokeSOEvent(2);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             RewardPanel.DOScale(Vector3.zero, _transitionDuration/2).SetEase(Ease.InBack);
         }
 
         public override void OnOpen()
         {
-            SoundEffectEvent.InvokeSOEvent(3);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
             Body.DOAnchorPosX(0, _transitionDuration).SetEase(Ease.OutBack).OnComplete(() => {
-                SoundEffectEvent.InvokeSOEvent(5);
+                SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(5);
                 Wheel.DOScale(Vector3.one, _transitionDuration).SetEase(Ease.OutBack);
             });
         }
 
         public override void OnClose()
         {
-            SoundEffectEvent.InvokeSOEvent(5);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(5);
             Wheel.DOScale(Vector3.zero, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => {
-                SoundEffectEvent.InvokeSOEvent(2);
+                SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
                 Body.DOAnchorPosX(-1500, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
             });
         }

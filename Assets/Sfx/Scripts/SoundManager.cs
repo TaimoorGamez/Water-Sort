@@ -6,7 +6,6 @@ namespace Core.Sfx
 {
     public class SoundManager : MonoBehaviour
     {
-        [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] DBInt Music, Sound;
         [SerializeField] AudioClip BgMusic, BtnClick;
         [SerializeField] AudioClip[] EffectClips;
@@ -19,7 +18,7 @@ namespace Core.Sfx
             SimpleEventsHolder.UpdateMusicStateEvent += UpdateBGMusicState;
             SimpleEventsHolder.UpdateSoundStateEvent += UpdateSoundState;
             SimpleEventsHolder.BtnPressSfxEvent += PlayBtnSound;
-            SoundEffectEvent.EventHandler += PlaySoundEffect;
+            SingleIntegerEventsHolder.SoundEffectEvent += PlaySoundEffect;
         }
 
         private void OnDisable()
@@ -27,7 +26,7 @@ namespace Core.Sfx
             SimpleEventsHolder.UpdateMusicStateEvent -= UpdateBGMusicState;
             SimpleEventsHolder.UpdateSoundStateEvent -= UpdateSoundState;
             SimpleEventsHolder.BtnPressSfxEvent -= PlayBtnSound;
-            SoundEffectEvent.EventHandler -= PlaySoundEffect;
+            SingleIntegerEventsHolder.SoundEffectEvent -= PlaySoundEffect;
         }
 
         private void Start()

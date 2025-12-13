@@ -9,7 +9,6 @@ namespace Core.Screen
     public class SettingScreen : UiScreens
     {
         [SerializeField] DBInt Music, Sound;
-        [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] SOInterger SettingStateIndex;
         [SerializeField] RectTransform MusicBtn, SoundBtn;
         [SerializeField] GameObject MusicOff, SoundOff;
@@ -23,7 +22,7 @@ namespace Core.Screen
         {
             UpdateMusicUI();
             UpdateSoundUI();
-            SoundEffectEvent.InvokeSOEvent(2);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             MusicBtn.DOAnchorPosY(-150, _transitionDuration).SetEase(Ease.OutBack);
             SoundBtn.DOAnchorPosY(-240, _transitionDuration).SetEase(Ease.OutBack);
         }
@@ -56,7 +55,7 @@ namespace Core.Screen
         {
             MusicBtn.DOAnchorPosY(-60, _transitionDuration).SetEase(Ease.InBack);
             SoundBtn.DOAnchorPosY(-60, _transitionDuration).SetEase(Ease.InBack).OnComplete(()=>gameObject.SetActive(false));
-            SoundEffectEvent.InvokeSOEvent(2);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
         }
     }
 }

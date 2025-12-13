@@ -22,7 +22,6 @@ namespace Core.Screen
         [SerializeField] SOInterger LevelStars, CanPlay, MainMenuStateIndex, LevelMoves, DetailsApplied, GamePlayState, LevelCompleteStateIndex,
                                      MinLvlCount, MaxLvlCount, TempLvlIndex, CurrentMultiplayer,SortingCompleted;
         [SerializeField] SO2IntergerEvent TaskEvent;
-        [SerializeField] SOIntegerEvents SoundEffectEvent, ActiveStateEvent, DestroyStatEvent;
         [SerializeField] TextMeshProUGUI LevelBonusText, StarsBonusText, DetailsBonusText, MovesBonusText, TotalBonusText;
         [SerializeField] Camera ScreenshotCamera;
         [SerializeField] RenderTexture TargetTexture;
@@ -148,7 +147,7 @@ namespace Core.Screen
 
         void OnPanelVisible()
         {
-            DestroyStatEvent.InvokeSOEvent(GamePlayState.Value);
+            SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(GamePlayState.Value);
             if (LvlNum.Value >= MinLvlCount.Value)
             {
                 NextBtn.DOAnchorPos(_nextBtnPosition, _durationTweeing).SetEase(Ease.InOutBack).OnComplete(() =>
@@ -160,7 +159,7 @@ namespace Core.Screen
             StarsObj.DOAnchorPosY(_starsPos, _durationTweeing).SetEase(Ease.OutBack);
             StarsObj.DOScale(1, _durationTweeing).SetEase(Ease.OutBack).OnComplete(() => {
                 DisplayImage.gameObject.SetActive(true);
-                SoundEffectEvent.InvokeSOEvent(7);
+                SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(7);
                 DisplayImage.transform.DOScale(1, _durationTweeing / 2).SetEase(Ease.OutBack);
 
             });
@@ -226,13 +225,13 @@ namespace Core.Screen
             if (_textObj != null)
                 Destroy(_textObj);
 
-           SoundEffectEvent.InvokeSOEvent(3);
+           SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
            Body.DOAnchorPosX(0, _transitionDuration).SetEase(Ease.OutBack);
         }
 
         public override void OnClose()
         {
-            SoundEffectEvent.InvokeSOEvent(2);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             Body.DOAnchorPosX(1500, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => {
                 if (LevelIndex.Value > MaxLvlCount.Value)
                 {
@@ -242,13 +241,13 @@ namespace Core.Screen
                 if (LvlNum.Value <= MinLvlCount.Value)
                 {
                     SimpleEventsHolder.InitLvlEvent?.Invoke();        
-                    ActiveStateEvent.InvokeSOEvent(GamePlayState.Value);
+                    SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(GamePlayState.Value);
                 }
                 else
                 {
-                    ActiveStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
+                    SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(MainMenuStateIndex.Value);
                 }
-                DestroyStatEvent.InvokeSOEvent(LevelCompleteStateIndex.Value);
+                SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(LevelCompleteStateIndex.Value);
             });
         }
 

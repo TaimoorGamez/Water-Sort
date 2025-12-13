@@ -7,12 +7,10 @@ using System.Collections.Generic;
 
 namespace Core.GamePlay.WaterSort
 {
-    [CreateAssetMenu(fileName = "SwapingManager", menuName = "ScriptableObjects/WaterSort/SwapingManager")]
-    public class ColorSwiper : ScriptableObject
+    public class ColorSwaper : MonoBehaviour
     {
         [SerializeField] DBInt LvlNum;
         [SerializeField] SO2IntergerEvent TaskEvent;
-        [SerializeField] SOIntegerEvents ToastMsgEvent, SwitchProtectorEvent;
         [SerializeField] SOInterger IsSwaping, UsingAnyFeature, MinLvlIndex, CompletedTubes, CurrrentLvl, SortingCompleted;
         [SerializeField] SODOTween TubeScaleUpTween, TubeScaleDownTween;
 
@@ -38,12 +36,12 @@ namespace Core.GamePlay.WaterSort
                 {
                     UsingAnyFeature.Value = 1;
                     IsSwaping.Value = 1;
-                    SwitchProtectorEvent.InvokeSOEvent(1);
-                    ToastMsgEvent.InvokeSOEvent(8);
+                    SingleIntegerEventsHolder.SwitchProtectorEvent?.Invoke(1);
+                    SingleIntegerEventsHolder.ShowToastEvent?.Invoke(8);
                 }
                 else
                 {
-                    ToastMsgEvent.InvokeSOEvent(4);
+                    SingleIntegerEventsHolder.ShowToastEvent?.Invoke(4);
                 }
             }
         }
@@ -56,7 +54,7 @@ namespace Core.GamePlay.WaterSort
                 {
                     if (SwapingTubes.Count < 1)
                     {
-                        ToastMsgEvent.InvokeSOEvent(9);
+                        SingleIntegerEventsHolder.ShowToastEvent?.Invoke(9);
                         TubeScaleUpTween.TargetObj = tube.gameObject;
                         TubeScaleUpTween.PlayAnimation();
                     }
@@ -64,7 +62,7 @@ namespace Core.GamePlay.WaterSort
                 }
                 else
                 {
-                    ToastMsgEvent.InvokeSOEvent(0);
+                    SingleIntegerEventsHolder.ShowToastEvent?.Invoke(0);
                 }
             }
             
@@ -92,9 +90,9 @@ namespace Core.GamePlay.WaterSort
             }
             else
             {
-                ToastMsgEvent.InvokeSOEvent(1);
+                SingleIntegerEventsHolder.ShowToastEvent?.Invoke(1);
             }
-            SwitchProtectorEvent.InvokeSOEvent(0);
+            SingleIntegerEventsHolder.SwitchProtectorEvent?.Invoke(0);
             SwapingTubes.Clear();
             IsSwaping.Value = 0;
             UsingAnyFeature.Value = 0;
@@ -102,7 +100,7 @@ namespace Core.GamePlay.WaterSort
 
         void StopSwapping()
         {
-            SwitchProtectorEvent.InvokeSOEvent(0);
+            SingleIntegerEventsHolder.SwitchProtectorEvent?.Invoke(0);
             SwapingTubes.Clear();
             IsSwaping.Value = 0;
             UsingAnyFeature.Value = 0;

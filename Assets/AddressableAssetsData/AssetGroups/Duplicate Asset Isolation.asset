@@ -75,11 +75,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 206e032d1b187244f94f744674e5f04e
-    m_Address: Assets/ToastMsg/Events/TaostMsgEvent.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 21496ddb7ca02c445bc2b5d524a4ca0b
     m_Address: Assets/GamePlay/Animations/TubeDownScale.asset
     m_ReadOnly: 0

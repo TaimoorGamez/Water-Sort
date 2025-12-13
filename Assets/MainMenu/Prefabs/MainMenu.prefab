@@ -163,8 +163,6 @@ MonoBehaviour:
   IsFirebaseInit: {fileID: 11400000, guid: e26e6baab10951f4d85f4af66b38941c, type: 2}
   InAppInitialized: {fileID: 11400000, guid: 5790a1ff4514a984cbf848482536b966, type: 2}
   AdmobInitialized: {fileID: 11400000, guid: a06096bd4fe543e4a83c7359fd3459b7, type: 2}
-  ActiveStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
-  DestroyStateEvent: {fileID: 11400000, guid: 853f6ddba0535194baa5c23d4d561386, type: 2}
   Lvls:
   - {fileID: 8375154374479741193}
   - {fileID: 3540487747723501271}
@@ -281,6 +279,7 @@ MonoBehaviour:
   AdData: {fileID: 11400000, guid: 1858b44bb997abb40a0fae20c73efda8, type: 2}
   NoAds: {fileID: 11400000, guid: 4b5b7094fb1defd4a801e5fb32c564f7, type: 2}
   RewardedAd: {fileID: 11400000, guid: f262af9c90e54594fac7d6d50edcfa73, type: 2}
+  IntertitialAd: {fileID: 11400000, guid: ee42e038ce12a4745b5685ad50222eab, type: 2}
   AdmobInitialized: {fileID: 11400000, guid: a06096bd4fe543e4a83c7359fd3459b7, type: 2}
 --- !u!1 &8842380249327387017
 GameObject:
@@ -2826,7 +2825,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6840285968148839464, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 17512850
+      value: 17516366
       objectReference: {fileID: 0}
     - target: {fileID: 7277540639624644133, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_sharedMaterial

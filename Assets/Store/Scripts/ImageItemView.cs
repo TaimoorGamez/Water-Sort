@@ -1,3 +1,4 @@
+using Core.Events;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,7 @@ namespace Core.Store
 
         public void OnClick()
         {
-            ChangeItemStatusEvent.InvokeSOEvent(MyData.ItemId);
+            SingleIntegerEventsHolder.UpdateItemStatusEvent?.Invoke(MyData.ItemId);
         }
 
         public override void UnSelectItem()

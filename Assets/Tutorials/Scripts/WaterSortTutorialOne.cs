@@ -10,7 +10,6 @@ namespace Core.GamePlay.WaterSort
     public class WaterSortTutorialOne : MonoBehaviour
     {
         [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
-        [SerializeField] SOIntegerEvents SwitchProtectorEvent;
         [SerializeField] CapsuleCollider MyCollider, OtherCollider;
         [SerializeField] TubeHandler CurrenTube;
         [SerializeField] GameObject HandObj, InfoTextObj;
@@ -46,7 +45,7 @@ namespace Core.GamePlay.WaterSort
             if (TubeCounter == 1)
             {
                 MyCollider.enabled = true;
-                SwitchProtectorEvent.InvokeSOEvent(0);
+                SingleIntegerEventsHolder.SwitchProtectorEvent?.Invoke(0);
                 CanPlay.Value = 1;
                 HandObj.SetActive(true);
             }

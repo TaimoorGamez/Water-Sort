@@ -3,7 +3,6 @@ using Core.Variables;
 using Core.DB.Variables;
 using GoogleMobileAds.Api;
 using GoogleMobileAds.Ump.Api;
-using Core.Events;
 
 namespace Core.Plugins.Ads
 {

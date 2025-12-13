@@ -12,7 +12,6 @@ namespace Core.Screen
 {
     public class StoreScreen : UiScreens
     {
-        [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] SOAsyncGameObjectIList StoreItemsList;
         [SerializeField] SODictionary_Int_Gameobject CapItemsDictionary, FlameItemsDictionary, SprayItemsDictionary;
         [SerializeField] Transform FillImage;
@@ -38,7 +37,7 @@ namespace Core.Screen
         {
             Loading.SetActive(false);
             Body.gameObject.SetActive(true);
-            SoundEffectEvent.InvokeSOEvent(3);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
             Body.DOAnchorPosX(0, _transitionDuration).SetEase(Ease.OutBack);
         }
 
@@ -151,7 +150,7 @@ namespace Core.Screen
         public override void OnClose()
         {
             Body.DOKill();
-            SoundEffectEvent.InvokeSOEvent(2);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             Body.DOAnchorPosX(1500, _transitionDuration / 2).SetEase(Ease.InBack).OnComplete(() => {
                 Body.gameObject.SetActive(false);
                 gameObject.SetActive(false);
