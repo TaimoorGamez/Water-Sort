@@ -179,6 +179,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -466,6 +467,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -814,6 +816,7 @@ GameObject:
   - component: {fileID: 383871667565523511}
   - component: {fileID: 5582278875002018400}
   - component: {fileID: 512353582190022526}
+  - component: {fileID: 7074462584732545425}
   - component: {fileID: 4727839765463032159}
   m_Layer: 5
   m_Name: PowerBtn
@@ -898,9 +901,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RewardedAd: {fileID: 11400000, guid: f262af9c90e54594fac7d6d50edcfa73, type: 2}
   RemaingPower: {fileID: 0}
-  PowerEvent: {fileID: 0}
-  ChangePowerStatusEvent: {fileID: 0}
-  RewardPowerEvent: {fileID: 0}
   CashCurrency: {fileID: 11400000, guid: 7eda067dffd0e094b883a13ef89857cd, type: 2}
   CounterObj: {fileID: 8644033690610576906}
   PriceObj: {fileID: 6380667494977929439}
@@ -908,6 +908,18 @@ MonoBehaviour:
   RemaingText: {fileID: 5165981766818161828}
   Price: 0
   PowerName: 
+--- !u!114 &7074462584732545425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8512401302037105857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 892628e74f722f2448819965d46c100a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4727839765463032159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -925,9 +937,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: 9eef85b426cb6234cac7fbb0439238d1, type: 2}
-          m_TargetAssemblyTypeName: Core.Events.SOEvents, Assembly-CSharp
-          m_MethodName: InvokeSOEvent
+        - m_Target: {fileID: 7074462584732545425}
+          m_TargetAssemblyTypeName: Core.Sfx.ButtonPressSfx, Assembly-CSharp
+          m_MethodName: OnBtnPress
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

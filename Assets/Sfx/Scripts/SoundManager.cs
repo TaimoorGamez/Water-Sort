@@ -11,63 +11,45 @@ namespace Core.Sfx
         [SerializeField] AudioClip BgMusic, BtnClick;
         [SerializeField] AudioClip[] EffectClips;
 
-        AudioSource _bgSource = null, _btnSource = null, _effectSource = null, _loopSource = null;
-        float _bgVolume = 0.6f;
+        AudioSource _bgSource = null, _btnSource = null, _effectSource = null;
+        float _bgVolume = 0.5f;
 
         private void OnEnable()
         {
-            SimpleEventsHolder.OnOffBGMusic += ChangeBGMusicState;
-            SimpleEventsHolder.OnOffSounds += ChangeSoundState;
+            SimpleEventsHolder.UpdateMusicStateEvent += UpdateBGMusicState;
+            SimpleEventsHolder.UpdateSoundStateEvent += UpdateSoundState;
             SimpleEventsHolder.BtnPressSfxEvent += PlayBtnSound;
             SoundEffectEvent.EventHandler += PlaySoundEffect;
         }
 
         private void OnDisable()
         {
-            SimpleEventsHolder.OnOffBGMusic -= ChangeBGMusicState;
-            SimpleEventsHolder.OnOffSounds -= ChangeSoundState;
+            SimpleEventsHolder.UpdateMusicStateEvent -= UpdateBGMusicState;
+            SimpleEventsHolder.UpdateSoundStateEvent -= UpdateSoundState;
             SimpleEventsHolder.BtnPressSfxEvent -= PlayBtnSound;
             SoundEffectEvent.EventHandler -= PlaySoundEffect;
         }
 
         private void Start()
         {
-            if (Music.Value == 1)
-            {
-                CreateMusicSources();
-            }
-
-            if (Sound.Value == 1)
-            {
-                CreateSoundSources();
-            }
+            UpdateBGMusicState();
+            UpdateSoundState();
         }
 
-        void CreateMusicSources()
+        void UpdateBGMusicState()
         {
-            if (_bgSource == null)
+            if (Music.Value == 1)
             {
                 _bgSource = gameObject.AddComponent<AudioSource>();
                 PlayBGMusic();
             }
-        }
-
-        void ChangeBGMusicState()
-        {
-            if (Music.Value == 1)
+            else
             {
-                Music.Value = 0; 
                 if (_bgSource != null)
                 {
                     Destroy(_bgSource);
                 }
             }
-            else
-            {
-                Music.Value = 1;
-                CreateMusicSources();
-            }
-            SimpleEventsHolder.UpdateMusicStateEvent?.Invoke();
         }
 
         void PlayBGMusic()
@@ -79,6 +61,26 @@ namespace Core.Sfx
                 _bgSource.clip = BgMusic;
                 _bgSource.loop = true;
                 _bgSource.Play();
+            }
+        }
+
+        void UpdateSoundState()
+        {
+            if (Sound.Value == 1)
+            {
+                CreateSoundSources();
+            }
+            else
+            {
+                if (_btnSource != null)
+                {
+                    Destroy(_btnSource);
+                }
+
+                if (_effectSource != null)
+                {
+                    Destroy(_effectSource);
+                }
             }
         }
         void CreateSoundSources()
@@ -93,40 +95,6 @@ namespace Core.Sfx
             {
                 _effectSource = gameObject.AddComponent<AudioSource>();
             }
-
-            if (_loopSource == null)
-            {
-                _loopSource = gameObject.AddComponent<AudioSource>();
-                _loopSource.loop = true;
-            }
-        }
-
-        void ChangeSoundState()
-        {
-            if (Sound.Value == 1)
-            {
-                Sound.Value = 0;
-                if (_btnSource != null)
-                {
-                    Destroy(_btnSource);
-                }
-
-                if (_effectSource != null)
-                {
-                    Destroy(_effectSource);
-                }
-
-                if (_loopSource != null)
-                {
-                    Destroy(_loopSource);
-                }
-            }
-            else
-            {
-                Sound.Value = 1;
-                CreateSoundSources();
-            }
-            SimpleEventsHolder.UpdateSoundStateEvent?.Invoke();
         }
 
         void PlayBtnSound()

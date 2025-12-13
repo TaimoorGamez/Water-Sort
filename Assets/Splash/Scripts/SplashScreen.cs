@@ -4,7 +4,6 @@ using UnityEngine;
 using DG.Tweening;
 using Core.Events;
 using Core.Plugins;
-using Core.GamePlay;
 using Core.ToastMsg;
 using Core.Variables;
 using UnityEngine.UI;
@@ -19,7 +18,6 @@ namespace Core.Screen
         [SerializeField] ItemData DefaultCap, DefaultFlame, DefaultSpray;
         [SerializeField] DBInt LvlNum, FFT;
         [SerializeField] SOIntegerEvents ActiveStateEvent, DestroyStateEvent;
-        [SerializeField] LevelManager LvlManager;
         [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, MinLvlNum;
         [SerializeField] Transform FillImage;
         [SerializeField] TextMeshProUGUI LoadingText;
@@ -57,7 +55,6 @@ namespace Core.Screen
                     ActiveStateEvent.InvokeSOEvent(MainMenuStateIndex.Value);
                 }
                 DestroyStateEvent.InvokeSOEvent(0);
-                LvlManager.AfterEnable();
             });
         }
     }

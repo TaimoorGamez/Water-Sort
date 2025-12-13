@@ -12,12 +12,13 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Core.GamePlay.WaterSort
 {
-    public class WaterSortLevelInit : MonoBehaviour
+    public class WaterSortLevelManager : MonoBehaviour
     {
         [SerializeField] SOIntegerEvents SwipeProtectorEvent, ToastMsgEvent;
         [SerializeField] DBInt LvlIndex, LvlNum;
         [SerializeField] SO2IntergerEvent TaskEvent;
-        [SerializeField] SOInterger IsHiddenLevel, CanPlay, TotalMoves, BtnOnceClicked, MainMenuStateIndex, CurrrentLvl, TempLvlIndex;
+        [SerializeField] SOInterger IsHiddenLevel, CanPlay, TotalMoves, BtnOnceClicked, MainMenuStateIndex, CurrrentLvl, TempLvlIndex,
+                                    CompletedTubes, SortingCompleted;
         [SerializeField] Vector3[] TubePositions, BowlPositions;
         [SerializeField] BowlColorHandler BowlObj;
 
@@ -40,6 +41,8 @@ namespace Core.GamePlay.WaterSort
             SimpleEventsHolder.RestartLevelEvent += RestartLevel;
             SimpleEventsHolder.DestroyLevelEvent += DestroyLevel;
             SimpleEventsHolder.StartColoringEvent += ColoringPreparation;
+            SimpleEventsHolder.CheckCompleteEvent = CheckComplete;
+            SimpleEventsHolder.RegisterMoveEvent = CheckMoves;
         }
 
         private async void OnDisable()
@@ -271,6 +274,24 @@ namespace Core.GamePlay.WaterSort
             {
                 ToastMsgEvent.InvokeSOEvent(5);
             }
+        }
+
+        void CheckComplete()
+        {
+            Debug.Log("[mobile] Check Complete Called");
+            if (CompletedTubes.Value == CurrrentLvl.Value)
+            {
+                Debug.Log("[mobile] Level Complete");
+                CompletedTubes.Value = 0;
+                SortingCompleted.Value = 1;
+                SimpleEventsHolder.StartColoringEvent?.Invoke();
+            }
+        }
+
+        void CheckMoves()
+        {
+            TotalMoves.Value--;
+            SimpleEventsHolder.UpdateMovesEvent?.Invoke();
         }
 
         void ColoringPreparation()

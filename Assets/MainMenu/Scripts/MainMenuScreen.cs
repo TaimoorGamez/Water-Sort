@@ -16,7 +16,7 @@ namespace Core.Screen
         [SerializeField] Initialization FirebaseInit;
         [SerializeField] AdmobInitialization AdmobInit;
         [SerializeField] InAppPurchase InAppPurchaser;
-        [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, SettingStateIndex, TempLvlIndex, IsFirebaseInit, InAppInitialized, AdmobInitialized;
+        [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, TempLvlIndex, IsFirebaseInit, InAppInitialized, AdmobInitialized;
         [SerializeField] SOIntegerEvents ActiveStateEvent, DestroyStateEvent;
         [SerializeField] TextMeshProUGUI[] Lvls;
         [SerializeField] Transform LevelView;
@@ -24,11 +24,6 @@ namespace Core.Screen
 
         int _activeLvl = 3;
         string _privacyLink = "https://sites.google.com/view/sortpaint-privacy-policy/";
-
-        public void OnclickSettingBtn()
-        {
-            ActiveStateEvent.InvokeSOEvent(SettingStateIndex.Value);
-        }
 
         private void Start()
         {

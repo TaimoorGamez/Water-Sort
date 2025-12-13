@@ -21,7 +21,7 @@ namespace Core.Events
         SwapColorsEvent, UpdateSwapStateEvent,
 
         //-------------------Sound Events-------------------
-        OnOffBGMusic, OnOffSounds, BtnPressSfxEvent, UpdateMusicStateEvent, UpdateSoundStateEvent,
+        BtnPressSfxEvent, UpdateMusicStateEvent, UpdateSoundStateEvent,
 
         //-------------------Spin Wheel Events-------------------
         ResetSpinWheelEvent,

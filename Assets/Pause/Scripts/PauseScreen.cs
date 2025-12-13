@@ -15,25 +15,30 @@ namespace Core.Screen
 
         private void OnEnable()
         {
-            SimpleEventsHolder.UpdateMusicStateEvent += UpdateMusicState;
-            SimpleEventsHolder.UpdateSoundStateEvent += UpdateSoundState;
-            UpdateMusicState();
-            UpdateSoundState();
+            UpdateMusicUI();
+            UpdateSoundUI();
             OnOpen();
         }
-
-        private void OnDisable()
+        public void ToggleMusic()
         {
-            SimpleEventsHolder.UpdateMusicStateEvent -= UpdateMusicState;
-            SimpleEventsHolder.UpdateSoundStateEvent -= UpdateSoundState;
+            Music.Value = Music.Value == 1 ? 0 : 1;
+            SimpleEventsHolder.UpdateMusicStateEvent?.Invoke();
+            UpdateMusicUI();
         }
 
-        void UpdateMusicState()
+        public void ToggleSound()
+        {
+            Sound.Value = Sound.Value == 1 ? 0 : 1;
+            SimpleEventsHolder.UpdateSoundStateEvent?.Invoke();
+            UpdateSoundUI();
+        }
+
+        void UpdateMusicUI()
         {
             MusicOff.SetActive(Music.Value != 1);
         }
 
-        void UpdateSoundState()
+        void UpdateSoundUI()
         {
             SoundOff.SetActive(Sound.Value != 1);
         }

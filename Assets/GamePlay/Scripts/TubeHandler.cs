@@ -264,6 +264,7 @@ namespace Core.GamePlay.WaterSort
             TubeCap.PlayCelebration(CurrentColor);
             yield return new WaitForSeconds(2f);
             CompletedTubes.Value ++;
+            Debug.Log("[mobile] Completed Tubes: " + CompletedTubes.Value);
             SimpleEventsHolder.CheckCompleteEvent?.Invoke();
             if (_celebrationRotine != null)
             {

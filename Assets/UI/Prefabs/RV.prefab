@@ -245,7 +245,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 63.3
+  m_fontSize: 65
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -256,6 +256,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -422,6 +423,8 @@ GameObject:
   - component: {fileID: 7456243271157254560}
   - component: {fileID: 593230374942282580}
   - component: {fileID: 2253321505122965580}
+  - component: {fileID: 6119780647984988094}
+  - component: {fileID: 1301091734208334152}
   m_Layer: 5
   m_Name: RV
   m_TagString: Untagged
@@ -584,6 +587,47 @@ MonoBehaviour:
   PlayLoop: 1
   ResetOnDisable: 1
   StartDelay: 2
+--- !u!114 &6119780647984988094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7730847568165053100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 892628e74f722f2448819965d46c100a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1301091734208334152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7730847568165053100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6119780647984988094}
+          m_TargetAssemblyTypeName: Core.Sfx.ButtonPressSfx, Assembly-CSharp
+          m_MethodName: OnBtnPress
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &4939477561008766311
 PrefabInstance:
   m_ObjectHideFlags: 0
