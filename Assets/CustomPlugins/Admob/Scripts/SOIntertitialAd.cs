@@ -65,19 +65,19 @@ namespace Core.Plugins.Ads
         {
             if (IsAdAvailable)
             {
-                if (AdBlocked.Value == 0)
-                {
-                    AdPlaying.Value = 1;
-                    Instantiate(AdLoading);
-                    await Task.Delay(1000);
-                    _interstitialAd.Show();
-                    SimpleEventsHolder.SelfDestructionEvent?.Invoke();
-                }
+                if (AdBlocked.Value == 1)
+                    return;
+
+                AdPlaying.Value = 1;
+                Instantiate(AdLoading);
+                await Task.Delay(1000);
+                _interstitialAd.Show();
+                SimpleEventsHolder.SelfDestructionEvent?.Invoke();
             }
             else
             {
                 AdTimerComplete.Value = 0;
-                SimpleEventsHolder.StartAdLoaing?.Invoke();
+                LoadAd();
             }
         }
 
@@ -110,14 +110,14 @@ namespace Core.Plugins.Ads
             {
                 AdPlaying.Value = 0;
                 AdTimerComplete.Value = 0;
-                SimpleEventsHolder.StartAdLoaing?.Invoke();
+                LoadAd();
             };
             // Raised when the ad failed to open full screen content.
             interstitialAd.OnAdFullScreenContentFailed += (AdError error) =>
             {
                 AdPlaying.Value = 0;
                 AdTimerComplete.Value = 0;
-                SimpleEventsHolder.StartAdLoaing?.Invoke();
+                LoadAd();
             };
         }
     }

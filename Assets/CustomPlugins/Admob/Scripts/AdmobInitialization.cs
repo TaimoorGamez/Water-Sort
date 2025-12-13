@@ -11,7 +11,7 @@ namespace Core.Plugins.Ads
     {
         [SerializeField] AdDataHandler AdData;
         [SerializeField] DBInt NoAds;
-        [SerializeField] AdHandler RewardedAd;
+        [SerializeField] AdHandler RewardedAd, IntertitialAd;
         [SerializeField] SOInterger AdmobInitialized;
 
         public void InitPlugin()
@@ -102,7 +102,7 @@ namespace Core.Plugins.Ads
 
                     if (AdData.AdData.Interstitial && NoAds.Value == 0)
                     {
-                        SimpleEventsHolder.StartAdLoaing?.Invoke();
+                        IntertitialAd.LoadAd();
                     }
                 });
             }

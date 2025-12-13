@@ -33,7 +33,7 @@ namespace Core.Events
         GenerateDailyTasksEvent,
 
         //------------------Ads Events------------------
-        NoAdsBuyEvent, StartLoadingAdsEvent, GrantRewardEvent, StartAdLoaing,
+        NoAdsBuyEvent, StartLoadingAdsEvent, GrantRewardEvent,
         MultiplayRewardEvent, AddMovesEvent, DoubleDailyRewardEvent,
         RewardSpinWheelEvent, BuyCaps, BuySprays, BuyFlames, AdsBlockerEvent,
         RewardUndoEvent, RewardExtraTubeEvent, RewardSwapColor;
