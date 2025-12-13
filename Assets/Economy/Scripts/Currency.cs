@@ -8,7 +8,6 @@ namespace Core.Economy
     public class Currency : ScriptableObject
     {
         [SerializeField] DBInt _Amount;
-        [SerializeField] SO2IntergerEvent TaskEvent;
 
         public int Amount
         {
@@ -25,7 +24,7 @@ namespace Core.Economy
                 else if (value < _Amount.Value)
                 {
                     SingleIntegerEventsHolder.TransactionEvent?.Invoke(value);
-                    TaskEvent.InvokeSOEvent(2, value);
+                    DoubleIntegerEventHolder.TaskEvent?.Invoke(2, value);
                 }
                 _Amount.Value = (value);
             }

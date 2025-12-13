@@ -10,7 +10,6 @@ namespace Core.GamePlay.WaterSort
     public class ColorSwaper : MonoBehaviour
     {
         [SerializeField] DBInt LvlNum;
-        [SerializeField] SO2IntergerEvent TaskEvent;
         [SerializeField] SOInterger IsSwaping, UsingAnyFeature, MinLvlIndex, CompletedTubes, CurrrentLvl, SortingCompleted;
         [SerializeField] SODOTween TubeScaleUpTween, TubeScaleDownTween;
 
@@ -86,7 +85,7 @@ namespace Core.GamePlay.WaterSort
                 {
                     SimpleEventsHolder.UpdateSwapStateEvent?.Invoke();
                 }
-                TaskEvent.InvokeSOEvent(4, 1);
+                DoubleIntegerEventHolder.TaskEvent?.Invoke(4, 1);
             }
             else
             {

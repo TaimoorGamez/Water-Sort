@@ -10,7 +10,6 @@ namespace Core.Plugins.Ads
     {
         [SerializeField] SOInterger AdPlaying, CanMultiply, CanAddMoves, CanDoubleReward, CanSpin, CanCap, CanSpray, CanFlame, CanBlockAds, CanUndo,
                                     CanAddExtraTube, CanSwitchColor, AdmobInitialized;
-        [SerializeField] SO2IntergerEvent TaskEvents;
 
         RewardedAd _rewardedAd;
         string _adUnitId;
@@ -163,7 +162,7 @@ namespace Core.Plugins.Ads
                     break;
             }
             SimpleEventsHolder.GrantRewardEvent?.Invoke();
-            TaskEvents.InvokeSOEvent(0,1);
+            DoubleIntegerEventHolder.TaskEvent?.Invoke(0,1);
         }
     }
 }

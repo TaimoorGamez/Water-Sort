@@ -21,7 +21,6 @@ namespace Core.Screen
         [SerializeField] DBInt LevelIndex, LvlNum;
         [SerializeField] SOInterger LevelStars, CanPlay, MainMenuStateIndex, LevelMoves, DetailsApplied, GamePlayState, LevelCompleteStateIndex,
                                      MinLvlCount, MaxLvlCount, TempLvlIndex, CurrentMultiplayer,SortingCompleted;
-        [SerializeField] SO2IntergerEvent TaskEvent;
         [SerializeField] TextMeshProUGUI LevelBonusText, StarsBonusText, DetailsBonusText, MovesBonusText, TotalBonusText;
         [SerializeField] Camera ScreenshotCamera;
         [SerializeField] RenderTexture TargetTexture;
@@ -67,7 +66,7 @@ namespace Core.Screen
             SortingCompleted.Value = 0;
             _starsDataPath = Path.Combine(Application.persistentDataPath, "starsData.json");
             _screenShotRotine = StartCoroutine(CaptureColoredArea());
-            TaskEvent.InvokeSOEvent(1,1);
+            DoubleIntegerEventHolder.TaskEvent?.Invoke(1,1);
         }
 
 

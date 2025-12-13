@@ -15,7 +15,6 @@ namespace Core.GamePlay.WaterSort
     public class WaterSortLevelManager : MonoBehaviour
     {
         [SerializeField] DBInt LvlIndex, LvlNum;
-        [SerializeField] SO2IntergerEvent TaskEvent;
         [SerializeField] SOInterger IsHiddenLevel, CanPlay, TotalMoves, BtnOnceClicked, MainMenuStateIndex, CurrrentLvl, TempLvlIndex,
                                     CompletedTubes, SortingCompleted;
         [SerializeField] Vector3[] TubePositions, BowlPositions;
@@ -267,7 +266,7 @@ namespace Core.GamePlay.WaterSort
                 _totalTubesCount++;
                 _totalTubes.Add(newTube);
                 SimpleEventsHolder.UpdateExtraTubeStatEvent?.Invoke();
-                TaskEvent.InvokeSOEvent(5, 1);
+                DoubleIntegerEventHolder.TaskEvent?.Invoke(5, 1);
             }
             else if(_totalTubes.Count >= 10)
             {

@@ -12,7 +12,6 @@ namespace Core.GamePlay.WaterSort
         [SerializeField] DBInt LvlNum;
         [SerializeField] SOInterger DoingUndo, UsingAnyFeature, CanPlay, GamePlayStateIndex, MinLvlIndex;
         [SerializeField] SOWaterTube OpenTube;
-        [SerializeField] SO2IntergerEvent TaskEvent;
 
         Stack<UndoData> _undoMoves = new Stack<UndoData>();
 
@@ -66,7 +65,7 @@ namespace Core.GamePlay.WaterSort
                     {
                         SimpleEventsHolder.UpdateUndoStatusEvent?.Invoke();
                     }
-                    TaskEvent.InvokeSOEvent(3, 1);
+                    DoubleIntegerEventHolder.TaskEvent?.Invoke(3, 1);
                 }
                 else
                 {

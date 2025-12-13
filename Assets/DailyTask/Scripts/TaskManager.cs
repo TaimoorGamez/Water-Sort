@@ -8,7 +8,6 @@ namespace Core.DailyTasks
     [CreateAssetMenu(fileName = "DailyTaskManager", menuName = "ScriptableObjects/DaiyTask/TaskManager")]
     public class TaskManager : ScriptableObject
     {
-        [SerializeField] SO2IntergerEvent TaskEvent;
         [SerializeField] DailyTaskData[] AllTasks;
         [SerializeField] DBInt[] TaskIndexs;
 
@@ -19,13 +18,13 @@ namespace Core.DailyTasks
         {
             RetrevePreviousTasks();
             SimpleEventsHolder.GenerateDailyTasksEvent += GenerateDailyTasks;
-            TaskEvent.EventHandler += AddTaskProgress;
+            DoubleIntegerEventHolder.TaskEvent += AddTaskProgress;
         }
 
         private void OnDisable()
         {
             SimpleEventsHolder.GenerateDailyTasksEvent -= GenerateDailyTasks;
-            TaskEvent.EventHandler -= AddTaskProgress;
+            DoubleIntegerEventHolder.TaskEvent -= AddTaskProgress;
         }
 
         void GenerateDailyTasks()

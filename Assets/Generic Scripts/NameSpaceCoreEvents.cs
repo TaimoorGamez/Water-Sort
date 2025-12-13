@@ -62,6 +62,14 @@ namespace Core.Events
         SoundEffectEvent;
     }
 
+    public static class DoubleIntegerEventHolder
+    {
+        public static GameEventWith2Ints
+
+        //-------------------DailyTask Events-------------------
+        TaskEvent;
+    }
+
     public static class EventDictionariesHolder
     {
         public static Dictionary<string, GameEvent> NonConsumableProductsEvents = new Dictionary<string, GameEvent>(StringComparer.Ordinal)
