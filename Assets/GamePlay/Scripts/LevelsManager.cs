@@ -293,10 +293,8 @@ namespace Core.GamePlay
 
         void CheckComplete()
         {
-            Debug.Log("[mobile] Check Complete Called");
             if (CompletedTubes == CurrrentLvl)
             {
-                Debug.Log("[mobile] Level Complete");
                 CompletedTubes = 0;
                 SortingCompleted = true;
                 SimpleEventsHolder.StartColoringEvent?.Invoke();

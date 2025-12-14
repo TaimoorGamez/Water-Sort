@@ -150,7 +150,6 @@ namespace Core.Plugins.Ads
             {
                 StopCoroutine(_adsRotine);
             }
-            AdsManager.I.AdTimerComplete = false;
         }
     }
 }

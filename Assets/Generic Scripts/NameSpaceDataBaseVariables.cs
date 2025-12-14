@@ -101,11 +101,11 @@ namespace Core.DB.Variables
 
         //---------------------Game Flow --------------------------
         public static DBInt FFT = new DBInt("FFT", 0);
-        public static DBInt LvlNum = new DBInt("LvlNum", 0);
-        public static DBInt LvlIndex = new DBInt("LvlIndex", 0);
-        public static DBInt RemaingUndo = new DBInt("RemaingUndo", 0);
-        public static DBInt RemainingSwaps = new DBInt("RemainingSwaps", 0);
-        public static DBInt RemainingTubes = new DBInt("RemainingTubes", 0);
+        public static DBInt LvlNum = new DBInt("LvlNum", 1);
+        public static DBInt LvlIndex = new DBInt("LvlIndex", 1);
+        public static DBInt RemaingUndo = new DBInt("RemaingUndo", 1);
+        public static DBInt RemainingSwaps = new DBInt("RemainingSwaps", 1);
+        public static DBInt RemainingTubes = new DBInt("RemainingTubes", 1);
 
     }
 
@@ -128,7 +128,7 @@ namespace Core.DB.Variables
 
         public static Dictionary<string, DBInt> PowerStatusData = new Dictionary<string, DBInt>(StringComparer.Ordinal)
         {
-            { "UndoColor", DBVariablesHolder.RemaingUndo },
+            { "SortUndo", DBVariablesHolder.RemaingUndo },
             { "SwapColor", DBVariablesHolder.RemainingSwaps },
             { "ExtraTube", DBVariablesHolder.RemainingTubes }
         };
