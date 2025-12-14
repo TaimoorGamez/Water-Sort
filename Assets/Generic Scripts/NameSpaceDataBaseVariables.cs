@@ -107,7 +107,6 @@ namespace Core.DB.Variables
             { "FlameThrower", DBIntsHolder.CurrentActiveFlameThrower }
         };
 
-
         public static Dictionary<string, DBInteger> NonConsumableProductsData = new Dictionary<string, DBInteger>(StringComparer.Ordinal)
         {
             { "NoAds", DBIntsHolder.NoAds }

@@ -1,3 +1,5 @@
+using System;
+using Core.Economy;
 using Core.DB.Variables;
 
 namespace Core.SpinWheel
@@ -7,10 +9,10 @@ namespace Core.SpinWheel
         void Spin();
     }
 
-    [System.Serializable]
+    [Serializable]
     public class SpinWheelConfige
     {
-        public DBInteger RewardDbs;
+        public string RewardName;
         public UnityEngine.Color SegmentColor;
         public UnityEngine.Sprite Icon;
         public int Amount;
@@ -18,7 +20,14 @@ namespace Core.SpinWheel
 
         public void ClaimReward()
         {
-            RewardDbs.Value += Amount;
+            if (string.Equals(RewardName, "Cash", StringComparison.Ordinal))
+            {
+                CurrenciesHolder.CashCurrency.Amount += Amount;
+            }
+            else
+            {
+                DBIntDictionariesHolder.PowerStatusData[RewardName].Value += Amount;
+            }
         }
     }
 }
