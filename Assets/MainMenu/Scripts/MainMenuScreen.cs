@@ -2,21 +2,20 @@ using TMPro;
 using UnityEngine;
 using Core.Events;
 using DG.Tweening;
-using Core.Plugins;
+using Core.States;
 using Core.Purchase;
-using Core.Variables;
 using Core.Plugins.Ads;
 using Core.DB.Variables;
+using Core.Plugins.Firebase;
+using Core.GamePlay.WaterSort;
 
 namespace Core.Screen
 {
     public class MainMenuScreen : UiScreens
     {
         [SerializeField] DBInt LvlNum;
-        [SerializeField] Initialization FirebaseInit;
-        [SerializeField] AdmobInitialization AdmobInit;
+        [SerializeField] FirebaseInitialization FirebaseInit;
         [SerializeField] InAppPurchase InAppPurchaser;
-        [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, TempLvlIndex, IsFirebaseInit, InAppInitialized, AdmobInitialized;
         [SerializeField] TextMeshProUGUI[] Lvls;
         [SerializeField] Transform LevelView;
         [SerializeField] RectTransform LevelsHolder;
@@ -26,10 +25,10 @@ namespace Core.Screen
 
         private void Start()
         {
-            TempLvlIndex.Value = -1;
-            if(IsFirebaseInit.Value == 1)
+            LevelsManager.I.TempLvlIndex = -1;
+            if(FirebaseInit.IsFirebaseInit)
             {
-                if (InAppInitialized.Value == 0)
+                if (!InAppPurchaser.IsInitialized)
                 {
                     InAppPurchaser.InitializePurchasing();
                     Invoke(nameof(InitializeAds), 1f);
@@ -66,8 +65,8 @@ namespace Core.Screen
         public void OnClickPlayButton()
         {
             SimpleEventsHolder.InitLvlEvent?.Invoke();
-            SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(GamePlayStateIndex.Value);
-            SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(MainMenuStateIndex.Value);
+            SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.GamePlayStateIndex);
+            SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(StateManager.I.MainMenuStateIndex);
         }
 
         public void OpenPrivacyPolicy()
@@ -77,8 +76,8 @@ namespace Core.Screen
 
         private void InitializeAds()
         {
-            if(AdmobInitialized.Value == 0)
-                AdmobInit.InitPlugin();
+            //if(!AdsManager.I.IsInitialized)
+            //    AdsManager.I.InitPlugin();
         }
     }
 }

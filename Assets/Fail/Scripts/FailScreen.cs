@@ -1,14 +1,12 @@
-using UnityEngine;
-using DG.Tweening;
 using Core.Events;
-using Core.Variables;
+using Core.States;
+using DG.Tweening;
+using Core.GamePlay.WaterSort;
 
 namespace Core.Screen
 {
     public class FailScreen : UiScreens
     {
-        [SerializeField] SOInterger TotalMoves, CanPlay, MainMenuStateIndex, GamePlayStateIndex;
-
         int _extraMoves = 10;
 
         private void OnEnable()
@@ -25,9 +23,9 @@ namespace Core.Screen
         void AddMoreMoves()
         {
             OnClose();
-            TotalMoves.Value += _extraMoves;
+            LevelsManager.I.TotalMoves += _extraMoves;
             SimpleEventsHolder.UpdateMovesEvent?.Invoke();
-            CanPlay.Value = 1;
+            LevelsManager.I.CanPlay = true;
         }
 
         public void RestartLevel()
@@ -38,8 +36,8 @@ namespace Core.Screen
         public void GoHome()
         {
             SimpleEventsHolder.DestroyLevelEvent?.Invoke();
-            SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(GamePlayStateIndex.Value);
-            SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(MainMenuStateIndex.Value);
+            SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(StateManager.I.GamePlayStateIndex);
+            SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.MainMenuStateIndex);
             OnClose();
         }
 

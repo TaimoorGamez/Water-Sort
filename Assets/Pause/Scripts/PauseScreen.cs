@@ -1,15 +1,15 @@
 using UnityEngine;
 using DG.Tweening;
 using Core.Events;
-using Core.Variables;
+using Core.States;
 using Core.DB.Variables;
+using Core.GamePlay.WaterSort;
 
 namespace Core.Screen
 {
     public class PauseScreen : UiScreens
     {
         [SerializeField] DBInt Music, Sound;
-        [SerializeField] SOInterger CanPlay, MainMenuStateIndex, GamePlayStateIndex;
         [SerializeField] GameObject MusicOff, SoundOff;
 
         private void OnEnable()
@@ -51,8 +51,8 @@ namespace Core.Screen
         public void GoHome()
         {
             SimpleEventsHolder.DestroyLevelEvent?.Invoke();
-            SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(GamePlayStateIndex.Value);
-            SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(MainMenuStateIndex.Value);
+            SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(StateManager.I.GamePlayStateIndex);
+            SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.MainMenuStateIndex);
             OnClose();
         }
 
@@ -66,7 +66,7 @@ namespace Core.Screen
         {
             SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             Body.DOScale(0, _transitionDuration / 2).SetEase(Ease.InBack).OnComplete(() => {
-                CanPlay.Value = 1;
+                LevelsManager.I.CanPlay = true;
                 Destroy(gameObject);
             });
         }

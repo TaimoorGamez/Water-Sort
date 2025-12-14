@@ -1,6 +1,5 @@
 using UnityEngine;
 using Core.Events;
-using Core.Variables;
 using GoogleMobileAds.Api;
 
 namespace Core.Plugins.Ads
@@ -8,15 +7,13 @@ namespace Core.Plugins.Ads
     [CreateAssetMenu(fileName = "Rewarded", menuName = "ScriptableObjects/Plugin/Admob/Rewarded")]
     public class SORewardedAd : AdHandler
     {
-        [SerializeField] SOInterger AdPlaying, CanMultiply, CanAddMoves, CanDoubleReward, CanSpin, CanCap, CanSpray, CanFlame, CanBlockAds, CanUndo,
-                                    CanAddExtraTube, CanSwitchColor, AdmobInitialized;
 
         RewardedAd _rewardedAd;
         string _adUnitId;
 
         public override void LoadAd()
         {
-            if(AdmobInitialized.Value == 0)
+            if(AdsManager.I.IsInitialized)
                 return;
             
 
@@ -52,7 +49,7 @@ namespace Core.Plugins.Ads
         {
             get
             {
-                return _rewardedAd != null && _rewardedAd.CanShowAd() && AdPlaying.Value == 0; 
+                return _rewardedAd != null && _rewardedAd.CanShowAd() && !AdsManager.I.AdPlaying; 
             }
         }
 
@@ -60,7 +57,7 @@ namespace Core.Plugins.Ads
         {
             if (IsAdAvailable)
             {
-                AdPlaying.Value = 1;
+                AdsManager.I.AdPlaying = true;
                 _rewardedAd.Show((Reward reward) =>
                 {
                     GrantReward(detail);
@@ -100,7 +97,7 @@ namespace Core.Plugins.Ads
             ad.OnAdFullScreenContentClosed += () =>
             {
                 //Debug.Log("Rewarded ad full screen content closed.");
-                AdPlaying.Value = 0;
+                AdsManager.I.AdPlaying = false;
                 LoadAd();
             };
             // Raised when the ad failed to open full screen content.
@@ -108,7 +105,7 @@ namespace Core.Plugins.Ads
             {
                 //Debug.LogError("Rewarded ad failed to open full screen content " +
                 //               "with error : " + error);
-                AdPlaying.Value = 0;
+                AdsManager.I.AdPlaying = false;
                 LoadAd();
             };
         }
@@ -118,47 +115,47 @@ namespace Core.Plugins.Ads
             switch (rewardName)
             {
                 case "MultiplyReward":
-                    CanMultiply.Value = 1;
+                    AdsManager.I.CanMultiply = true;
                     break;
 
                 case "AddMoves":
-                    CanAddMoves.Value = 1;
+                    AdsManager.I.CanAddMoves = true;
                     break;
 
                 case "Undo":
-                    CanUndo.Value = 1;
+                    AdsManager.I.CanUndo = true;
                     break;
 
                 case "ExtraTube":
-                    CanAddExtraTube.Value = 1;
+                    AdsManager.I.CanAddExtraTube = true;
                     break;
 
                 case "SwitchColor":
-                    CanSwitchColor.Value = 1;
+                    AdsManager.I.CanSwitchColor = true;
                     break;
 
                 case "DoubleReward":
-                    CanDoubleReward.Value = 1;
+                    AdsManager.I.CanDoubleReward = true;
                     break;
 
                 case "Spin":
-                    CanSpin.Value = 1;
+                    AdsManager.I.CanSpin = true;
                     break;
 
                 case "Caps":
-                    CanCap.Value = 1;
+                    AdsManager.I.CanFlame = true;
                     break;
 
                 case "Sprays":
-                    CanSpray.Value = 1;
+                    AdsManager.I.CanFlame = true;
                     break;
 
                 case "Flames":
-                    CanFlame.Value = 1;
+                    AdsManager.I.CanFlame = true;
                     break;
 
                 case "AdBlocker":
-                    CanBlockAds.Value = 1;
+                    AdsManager.I.CanBlockAds = true;
                     break;
             }
             SimpleEventsHolder.GrantRewardEvent?.Invoke();

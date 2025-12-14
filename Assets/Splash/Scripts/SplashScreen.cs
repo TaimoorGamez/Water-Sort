@@ -3,11 +3,11 @@ using Core.Store;
 using UnityEngine;
 using DG.Tweening;
 using Core.Events;
+using Core.States;
 using Core.Plugins;
-using Core.ToastMsg;
-using Core.Variables;
 using UnityEngine.UI;
 using Core.DB.Variables;
+using Core.GamePlay.WaterSort;
 
 namespace Core.Screen
 {
@@ -16,7 +16,6 @@ namespace Core.Screen
         [SerializeField] Initialization FirebaseInit;
         [SerializeField] ItemData DefaultCap, DefaultFlame, DefaultSpray;
         [SerializeField] DBInt LvlNum, FFT;
-        [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, MinLvlNum;
         [SerializeField] Transform FillImage;
         [SerializeField] TextMeshProUGUI LoadingText;
         [SerializeField] Image LogoImage;
@@ -42,14 +41,14 @@ namespace Core.Screen
                 LoadingText.text = _loadingTxt + percent + "%";
             }).OnComplete(() =>
             {
-                if (LvlNum.Value <= MinLvlNum.Value)
+                if (LvlNum.Value <= LevelsManager.I.MinLvlCount)
                 {
                     SimpleEventsHolder.InitLvlEvent?.Invoke();
-                    SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(GamePlayStateIndex.Value);
+                    SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.GamePlayStateIndex);
                 }
                 else
                 {
-                    SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(MainMenuStateIndex.Value);
+                    SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.MainMenuStateIndex);
                 }
                 SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(0);
             });

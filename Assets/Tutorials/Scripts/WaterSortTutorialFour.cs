@@ -9,7 +9,6 @@ namespace Core.GamePlay.WaterSort
 {
     public class WaterSortTutorialFour : MonoBehaviour
     {
-        [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
         [SerializeField] CapsuleCollider ColliderOne, ColliderTwo, ColliderThree, ColliderFour, ColliderFive;
         [SerializeField] TubeHandler FirstTube, SecondTube, ThirdTube, ForthTube, FifthTube, SixthTube;
         [SerializeField] GameObject InfoTextObj;
@@ -86,7 +85,7 @@ namespace Core.GamePlay.WaterSort
                 ForthTube.SetColor(CurrentColors[_colorIndex]);
             }
             SingleIntegerEventsHolder.SwitchProtectorEvent?.Invoke(0);
-            CanPlay.Value = 1;
+            LevelsManager.I.CanPlay = true;
             Circle.gameObject.SetActive(true);
             Circle.DOScale(1, _tutorialAnimationTime).SetEase(Ease.Linear).OnComplete(() => {
                 HandObj.gameObject.SetActive(true);
@@ -96,7 +95,7 @@ namespace Core.GamePlay.WaterSort
 
         private void OnMouseDown()
         {
-            if (CanPlay.Value == 1)
+            if (LevelsManager.I.CanPlay)
             {
                 if (IsFirstTube)
                 {

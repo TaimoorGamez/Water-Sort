@@ -1,16 +1,15 @@
 using Core.Events;
 using UnityEngine;
-using Core.Variables;
 using Core.DB.Variables;
 using GoogleMobileAds.Api;
 using System.Threading.Tasks;
+using Core.GamePlay.WaterSort;
 
 namespace Core.Plugins.Ads
 {
     [CreateAssetMenu(fileName = "Intertitial", menuName = "ScriptableObjects/Plugin/Admob/Intertitial")]
     public class SOIntertitialAd : AdHandler
     {
-        [SerializeField] SOInterger AdTimerComplete, AdPlaying, MinLvlIndex, AdmobInitialized;
         [SerializeField] DBInt NoAdsDB, AdBlocked, LvlNum;
         [SerializeField] GameObject AdLoading;
 
@@ -19,7 +18,7 @@ namespace Core.Plugins.Ads
 
         public override void LoadAd()
         {
-            if (AdmobInitialized.Value == 0 || NoAdsDB.Value == 1)
+            if (!AdsManager.I.IsInitialized || NoAdsDB.Value == 1)
                 return;
 
 
@@ -56,8 +55,8 @@ namespace Core.Plugins.Ads
         {
             get
             {
-                return _interstitialAd != null && _interstitialAd.CanShowAd() && AdTimerComplete.Value == 1 && AdPlaying.Value == 0 
-                    && LvlNum.Value > MinLvlIndex.Value && NoAdsDB.Value != 1;
+                return _interstitialAd != null && _interstitialAd.CanShowAd() && AdsManager.I.AdTimerComplete && !AdsManager.I.AdPlaying
+                    && LvlNum.Value > LevelsManager.I.MinLvlCount && NoAdsDB.Value != 1;
             }
         }
 
@@ -68,7 +67,7 @@ namespace Core.Plugins.Ads
                 if (AdBlocked.Value == 1)
                     return;
 
-                AdPlaying.Value = 1;
+                AdsManager.I.AdPlaying = true;
                 Instantiate(AdLoading);
                 await Task.Delay(1000);
                 _interstitialAd.Show();
@@ -76,7 +75,7 @@ namespace Core.Plugins.Ads
             }
             else
             {
-                AdTimerComplete.Value = 0;
+                //AdsManager.I.AdTimerComplete = false;
                 LoadAd();
             }
         }
@@ -108,15 +107,15 @@ namespace Core.Plugins.Ads
             // Raised when the ad closed full screen content.
             interstitialAd.OnAdFullScreenContentClosed += () =>
             {
-                AdPlaying.Value = 0;
-                AdTimerComplete.Value = 0;
+                AdsManager.I.AdPlaying = false;
+                AdsManager.I.AdTimerComplete = false;
                 LoadAd();
             };
             // Raised when the ad failed to open full screen content.
             interstitialAd.OnAdFullScreenContentFailed += (AdError error) =>
             {
-                AdPlaying.Value = 0;
-                AdTimerComplete.Value = 0;
+                AdsManager.I.AdPlaying = false;
+                AdsManager.I.AdTimerComplete = false;
                 LoadAd();
             };
         }

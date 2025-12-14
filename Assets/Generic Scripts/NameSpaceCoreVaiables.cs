@@ -4,7 +4,13 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Core.Variables
 {
-    public class SODictionaryBase<TKey, TValue> : ScriptableObject
+    public static class GenericVariables
+    {
+
+    }
+
+
+public class SODictionaryBase<TKey, TValue> : ScriptableObject
     {
         [SerializeField] protected Dictionary<TKey, TValue> CurrentValue, DefaultValue;
         [SerializeField] protected bool ResetDefault = true;

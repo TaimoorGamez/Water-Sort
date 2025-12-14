@@ -4,7 +4,6 @@ using UnityEngine;
 using Core.Events;
 using Core.Economy;
 using UnityEngine.UI;
-using Core.Variables;
 using Core.DB.Variables;
 using Core.Plugins.Firebase;
 
@@ -13,7 +12,6 @@ namespace Core.DailyReward
     public class DailyRewardHandler : MonoBehaviour
     {
         [SerializeField] protected Currency CashCurrency;
-        [SerializeField] protected SOInterger GiveReward;
         [SerializeField] protected FireBaseEvents FBEvents;
         [SerializeField] protected DBInt ToDay, RewardClaimed;
         [SerializeField] protected TextMeshProUGUI[] DayText, AmountText;
@@ -21,7 +19,7 @@ namespace Core.DailyReward
         [SerializeField] protected GameObject[] RewardState;
         [SerializeField] protected int RewardDay, Amount;
 
-        protected bool _doubleRewardClicked = false;
+        protected bool _doubleRewardClicked = false, _giveReward;
 
         protected virtual void OnEnable()
         {
@@ -30,24 +28,23 @@ namespace Core.DailyReward
         }
 
         protected virtual void UpdateUI()
-        {for (int i = 0; i < DayText.Length; i++)
-{
-    DayText[i].text = "DAY " + RewardDay.ToString();
-}
+        {
+            for (int i = 0; i < DayText.Length; i++)
+            {
+                DayText[i].text = "DAY " + RewardDay.ToString();
+            }
 
-
-           
             for (int i = 0; i < AmountText.Length; i++)
-{
-    AmountText[i].text = Amount.ToString();
-}
+            {
+                AmountText[i].text = Amount.ToString();
+            }
         }
 
         protected void Update()
         {
-            if (GiveReward.Value == 1 && ToDay.Value == RewardDay && RewardClaimed.Value == 0 && !_doubleRewardClicked)
+            if (_giveReward && ToDay.Value == RewardDay && RewardClaimed.Value == 0 && !_doubleRewardClicked)
             {
-                GiveReward.Value = 0;
+                _giveReward = false;
                 GrantDoubleReward();
             }
         }

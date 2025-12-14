@@ -3,15 +3,14 @@ using DG.Tweening;
 using UnityEngine;
 using Core.Events;
 using Core.GamePlay;
-using Core.Variables;
 using UnityEngine.UI;
 using System.Collections;
+using Core.GamePlay.WaterSort;
 
 namespace Core.Screen
 {
     public class GalleryScreen : UiScreens
     {
-        [SerializeField] SOInterger MinLvlNum;
         [SerializeField] PaintingView PaintingObj;
         [SerializeField] RectTransform Content;
         [SerializeField] ScrollRect GalaryScroll;
@@ -51,7 +50,7 @@ namespace Core.Screen
         {
             GameData starsData = LoadStars();
             yield return new WaitForSeconds(0.01f);
-            for(int s = MinLvlNum.Value-1; s < starsData.Levels.Count; s++)
+            for(int s = LevelsManager.I.MinLvlCount; s < starsData.Levels.Count; s++)
             {
                 string filePath = Path.Combine(_directoryPath, $"Painting_{starsData.Levels[s].LevelNumber}.png");
                 if (File.Exists(filePath))

@@ -435,18 +435,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3ea379d98f12345968c5e37ea4d09a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MinLvlCount: 5
+  MaxLvlCount: 22
+  LevelStars: 3
+  TotalMoves: 0
+  CurrrentLvl: 0
+  TempLvlIndex: -1
+  CompletedTubes: 0
+  IsHiddenLevel: 0
+  CanPlay: 0
+  BtnOnceClicked: 0
+  SortingCompleted: 0
+  UsingAnyFeature: 0
+  IsSwaping: 0
+  DoingUndo: 0
   LvlIndex: {fileID: 11400000, guid: 41c1752188b0e634bace9427b11cb2a0, type: 2}
   LvlNum: {fileID: 11400000, guid: bad89b7dfd4fe324eaaacf6e970340af, type: 2}
-  TaskEvent: {fileID: 11400000, guid: 5254f8d222e5a034fa2451644bce9d2e, type: 2}
-  IsHiddenLevel: {fileID: 11400000, guid: 0379e96a375797544890b5b505768ff9, type: 2}
-  CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
-  TotalMoves: {fileID: 11400000, guid: c0332282d9024b84dafaab019726f173, type: 2}
-  BtnOnceClicked: {fileID: 11400000, guid: 6c8296d6059f7344fa43263cf388a50f, type: 2}
-  MainMenuStateIndex: {fileID: 11400000, guid: 5b4f6ec2cf4170d4b973dfba16e1515f, type: 2}
-  CurrrentLvl: {fileID: 11400000, guid: 619fe066546f4a1468e58d2c6fff0e67, type: 2}
-  TempLvlIndex: {fileID: 11400000, guid: 1ce211a6ca2ede84c9718479db351404, type: 2}
-  CompletedTubes: {fileID: 11400000, guid: 5fb94964db162b54085794074b40bdfc, type: 2}
-  SortingCompleted: {fileID: 11400000, guid: 9b677b7c59566db4784009b34e2d581c, type: 2}
   TubePositions:
   - {x: -1, y: 3, z: -3}
   - {x: 1, y: 3, z: -3}
@@ -483,13 +487,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LvlNum: {fileID: 11400000, guid: bad89b7dfd4fe324eaaacf6e970340af, type: 2}
-  TaskEvent: {fileID: 11400000, guid: 5254f8d222e5a034fa2451644bce9d2e, type: 2}
-  IsSwaping: {fileID: 11400000, guid: 3237d1914975aed4fb5ca302095f1b6b, type: 2}
-  UsingAnyFeature: {fileID: 11400000, guid: ee976038d1a51e14684dc2c2bb35a697, type: 2}
-  MinLvlIndex: {fileID: 11400000, guid: 97861f11d658661419c157765ea4ff3c, type: 2}
-  CompletedTubes: {fileID: 11400000, guid: 5fb94964db162b54085794074b40bdfc, type: 2}
-  CurrrentLvl: {fileID: 11400000, guid: 619fe066546f4a1468e58d2c6fff0e67, type: 2}
-  SortingCompleted: {fileID: 11400000, guid: 9b677b7c59566db4784009b34e2d581c, type: 2}
   TubeScaleUpTween: {fileID: 11400000, guid: 16ae342fb0f0f5041b155984471eb302, type: 2}
   TubeScaleDownTween: {fileID: 11400000, guid: 21496ddb7ca02c445bc2b5d524a4ca0b, type: 2}
 --- !u!1 &1324483140
@@ -730,7 +727,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LvlIndex: {fileID: 11400000, guid: 41c1752188b0e634bace9427b11cb2a0, type: 2}
-  TempLevelIndex: {fileID: 11400000, guid: 1ce211a6ca2ede84c9718479db351404, type: 2}
   ColoringHolder: {fileID: 1587305159}
 --- !u!1 &1554149899
 GameObject:
@@ -765,17 +761,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75460134b32094c4e8111c8f1a72f66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MainMenuStateIndex: 1
+  GamePlayStateIndex: 2
+  PauseStateIndex: 3
+  LevelFailStateIndex: 4
+  LevelCompleteStateIndex: 5
   AllStates:
   - {fileID: 11400000, guid: d727876a364fb4d428957a9e51d89fc8, type: 2}
   - {fileID: 11400000, guid: 173e8d3bd0a9c2a4eb44ad83ba59a4d2, type: 2}
-  - {fileID: 11400000, guid: dfe2745b4ae62dc4ca5a1f772d2e9acc, type: 2}
   - {fileID: 11400000, guid: 6205461601167a24c84c43a150b1291d, type: 2}
   - {fileID: 11400000, guid: bf764d2b775e7d44cb3352462f066f53, type: 2}
   - {fileID: 11400000, guid: 4ff027c0c59583546b6a455918d866eb, type: 2}
   - {fileID: 11400000, guid: 6dd521081f1803747956a8656f299fe6, type: 2}
-  MainMenuStateIndex: {fileID: 11400000, guid: 5b4f6ec2cf4170d4b973dfba16e1515f, type: 2}
-  GamePlayStateIndex: {fileID: 11400000, guid: d7723c4d03c616248b6e725f6734b348, type: 2}
-  LeveCompleteStateIndex: {fileID: 11400000, guid: 372a4013c41549545822b875f34f8aa3, type: 2}
 --- !u!114 &1554149901
 MonoBehaviour:
   m_ObjectHideFlags: 0

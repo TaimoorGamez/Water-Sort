@@ -1,10 +1,10 @@
+using Core.DB.Variables;
+using Core.Events;
+using Core.GamePlay.WaterSort;
+using DG.Tweening;
+using System.Collections;
 using TMPro;
 using UnityEngine;
-using DG.Tweening;
-using Core.Events;
-using Core.Variables;
-using Core.DB.Variables;
-using System.Collections;
 
 namespace Core.GamePlay.Coloring
 {
@@ -12,7 +12,6 @@ namespace Core.GamePlay.Coloring
     {
         [SerializeField] DBInt Sound;
         [SerializeField] SOColorBowl CurrentBowl;
-        [SerializeField] SOInterger LevelStars;
         [SerializeField] SOColor CurrentColor;
         [SerializeField] ColorFilling[] ColoringPart;
         [SerializeField] RectTransform BrushTransform;
@@ -55,7 +54,7 @@ namespace Core.GamePlay.Coloring
 
         private void Start()
         {
-            LevelStars.Value = 3;
+            LevelsManager.I.LevelStars = 3;
             _currentCamera = Camera.main;
             _coloringParTransform = ColoringPart[_paintingCounter].transform as RectTransform;
             _pm = BrushParitcle.main;
@@ -248,9 +247,9 @@ namespace Core.GamePlay.Coloring
                 CurrentBowl.Bowl.BowlState(false);
                 _coloredPixlesCounter = 0;
                 BurshSound.Stop();
-                if (LevelStars.Value > 2 && !CurrentColor.Value.Equals(ColoringPart[_paintingCounter - 1].DefaultColor))
+                if (LevelsManager.I.LevelStars > 2 && !CurrentColor.Value.Equals(ColoringPart[_paintingCounter - 1].DefaultColor))
                 {
-                    LevelStars.Value--;
+                    LevelsManager.I.LevelStars--;
                 }
 
                 if (_paintingCounter < ColoringPart.Length)

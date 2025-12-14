@@ -1,17 +1,18 @@
-using TMPro;
-using System.IO;
-using UnityEngine;
-using DG.Tweening;
-using Core.Events;
-using Core.Economy;
-using Core.GamePlay;
-using Core.Variables;
-using UnityEngine.UI;
 using Core.DB.Variables;
+using Core.Economy;
+using Core.Events;
+using Core.GamePlay;
+using Core.GamePlay.WaterSort;
+using Core.States;
+using DG.Tweening;
 using System.Collections;
+using System.IO;
 using System.Threading.Tasks;
+using TMPro;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.UI;
 
 namespace Core.Screen
 {
@@ -19,20 +20,19 @@ namespace Core.Screen
     {
         [SerializeField] Currency CashCurrency;
         [SerializeField] DBInt LevelIndex, LvlNum;
-        [SerializeField] SOInterger LevelStars, CanPlay, MainMenuStateIndex, LevelMoves, DetailsApplied, GamePlayState, LevelCompleteStateIndex,
-                                     MinLvlCount, MaxLvlCount, TempLvlIndex, CurrentMultiplayer,SortingCompleted;
-        [SerializeField] TextMeshProUGUI LevelBonusText, StarsBonusText, DetailsBonusText, MovesBonusText, TotalBonusText;
+        [SerializeField] TextMeshProUGUI LevelBonusText, StarsBonusText, MovesBonusText, TotalBonusText;
         [SerializeField] Camera ScreenshotCamera;
         [SerializeField] RenderTexture TargetTexture;
         [SerializeField] RawImage DisplayImage;
         [SerializeField] Image[] StarsImg;
         [SerializeField] RectTransform StarsObj, NextBtn;
-        [SerializeField] GameObject MultiplayerBar, RvBtn;
+        [SerializeField] GameObject RvBtn;
+        [SerializeField] MultiplierBar CurrentMultiplayerBar;
 
 
         float _starsPos = 100, _durationTweeing = 1f;
         bool _onceClicked = true;
-        int _levelBonus = 15, _starsBonus = 10, _detailsBonus = 0, _totalBonus = 0; 
+        int _levelBonus = 15, _starsBonus = 10, _totalBonus = 0; 
         Coroutine _screenShotRotine;
         string _starsDataPath;
         Vector2 _nextBtnPosition = new Vector2(-135, -430);
@@ -58,12 +58,12 @@ namespace Core.Screen
         void Start()
         {
             int textNum = 0;
-            if (LevelStars.Value > 2)
+            if (LevelsManager.I.LevelStars > 2)
             { 
                 textNum = Random.Range(1,9);
             }
             LoadAppreationText(textFolder + textNum);
-            SortingCompleted.Value = 0;
+            LevelsManager.I.SortingCompleted = false;
             _starsDataPath = Path.Combine(Application.persistentDataPath, "starsData.json");
             _screenShotRotine = StartCoroutine(CaptureColoredArea());
             DoubleIntegerEventHolder.TaskEvent?.Invoke(1,1);
@@ -95,7 +95,7 @@ namespace Core.Screen
         {
             ScreenshotCamera.targetTexture = TargetTexture;
             ScreenshotCamera.Render(); 
-            int currentLvl = TempLvlIndex.Value != -1 ? TempLvlIndex.Value : LvlNum.Value;
+            int currentLvl = LevelsManager.I.TempLvlIndex != -1 ? LevelsManager.I.TempLvlIndex : LvlNum.Value;
             yield return new WaitForSeconds(0.01f);
             // Create a new Texture2D
             Texture2D screenshot = new Texture2D(TargetTexture.width, TargetTexture.height, TextureFormat.RGB24, false);
@@ -120,7 +120,7 @@ namespace Core.Screen
             SimpleEventsHolder.DestroyLevelEvent?.Invoke();
             OnOpen();
             Invoke(nameof(OnPanelVisible), _durationTweeing);
-            for (int s = 0; s < LevelStars.Value; s++)
+            for (int s = 0; s < LevelsManager.I.LevelStars; s++)
             {
                 StarsImg[s].color = Color.white;
             }
@@ -131,11 +131,11 @@ namespace Core.Screen
             LevelData existingLevel = starsData.Levels.Find(l => l.LevelNumber == currentLvl);
             if (existingLevel != null)
             {
-                existingLevel.Stars = LevelStars.Value; // Save max stars
+                existingLevel.Stars = LevelsManager.I.LevelStars; // Save max stars
             }
             else
             {
-                starsData.Levels.Add(new LevelData { LevelNumber = currentLvl, Stars = LevelStars.Value });
+                starsData.Levels.Add(new LevelData { LevelNumber = currentLvl, Stars = LevelsManager.I.LevelStars });
             }
 
             string json = JsonUtility.ToJson(starsData, true);
@@ -146,12 +146,12 @@ namespace Core.Screen
 
         void OnPanelVisible()
         {
-            SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(GamePlayState.Value);
-            if (LvlNum.Value >= MinLvlCount.Value)
+            SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(StateManager.I.GamePlayStateIndex);
+            if (LvlNum.Value > LevelsManager.I.MinLvlCount)
             {
                 NextBtn.DOAnchorPos(_nextBtnPosition, _durationTweeing).SetEase(Ease.InOutBack).OnComplete(() =>
                 {
-                    MultiplayerBar.SetActive(true);
+                    CurrentMultiplayerBar.gameObject.SetActive(true);
                     RvBtn.SetActive(true);
                 });
             }
@@ -163,16 +163,11 @@ namespace Core.Screen
 
             });
             DOTween.To(() => 0, x => LevelBonusText.text = x.ToString(), _levelBonus, _durationTweeing);
-            if (LevelMoves.Value > 0)
-            { DOTween.To(() => 0, x => MovesBonusText.text = x.ToString(), LevelMoves.Value, _durationTweeing); }
-            if (DetailsApplied.Value == 1)
-            {
-                _detailsBonus = 20;
-                DOTween.To(() => 0, x => DetailsBonusText.text = x.ToString(), _detailsBonus, _durationTweeing);
-            }
-            _starsBonus *= LevelStars.Value;
+            if (LevelsManager.I.TotalMoves > 0)
+            { DOTween.To(() => 0, x => MovesBonusText.text = x.ToString(), LevelsManager.I.TotalMoves, _durationTweeing); }
+            _starsBonus *= LevelsManager.I.LevelStars;
             DOTween.To(() => 0, x => StarsBonusText.text = x.ToString(), _starsBonus, _durationTweeing);
-            _totalBonus = (_levelBonus + LevelMoves.Value + _detailsBonus + _starsBonus);
+            _totalBonus = (_levelBonus + LevelsManager.I.TotalMoves + _starsBonus);
             DOTween.To(() => 0, x => TotalBonusText.text = x.ToString(), _totalBonus, _durationTweeing).SetDelay(_durationTweeing);
             TotalBonusText.rectTransform.DOScale(1, _durationTweeing).SetEase(Ease.OutBack).SetDelay(_durationTweeing);
         }
@@ -192,9 +187,9 @@ namespace Core.Screen
             if (!_onceClicked)
             {
                 _onceClicked = true;
-                CanPlay.Value = 0;
-                CashCurrency.Amount += (_totalBonus * CurrentMultiplayer.Value);
-                if (TempLvlIndex.Value == -1)
+                LevelsManager.I.CanPlay = false;
+                CashCurrency.Amount += (_totalBonus * CurrentMultiplayerBar.CurrentMultiplier);
+                if (LevelsManager.I.TempLvlIndex == -1)
                 {
                     LvlNum.Value++;
                     LevelIndex.Value++;
@@ -208,9 +203,9 @@ namespace Core.Screen
             if (!_onceClicked)
             {
                 _onceClicked = true;
-                CanPlay.Value = 0;
+                LevelsManager.I.CanPlay = false;
                 CashCurrency.Amount += _totalBonus;
-                if (TempLvlIndex.Value == -1)
+                if (LevelsManager.I.TempLvlIndex == -1)
                 {
                     LvlNum.Value++;
                     LevelIndex.Value++;
@@ -232,21 +227,21 @@ namespace Core.Screen
         {
             SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             Body.DOAnchorPosX(1500, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => {
-                if (LevelIndex.Value > MaxLvlCount.Value)
+                if (LevelIndex.Value > LevelsManager.I.MaxLvlCount)
                 {
-                    LevelIndex.Value = MinLvlCount.Value;
+                    LevelIndex.Value = LevelsManager.I.MinLvlCount;
                 }
 
-                if (LvlNum.Value <= MinLvlCount.Value)
+                if (LvlNum.Value <= LevelsManager.I.MinLvlCount)
                 {
                     SimpleEventsHolder.InitLvlEvent?.Invoke();        
-                    SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(GamePlayState.Value);
+                    SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.GamePlayStateIndex);
                 }
                 else
                 {
-                    SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(MainMenuStateIndex.Value);
+                    SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.MainMenuStateIndex);
                 }
-                SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(LevelCompleteStateIndex.Value);
+                SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(StateManager.I.LevelCompleteStateIndex);
             });
         }
 

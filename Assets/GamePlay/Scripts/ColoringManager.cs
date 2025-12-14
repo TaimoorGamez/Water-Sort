@@ -1,9 +1,9 @@
 using Core.Events;
 using DG.Tweening;
 using UnityEngine;
-using Core.Variables;
 using Core.DB.Variables;
 using System.Threading.Tasks;
+using Core.GamePlay.WaterSort;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
@@ -12,7 +12,6 @@ namespace Core.GamePlay.Coloring
     public class ColoringManager : MonoBehaviour
     {
         [SerializeField] DBInt LevelIndex;
-        [SerializeField] SOInterger TempLevelIndex;
         [SerializeField] RectTransform ColoringImage;
         [SerializeField] Transform RefferanceBar;
 
@@ -38,10 +37,10 @@ namespace Core.GamePlay.Coloring
             ColoringImage.DOAnchorPos(Vector2.zero, _preparationTime).OnComplete(() =>
             {
                 RefferanceBar.gameObject.SetActive(true);
-                LoadReferenceObj(_refferancePath + (TempLevelIndex.Value == -1 ? LevelIndex.Value : TempLevelIndex.Value));
+                LoadReferenceObj(_refferancePath + (LevelsManager.I.TempLvlIndex == -1 ? LevelIndex.Value : LevelsManager.I.TempLvlIndex));
             });
         }
-
+        
         async void LoadReferenceObj(string path)
         {
             _referenceHandle = Addressables.LoadAssetAsync<GameObject>(path);

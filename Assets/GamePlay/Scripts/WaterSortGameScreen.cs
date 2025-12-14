@@ -1,15 +1,15 @@
 using TMPro;
+using Core.States;
 using UnityEngine;
 using Core.Events;
-using Core.Variables;
 using Core.DB.Variables;
+using Core.GamePlay.WaterSort;
 
 namespace Core.Screen
 {
     public class WaterSortGameScreen : UiScreens
     {
         [SerializeField] DBInt LvlNum;
-        [SerializeField] SOInterger TotalMoves, CanPlay, LevelFailStateIndex, CompletedTubes, GamePlayStateIndex, PauseStateIndex, MinLvl, CurrrentLvl;
         [SerializeField] GameObject SwipeColorsModePanel, PowerButtons, TopBar, PauseBtn;
         [SerializeField] TextMeshProUGUI MovesText;
 
@@ -29,7 +29,7 @@ namespace Core.Screen
 
         private void Start()
         {
-            if (LvlNum.Value < MinLvl.Value)
+            if (LvlNum.Value < LevelsManager.I.MinLvlCount)
             {
                 PowerButtons.SetActive(false);
                 PauseBtn.SetActive(false);
@@ -49,13 +49,13 @@ namespace Core.Screen
 
         void UpdateMovesText()
         {
-            if (LvlNum.Value >= MinLvl.Value)
+            if (LvlNum.Value >= LevelsManager.I.MinLvlCount)
             {
-                MovesText.text = TotalMoves.Value.ToString();
+                MovesText.text = LevelsManager.I.TotalMoves.ToString();
 
-                if (TotalMoves.Value < 1)
+                if (LevelsManager.I.TotalMoves < 1)
                 {
-                    CanPlay.Value = 0;
+                    LevelsManager.I.CanPlay = false;
                     Invoke(nameof(OnMovesEnd), 3);
                 }
             }
@@ -63,9 +63,9 @@ namespace Core.Screen
 
         void OnMovesEnd()
         {
-            if (CompletedTubes.Value != CurrrentLvl.Value)
+            if (LevelsManager.I.CompletedTubes != LevelsManager.I.CurrrentLvl)
             {
-                SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(LevelFailStateIndex.Value);
+                SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.LevelFailStateIndex);
             }
         }
 
@@ -77,8 +77,8 @@ namespace Core.Screen
 
         public void OnClickPause()
         {
-            CanPlay.Value = 0;
-            SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(PauseStateIndex.Value);
+            LevelsManager.I.CanPlay = false;
+            SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.PauseStateIndex);
         }
     }
 }

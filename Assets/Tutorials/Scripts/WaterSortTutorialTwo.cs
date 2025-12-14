@@ -1,7 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
 using Core.Events;
-using Core.Variables;
 using System.Collections;
 using Core.GamePlay.Coloring;
 
@@ -9,7 +8,6 @@ namespace Core.GamePlay.WaterSort
 {
     public class WaterSortTutorialTwo : MonoBehaviour
     {
-        [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
         [SerializeField] CapsuleCollider MyCollider, SecondCollider, ThirdCollider;
         [SerializeField] TubeHandler MyLiquid, OtherLiquid, ThirdLiquid;
         [SerializeField] GameObject InfoTextObj, UndoBtn;
@@ -66,13 +64,13 @@ namespace Core.GamePlay.WaterSort
             }
             SingleIntegerEventsHolder.SwitchProtectorEvent?.Invoke(0);
             MyCollider.enabled = true;
-            CanPlay.Value = 1;
+            LevelsManager.I.CanPlay = true;
             HandObj.gameObject.SetActive(true);
         }
 
         void OnMouseDown()
         {
-            if (CanPlay.Value != 1)
+            if (!LevelsManager.I.CanPlay)
                 return;
 
             if (ExtraTube && _isFirstClick)

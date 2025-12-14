@@ -1,6 +1,5 @@
 using Firebase;
 using UnityEngine;
-using Core.Variables;
 using Core.Plugins.Ads;
 using Firebase.RemoteConfig;
 
@@ -9,19 +8,20 @@ namespace Core.Plugins.Firebase
     [CreateAssetMenu(fileName = "FirebaseInit", menuName = "ScriptableObjects/Plugin/Firebase/Init")]
     public class FirebaseInitialization : Initialization
     {
-        [SerializeField] SOInterger IsFirebaseInit;
+        public bool IsFirebaseInit;
+
         [SerializeField] AdDataHandler AdData;
 
         public override void InitPlugin()
         {
-            IsFirebaseInit.Value = 0;
+            IsFirebaseInit = false;
             FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
             {
                 DependencyStatus dependencyStatus = task.Result;
                 if (dependencyStatus == DependencyStatus.Available)
                 {
                     FetchRemoteConfig();
-                    IsFirebaseInit.Value = 1;
+                    IsFirebaseInit = true;
                 }
                 else
                 {

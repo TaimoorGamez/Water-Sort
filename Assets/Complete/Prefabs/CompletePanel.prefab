@@ -103,6 +103,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -314,6 +315,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -525,6 +527,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -811,6 +814,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1155,6 +1159,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1291,6 +1296,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1490,28 +1496,8 @@ MonoBehaviour:
   CashCurrency: {fileID: 11400000, guid: 7eda067dffd0e094b883a13ef89857cd, type: 2}
   LevelIndex: {fileID: 11400000, guid: 41c1752188b0e634bace9427b11cb2a0, type: 2}
   LvlNum: {fileID: 11400000, guid: bad89b7dfd4fe324eaaacf6e970340af, type: 2}
-  LevelStars: {fileID: 11400000, guid: 88bc526aa03fb954c879ac3dbef7ef51, type: 2}
-  CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
-  MainMenuStateIndex: {fileID: 11400000, guid: 5b4f6ec2cf4170d4b973dfba16e1515f, type: 2}
-  LevelMoves: {fileID: 11400000, guid: c0332282d9024b84dafaab019726f173, type: 2}
-  DetailsApplied: {fileID: 11400000, guid: 8894a4602ebb75348a39383060b968e0, type: 2}
-  GamePlayState: {fileID: 11400000, guid: d7723c4d03c616248b6e725f6734b348, type: 2}
-  LevelCompleteStateIndex: {fileID: 11400000, guid: 372a4013c41549545822b875f34f8aa3, type: 2}
-  MinLvlCount: {fileID: 11400000, guid: 97861f11d658661419c157765ea4ff3c, type: 2}
-  MaxLvlCount: {fileID: 11400000, guid: 278c1791207f9d048b22053faa41c9ac, type: 2}
-  TempLvlIndex: {fileID: 11400000, guid: 1ce211a6ca2ede84c9718479db351404, type: 2}
-  CurrentMultiplayer: {fileID: 11400000, guid: f0cc57ec3109c27468656fb5f518064b, type: 2}
-  SortingCompleted: {fileID: 11400000, guid: 9b677b7c59566db4784009b34e2d581c, type: 2}
-  TaskEvent: {fileID: 11400000, guid: 5254f8d222e5a034fa2451644bce9d2e, type: 2}
-  SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
-  ActiveStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
-  DestroyStatEvent: {fileID: 11400000, guid: 853f6ddba0535194baa5c23d4d561386, type: 2}
-  DestroyLevelEvent: {fileID: 11400000, guid: 462f5b56355cc214fb4c4775d6a87709, type: 2}
-  InitLvlEvent: {fileID: 11400000, guid: 30e22fa3534f8ae429ac3af2c42b6b5c, type: 2}
-  MultiplayRewardEvent: {fileID: 11400000, guid: d9b667901fc956341b3a9a423e06b1e2, type: 2}
   LevelBonusText: {fileID: 371418382920146953}
   StarsBonusText: {fileID: 1299131095481621160}
-  DetailsBonusText: {fileID: 4791703346453442037}
   MovesBonusText: {fileID: 5127598558704023502}
   TotalBonusText: {fileID: 8024069184743286393}
   ScreenshotCamera: {fileID: 3503863100763946393}
@@ -1523,8 +1509,8 @@ MonoBehaviour:
   - {fileID: 5845976620193309198}
   StarsObj: {fileID: 5901047971187165036}
   NextBtn: {fileID: 2555826263991272265}
-  MultiplayerBar: {fileID: 557782289028057618}
   RvBtn: {fileID: 3611780807875876503}
+  CurrentMultiplayerBar: {fileID: 6564085809271838697}
 --- !u!1 &5819927224509809321
 GameObject:
   m_ObjectHideFlags: 0
@@ -1838,6 +1824,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1974,6 +1961,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2110,6 +2098,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2246,6 +2235,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2392,11 +2382,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3708e127b0dee7243a808e60871bdf20, type: 3}
---- !u!1 &557782289028057618 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6209984057181642871, guid: 3708e127b0dee7243a808e60871bdf20, type: 3}
-  m_PrefabInstance: {fileID: 5878305341520947813}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1889895208548458969 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5452080403518933948, guid: 3708e127b0dee7243a808e60871bdf20, type: 3}
@@ -2407,7 +2392,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 759910778717846924, guid: 3708e127b0dee7243a808e60871bdf20, type: 3}
   m_PrefabInstance: {fileID: 5878305341520947813}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 557782289028057618}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e04c95485bf67c94195968926123afe4, type: 3}

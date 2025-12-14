@@ -1,7 +1,6 @@
-using UnityEngine;
-using DG.Tweening;
 using Core.Events;
-using Core.Variables;
+using DG.Tweening;
+using UnityEngine;
 using Core.DB.Variables;
 using System.Collections;
 using System.Threading.Tasks;
@@ -12,11 +11,15 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Core.GamePlay.WaterSort
 {
-    public class WaterSortLevelManager : MonoBehaviour
+    public class LevelsManager : MonoBehaviour
     {
+        public static LevelsManager I { get; private set; }
+
+        public int MinLvlCount = 5, MaxLvlCount = 22, LevelStars = 3, TotalMoves, CurrrentLvl, TempLvlIndex = -1, CompletedTubes;
+        public bool IsHiddenLevel = false, CanPlay = false, BtnOnceClicked = false, SortingCompleted, UsingAnyFeature = false, 
+                    IsSwaping  = false, DoingUndo = false;
+
         [SerializeField] DBInt LvlIndex, LvlNum;
-        [SerializeField] SOInterger IsHiddenLevel, CanPlay, TotalMoves, BtnOnceClicked, MainMenuStateIndex, CurrrentLvl, TempLvlIndex,
-                                    CompletedTubes, SortingCompleted;
         [SerializeField] Vector3[] TubePositions, BowlPositions;
         [SerializeField] BowlColorHandler BowlObj;
 
@@ -55,25 +58,34 @@ namespace Core.GamePlay.WaterSort
 
         private void Start()
         {
+            if (I == null)
+            {
+                I = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
             LoadWaterSortTube();
         }
 
         void InitNewLevel()
         {
-            CanPlay.Value = 0;
+            CanPlay = false;
             _colorTubes.Clear();
             _totalTubes.Clear();
             DestroyLevel();
             if (LvlNum.Value % 5 == 0)
             {
-                IsHiddenLevel.Value = 1;
+                IsHiddenLevel = true;
             }
-            else if (IsHiddenLevel.Value == 1)
+            else if (IsHiddenLevel)
             {
-                IsHiddenLevel.Value = 0;
+                IsHiddenLevel = false;
             }
 
-            if (TempLvlIndex.Value == -1)
+            if (TempLvlIndex == -1)
             {
                 if (LvlIndex.Value < 5)
                     LoadAddressableLevels<GameObject>(_sortingLvlPath + LvlIndex.Value);
@@ -82,7 +94,7 @@ namespace Core.GamePlay.WaterSort
             }
             else
             {
-                LoadAddressableLevels<SOColors>(_sortingLvlPath + TempLvlIndex.Value);
+                LoadAddressableLevels<SOColors>(_sortingLvlPath + TempLvlIndex);
             }
         }
 
@@ -120,7 +132,7 @@ namespace Core.GamePlay.WaterSort
             if (LvlIndex.Value < 5)
             {
                 GameObject lvlObj = Instantiate(_lvlHandle.Result as GameObject, transform);
-                CurrrentLvl.Value = LvlIndex.Value;
+                CurrrentLvl = LvlIndex.Value;
 
                 await Task.Yield();  // frame 1
                 await Task.Yield();  // frame 2
@@ -132,10 +144,10 @@ namespace Core.GamePlay.WaterSort
             {
                 _levelColors = null;
                 _levelColors = _lvlHandle.Result as SOColors;
-                CurrrentLvl.Value = _levelColors.Colors.Length;
-                _totalTubesCount = CurrrentLvl.Value + 2;
+                CurrrentLvl = _levelColors.Colors.Length;
+                _totalTubesCount = CurrrentLvl + 2;
                 lvlMakingRotine = StartCoroutine(GenerateLvl());
-                TotalMoves.Value = CurrrentLvl.Value * _maxColorsInTube;
+                TotalMoves = CurrrentLvl * _maxColorsInTube;
 
                 await Task.Yield();  // frame 1
                 await Task.Yield();  // frame 2
@@ -155,7 +167,7 @@ namespace Core.GamePlay.WaterSort
                 TubeHandler newTube = Instantiate(_tubePrefab, transform);
                 newTube.transform.position = TubePositions[t];
                 _totalTubes.Add(newTube);
-                if (t < CurrrentLvl.Value)
+                if (t < CurrrentLvl)
                 {
                     _colorTubes.Add(newTube);
                 }
@@ -166,7 +178,7 @@ namespace Core.GamePlay.WaterSort
                 tempTubes.Add(tube);
             }
             yield return new WaitForSeconds(0.25f);
-            for (int l = 0; l < CurrrentLvl.Value; l++)
+            for (int l = 0; l < CurrrentLvl; l++)
             {
                 for (int b = 0; b < _maxColorsInTube; b++)
                 {
@@ -174,7 +186,7 @@ namespace Core.GamePlay.WaterSort
 
                     if (_colorTubes[tubeNum].WaterColors.Count < _maxColorsInTube)
                     {
-                        if (IsHiddenLevel.Value == 1)
+                        if (IsHiddenLevel)
                         {
                             _colorTubes[tubeNum].SetHidenColour(_levelColors.Colors[l]);
                         }
@@ -202,7 +214,7 @@ namespace Core.GamePlay.WaterSort
                 }
             }
             SingleIntegerEventsHolder.SwitchProtectorEvent?.Invoke(0);
-            CanPlay.Value = 1;
+            CanPlay = true;
             if (lvlMakingRotine != null)
             {
                 StopCoroutine(lvlMakingRotine);
@@ -211,10 +223,10 @@ namespace Core.GamePlay.WaterSort
 
         void RestartLevel()
         {
-            if (BtnOnceClicked.Value == 0)
+            if (!BtnOnceClicked)
             {
-                BtnOnceClicked.Value = 1;
-                CanPlay.Value = 0;
+                BtnOnceClicked = true;
+                CanPlay = false;
                 lvlMakingRotine = StartCoroutine(ReGenerateLevel());
             }
         }
@@ -223,19 +235,19 @@ namespace Core.GamePlay.WaterSort
         {
             DestroyLevel();
             yield return new WaitForSeconds(0.5f); 
-            _totalTubesCount = CurrrentLvl.Value + 2;
+            _totalTubesCount = CurrrentLvl + 2;
             SingleIntegerEventsHolder.SwitchProtectorEvent?.Invoke(1);
             for (int t = 0; t < _totalTubesCount; t++)
             {
                 TubeHandler newTube = Instantiate(_tubePrefab, transform);
                 newTube.transform.position = TubePositions[t];
-                if (t < CurrrentLvl.Value)
+                if (t < CurrrentLvl)
                 {
                     List<Color32> tubeColors = _currentLevelColors[t];
                     yield return new WaitForSeconds(0.015f);
                     for (int c = 0; c < _maxColorsInTube; c++)
                     {
-                        if (IsHiddenLevel.Value == 1)
+                        if (IsHiddenLevel)
                         {
                             newTube.SetHidenColour(tubeColors[c]);
                         }
@@ -249,8 +261,8 @@ namespace Core.GamePlay.WaterSort
             }
             yield return new WaitForSeconds(0.1f);
             SingleIntegerEventsHolder.SwitchProtectorEvent?.Invoke(0);
-            CanPlay.Value = 1;
-            BtnOnceClicked.Value = 0;
+            CanPlay = true;
+            BtnOnceClicked = false;
             if (lvlMakingRotine != null)
             {
                 StopCoroutine(lvlMakingRotine);
@@ -259,7 +271,7 @@ namespace Core.GamePlay.WaterSort
 
         void OnAddTubeClick()
         {
-            if (_totalTubesCount < 10 && CanPlay.Value == 1)
+            if (_totalTubesCount < 10 && CanPlay)
             {
                 TubeHandler newTube = Instantiate(_tubePrefab, transform);
                 newTube.transform.position = TubePositions[_totalTubesCount];
@@ -277,18 +289,18 @@ namespace Core.GamePlay.WaterSort
         void CheckComplete()
         {
             Debug.Log("[mobile] Check Complete Called");
-            if (CompletedTubes.Value == CurrrentLvl.Value)
+            if (CompletedTubes == CurrrentLvl)
             {
                 Debug.Log("[mobile] Level Complete");
-                CompletedTubes.Value = 0;
-                SortingCompleted.Value = 1;
+                CompletedTubes = 0;
+                SortingCompleted = true;
                 SimpleEventsHolder.StartColoringEvent?.Invoke();
             }
         }
 
         void CheckMoves()
         {
-            TotalMoves.Value--;
+            TotalMoves--;
             SimpleEventsHolder.UpdateMovesEvent?.Invoke();
         }
 

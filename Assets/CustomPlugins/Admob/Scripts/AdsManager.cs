@@ -1,17 +1,34 @@
 using UnityEngine;
-using Core.Variables;
 using Core.DB.Variables;
 using GoogleMobileAds.Api;
 using GoogleMobileAds.Ump.Api;
 
 namespace Core.Plugins.Ads
 {
-    public class AdmobInitialization : MonoBehaviour
+    public class AdsManager : MonoBehaviour
     {
         [SerializeField] AdDataHandler AdData;
         [SerializeField] DBInt NoAds;
         [SerializeField] AdHandler RewardedAd, IntertitialAd;
-        [SerializeField] SOInterger AdmobInitialized;
+
+        public bool IsInitialized = false, AdTimerComplete = false, AdPlaying = false, CanAddMoves = false, CanMultiply = false, CanDoubleReward = false,
+                    CanSpin = false, CanCap = false, CanSpray = false, CanBlockAds = false, CanFlame = false, CanUndo = false,
+                                    CanAddExtraTube = false, CanSwitchColor = false;
+
+        public static AdsManager I { get; private set; }
+
+        private void Start()
+        {
+            if (I == null)
+            {
+                I = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
+        }
 
         public void InitPlugin()
         {
@@ -85,17 +102,15 @@ namespace Core.Plugins.Ads
             {
                 MobileAds.Initialize((InitializationStatus initstatus) =>
                 {
-                    //Debug.Log("line 85");
                     if (initstatus == null)
                     {
                         Debug.LogError("InitializationStatus is null!");
                         return;
                     }
                     MobileAds.RaiseAdEventsOnUnityMainThread = true;
-                    AdmobInitialized.Value = 1;
+                    IsInitialized = true;
                     if (AdData.AdData.Rewarded)
                     {
-                        //Debug.Log("Loading rewarded ad");
                         RewardedAd.LoadAd();
                     }
 

@@ -1,6 +1,5 @@
 using System.Linq;
 using UnityEngine;
-using Core.Variables;
 using Core.Plugins.Ads;
 using UnityEngine.Purchasing;
 using System.Collections.Generic;
@@ -9,7 +8,8 @@ namespace Core.Purchase
 {
     public class InAppPurchase : MonoBehaviour
     {
-        [SerializeField] SOInterger IsInitialized;
+        public bool IsInitialized;
+
         [SerializeField] AdDataHandler AdDataConfige;
         [SerializeField] NonConsumableProduct[] NonConsumableProducts;
         [SerializeField] ConsumableProduct[] ConsumableProducts;
@@ -19,7 +19,7 @@ namespace Core.Purchase
 
         public void InitializePurchasing()
         {
-            if (IsInitialized.Value == 1 || !AdDataConfige.AdData.CanPurchase)
+            if (IsInitialized || !AdDataConfige.AdData.CanPurchase)
             {
                 return;
             }
@@ -45,7 +45,7 @@ namespace Core.Purchase
 
         void FetchProducts()
         {
-            IsInitialized.Value = 1;
+            IsInitialized = true;
             productDictionary = new Dictionary<string, StoreProduct>();
             List<ProductDefinition> initialProductsToFetch = new List<ProductDefinition>();
             for (int n = 0; n < NonConsumableProducts.Length; n++)
@@ -64,7 +64,7 @@ namespace Core.Purchase
         public string GetPrice(string productID)
         {
             //Debug.Log("GetPrice called for productID: " + IsInitialized);
-            if (IsInitialized.Value == 1)
+            if (IsInitialized)
             {
                 Product product = m_StoreController.GetProductById(productID);
                 return product.metadata.localizedPriceString;
@@ -77,7 +77,7 @@ namespace Core.Purchase
 
         public void BuyProduct(string productId)
         {
-            if (IsInitialized.Value == 1)
+            if (IsInitialized)
                 m_StoreController.PurchaseProduct(productId);
         }
         void OnPurchaseFailed(FailedOrder order)

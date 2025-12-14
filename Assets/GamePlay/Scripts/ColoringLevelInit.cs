@@ -1,6 +1,5 @@
 using UnityEngine;
 using Core.Events;
-using Core.Variables;
 using Core.DB.Variables;
 using System.Threading.Tasks;
 using UnityEngine.AddressableAssets;
@@ -11,7 +10,6 @@ namespace Core.GamePlay.WaterSort
     public class ColoringLevelInit : MonoBehaviour
     {
         [SerializeField] DBInt LvlIndex;
-        [SerializeField] SOInterger TempLevelIndex;
         [SerializeField] Transform ColoringHolder;
          
         string _coloringPath = "Level/Coloring/";
@@ -35,7 +33,7 @@ namespace Core.GamePlay.WaterSort
 
         void InitColoring()
         {
-            LoadColoringLvl(_coloringPath + (TempLevelIndex.Value == -1 ? LvlIndex.Value : TempLevelIndex.Value));
+            LoadColoringLvl(_coloringPath + (LevelsManager.I.TempLvlIndex == -1 ? LvlIndex.Value : LevelsManager.I.TempLvlIndex));
         }
 
         async void LoadColoringLvl(string path)

@@ -1,13 +1,13 @@
 using Core.Events;
+using Core.GamePlay.WaterSort;
+using Core.States;
 using UnityEngine;
 using UnityEngine.UI;
-using Core.Variables;
 
 namespace Core.Screen
 {
     public class PaintingView : MonoBehaviour
     {
-        [SerializeField] SOInterger GamePlayStateIndex, MainMenuStateIndex, TempLvlIndex;
         [SerializeField] RawImage PaintingImg;
         [SerializeField] Image[] Stars;
 
@@ -26,9 +26,9 @@ namespace Core.Screen
 
         public void GenerateCustomLvl()
         {
-            TempLvlIndex.Value = _currentLvl;
-            SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(GamePlayStateIndex.Value);
-            SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(MainMenuStateIndex.Value);
+            LevelsManager.I.TempLvlIndex = _currentLvl;
+            SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.GamePlayStateIndex);
+            SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(StateManager.I.MainMenuStateIndex);
             SimpleEventsHolder.InitLvlEvent?.Invoke();
         }
     }

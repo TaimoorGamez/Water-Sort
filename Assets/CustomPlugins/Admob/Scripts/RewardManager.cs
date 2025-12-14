@@ -1,6 +1,5 @@
 using UnityEngine;
 using Core.Events;
-using Core.Variables;
 using Core.DB.Variables;
 using System.Collections;
 
@@ -11,8 +10,6 @@ namespace Core.Plugins.Ads
         [SerializeField] DBInt NoAds;
         [SerializeField] AdDataHandler AdData;
         [SerializeField] AdHandler IntertitialAd;
-        [SerializeField] SOInterger AdTimerComplete, CanAddMoves, CanMultiply, CanDoubleReward, CanSpin, CanCaps, CanSprays, CanBlockAds, CanFlames, CanUndo,
-                                    CanAddExtraTube, CanSwitchColor;
 
         Coroutine _rewardRotine, _adsRotine;
         bool _isEnable = false;
@@ -44,69 +41,69 @@ namespace Core.Plugins.Ads
             while (_isEnable)
             {
                 yield return wait;
-                if (CanAddMoves.Value == 1)
+                if (AdsManager.I.CanAddMoves)
                 {
-                    CanAddMoves.Value = 0;
+                    AdsManager.I.CanAddMoves = false;
                     SimpleEventsHolder.AddMovesEvent?.Invoke();
                     _isEnable = false;
                 }
-                else if (CanUndo.Value == 1)
+                else if (AdsManager.I.CanUndo)
                 {
-                    CanUndo.Value = 0;
+                    AdsManager.I.CanUndo = false;
                     SimpleEventsHolder.RewardUndoEvent?.Invoke();
                     _isEnable = false;
                 }
-                else if (CanAddExtraTube.Value == 1)
+                else if (AdsManager.I.CanAddExtraTube)
                 {
-                    CanAddExtraTube.Value = 0;
+                    AdsManager.I.CanAddExtraTube = false;
                     SimpleEventsHolder.RewardExtraTubeEvent?.Invoke();
                     _isEnable = false;
                 }
-                else if (CanSwitchColor.Value == 1)
+                else if (AdsManager.I.CanSwitchColor)
                 {
-                    CanSwitchColor.Value = 0;
+                    AdsManager.I.CanSwitchColor = false;
                     SimpleEventsHolder.RewardSwapColor?.Invoke();
                     _isEnable = false;
                 }
-                else if (CanMultiply.Value == 1)
+                else if (AdsManager.I.CanMultiply)
                 {
-                    CanMultiply.Value = 0;
+                    AdsManager.I.CanMultiply = false;
                     SimpleEventsHolder.MultiplayRewardEvent?.Invoke();
                     _isEnable = false;
                 }
-                else if (CanDoubleReward.Value == 1)
+                else if (AdsManager.I.CanDoubleReward)
                 {
-                    CanDoubleReward.Value = 0;
+                    AdsManager.I.CanDoubleReward = false;
                     SimpleEventsHolder.DoubleDailyRewardEvent?.Invoke();
                     _isEnable = false;
                 }
-                else if (CanSpin.Value == 1)
+                else if (AdsManager.I.CanSpin)
                 {
-                    CanSpin.Value = 0;
+                    AdsManager.I.CanSpin = false;
                     SimpleEventsHolder.RewardSpinWheelEvent?.Invoke();
                     _isEnable = false;
                 }
-                else if (CanCaps.Value == 1)
+                else if (AdsManager.I.CanCap)
                 {
-                    CanCaps.Value = 0;
+                    AdsManager.I.CanCap = false;
                     SimpleEventsHolder.BuyCaps?.Invoke();
                     _isEnable = false;
                 }
-                else if (CanSprays.Value == 1)
+                else if (AdsManager.I.CanSpray)
                 {
-                    CanSprays.Value = 0;
+                    AdsManager.I.CanSpray = false;
                     SimpleEventsHolder.BuySprays?.Invoke();
                     _isEnable = false;
                 }
-                else if (CanFlames.Value == 1)
+                else if (AdsManager.I.CanFlame)
                 {
-                    CanFlames.Value = 0;
+                    AdsManager.I.CanFlame = false;
                     SimpleEventsHolder.BuyFlames?.Invoke();
                     _isEnable = false;
                 }
-                else if (CanBlockAds.Value == 1)
+                else if (AdsManager.I.CanBlockAds)
                 {
-                    CanBlockAds.Value = 0;
+                    AdsManager.I.CanBlockAds = false;
                     SimpleEventsHolder.AdsBlockerEvent?.Invoke();
                     _isEnable = false;
                 }
@@ -128,7 +125,7 @@ namespace Core.Plugins.Ads
         IEnumerator LoadAds()
         {
             yield return new WaitForSeconds(AdData.AdData.Ad_Show_Time);
-            AdTimerComplete.Value = 1;
+            AdsManager.I.AdTimerComplete = true;
 
             if (AdData.AdData.Interstitial)
                 IntertitialAd.LoadAd();
@@ -140,7 +137,7 @@ namespace Core.Plugins.Ads
             {
                 StopCoroutine(_adsRotine);
             }
-            AdTimerComplete.Value = 0;
+            AdsManager.I.AdTimerComplete = false;
         }
 
         void CustomDisable()
@@ -154,7 +151,7 @@ namespace Core.Plugins.Ads
             {
                 StopCoroutine(_adsRotine);
             }
-            AdTimerComplete.Value = 0;
+            AdsManager.I.AdTimerComplete = false;
         }
     }
 }

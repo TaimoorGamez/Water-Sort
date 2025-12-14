@@ -2,8 +2,8 @@ using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using Core.Events;
+using Core.States;
 using UnityEngine.UI;
-using Core.Variables;
 using Core.DB.Variables;
 using System.Collections;
 using System.Threading.Tasks;
@@ -15,7 +15,6 @@ namespace Core.GamePlay.Coloring
     public class DetailsHandler : MonoBehaviour
     {
         [SerializeField] DBInt CurrentSpray, CurrentFlame, Sound;
-        [SerializeField] SOInterger LevelStars, DetailsApplied, CompleteStateIndex;
         [SerializeField] RectTransform SprayCan, FlameThrower, ColoringParts;
         [SerializeField] AudioSource SpraySound, FlameSound;
         [SerializeField] Vector2Int VerticalRange, HorizontalRange;
@@ -28,7 +27,8 @@ namespace Core.GamePlay.Coloring
         [SerializeField] ParticleSystem StarParticles;
 
         float _speed = 5, _brushSize = 25, _preparationTime = 0.5f, _finalPos = 175, _detailFillingTime = 0.1f;
-        bool _canSpray = false, _effectCheck = false, _canShowNextBtn = true, _onceClicked = true, _canThrowFlame = false;
+        bool _canSpray = false, _effectCheck = false, _canShowNextBtn = true, _onceClicked = true, _canThrowFlame = false, 
+             _detailsApplied = false;
         Coroutine _movingRoutine;
         Camera _currentCamera;
         Texture2D _partTexture;
@@ -42,8 +42,7 @@ namespace Core.GamePlay.Coloring
 
         private async void OnDisable()
         {
-            DetailsApplied.Value = 0;
-               _canSpray = false;
+            _canSpray = false;
             _canThrowFlame = false;
             if (_movingRoutine != null)
             {
@@ -113,14 +112,14 @@ namespace Core.GamePlay.Coloring
                 TextHolder.SetActive(false);
                 NextBtn.SetActive(false);
 
-                if (DetailsApplied.Value == 0)
+                if (!_detailsApplied)
                 {
                     _canSpray = false;
                     SprayCan.gameObject.SetActive(false);
                     Details.gameObject.SetActive(true);
                     PrepareFlames();
                 }
-                else if (DetailsApplied.Value == 1)
+                else if (_detailsApplied)
                 {
                     _canThrowFlame = false;
                     FlameThrower.gameObject.SetActive(false);
@@ -141,7 +140,7 @@ namespace Core.GamePlay.Coloring
             ColoringParts.DOScale(0.75f, _preparationTime);
             ColoringParts.DOAnchorPosY(_finalPos, _preparationTime).OnComplete(() =>
             {
-                SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(CompleteStateIndex.Value);
+                SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.LevelCompleteStateIndex);
             });
         }
 
@@ -438,7 +437,7 @@ namespace Core.GamePlay.Coloring
             {
                 _canShowNextBtn = false;
                 _onceClicked = false;
-                DetailsApplied.Value = 1;
+                _detailsApplied = true;
                 NextBtn.SetActive(true);
             }
         }

@@ -1,7 +1,6 @@
 using TMPro;
 using DG.Tweening;
 using UnityEngine;
-using Core.Variables;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -9,7 +8,8 @@ namespace Core.Screen
 {
     public class MultiplierBar : MonoBehaviour
     {
-        [SerializeField] SOInterger CurrentMultiplier;
+        public int CurrentMultiplier;
+
         [SerializeField] TextMeshProUGUI RvText;
         [SerializeField] RectTransform MovingTarget;
         [SerializeField] RectTransform[] MovingPoints;
@@ -33,8 +33,8 @@ namespace Core.Screen
                 HighlightImg(GetShineIndex(_currentIndex));
                 _currentTween = MovingTarget.DOAnchorPosX(MovingPoints[_currentIndex].anchoredPosition.x, _durationPerStep).SetEase(Ease.Linear).OnComplete(() =>
                 {
-                    CurrentMultiplier.Value = GetMultipler(_currentIndex);
-                    RvText.text = CurrentMultiplier.Value.ToString() + "X";
+                    CurrentMultiplier = GetMultipler(_currentIndex);
+                    RvText.text = CurrentMultiplier.ToString() + "X";
                     if (_movingForward)
                     {
                         _currentIndex++;

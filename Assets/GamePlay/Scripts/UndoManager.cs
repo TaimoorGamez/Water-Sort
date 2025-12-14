@@ -1,6 +1,5 @@
 using UnityEngine;
 using Core.Events;
-using Core.Variables;
 using Core.DB.Variables;
 using System.Collections.Generic;
 
@@ -10,7 +9,6 @@ namespace Core.GamePlay.WaterSort
     public class UndoManager : ScriptableObject
     {
         [SerializeField] DBInt LvlNum;
-        [SerializeField] SOInterger DoingUndo, UsingAnyFeature, CanPlay, GamePlayStateIndex, MinLvlIndex;
         [SerializeField] SOWaterTube OpenTube;
 
         Stack<UndoData> _undoMoves = new Stack<UndoData>();
@@ -46,10 +44,10 @@ namespace Core.GamePlay.WaterSort
 
         void OnUndoBtnClick()
         {
-            if (_undoMoves.Count > 0 && DoingUndo.Value == 0 && UsingAnyFeature.Value == 0 && CanPlay.Value == 1)
+            if (_undoMoves.Count > 0 && !LevelsManager.I.DoingUndo && !LevelsManager.I.UsingAnyFeature && LevelsManager.I.CanPlay)
             {
-                DoingUndo.Value = 1;
-                UsingAnyFeature.Value = 1;
+                LevelsManager.I.DoingUndo = true;
+                LevelsManager.I.UsingAnyFeature = true;
                 UndoData lastMove = new UndoData();
                 lastMove = _undoMoves.Pop();
                 if (!lastMove.GetterTube.IsBussy && !lastMove.SenderTube.IsBussy)
@@ -61,7 +59,7 @@ namespace Core.GamePlay.WaterSort
                     OpenTube.Tube = lastMove.GetterTube;
                     OpenTube.Tube.RemoveFromCompleted();
                     lastMove.SenderTube.UndoWater(lastMove.GetterTube, lastMove.LiquidLayers);
-                    if (LvlNum.Value >= MinLvlIndex.Value)
+                    if (LvlNum.Value >= LevelsManager.I.MinLvlCount)
                     {
                         SimpleEventsHolder.UpdateUndoStatusEvent?.Invoke();
                     }
@@ -76,7 +74,7 @@ namespace Core.GamePlay.WaterSort
             {
                 SingleIntegerEventsHolder.ShowToastEvent?.Invoke(2);
             }
-            else if (UsingAnyFeature.Value == 1)
+            else if (LevelsManager.I.UsingAnyFeature)
             {
                 SingleIntegerEventsHolder.ShowToastEvent?.Invoke(4);
             }

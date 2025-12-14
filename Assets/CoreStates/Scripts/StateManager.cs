@@ -1,6 +1,5 @@
-using UnityEngine;
 using Core.Events;
-using Core.Variables;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
@@ -8,10 +7,27 @@ namespace Core.States
 {
     public class StateManager : MonoBehaviour
     {
+        public int MainMenuStateIndex, GamePlayStateIndex, PauseStateIndex, LevelFailStateIndex, LevelCompleteStateIndex;
+
         [SerializeField] GameState[] AllStates;
-        [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, LeveCompleteStateIndex;
 
         int _sceneCounter = 0, _maxSceneCount = 5;
+
+        public static StateManager I { get; private set; }
+
+        private void Awake()
+        {
+            if (I == null)
+            {
+                I = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
+        }
+
 
         private void OnEnable()
         {
@@ -34,7 +50,7 @@ namespace Core.States
         void ActiveeState(int stateIndex)
         {
             AllStates[stateIndex].ActiveCurrentState(transform);
-            if (stateIndex == MainMenuStateIndex.Value)
+            if (stateIndex == MainMenuStateIndex)
             {
                 StartCoroutine(ClearMemoryRoutine());
             }

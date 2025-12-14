@@ -1,7 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
 using Core.Events;
-using Core.Variables;
 using Core.DB.Variables;
 
 namespace Core.Screen
@@ -9,7 +8,6 @@ namespace Core.Screen
     public class SettingScreen : UiScreens
     {
         [SerializeField] DBInt Music, Sound;
-        [SerializeField] SOInterger SettingStateIndex;
         [SerializeField] RectTransform MusicBtn, SoundBtn;
         [SerializeField] GameObject MusicOff, SoundOff;
 

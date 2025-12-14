@@ -1,7 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
 using Core.Events;
-using Core.Variables;
 using System.Collections;
 using Core.GamePlay.Coloring;
 
@@ -9,7 +8,6 @@ namespace Core.GamePlay.WaterSort
 {
     public class WaterSortTutorialThree : MonoBehaviour
     {
-        [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
         [SerializeField] TubeHandler FirstTube, SecondTube, ThirdTube, ForthTube, ExtraTube;
         [SerializeField] GameObject InfoTextObj;
         [SerializeField] Transform HandObj, TutorialCircle;
@@ -65,7 +63,7 @@ namespace Core.GamePlay.WaterSort
                 yield return new WaitForSeconds(0.1f);
             }
             SingleIntegerEventsHolder.SwitchProtectorEvent?.Invoke(0);
-            CanPlay.Value = 1;
+            LevelsManager.I.CanPlay = true;
             HandObj.gameObject.SetActive(true);
             TutorialCircle.gameObject.SetActive(true);
             TutorialCircle.DOScale(1, 1f).SetEase(Ease.Linear);

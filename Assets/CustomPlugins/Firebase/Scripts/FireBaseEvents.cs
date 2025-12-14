@@ -1,5 +1,4 @@
 using UnityEngine;
-using Core.Variables;
 using Core.DB.Variables;
 using Firebase.Analytics;
 
@@ -9,11 +8,11 @@ namespace Core.Plugins.Firebase
     public class FireBaseEvents : ScriptableObject
     {
         [SerializeField] DBInt CashWallet;
-        [SerializeField] SOInterger IsFirebaseInit;
+        [SerializeField] FirebaseInitialization FirebaseInit;
 
         public void LevelStartEvent(string lvlNum)
         {
-            if (IsFirebaseInit.Value == 1)
+            if (FirebaseInit.IsFirebaseInit)
             {
                 Parameter[] parameters = {
             new Parameter ("level", lvlNum),
@@ -25,7 +24,7 @@ namespace Core.Plugins.Firebase
 
         public void LevelCompleteEvent(int lvlNum, double lvlTime)
         {
-            if (IsFirebaseInit.Value == 1)
+            if (FirebaseInit.IsFirebaseInit)
             {
                 Parameter[] parameters = {
             new Parameter ("level", lvlNum.ToString()),
@@ -37,7 +36,7 @@ namespace Core.Plugins.Firebase
 
         public void LevelFailEvent(int lvlNum, string failNum, double lvlTime)
         {
-            if (IsFirebaseInit.Value == 1)
+            if (FirebaseInit.IsFirebaseInit)
             {
                 Parameter[] parameters = {
             new Parameter ("level", lvlNum.ToString()),
@@ -49,7 +48,7 @@ namespace Core.Plugins.Firebase
 
         public void EarnCoinsEvent(string coinsType, long amount, string sourceOfIncome)
         {
-            if (IsFirebaseInit.Value == 1)
+            if (FirebaseInit.IsFirebaseInit)
             {
                 Parameter[] parameters = {
             new Parameter ("virtual_currency_name", coinsType),
@@ -62,7 +61,7 @@ namespace Core.Plugins.Firebase
 
         public void SpendCoinsEvent(string coinsType, long amount, string purchaseName)
         {
-            if (IsFirebaseInit.Value == 1)
+            if (FirebaseInit.IsFirebaseInit)
             {
                 Parameter[] parameters = {
             new Parameter ("virtual_currency_name", coinsType),
@@ -75,7 +74,7 @@ namespace Core.Plugins.Firebase
 
         public void LogEvent(string eventString)
         {
-            if (IsFirebaseInit.Value == 1)
+            if (FirebaseInit.IsFirebaseInit)
             {
                 FirebaseAnalytics.LogEvent(eventString);
             }

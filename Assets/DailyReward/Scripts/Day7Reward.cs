@@ -25,15 +25,14 @@ namespace Core.DailyReward
         {
             base.UpdateUI();
             for (int i = 0; i < AmountText.Length; i++)
-{
-    AmountText[i].text = Amount.ToString();
-}
+            {
+                AmountText[i].text = Amount.ToString();
+            }
 
-for (int i = 0; i < TubesText.Length; i++)
-{
-    TubesText[i].text = TubeCounts.ToString();
-}
-
+            for (int i = 0; i < TubesText.Length; i++)
+            {
+                TubesText[i].text = TubeCounts.ToString();
+            }
         }
 
         protected override void OnClickBuyButton()
