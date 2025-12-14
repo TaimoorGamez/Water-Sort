@@ -5,11 +5,8 @@ using System.Collections.Generic;
 
 namespace Core.GamePlay.WaterSort
 {
-    [CreateAssetMenu(fileName = "UndoManager", menuName = "ScriptableObjects/WaterSort/UndoManager")]
-    public class UndoManager : ScriptableObject
+    public class SortUndoManager : MonoBehaviour
     {
-        [SerializeField] SOWaterTube OpenTube;
-
         Stack<UndoData> _undoMoves = new Stack<UndoData>();
 
         public void AddUndo(TubeHandler senderTube, TubeHandler getterTube, int liquidLayers)
@@ -51,12 +48,12 @@ namespace Core.GamePlay.WaterSort
                 lastMove = _undoMoves.Pop();
                 if (!lastMove.GetterTube.IsBussy && !lastMove.SenderTube.IsBussy)
                 {
-                    if (OpenTube.Tube != null)
+                    if (LevelsManager.I.Tube != null)
                     {
-                        OpenTube.Tube.MoveBackIn();
+                        LevelsManager.I.Tube.MoveBackIn();
                     }
-                    OpenTube.Tube = lastMove.GetterTube;
-                    OpenTube.Tube.RemoveFromCompleted();
+                    LevelsManager.I.Tube = lastMove.GetterTube;
+                    LevelsManager.I.Tube.RemoveFromCompleted();
                     lastMove.SenderTube.UndoWater(lastMove.GetterTube, lastMove.LiquidLayers);
                     if (DBVariablesHolder.LvlNum.Value >= LevelsManager.I.MinLvlCount)
                     {

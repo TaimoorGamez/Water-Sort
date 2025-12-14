@@ -9,7 +9,6 @@ namespace Core.GamePlay.Coloring
 {
     public class ColorFillingHandler : MonoBehaviour
     {
-        [SerializeField] SOColorBowl CurrentBowl;
         [SerializeField] ColorFilling[] ColoringPart;
         [SerializeField] RectTransform BrushTransform;
         [SerializeField] AudioSource BurshSound;
@@ -88,7 +87,7 @@ namespace Core.GamePlay.Coloring
             }
             else
             {
-                CurrentBowl.Bowl.BowlState(false);
+                LevelsManager.I.CurrentBowl.BowlState(false);
             }
         }
 
@@ -241,7 +240,7 @@ namespace Core.GamePlay.Coloring
                 NextBtn.SetActive(false);
                 ResetButton.SetActive(false);
                 FillRemaingPixles();
-                CurrentBowl.Bowl.BowlState(false);
+                LevelsManager.I.CurrentBowl.BowlState(false);
                 _coloredPixlesCounter = 0;
                 BurshSound.Stop();
                 if (LevelsManager.I.LevelStars > 2 && !LevelsManager.I.CurrentColor.Equals(ColoringPart[_paintingCounter - 1].DefaultColor))
@@ -288,7 +287,7 @@ namespace Core.GamePlay.Coloring
                 TextHolder.SetActive(false);
                 NextBtn.SetActive(false);
                 ResetButton.SetActive(false);
-                CurrentBowl.Bowl.BowlState(false);
+                LevelsManager.I.CurrentBowl.BowlState(false);
                 _coloredPixlesCounter = 0;
                 BurshSound.Stop();
                 byte alphaThreshold = 50;

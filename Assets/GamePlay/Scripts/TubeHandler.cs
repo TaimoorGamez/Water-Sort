@@ -13,9 +13,6 @@ namespace Core.GamePlay.WaterSort
         public Color CurrentColor;
         public CapHandler TubeCap;
 
-        [SerializeField] UndoManager UndoManager;
-        [SerializeField] ColorSwaper SwapingManager;
-        [SerializeField] SOWaterTube OpenTube;
         [SerializeField] ParticleSystem WaveParticle, DropsParticle, CompleteParticle;
         [SerializeField] LineRenderer WaterLine;
         [SerializeField] Transform AnchorPos1, AnchorPos2;
@@ -64,12 +61,12 @@ namespace Core.GamePlay.WaterSort
         {
             if (!LevelsManager.I.DoingUndo && !LevelsManager.I.IsSwaping && LevelsManager.I.CanPlay)
             {
-                if (OpenTube.Tube == null && !IsBussy && !_isDrinkingWater)
+                if (LevelsManager.I.Tube == null && !IsBussy && !_isDrinkingWater)
                 {
                     if (WaterColors.Count > 0)
                     {
                         TubeState(true);
-                        OpenTube.Tube = this;
+                        LevelsManager.I.Tube = this;
                     }
                     else
                     {
@@ -78,16 +75,16 @@ namespace Core.GamePlay.WaterSort
                 }
                 else
                 {
-                    if (OpenTube.Tube == this && !IsBussy)
+                    if (LevelsManager.I.Tube == this && !IsBussy)
                     {
-                        OpenTube.Tube = null;
+                        LevelsManager.I.Tube = null;
                         MoveBackIn();
                     }
                     else
                     {
-                        if (!IsBussy && OpenTube.Tube != null)
+                        if (!IsBussy && LevelsManager.I.Tube != null)
                         {
-                            _senderTube = OpenTube.Tube;
+                            _senderTube = LevelsManager.I.Tube;
                             if (WaterColors.Count < 1)
                             {
                                 DrinkWater();
@@ -101,15 +98,15 @@ namespace Core.GamePlay.WaterSort
                                 else
                                 {
                                     SingleIntegerEventsHolder.ShowToastEvent?.Invoke(6);
-                                    OpenTube.Tube.MoveBackIn();
-                                    OpenTube.Tube = null;
+                                    LevelsManager.I.Tube.MoveBackIn();
+                                    LevelsManager.I.Tube = null;
                                 }
                             }
                             else
                             {
                                 SingleIntegerEventsHolder.ShowToastEvent?.Invoke(7);
-                                OpenTube.Tube.MoveBackIn();
-                                OpenTube.Tube = null;
+                                LevelsManager.I.Tube.MoveBackIn();
+                                LevelsManager.I.Tube = null;
                             }
                         }
                     }
@@ -118,7 +115,7 @@ namespace Core.GamePlay.WaterSort
             else if (LevelsManager.I.IsSwaping && LevelsManager.I.CanPlay && WaterColors.Count > 0)
             {
                 SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(0);
-                SwapingManager.AddTubeForSwaping(this);
+                LevelsManager.I.ColorSwaper.AddTubeForSwaping(this);
             }
         }
 
@@ -133,7 +130,7 @@ namespace Core.GamePlay.WaterSort
             IsBussy = true;
             _isDrinkingWater = true;
             _senderTube.IsBussy = true;
-            OpenTube.Tube = null;
+            LevelsManager.I.Tube = null;
             _drinkingRotine.Add(StartCoroutine(ChangingWater(_senderTube)));
         }
 
@@ -143,7 +140,7 @@ namespace Core.GamePlay.WaterSort
             _isDrinkingWater = true;
             senderTube.IsBussy = true;
             _colorsToUndo = liquidLayers;
-            OpenTube.Tube = null;
+            LevelsManager.I.Tube = null;
             _drinkingRotine.Add(StartCoroutine(ChangingWater(senderTube)));
         }
 
@@ -203,7 +200,7 @@ namespace Core.GamePlay.WaterSort
                 senderTube.RemoveColor(colorsToAdd);
                 if (!LevelsManager.I.DoingUndo)
                 {
-                    UndoManager.AddUndo(senderTube, this, colorsToAdd);
+                    LevelsManager.I.UndoManager.AddUndo(senderTube, this, colorsToAdd);
                 }
                 IsBussy = false;
             });

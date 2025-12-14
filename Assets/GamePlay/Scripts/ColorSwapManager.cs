@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Core.GamePlay.WaterSort
 {
-    public class ColorSwaper : MonoBehaviour
+    public class ColorSwapManager : MonoBehaviour
     {
         [SerializeField] SODOTween TubeScaleUpTween, TubeScaleDownTween;
 

@@ -86,21 +86,21 @@ namespace Core.Events
 
         public static Dictionary<string, GameEvent> PowerEvents = new Dictionary<string, GameEvent>(StringComparer.Ordinal)
         {
-            { "UndoColor", SimpleEventsHolder.UndoEvent },
+            { "SortUndo", SimpleEventsHolder.UndoEvent },
             { "SwapColor", SimpleEventsHolder.SwapColorsEvent },
             { "ExtraTube", SimpleEventsHolder.ExtraTubeEvent }
         };
 
-        public static Dictionary<string, GameEvent> ChangePowerStatusEvent = new Dictionary<string, GameEvent>(StringComparer.Ordinal)
+        public static Dictionary<string, GameEvent> UpdatePowerStatusEvent = new Dictionary<string, GameEvent>(StringComparer.Ordinal)
         {
-            { "UndoColor", SimpleEventsHolder.UpdateUndoStatusEvent },
+            { "SortUndo", SimpleEventsHolder.UpdateUndoStatusEvent },
             { "SwapColor", SimpleEventsHolder.UpdateSwapStateEvent },
             { "ExtraTube", SimpleEventsHolder.UpdateExtraTubeStatEvent }
         };
 
         public static Dictionary<string, GameEvent> RewardPowerEvent = new Dictionary<string, GameEvent>(StringComparer.Ordinal)
         {
-            { "UndoColor", SimpleEventsHolder.RewardUndoEvent },
+            { "SortUndo", SimpleEventsHolder.RewardUndoEvent },
             { "SwapColor", SimpleEventsHolder.RewardSwapColor },
             { "ExtraTube", SimpleEventsHolder.RewardExtraTubeEvent }
         };

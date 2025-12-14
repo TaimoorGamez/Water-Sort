@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 311f102967101b8498849bda645c6b7a, type: 3}
   m_Name: FbEvent
   m_EditorClassIdentifier: 
-  CashWallet: {fileID: 11400000, guid: d7324cb25eb68ed4ba0b946bcb7f2d62, type: 2}
-  IsFirebaseInit: {fileID: 11400000, guid: e26e6baab10951f4d85f4af66b38941c, type: 2}
+  FirebaseInit: {fileID: 11400000, guid: afe62d58c0da7a94abccece5c7df9181, type: 2}

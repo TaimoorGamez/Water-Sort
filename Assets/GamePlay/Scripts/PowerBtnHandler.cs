@@ -25,7 +25,7 @@ namespace Core.Screen
             {
                 Debug.LogWarning($"Buy event key '{PowerName}' does not exist.");
             }
-            if (EventDictionariesHolder.ChangePowerStatusEvent.TryGetValue(PowerName, out var evt))
+            if (EventDictionariesHolder.UpdatePowerStatusEvent.TryGetValue(PowerName, out var evt))
             {
                 evt += ChangeStatus;
             }
@@ -46,7 +46,7 @@ namespace Core.Screen
             {
                 Debug.LogWarning($"Buy event key '{PowerName}' does not exist.");
             }
-            if (EventDictionariesHolder.ChangePowerStatusEvent.TryGetValue(PowerName, out var evt))
+            if (EventDictionariesHolder.UpdatePowerStatusEvent.TryGetValue(PowerName, out var evt))
             {
                 evt -= ChangeStatus;
             }

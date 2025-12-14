@@ -400,6 +400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1199090505}
   - component: {fileID: 1199090507}
+  - component: {fileID: 1199090509}
   - component: {fileID: 1199090508}
   m_Layer: 0
   m_Name: LevelManager
@@ -435,9 +436,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3ea379d98f12345968c5e37ea4d09a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UndoManager: {fileID: 1199090509}
+  ColorSwaper: {fileID: 1199090508}
   CurrentColor:
     serializedVersion: 2
     rgba: 0
+  Tube: {fileID: 0}
+  CurrentBowl: {fileID: 0}
   MinLvlCount: 5
   MaxLvlCount: 22
   LevelStars: 3
@@ -489,6 +494,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TubeScaleUpTween: {fileID: 11400000, guid: 16ae342fb0f0f5041b155984471eb302, type: 2}
   TubeScaleDownTween: {fileID: 11400000, guid: 21496ddb7ca02c445bc2b5d524a4ca0b, type: 2}
+--- !u!114 &1199090509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199090504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6f78610cdd207145bee8743fd4307ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1324483140
 GameObject:
   m_ObjectHideFlags: 0

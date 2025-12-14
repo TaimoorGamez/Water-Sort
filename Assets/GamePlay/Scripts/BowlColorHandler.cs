@@ -6,7 +6,6 @@ namespace Core.GamePlay.Coloring
 {
     public class BowlColorHandler : MonoBehaviour
     {
-        [SerializeField] SOColorBowl CurrentBowl;
         [SerializeField] Renderer MySkin;
         [SerializeField] ParticleSystem WaveParticle;
 
@@ -35,15 +34,15 @@ namespace Core.GamePlay.Coloring
         }
         private void OnMouseDown()
         {
-            if (CurrentBowl.Bowl == null)
+            if (LevelsManager.I.CurrentBowl == null)
             {
-                CurrentBowl.Bowl = this;
+                LevelsManager.I.CurrentBowl = this;
                 BowlState(true);
             }
             else
             {
-                CurrentBowl.Bowl.BowlState(false);
-                CurrentBowl.Bowl = this;
+                LevelsManager.I.CurrentBowl.BowlState(false);
+                LevelsManager.I.CurrentBowl = this;
                 BowlState(true);
             }
             LevelsManager.I.CurrentColor = _bowlColor;

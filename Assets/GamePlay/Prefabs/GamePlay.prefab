@@ -206,17 +206,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Body: {fileID: 0}
-  ActiveStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
-  SwitchProtectorEvent: {fileID: 11400000, guid: a23a193df529a5742b69a31e2a0a2720, type: 2}
-  LvlNum: {fileID: 11400000, guid: bad89b7dfd4fe324eaaacf6e970340af, type: 2}
-  TotalMoves: {fileID: 11400000, guid: c0332282d9024b84dafaab019726f173, type: 2}
-  CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
-  LevelFailStateIndex: {fileID: 11400000, guid: 58a28048a36a10746ad0a0b7453ccaa5, type: 2}
-  CompletedTubes: {fileID: 11400000, guid: 5fb94964db162b54085794074b40bdfc, type: 2}
-  GamePlayStateIndex: {fileID: 11400000, guid: d7723c4d03c616248b6e725f6734b348, type: 2}
-  PauseStateIndex: {fileID: 11400000, guid: b8c7eb0e02271b14e90d732de1e1c3ff, type: 2}
-  MinLvl: {fileID: 11400000, guid: 97861f11d658661419c157765ea4ff3c, type: 2}
-  CurrrentLvl: {fileID: 11400000, guid: 619fe066546f4a1468e58d2c6fff0e67, type: 2}
   SwipeColorsModePanel: {fileID: 5658296870264550383}
   PowerButtons: {fileID: 5904127183862769092}
   TopBar: {fileID: 893510127590977225}
@@ -1453,7 +1442,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 512353582190022526, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: PowerName
-      value: UndoColor
+      value: SortUndo
       objectReference: {fileID: 0}
     - target: {fileID: 512353582190022526, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: PowerEvent

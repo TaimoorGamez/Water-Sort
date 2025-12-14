@@ -16,7 +16,11 @@ namespace Core.GamePlay
     {
         public static LevelsManager I { get; private set; }
 
+        public SortUndoManager UndoManager;
+        public ColorSwapManager ColorSwaper;
         public Color32 CurrentColor;
+        public TubeHandler Tube;
+        public BowlColorHandler CurrentBowl;
         public int MinLvlCount = 5, MaxLvlCount = 22, LevelStars = 3, TotalMoves, CurrrentLvl, TempLvlIndex = -1, CompletedTubes;
         public bool IsHiddenLevel = false, CanPlay = false, BtnOnceClicked = false, SortingCompleted, UsingAnyFeature = false, 
                     IsSwaping  = false, DoingUndo = false;
