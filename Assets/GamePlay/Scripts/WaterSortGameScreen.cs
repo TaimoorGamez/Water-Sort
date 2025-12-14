@@ -28,7 +28,7 @@ namespace Core.Screen
 
         private void Start()
         {
-            if (DBIntsHolder.LvlNum.Value < LevelsManager.I.MinLvlCount)
+            if (DBVariablesHolder.LvlNum.Value < LevelsManager.I.MinLvlCount)
             {
                 PowerButtons.SetActive(false);
                 PauseBtn.SetActive(false);
@@ -48,7 +48,7 @@ namespace Core.Screen
 
         void UpdateMovesText()
         {
-            if (DBIntsHolder.LvlNum.Value >= LevelsManager.I.MinLvlCount)
+            if (DBVariablesHolder.LvlNum.Value >= LevelsManager.I.MinLvlCount)
             {
                 MovesText.text = LevelsManager.I.TotalMoves.ToString();
 

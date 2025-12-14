@@ -9,7 +9,6 @@ namespace Core.DailyReward
 {
     public class DayChecker : MonoBehaviour
     {
-        [SerializeField] DBString LastDate;
         [SerializeField] GameObject DailyRewardView, NotificationObj;
         [SerializeField] TextMeshProUGUI RemainingTimeText, PanelTimer;
 
@@ -41,7 +40,7 @@ namespace Core.DailyReward
             NotificationObj.SetActive(false);
             RemainingTimeText.gameObject.SetActive(false);
             DateTime currentDate = DateTime.Now;
-            DateTime lastRewardDate = DateTime.Parse(LastDate.Value);
+            DateTime lastRewardDate = DateTime.Parse(DBVariablesHolder.LastDate.Value);
             int daysSinceLastReward = (currentDate - lastRewardDate).Days;
             int daysGreater = daysSinceLastReward / 1;
 
@@ -49,20 +48,20 @@ namespace Core.DailyReward
             {
                 SimpleEventsHolder.GenerateDailyTasksEvent?.Invoke();
                 SimpleEventsHolder.ResetSpinWheelEvent?.Invoke();
-                DBIntsHolder.RewardClaimed.Value = 0;
+                DBVariablesHolder.RewardClaimed.Value = 0;
                 NotificationObj.SetActive(true);
-                if (daysGreater == 1 && DBIntsHolder.ToDay.Value < 7)
+                if (daysGreater == 1 && DBVariablesHolder.ToDay.Value < 7)
                 {
-                    DBIntsHolder.ToDay.Value = (DBIntsHolder.ToDay.Value + 1);
+                    DBVariablesHolder.ToDay.Value = (DBVariablesHolder.ToDay.Value + 1);
                 }
                 else
                 {
-                    DBIntsHolder.ToDay.Value = 1;
+                    DBVariablesHolder.ToDay.Value = 1;
                 }
                 DailyRewardView.SetActive(true);
-                LastDate.Value = (DateTime.Now.ToString());
+                DBVariablesHolder.LastDate.Value = (DateTime.Now.ToString());
             }
-            else if (daysGreater < 1 && DBIntsHolder.RewardClaimed.Value == 0)
+            else if (daysGreater < 1 && DBVariablesHolder.RewardClaimed.Value == 0)
             {
                 NotificationObj.SetActive(true);
                 DailyRewardView.SetActive(true);
@@ -70,7 +69,7 @@ namespace Core.DailyReward
             else
             {
                 RemainingTimeText.gameObject.SetActive(true);
-                DateTime nextRewardDate = DateTime.Parse(LastDate.Value).AddDays(1);
+                DateTime nextRewardDate = DateTime.Parse(DBVariablesHolder.LastDate.Value).AddDays(1);
                 TimeSpan remainingTime = nextRewardDate - DateTime.Now;
                 float secondsRemaining = (float)remainingTime.TotalSeconds;
                 _timerRotine = StartCoroutine(UpdateRemainingTime(secondsRemaining));

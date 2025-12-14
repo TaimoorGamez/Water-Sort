@@ -25,7 +25,7 @@ namespace Core.Screen
         private void OnEnable()
         {
             SimpleEventsHolder.RewardSpinWheelEvent += RewardedSpin;
-            if (DBIntsHolder.SpinAvailable.Value == 1)
+            if (DBVariablesHolder.SpinAvailable.Value == 1)
             {
                 SpinBtn.SetActive(true);
                 RvBtn.SetActive(false);
@@ -121,7 +121,7 @@ namespace Core.Screen
                         Invoke(nameof(CloseRewardPanel), 1);
                         _allSpinSegments[rewardIndex].ChangeGradient(SpinWheelData.SpinWheelRewards[rewardIndex].SegmentColor);
                     });
-                    DBIntsHolder.SpinAvailable.Value = 0;
+                    DBVariablesHolder.SpinAvailable.Value = 0;
                     SpinBtn.SetActive(false);
                     SpinNotification.SetActive(false);
                     RvBtn.SetActive(true);

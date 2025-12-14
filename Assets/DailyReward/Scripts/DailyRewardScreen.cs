@@ -30,7 +30,7 @@ namespace Core.Screen
 
         private void CheckViewState()
         {
-            if (DBIntsHolder.RewardClaimed.Value == 0)
+            if (DBVariablesHolder.RewardClaimed.Value == 0)
             {
                 ClaimBtnsObj.SetActive(true);
                 TimerTextObj.SetActive(false);

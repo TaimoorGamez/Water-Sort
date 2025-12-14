@@ -11,7 +11,7 @@ namespace Core.Purchase
 
         public override void BuyProduct()
         {
-            DBIntDictionariesHolder.NonConsumableProductsData[ProductName].Value = 1;
+            DBVariableDictionariesHolder.NonConsumableProductsData[ProductName].Value = 1;
             InvokeEventFromKey();
         }
 

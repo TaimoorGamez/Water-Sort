@@ -71,7 +71,7 @@ namespace Core.GamePlay.Coloring
         private void Start()
         {
             _currentCamera = Camera.main;
-            LoadSprayObj(_sprayPath + DBIntsHolder.CurrentActiveSpray.Value);
+            LoadSprayObj(_sprayPath + DBVariablesHolder.CurrentActiveSpray.Value);
             Invoke(nameof(PrepareCompounD),0.1f);
         }
 
@@ -185,7 +185,7 @@ namespace Core.GamePlay.Coloring
                         _effectCheck = true;
                         BubbleParticle.SetActive(true);
                         _sprayAnimation.Play("SprayOn");
-                        if (DBIntsHolder.Sound.Value == 1)
+                        if (DBVariablesHolder.Sound.Value == 1)
                             SpraySound.Play();
                     }
                 }
@@ -306,7 +306,7 @@ namespace Core.GamePlay.Coloring
             _canShowNextBtn = true;
             _canThrowFlame = true;
             _movingRoutine = StartCoroutine(FlamesThrowingRoutine());
-            LoadFlameObj(_flamePath + DBIntsHolder.CurrentActiveFlameThrower.Value);
+            LoadFlameObj(_flamePath + DBVariablesHolder.CurrentActiveFlameThrower.Value);
         }
 
         async void LoadFlameObj(string path)
@@ -345,7 +345,7 @@ namespace Core.GamePlay.Coloring
                     {
                         _effectCheck = true;
                         FlameParticles.SetActive(true);
-                        if (DBIntsHolder.Sound.Value == 1)
+                        if (DBVariablesHolder.Sound.Value == 1)
                             FlameSound.Play();
                     }
                 }

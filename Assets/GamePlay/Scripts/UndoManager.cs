@@ -58,7 +58,7 @@ namespace Core.GamePlay.WaterSort
                     OpenTube.Tube = lastMove.GetterTube;
                     OpenTube.Tube.RemoveFromCompleted();
                     lastMove.SenderTube.UndoWater(lastMove.GetterTube, lastMove.LiquidLayers);
-                    if (DBIntsHolder.LvlNum.Value >= LevelsManager.I.MinLvlCount)
+                    if (DBVariablesHolder.LvlNum.Value >= LevelsManager.I.MinLvlCount)
                     {
                         SimpleEventsHolder.UpdateUndoStatusEvent?.Invoke();
                     }

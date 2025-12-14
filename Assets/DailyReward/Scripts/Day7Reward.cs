@@ -37,7 +37,7 @@ namespace Core.DailyReward
         protected override void OnClickBuyButton()
         {
             base.OnClickBuyButton();
-           DBIntsHolder.RemainingTubes.Value += TubeCounts;
+           DBVariablesHolder.RemainingTubes.Value += TubeCounts;
             try
             {
                 FBEvents.EarnCoinsEvent("Tube", Amount, "DailyReward");
@@ -50,7 +50,7 @@ namespace Core.DailyReward
 
         protected override void GrantDoubleReward()
         {
-            DBIntsHolder.RemainingTubes.Value += (TubeCounts * 2);
+            DBVariablesHolder.RemainingTubes.Value += (TubeCounts * 2);
             base.GrantDoubleReward();
         }
     }

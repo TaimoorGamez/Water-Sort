@@ -40,7 +40,7 @@ namespace Core.DailyReward
 
         protected void Update()
         {
-            if (_giveReward && DBIntsHolder.ToDay.Value == RewardDay && DBIntsHolder.RewardClaimed.Value == 0 && !_doubleRewardClicked)
+            if (_giveReward && DBVariablesHolder.ToDay.Value == RewardDay && DBVariablesHolder.RewardClaimed.Value == 0 && !_doubleRewardClicked)
             {
                 _giveReward = false;
                 GrantDoubleReward();
@@ -49,7 +49,7 @@ namespace Core.DailyReward
 
         protected virtual void UpdateState()
         {
-            if (DBIntsHolder.ToDay.Value == RewardDay && DBIntsHolder.RewardClaimed.Value == 0)
+            if (DBVariablesHolder.ToDay.Value == RewardDay && DBVariablesHolder.RewardClaimed.Value == 0)
             {
                 ActiveState(1);
                 ClaimButton.onClick.AddListener(OnClickBuyButton);
@@ -57,7 +57,7 @@ namespace Core.DailyReward
             }
             else
             {
-                if (DBIntsHolder.ToDay.Value < RewardDay)
+                if (DBVariablesHolder.ToDay.Value < RewardDay)
                 {
                     ActiveState(2);
                 }
@@ -79,9 +79,9 @@ namespace Core.DailyReward
 
         protected virtual void OnClickBuyButton()
         {
-            if (DBIntsHolder.RewardClaimed.Value == 0)
+            if (DBVariablesHolder.RewardClaimed.Value == 0)
             {
-                DBIntsHolder.RewardClaimed.Value = 1;
+                DBVariablesHolder.RewardClaimed.Value = 1;
                 CurrenciesHolder.CashCurrency.Amount += Amount;
                 UpdateState();
                 ClaimButton.onClick.RemoveListener(OnClickBuyButton);
@@ -100,10 +100,10 @@ namespace Core.DailyReward
 
         protected virtual void GrantDoubleReward()
         {
-            if (DBIntsHolder.ToDay.Value == RewardDay && DBIntsHolder.RewardClaimed.Value == 0 && !_doubleRewardClicked)
+            if (DBVariablesHolder.ToDay.Value == RewardDay && DBVariablesHolder.RewardClaimed.Value == 0 && !_doubleRewardClicked)
             {
                 _doubleRewardClicked = true;
-                DBIntsHolder.RewardClaimed.Value = 1;
+                DBVariablesHolder.RewardClaimed.Value = 1;
                 CurrenciesHolder.CashCurrency.Amount += (Amount * 2);
                 UpdateState();
                 SimpleEventsHolder.UpDateDailyRewardState?.Invoke();

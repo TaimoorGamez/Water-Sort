@@ -35,7 +35,7 @@ namespace Core.Screen
                 Debug.Log($"Buy event key '{ItemName}' does not exist.");
             }
             SingleIntegerEventsHolder.UpdateItemStatusEvent += ChangeItemStatus;
-            _selectedItem = DBIntDictionariesHolder.StoreActiveItems[ItemName].Value;
+            _selectedItem = DBVariableDictionariesHolder.StoreActiveItems[ItemName].Value;
             _activationRotine = StartCoroutine(ActiveStorageRoom());
             ChangeItemStatus(_selectedItem);
         }
@@ -77,7 +77,7 @@ namespace Core.Screen
                 yield return new WaitForSeconds(0.1f);
             }
             ChangeActiveItem();
-            InitItem(DBIntDictionariesHolder.StoreActiveItems[ItemName].Value);
+            InitItem(DBVariableDictionariesHolder.StoreActiveItems[ItemName].Value);
             yield return new WaitForSeconds(0.5f);
             float targetY = Content.rect.height - Viewport.rect.height;
             if (targetY > 200)
@@ -114,7 +114,7 @@ namespace Core.Screen
                 {
                     RoomItems[i].SelectItem();
                     InitItem(i);
-                    if (i == DBIntDictionariesHolder.StoreActiveItems[ItemName].Value)
+                    if (i == DBVariableDictionariesHolder.StoreActiveItems[ItemName].Value)
                     {
                         ChangeButton(0);
                     }
@@ -128,7 +128,7 @@ namespace Core.Screen
                         VideoText.text = RoomItems[_selectedItem].MyData.WatchedVideos + "/" + RoomItems[_selectedItem].MyData.TotalVideos;
                     }
                 }
-                else if (i == DBIntDictionariesHolder.StoreActiveItems[ItemName].Value)
+                else if (i == DBVariableDictionariesHolder.StoreActiveItems[ItemName].Value)
                 {
                     RoomItems[i].ActiveSelectItem();
                 }
@@ -150,11 +150,11 @@ namespace Core.Screen
 
         public void ChangeActiveItem()
         {
-            RoomItems[DBIntDictionariesHolder.StoreActiveItems[ItemName].Value].UnSelectItem();
+            RoomItems[DBVariableDictionariesHolder.StoreActiveItems[ItemName].Value].UnSelectItem();
             if (_selectedItem != -1)
             {
-                DBIntDictionariesHolder.StoreActiveItems[ItemName].Value = _selectedItem;
-                RoomItems[DBIntDictionariesHolder.StoreActiveItems[ItemName].Value].ActiveSelectItem();
+                DBVariableDictionariesHolder.StoreActiveItems[ItemName].Value = _selectedItem;
+                RoomItems[DBVariableDictionariesHolder.StoreActiveItems[ItemName].Value].ActiveSelectItem();
                 ChangeButton(0);
             }
         }

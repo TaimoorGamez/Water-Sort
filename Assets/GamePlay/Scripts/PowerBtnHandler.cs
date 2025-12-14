@@ -61,9 +61,9 @@ namespace Core.Screen
             CounterObj.SetActive(false);
             PriceObj.SetActive(false);
             AdObj.SetActive(false);
-            if (DBIntDictionariesHolder.PowerStatusData[PowerName].Value > 0)
+            if (DBVariableDictionariesHolder.PowerStatusData[PowerName].Value > 0)
             {
-                RemaingText.text = DBIntDictionariesHolder.PowerStatusData[PowerName].Value.ToString();
+                RemaingText.text = DBVariableDictionariesHolder.PowerStatusData[PowerName].Value.ToString();
                 CounterObj.SetActive(true);
             }
             else if (CurrenciesHolder.CashCurrency.Amount >= Price)
@@ -78,9 +78,9 @@ namespace Core.Screen
 
         void ChangeStatus()
         {
-            if (DBIntDictionariesHolder.PowerStatusData[PowerName].Value > 0)
+            if (DBVariableDictionariesHolder.PowerStatusData[PowerName].Value > 0)
             {
-                DBIntDictionariesHolder.PowerStatusData[PowerName].Value--;
+                DBVariableDictionariesHolder.PowerStatusData[PowerName].Value--;
             }
             else if (CurrenciesHolder.CashCurrency.Amount >= Price)
             {
@@ -91,7 +91,7 @@ namespace Core.Screen
 
         public void OnClickPowerBtn()
         {
-            if (DBIntDictionariesHolder.PowerStatusData[PowerName].Value > 0 || CurrenciesHolder.CashCurrency.Amount >= Price)
+            if (DBVariableDictionariesHolder.PowerStatusData[PowerName].Value > 0 || CurrenciesHolder.CashCurrency.Amount >= Price)
             {
                 if (EventDictionariesHolder.PowerEvents.TryGetValue(PowerName, out var evt))
                 {
@@ -110,7 +110,7 @@ namespace Core.Screen
 
         void RewardPower()
         {
-            DBIntDictionariesHolder.PowerStatusData[PowerName].Value++;
+            DBVariableDictionariesHolder.PowerStatusData[PowerName].Value++;
             PowerStatus();
         }
     }

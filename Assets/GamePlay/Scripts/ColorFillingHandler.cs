@@ -111,7 +111,7 @@ namespace Core.GamePlay.Coloring
                         _coloringSound = true;
                         BrushAnimtion.Play();
                         ResetButton.SetActive(true);
-                        if (DBIntsHolder.Sound.Value == 1)
+                        if (DBVariablesHolder.Sound.Value == 1)
                             BurshSound.Play();
                     }
                 }

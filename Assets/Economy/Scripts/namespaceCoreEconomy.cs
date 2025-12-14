@@ -7,9 +7,9 @@ namespace Core.Economy
 {
     public class Currencies
     {
-        public DBInteger CurrencyWallet;
+        public DBInt CurrencyWallet;
 
-        public Currencies(DBInteger wallet)
+        public Currencies(DBInt wallet)
         {
             CurrencyWallet = wallet;
         }
@@ -38,7 +38,7 @@ namespace Core.Economy
 
     public static class CurrenciesHolder 
     {
-        public static Currencies CashCurrency = new Currencies(DBIntsHolder.CashWallet);
+        public static Currencies CashCurrency = new Currencies(DBVariablesHolder.CashWallet);
     }
 
     public static class CurrencyDictionariesHolder 

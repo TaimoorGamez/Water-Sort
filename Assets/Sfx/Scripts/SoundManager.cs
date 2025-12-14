@@ -36,7 +36,7 @@ namespace Core.Sfx
 
         void UpdateBGMusicState()
         {
-            if (DBIntsHolder.Music.Value == 1)
+            if (DBVariablesHolder.Music.Value == 1)
             {
                 _bgSource = gameObject.AddComponent<AudioSource>();
                 PlayBGMusic();
@@ -52,7 +52,7 @@ namespace Core.Sfx
 
         void PlayBGMusic()
         {
-            if (DBIntsHolder.Music.Value == 1)
+            if (DBVariablesHolder.Music.Value == 1)
             {
                 _bgSource.Stop();
                 _bgSource.volume = _bgVolume;
@@ -64,7 +64,7 @@ namespace Core.Sfx
 
         void UpdateSoundState()
         {
-            if (DBIntsHolder.Sound.Value == 1)
+            if (DBVariablesHolder.Sound.Value == 1)
             {
                 CreateSoundSources();
             }
@@ -97,7 +97,7 @@ namespace Core.Sfx
 
         void PlayBtnSound()
         {
-            if (DBIntsHolder.Sound.Value == 1)
+            if (DBVariablesHolder.Sound.Value == 1)
             {
                 _btnSource.Play();
             }
@@ -105,7 +105,7 @@ namespace Core.Sfx
     
         void PlaySoundEffect(int effectNum)
         {
-            if (DBIntsHolder.Sound.Value == 1)
+            if (DBVariablesHolder.Sound.Value == 1)
             {
                 if (_effectSource.isPlaying)
                 {

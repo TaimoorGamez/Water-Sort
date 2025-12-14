@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Core.DB.Variables
 {
-    public class DBInteger
+    public class DBInt
     {
         public string PrefName;
         public int DefaultValue;
@@ -20,7 +20,7 @@ namespace Core.DB.Variables
             }
         }
 
-        public DBInteger(string name, int defaultValue = 0)
+        public DBInt(string name, int defaultValue = 0)
         {
             PrefName = name;
             DefaultValue = defaultValue;
@@ -34,82 +34,115 @@ namespace Core.DB.Variables
         }
     }
 
-    public static class DBIntsHolder
+    public class DBString
+    {
+        public string PrefName;
+        public string DefaultValue;
+
+        public string Value
+        {
+            get => PlayerPrefs.GetString(PrefName, DefaultValue);
+
+            set
+            {
+                PlayerPrefs.SetString(PrefName, value);
+                PlayerPrefs.Save();
+            }
+        }
+
+        public DBString(string name, string defaultValue = "")
+        {
+            PrefName = name;
+            DefaultValue = defaultValue;
+
+            // Initialize only once
+            if (!PlayerPrefs.HasKey(PrefName))
+            {
+                PlayerPrefs.SetString(PrefName, DefaultValue);
+                PlayerPrefs.Save();
+            }
+        }
+    }
+
+
+    public static class DBVariablesHolder
     {
         //---------------------Ads Related -----------------------
-        public static DBInteger NoAds = new DBInteger("NoAds", 0);
-        public static DBInteger AdBlocked = new DBInteger("AdBlocked", 0);
+        public static DBInt NoAds = new DBInt("NoAds", 0);
+        public static DBInt AdBlocked = new DBInt("AdBlocked", 0);
+        public static DBString AdBlockingTime = new DBString("AdBlockingTime", DateTime.MinValue.ToString());
+        public static DBString LastDate = new DBString("LastDate", DateTime.MinValue.ToString());
 
         //---------------------Currencies Data -------------------
-        public static DBInteger CashWallet = new DBInteger("CashWallet", 0);       
+        public static DBInt CashWallet = new DBInt("CashWallet", 0);       
 
         //---------------------Daily Reward -----------------------
-        public static DBInteger ToDay = new DBInteger("ToDay", 0);
-        public static DBInteger RewardClaimed = new DBInteger("RewardClaimed", 0);
+        public static DBInt ToDay = new DBInt("ToDay", 0);
+        public static DBInt RewardClaimed = new DBInt("RewardClaimed", 0);
 
         //---------------------Daily Tasks ------------------------
-        public static DBInteger Task0 = new DBInteger("Task0", 0);
-        public static DBInteger Task1 = new DBInteger("Task1", 0);
-        public static DBInteger Task2 = new DBInteger("Task2", 0);
-        public static DBInteger Task3 = new DBInteger("Task3", 0);
+        public static DBInt Task0 = new DBInt("Task0", 0);
+        public static DBInt Task1 = new DBInt("Task1", 0);
+        public static DBInt Task2 = new DBInt("Task2", 0);
+        public static DBInt Task3 = new DBInt("Task3", 0);
 
         //---------------------Spin Wheel -------------------------
-        public static DBInteger SpinAvailable = new DBInteger("DailySpinAvailable", 1);
+        public static DBInt SpinAvailable = new DBInt("DailySpinAvailable", 1);
 
         //---------------------Sound Related ----------------------
-        public static DBInteger Music = new DBInteger("Music", 1);
-        public static DBInteger Sound = new DBInteger("RewardClaimed", 1);
+        public static DBInt Music = new DBInt("Music", 1);
+        public static DBInt Sound = new DBInt("RewardClaimed", 1);
 
         //---------------------Store Data -------------------------
-        public static DBInteger CurrentActiveCap = new DBInteger("CurrentActiveCap", 0);
-        public static DBInteger CurrentActiveSpray = new DBInteger("CurrentActiveSpray", 0);
-        public static DBInteger CurrentActiveFlameThrower = new DBInteger("CurrentActiveFlameThrower", 0);
+        public static DBInt CurrentActiveCap = new DBInt("CurrentActiveCap", 0);
+        public static DBInt CurrentActiveSpray = new DBInt("CurrentActiveSpray", 0);
+        public static DBInt CurrentActiveFlameThrower = new DBInt("CurrentActiveFlameThrower", 0);
 
 
         //---------------------Game Flow --------------------------
-        public static DBInteger FFT = new DBInteger("FFT", 0);
-        public static DBInteger LvlNum = new DBInteger("LvlNum", 0);
-        public static DBInteger LvlIndex = new DBInteger("LvlIndex", 0);
-        public static DBInteger RemaingUndo = new DBInteger("RemaingUndo", 0);
-        public static DBInteger RemainingSwaps = new DBInteger("RemainingSwaps", 0);
-        public static DBInteger RemainingTubes = new DBInteger("RemainingTubes", 0);
+        public static DBInt FFT = new DBInt("FFT", 0);
+        public static DBInt LvlNum = new DBInt("LvlNum", 0);
+        public static DBInt LvlIndex = new DBInt("LvlIndex", 0);
+        public static DBInt RemaingUndo = new DBInt("RemaingUndo", 0);
+        public static DBInt RemainingSwaps = new DBInt("RemainingSwaps", 0);
+        public static DBInt RemainingTubes = new DBInt("RemainingTubes", 0);
 
     }
 
-    public static class DBIntDictionariesHolder
+    public static class DBVariableDictionariesHolder
     {
-        public static Dictionary<int, DBInteger> PowersData = new Dictionary<int, DBInteger>()
+        public static Dictionary<int, DBInt> PowersData = new Dictionary<int, DBInt>()
         {
-            { 0, DBIntsHolder.RemaingUndo },
-            { 1, DBIntsHolder.RemainingSwaps },
-            { 2, DBIntsHolder.RemainingTubes }
+            { 0, DBVariablesHolder.RemaingUndo },
+            { 1, DBVariablesHolder.RemainingSwaps },
+            { 2, DBVariablesHolder.RemainingTubes }
         };
 
-        public static Dictionary<int, DBInteger> TaskIndexies = new Dictionary<int, DBInteger>()
+        public static Dictionary<int, DBInt> TaskIndexies = new Dictionary<int, DBInt>()
         {
-            { 0, DBIntsHolder.Task0 },
-            { 1, DBIntsHolder.Task1 },
-            { 2, DBIntsHolder.Task2 },
-            { 3, DBIntsHolder.Task3 }
+            { 0, DBVariablesHolder.Task0 },
+            { 1, DBVariablesHolder.Task1 },
+            { 2, DBVariablesHolder.Task2 },
+            { 3, DBVariablesHolder.Task3 }
         };
 
-        public static Dictionary<string, DBInteger> PowerStatusData = new Dictionary<string, DBInteger>(StringComparer.Ordinal)
+        public static Dictionary<string, DBInt> PowerStatusData = new Dictionary<string, DBInt>(StringComparer.Ordinal)
         {
-            { "UndoColor", DBIntsHolder.RemaingUndo },
-            { "SwapColor", DBIntsHolder.RemainingSwaps },
-            { "ExtraTube", DBIntsHolder.RemainingTubes }
+            { "UndoColor", DBVariablesHolder.RemaingUndo },
+            { "SwapColor", DBVariablesHolder.RemainingSwaps },
+            { "ExtraTube", DBVariablesHolder.RemainingTubes }
         };
 
-        public static Dictionary<string, DBInteger> StoreActiveItems = new Dictionary<string, DBInteger>(StringComparer.Ordinal)
+        public static Dictionary<string, DBInt> StoreActiveItems = new Dictionary<string, DBInt>(StringComparer.Ordinal)
         {
-            { "Cap", DBIntsHolder.CurrentActiveCap },
-            { "Spray", DBIntsHolder.CurrentActiveSpray },
-            { "FlameThrower", DBIntsHolder.CurrentActiveFlameThrower }
+            { "Cap", DBVariablesHolder.CurrentActiveCap },
+            { "Spray", DBVariablesHolder.CurrentActiveSpray },
+            { "FlameThrower", DBVariablesHolder.CurrentActiveFlameThrower }
         };
 
-        public static Dictionary<string, DBInteger> NonConsumableProductsData = new Dictionary<string, DBInteger>(StringComparer.Ordinal)
+        public static Dictionary<string, DBInt> NonConsumableProductsData = new Dictionary<string, DBInt>(StringComparer.Ordinal)
         {
-            { "NoAds", DBIntsHolder.NoAds }
+            { "NoAds", DBVariablesHolder.NoAds }
         };
     }
 }

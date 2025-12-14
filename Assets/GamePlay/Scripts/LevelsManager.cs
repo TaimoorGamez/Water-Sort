@@ -75,7 +75,7 @@ namespace Core.GamePlay.WaterSort
             _colorTubes.Clear();
             _totalTubes.Clear();
             DestroyLevel();
-            if (DBIntsHolder.LvlNum.Value % 5 == 0)
+            if (DBVariablesHolder.LvlNum.Value % 5 == 0)
             {
                 IsHiddenLevel = true;
             }
@@ -86,10 +86,10 @@ namespace Core.GamePlay.WaterSort
 
             if (TempLvlIndex == -1)
             {
-                if (DBIntsHolder.LvlIndex.Value < 5)
-                    LoadAddressableLevels<GameObject>(_sortingLvlPath + DBIntsHolder.LvlIndex.Value);
+                if (DBVariablesHolder.LvlIndex.Value < 5)
+                    LoadAddressableLevels<GameObject>(_sortingLvlPath + DBVariablesHolder.LvlIndex.Value);
                 else
-                    LoadAddressableLevels<SOColors>(_sortingLvlPath + DBIntsHolder.LvlIndex.Value);
+                    LoadAddressableLevels<SOColors>(_sortingLvlPath + DBVariablesHolder.LvlIndex.Value);
             }
             else
             {
@@ -128,10 +128,10 @@ namespace Core.GamePlay.WaterSort
                 return;
             }
 
-            if (DBIntsHolder.LvlIndex.Value < 5)
+            if (DBVariablesHolder.LvlIndex.Value < 5)
             {
                 GameObject lvlObj = Instantiate(_lvlHandle.Result as GameObject, transform);
-                CurrrentLvl = DBIntsHolder.LvlIndex.Value;
+                CurrrentLvl = DBVariablesHolder.LvlIndex.Value;
 
                 await Task.Yield();  // frame 1
                 await Task.Yield();  // frame 2

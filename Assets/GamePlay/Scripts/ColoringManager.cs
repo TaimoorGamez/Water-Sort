@@ -36,7 +36,7 @@ namespace Core.GamePlay.Coloring
             ColoringImage.DOAnchorPos(Vector2.zero, _preparationTime).OnComplete(() =>
             {
                 RefferanceBar.gameObject.SetActive(true);
-                LoadReferenceObj(_refferancePath + (LevelsManager.I.TempLvlIndex == -1 ? DBIntsHolder.LvlIndex.Value : LevelsManager.I.TempLvlIndex));
+                LoadReferenceObj(_refferancePath + (LevelsManager.I.TempLvlIndex == -1 ? DBVariablesHolder.LvlIndex.Value : LevelsManager.I.TempLvlIndex));
             });
         }
         

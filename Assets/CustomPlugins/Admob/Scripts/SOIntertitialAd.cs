@@ -17,7 +17,7 @@ namespace Core.Plugins.Ads
 
         public override void LoadAd()
         {
-            if (!AdsManager.I.IsInitialized || DBIntsHolder.NoAds.Value == 1)
+            if (!AdsManager.I.IsInitialized || DBVariablesHolder.NoAds.Value == 1)
                 return;
 
 
@@ -55,7 +55,7 @@ namespace Core.Plugins.Ads
             get
             {
                 return _interstitialAd != null && _interstitialAd.CanShowAd() && AdsManager.I.AdTimerComplete && !AdsManager.I.AdPlaying
-                    && DBIntsHolder.LvlNum.Value > LevelsManager.I.MinLvlCount && DBIntsHolder.NoAds.Value != 1;
+                    && DBVariablesHolder.LvlNum.Value > LevelsManager.I.MinLvlCount && DBVariablesHolder.NoAds.Value != 1;
             }
         }
 
@@ -63,7 +63,7 @@ namespace Core.Plugins.Ads
         {
             if (IsAdAvailable)
             {
-                if (DBIntsHolder.AdBlocked.Value == 1)
+                if (DBVariablesHolder.AdBlocked.Value == 1)
                     return;
 
                 AdsManager.I.AdPlaying = true;

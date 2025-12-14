@@ -24,12 +24,12 @@ namespace Core.Screen
 
         private void Start()
         {
-            if (DBIntsHolder.FFT.Value != 1)
+            if (DBVariablesHolder.FFT.Value != 1)
             {
                 DefaultCap.IsPurchased = true;
                 DefaultFlame.IsPurchased = true;
                 DefaultSpray.IsPurchased = true;
-                DBIntsHolder.FFT.Value = 1;
+                DBVariablesHolder.FFT.Value = 1;
             }
             FirebaseInit.InitPlugin();
             LogoImage.DOFillAmount(1, _loadingTime).SetEase(Ease.Linear);
@@ -40,7 +40,7 @@ namespace Core.Screen
                 LoadingText.text = _loadingTxt + percent + "%";
             }).OnComplete(() =>
             {
-                if (DBIntsHolder.LvlNum.Value <= LevelsManager.I.MinLvlCount)
+                if (DBVariablesHolder.LvlNum.Value <= LevelsManager.I.MinLvlCount)
                 {
                     SimpleEventsHolder.InitLvlEvent?.Invoke();
                     SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.GamePlayStateIndex);

@@ -32,7 +32,7 @@ namespace Core.GamePlay.WaterSort
 
         void InitColoring()
         {
-            LoadColoringLvl(_coloringPath + (LevelsManager.I.TempLvlIndex == -1 ? DBIntsHolder.LvlIndex.Value : LevelsManager.I.TempLvlIndex));
+            LoadColoringLvl(_coloringPath + (LevelsManager.I.TempLvlIndex == -1 ? DBVariablesHolder.LvlIndex.Value : LevelsManager.I.TempLvlIndex));
         }
 
         async void LoadColoringLvl(string path)

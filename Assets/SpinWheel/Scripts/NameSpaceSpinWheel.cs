@@ -26,7 +26,7 @@ namespace Core.SpinWheel
             }
             else
             {
-                DBIntDictionariesHolder.PowerStatusData[RewardName].Value += Amount;
+                DBVariableDictionariesHolder.PowerStatusData[RewardName].Value += Amount;
             }
         }
     }

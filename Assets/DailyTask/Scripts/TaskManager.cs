@@ -52,7 +52,7 @@ namespace Core.DailyTasks
         void GenerateDailyTasks()
         {
             _activeTasks = new DailyTaskData[_totalTasks];
-            DBIntDictionariesHolder.TaskIndexies[0].Value = 0;
+            DBVariableDictionariesHolder.TaskIndexies[0].Value = 0;
             AllTasks[0].Progress = 0;
             AllTasks[0].TaskClaimed = 0;
             _activeTasks[0] = AllTasks[0];
@@ -71,7 +71,7 @@ namespace Core.DailyTasks
                 int rand = Random.Range(0, availableIndexes.Count);
                 int chosenIndex = availableIndexes[rand];
 
-                DBIntDictionariesHolder.TaskIndexies[i].Value = chosenIndex;
+                DBVariableDictionariesHolder.TaskIndexies[i].Value = chosenIndex;
                 _activeTasks[i] = AllTasks[chosenIndex];
                 availableIndexes.RemoveAt(rand);
             }
@@ -82,7 +82,7 @@ namespace Core.DailyTasks
             _activeTasks = new DailyTaskData[_totalTasks];
             for (int i = 0; i < _totalTasks; i++)
             {
-                int index = DBIntDictionariesHolder.TaskIndexies[i].Value;
+                int index = DBVariableDictionariesHolder.TaskIndexies[i].Value;
                 _activeTasks[i] = AllTasks[index];
             }
         }
@@ -96,7 +96,7 @@ namespace Core.DailyTasks
         {
             for (int t = 0; t < _totalTasks; t++) 
             {
-                if (DBIntDictionariesHolder.TaskIndexies[t].Value == index)
+                if (DBVariableDictionariesHolder.TaskIndexies[t].Value == index)
                 {
                     _activeTasks[t].Progress += progress;
                 }

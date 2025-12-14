@@ -26,26 +26,26 @@ namespace Core.Screen
 
         public void ToggleMusic()
         {
-            DBIntsHolder.Music.Value = DBIntsHolder.Music.Value == 1 ? 0 : 1;
+            DBVariablesHolder.Music.Value = DBVariablesHolder.Music.Value == 1 ? 0 : 1;
             SimpleEventsHolder.UpdateMusicStateEvent?.Invoke();
             UpdateMusicUI();
         }
 
         public void ToggleSound()
         {
-            DBIntsHolder.Sound.Value = DBIntsHolder.Sound.Value == 1 ? 0 : 1;
+            DBVariablesHolder.Sound.Value = DBVariablesHolder.Sound.Value == 1 ? 0 : 1;
             SimpleEventsHolder.UpdateSoundStateEvent?.Invoke();
             UpdateSoundUI();
         }
 
         void UpdateMusicUI()
         {
-            MusicOff.SetActive(DBIntsHolder.Music.Value != 1);
+            MusicOff.SetActive(DBVariablesHolder.Music.Value != 1);
         }
 
         void UpdateSoundUI()
         {
-            SoundOff.SetActive(DBIntsHolder.Sound.Value != 1);
+            SoundOff.SetActive(DBVariablesHolder.Sound.Value != 1);
         }
 
         public override void OnClose()

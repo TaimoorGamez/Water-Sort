@@ -20,7 +20,7 @@ namespace Core.Sfx
 
         public void PlaySoundClip()
         {
-            if (DBIntsHolder.Sound.Value == 1)
+            if (DBVariablesHolder.Sound.Value == 1)
             {
                 AudioSourceToUse.PlayOneShot(ClipToPlay);
             }

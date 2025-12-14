@@ -46,15 +46,15 @@ namespace Core.Screen
             {
                 if (l < _activeLvl)
                 {
-                    Lvls[l].text = (DBIntsHolder.LvlNum.Value - (_activeLvl - l)).ToString();
+                    Lvls[l].text = (DBVariablesHolder.LvlNum.Value - (_activeLvl - l)).ToString();
                 }
                 else if (l > _activeLvl)
                 {
-                    Lvls[l].text = (DBIntsHolder.LvlNum.Value + (l- _activeLvl)).ToString();
+                    Lvls[l].text = (DBVariablesHolder.LvlNum.Value + (l- _activeLvl)).ToString();
                 }
                 else
                 {
-                    Lvls[l].text = DBIntsHolder.LvlNum.Value.ToString();
+                    Lvls[l].text = DBVariablesHolder.LvlNum.Value.ToString();
                 }
             }
 

@@ -14,7 +14,7 @@ namespace Core.GamePlay.WaterSort
 
         private void Start()
         {
-            LoadCapItem(_capsPath + DBIntsHolder.CurrentActiveCap.Value);
+            LoadCapItem(_capsPath + DBVariablesHolder.CurrentActiveCap.Value);
         }
 
         async void LoadCapItem(string path)

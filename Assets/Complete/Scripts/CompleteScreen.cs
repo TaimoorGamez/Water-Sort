@@ -93,7 +93,7 @@ namespace Core.Screen
         {
             ScreenshotCamera.targetTexture = TargetTexture;
             ScreenshotCamera.Render(); 
-            int currentLvl = LevelsManager.I.TempLvlIndex != -1 ? LevelsManager.I.TempLvlIndex : DBIntsHolder.LvlNum.Value;
+            int currentLvl = LevelsManager.I.TempLvlIndex != -1 ? LevelsManager.I.TempLvlIndex : DBVariablesHolder.LvlNum.Value;
             yield return new WaitForSeconds(0.01f);
             // Create a new Texture2D
             Texture2D screenshot = new Texture2D(TargetTexture.width, TargetTexture.height, TextureFormat.RGB24, false);
@@ -145,7 +145,7 @@ namespace Core.Screen
         void OnPanelVisible()
         {
             SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(StateManager.I.GamePlayStateIndex);
-            if (DBIntsHolder.LvlNum.Value > LevelsManager.I.MinLvlCount)
+            if (DBVariablesHolder.LvlNum.Value > LevelsManager.I.MinLvlCount)
             {
                 NextBtn.DOAnchorPos(_nextBtnPosition, _durationTweeing).SetEase(Ease.InOutBack).OnComplete(() =>
                 {
@@ -189,8 +189,8 @@ namespace Core.Screen
                 CurrenciesHolder.CashCurrency.Amount += (_totalBonus * CurrentMultiplayerBar.CurrentMultiplier);
                 if (LevelsManager.I.TempLvlIndex == -1)
                 {
-                    DBIntsHolder.LvlNum.Value++;
-                    DBIntsHolder.LvlIndex.Value++;
+                    DBVariablesHolder.LvlNum.Value++;
+                    DBVariablesHolder.LvlIndex.Value++;
                 }
                 Invoke(nameof(OnClose), 2);
             }
@@ -205,8 +205,8 @@ namespace Core.Screen
                 CurrenciesHolder.CashCurrency.Amount += _totalBonus;
                 if (LevelsManager.I.TempLvlIndex == -1)
                 {
-                    DBIntsHolder.LvlNum.Value++;
-                    DBIntsHolder.LvlIndex.Value++;
+                    DBVariablesHolder.LvlNum.Value++;
+                    DBVariablesHolder.LvlIndex.Value++;
                 }
                 Invoke(nameof(OnClose), 2);
             }
@@ -225,12 +225,12 @@ namespace Core.Screen
         {
             SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             Body.DOAnchorPosX(1500, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => {
-                if (DBIntsHolder.LvlIndex.Value > LevelsManager.I.MaxLvlCount)
+                if (DBVariablesHolder.LvlIndex.Value > LevelsManager.I.MaxLvlCount)
                 {
-                    DBIntsHolder.LvlIndex.Value = LevelsManager.I.MinLvlCount;
+                    DBVariablesHolder.LvlIndex.Value = LevelsManager.I.MinLvlCount;
                 }
 
-                if (DBIntsHolder.LvlNum.Value <= LevelsManager.I.MinLvlCount)
+                if (DBVariablesHolder.LvlNum.Value <= LevelsManager.I.MinLvlCount)
                 {
                     SimpleEventsHolder.InitLvlEvent?.Invoke();        
                     SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.GamePlayStateIndex);

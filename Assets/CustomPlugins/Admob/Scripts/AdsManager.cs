@@ -113,7 +113,7 @@ namespace Core.Plugins.Ads
                         RewardedAd.LoadAd();
                     }
 
-                    if (AdData.AdData.Interstitial && DBIntsHolder.NoAds.Value == 0)
+                    if (AdData.AdData.Interstitial && DBVariablesHolder.NoAds.Value == 0)
                     {
                         IntertitialAd.LoadAd();
                     }

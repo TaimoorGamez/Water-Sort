@@ -8,7 +8,6 @@ namespace Core.Screen
 {
     public class AdBlockingHandler : MonoBehaviour
     {
-        [SerializeField] DBString AdBlockingTime;
         [SerializeField] TextMeshProUGUI RemainingTimeText, PanelTimer;
 
         float _blockedTime = 15 * 60;
@@ -16,9 +15,9 @@ namespace Core.Screen
 
         void OnEnable()
         {
-            if (DBIntsHolder.AdBlocked.Value == 1)
+            if (DBVariablesHolder.AdBlocked.Value == 1)
             {
-                DateTime lastDate = DateTime.Parse(AdBlockingTime.Value);
+                DateTime lastDate = DateTime.Parse(DBVariablesHolder.AdBlockingTime.Value);
                 TimeSpan passedTime = DateTime.Now - lastDate;
                 float passedSeconds = (float)passedTime.TotalSeconds;
                 if (passedSeconds < _blockedTime)
@@ -28,7 +27,7 @@ namespace Core.Screen
                 }
                 else
                 {
-                    DBIntsHolder.AdBlocked.Value = 0;
+                    DBVariablesHolder.AdBlocked.Value = 0;
                 }
             }
         }
@@ -54,7 +53,7 @@ namespace Core.Screen
 
             if (seconds < 1)
             {
-                DBIntsHolder.AdBlocked.Value = 0;
+                DBVariablesHolder.AdBlocked.Value = 0;
                 RemainingTimeText.gameObject.SetActive(false);
             }
         }

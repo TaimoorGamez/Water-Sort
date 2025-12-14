@@ -21,13 +21,13 @@ namespace Core.Screen
 
         void ResetSpinWheel()
         {
-            DBIntsHolder.SpinAvailable.Value = 1;
+            DBVariablesHolder.SpinAvailable.Value = 1;
             UpdateNotificationStatus();
         }
 
         void UpdateNotificationStatus()
         {
-            NotificationObj.SetActive(DBIntsHolder.SpinAvailable.Value == 1);
+            NotificationObj.SetActive(DBVariablesHolder.SpinAvailable.Value == 1);
         }
     }
 }

@@ -78,7 +78,7 @@ namespace Core.GamePlay.WaterSort
                 Color oneColor = SwapingTubes[0].CurrentColor;
                 SwapingTubes[0].SwapeColor(SwapingTubes[1].CurrentColor);
                 SwapingTubes[1].SwapeColor(oneColor);
-                if (DBIntsHolder.LvlNum.Value >= LevelsManager.I.MinLvlCount)
+                if (DBVariablesHolder.LvlNum.Value >= LevelsManager.I.MinLvlCount)
                 {
                     SimpleEventsHolder.UpdateSwapStateEvent?.Invoke();
                 }

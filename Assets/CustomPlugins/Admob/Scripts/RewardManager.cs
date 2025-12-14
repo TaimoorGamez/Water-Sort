@@ -115,7 +115,7 @@ namespace Core.Plugins.Ads
 
         void StartLoadingAds()
         {
-            if (DBIntsHolder.NoAds.Value != 1)
+            if (DBVariablesHolder.NoAds.Value != 1)
             {
                 _adsRotine = StartCoroutine(LoadAds());
             }
