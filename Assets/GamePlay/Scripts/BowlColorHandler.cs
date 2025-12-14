@@ -6,7 +6,6 @@ namespace Core.GamePlay.Coloring
 {
     public class BowlColorHandler : MonoBehaviour
     {
-        [SerializeField] SOColor CurrentColor;
         [SerializeField] SOColorBowl CurrentBowl;
         [SerializeField] Renderer MySkin;
         [SerializeField] ParticleSystem WaveParticle;
@@ -47,7 +46,7 @@ namespace Core.GamePlay.Coloring
                 CurrentBowl.Bowl = this;
                 BowlState(true);
             }
-            CurrentColor.Value = _bowlColor;
+            LevelsManager.I.CurrentColor = _bowlColor;
             SimpleEventsHolder.ColorSelectedEvent?.Invoke();
         }
 

@@ -1,7 +1,6 @@
 using Core.Events;
 using DG.Tweening;
 using UnityEngine;
-using Core.Variables;
 using System.Collections;
 using Core.GamePlay.Coloring;
 

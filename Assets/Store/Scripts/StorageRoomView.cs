@@ -3,16 +3,15 @@ using Core.Store;
 using UnityEngine;
 using DG.Tweening;
 using Core.Events;
-using Core.Variables;
 using Core.DB.Variables;
 using System.Collections;
+using Core.DataStructure;
 using System.Collections.Generic;
 
 namespace Core.Screen
 {
     public class StorageRoomView : MonoBehaviour
     {
-        [SerializeField] SODictionary_Int_Gameobject ItemInstances;
         [SerializeField] ItemView[] RoomItems;
         [SerializeField] RectTransform Content, Viewport;
         [SerializeField] GameObject[] Buttons;
@@ -23,6 +22,7 @@ namespace Core.Screen
         int _selectedItem = -1;
         Coroutine _activationRotine;
         GameObject _currentItem;
+        Dictionary<int, GameObject> _itemContainer;
 
         private void OnEnable()
         {
@@ -66,10 +66,7 @@ namespace Core.Screen
 
         IEnumerator ActiveStorageRoom()
         {
-            if (ItemInstances.DictionaryValue == null)
-            {
-                ItemInstances.DictionaryValue = new Dictionary<int, GameObject>();
-            }
+            _itemContainer = GlobalDataStructures.StoreItemsContainer[ItemName];
 
             for (int i = 0; i < RoomItems.Length; i++)
             {
@@ -102,7 +99,7 @@ namespace Core.Screen
             {
                 Destroy(_currentItem);
             }
-            _currentItem = Instantiate(ItemInstances.DictionaryValue[item], ItemHolder);
+            _currentItem = Instantiate(_itemContainer[item], ItemHolder);
         }
 
         void ChangeItemStatus(int selectedItem)

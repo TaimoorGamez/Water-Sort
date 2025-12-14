@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Core.Animations.DT
 {
     [CreateAssetMenu(fileName = "Anchor", menuName = "ScriptableObjects/Animations/SOAnchor")]
-    public class SOAnChorMove : SODOTween
+    public class SOAnchorMove : SODOTween
     {
         RectTransform _objRect;
 

@@ -1,17 +1,15 @@
-using Core.DB.Variables;
-using Core.Events;
-using Core.GamePlay.WaterSort;
-using DG.Tweening;
-using System.Collections;
 using TMPro;
 using UnityEngine;
+using Core.Events;
+using DG.Tweening;
+using Core.DB.Variables;
+using System.Collections;
 
 namespace Core.GamePlay.Coloring
 {
     public class ColorFillingHandler : MonoBehaviour
     {
         [SerializeField] SOColorBowl CurrentBowl;
-        [SerializeField] SOColor CurrentColor;
         [SerializeField] ColorFilling[] ColoringPart;
         [SerializeField] RectTransform BrushTransform;
         [SerializeField] AudioSource BurshSound;
@@ -78,7 +76,7 @@ namespace Core.GamePlay.Coloring
             if (!_isReseting && _paintingCounter < ColoringPart.Length)
             {
                 InfoText.text = InfoMsgs[1];
-                Color newColor = CurrentColor.Value;
+                Color newColor = LevelsManager.I.CurrentColor;
                 _pm.startColor = newColor;
                 if (_movingRoutine == null)
                 {
@@ -188,7 +186,7 @@ namespace Core.GamePlay.Coloring
                             float distSquared = (x - brushWidth / 2) * (x - brushWidth / 2) + (y - brushHeight / 2) * (y - brushHeight / 2);
                             if (distSquared <= _brushSize * _brushSize && _partPixles[compoundIndex] == _whiteColor)
                             {
-                                _partPixles[compoundIndex] = CurrentColor.Value;
+                                _partPixles[compoundIndex] = LevelsManager.I.CurrentColor;
                                 _coloredPixlesCounter++;
                             }
                         }
@@ -217,7 +215,7 @@ namespace Core.GamePlay.Coloring
                 {
                     if (_partPixles[p] == _whiteColor)
                     {
-                        _partPixles[p] = CurrentColor.Value;
+                        _partPixles[p] = LevelsManager.I.CurrentColor;
                     }
                 }
                 _partTexture.SetPixels32(_partPixles);
@@ -246,7 +244,7 @@ namespace Core.GamePlay.Coloring
                 CurrentBowl.Bowl.BowlState(false);
                 _coloredPixlesCounter = 0;
                 BurshSound.Stop();
-                if (LevelsManager.I.LevelStars > 2 && !CurrentColor.Value.Equals(ColoringPart[_paintingCounter - 1].DefaultColor))
+                if (LevelsManager.I.LevelStars > 2 && !LevelsManager.I.CurrentColor.Equals(ColoringPart[_paintingCounter - 1].DefaultColor))
                 {
                     LevelsManager.I.LevelStars--;
                 }

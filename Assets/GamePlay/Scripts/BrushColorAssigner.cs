@@ -6,7 +6,6 @@ namespace Core.GamePlay.Coloring
 {
     public class BrushColorAssigner : MonoBehaviour
     {
-        [SerializeField] SOColor CurrentColor;
         [SerializeField] Image BurshImage;
 
 
@@ -22,7 +21,7 @@ namespace Core.GamePlay.Coloring
 
         void ColorSelected()
         {
-            BurshImage.color = CurrentColor.Value;
+            BurshImage.color = LevelsManager.I.CurrentColor;
         }
     }
 }

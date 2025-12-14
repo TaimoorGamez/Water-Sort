@@ -5,16 +5,18 @@ using Core.DB.Variables;
 using System.Collections;
 using System.Threading.Tasks;
 using Core.GamePlay.Coloring;
+using Core.GamePlay.WaterSort;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace Core.GamePlay.WaterSort
+namespace Core.GamePlay
 {
     public class LevelsManager : MonoBehaviour
     {
         public static LevelsManager I { get; private set; }
 
+        public Color32 CurrentColor;
         public int MinLvlCount = 5, MaxLvlCount = 22, LevelStars = 3, TotalMoves, CurrrentLvl, TempLvlIndex = -1, CompletedTubes;
         public bool IsHiddenLevel = false, CanPlay = false, BtnOnceClicked = false, SortingCompleted, UsingAnyFeature = false, 
                     IsSwaping  = false, DoingUndo = false;

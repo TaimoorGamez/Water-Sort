@@ -2,7 +2,7 @@ using TMPro;
 using Core.Events;
 using DG.Tweening;
 using UnityEngine;
-using Core.Variables;
+using Core.DataStructure;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
@@ -12,8 +12,6 @@ namespace Core.Screen
 {
     public class StoreScreen : UiScreens
     {
-        [SerializeField] SOAsyncGameObjectIList StoreItemsList;
-        [SerializeField] SODictionary_Int_Gameobject CapItemsDictionary, FlameItemsDictionary, SprayItemsDictionary;
         [SerializeField] Transform FillImage;
         [SerializeField] TextMeshProUGUI LoadingText;
         [SerializeField] GameObject Loading;
@@ -46,15 +44,7 @@ namespace Core.Screen
             Loading.SetActive(true);
             await ClearEverythingAsync();
 
-            // ensure dictionaries exist
-            if (CapItemsDictionary.DictionaryValue == null)
-                CapItemsDictionary.DictionaryValue = new Dictionary<int, GameObject>();
-
-            if (FlameItemsDictionary.DictionaryValue == null)
-                FlameItemsDictionary.DictionaryValue = new Dictionary<int, GameObject>();
-
-            if (SprayItemsDictionary.DictionaryValue == null)
-                SprayItemsDictionary.DictionaryValue = new Dictionary<int, GameObject>();
+            Dictionary<int, GameObject> tempDictionary = new Dictionary<int, GameObject>();
 
             UpdateLoadingUI(0);
 
@@ -70,14 +60,13 @@ namespace Core.Screen
             {
                 string address = CapItemsPath + i;   // example: "Store/Cap/" + 0
 
-                AsyncOperationHandle<GameObject> handle =
-                    Addressables.LoadAssetAsync<GameObject>(address);
+                AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(address);
 
                 await handle.Task;
 
                 if (handle.Status == AsyncOperationStatus.Succeeded)
                 {
-                        CapItemsDictionary.DictionaryValue.Add(i, handle.Result);
+                    tempDictionary.Add(i, handle.Result);
                 }
 
                 // update progress
@@ -85,10 +74,14 @@ namespace Core.Screen
                 float progress = (float)loadedCount / (float)totalCount;
                 UpdateLoadingUI(progress);
             }
+            await Task.Yield();
+            GlobalDataStructures.StoreItemsContainer.Add("Cap", tempDictionary);
+            await Task.Yield();
 
             // ============================================================
             // ------------------- LOAD FLAME THROWERS ---------------------
             // ============================================================
+            tempDictionary.Clear();
 
             for (int i = 0; i < MaxFlameThrowers; i++)
             {
@@ -101,17 +94,21 @@ namespace Core.Screen
 
                 if (handle.Status == AsyncOperationStatus.Succeeded)
                 {
-                        FlameItemsDictionary.DictionaryValue.Add(i, handle.Result);
+                        tempDictionary.Add(i, handle.Result);
                 }
 
                 loadedCount++;
                 float progress = (float)loadedCount / (float)totalCount;
                 UpdateLoadingUI(progress);
             }
+            await Task.Yield();
+            GlobalDataStructures.StoreItemsContainer.Add("FlameThrower", tempDictionary);
+            await Task.Yield();
 
             // ============================================================
             // --------------------- LOAD SPRAY CANS -----------------------
             // ============================================================
+            tempDictionary.Clear();
 
             for (int i = 0; i < MaxSprayCans; i++)
             {
@@ -124,13 +121,16 @@ namespace Core.Screen
 
                 if (handle.Status == AsyncOperationStatus.Succeeded)
                 {
-                    SprayItemsDictionary.DictionaryValue.Add(i, handle.Result);
+                    tempDictionary.Add(i, handle.Result);
                 }
 
                 loadedCount++;
                 float progress = (float)loadedCount / (float)totalCount;
                 UpdateLoadingUI(progress);
             }
+            await Task.Yield();
+            GlobalDataStructures.StoreItemsContainer.Add("Spray", tempDictionary);
+            await Task.Yield();
 
             // ============================================================
             // ------------------------- DONE ------------------------------
@@ -157,87 +157,46 @@ namespace Core.Screen
                 });
         }
 
-        async Task ClearEverythingAsync(bool clearDiskCache = false)
+        async Task ClearEverythingAsync()
         {
             if (_isClearing) return;
             _isClearing = true;
 
-            // 1) Stop any tweens on UI elements (progress bar and body)
-            try
-            {
-                if (FillImage != null)
-                {
-                    DOTween.Kill(FillImage, complete: false);
-                }
-
-                if (Body != null)
-                {
-                    DOTween.Kill(Body, complete: false);
-                }
-            }
-            catch { /* ignore */ }
-
-            // 2) Release Addressables load handle for the list
-            try
-            {
-                if (StoreItemsList != null && StoreItemsList.ListValue.IsValid())
-                {
-                    Addressables.Release(StoreItemsList.ListValue);
-                }
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogWarning($"StoreScreen: Addressables.Release failed: {e.Message}");
-            }
-
-            // set to default to avoid later accidental use
-            if (StoreItemsList != null)
-                StoreItemsList.ListValue = default;
-
-            // 3) Destroy all GameObjects stored inside dictionaries and clear them
-            await ClearDictionaryAsync(CapItemsDictionary);
-            await ClearDictionaryAsync(FlameItemsDictionary);
-            await ClearDictionaryAsync(SprayItemsDictionary);
-
-            // 5) Wait one frame so Unity processes Destroy()
+            await ClearDictionariesAsync();
             await Task.Yield();
-
-            // 6) Force unload unused assets and GC collect to free memory
-            AsyncOperation unloadOp = Resources.UnloadUnusedAssets();
-            while (!unloadOp.isDone)
-                await Task.Yield();
 
             System.GC.Collect();
 
-            // 7) Optionally clear disk cache (not necessary for local-only store; use with caution)
-            if (clearDiskCache)
+            try
             {
-                try
-                {
-                    bool cleared = Caching.ClearCache();
-                    //Debug.Log("StoreScreen: Caching.ClearCache() returned " + cleared);
-                }
-                catch (System.Exception e)
-                {
-                    Debug.LogWarning("StoreScreen: Caching.ClearCache() exception: " + e.Message);
-                }
+                Caching.ClearCache();
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError(e.ToString());
             }
 
             _isClearing = false;
         }
-
-        async Task ClearDictionaryAsync(SODictionary_Int_Gameobject dictionary)
+        async Task ClearDictionariesAsync()
         {
-            if (dictionary.DictionaryValue == null) return;
-            foreach (var kvp in dictionary.DictionaryValue)
+            foreach (var outerPair in GlobalDataStructures.StoreItemsContainer)
             {
-                GameObject obj = kvp.Value;
-                if (obj != null)
+                var dict = outerPair.Value;
+
+                foreach (var handlePair in dict)
                 {
-                    Addressables.Release(obj);
+                    var handle = handlePair.Value;
+
+                    if (handle != null)
+                        Addressables.Release(handle);
                 }
+
+                dict.Clear();
+                await Task.Yield();
             }
-            dictionary.DictionaryValue.Clear();
+
+            GlobalDataStructures.StoreItemsContainer.Clear();
             await Task.Yield();
         }
 
