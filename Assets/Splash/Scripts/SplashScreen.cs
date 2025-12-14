@@ -15,7 +15,6 @@ namespace Core.Screen
     {
         [SerializeField] Initialization FirebaseInit;
         [SerializeField] ItemData DefaultCap, DefaultFlame, DefaultSpray;
-        [SerializeField] DBInt LvlNum, FFT;
         [SerializeField] Transform FillImage;
         [SerializeField] TextMeshProUGUI LoadingText;
         [SerializeField] Image LogoImage;
@@ -25,12 +24,12 @@ namespace Core.Screen
 
         private void Start()
         {
-            if (FFT.Value != 1)
+            if (DBIntsHolder.FFT.Value != 1)
             {
                 DefaultCap.IsPurchased = true;
                 DefaultFlame.IsPurchased = true;
                 DefaultSpray.IsPurchased = true;
-                FFT.Value = 1;
+                DBIntsHolder.FFT.Value = 1;
             }
             FirebaseInit.InitPlugin();
             LogoImage.DOFillAmount(1, _loadingTime).SetEase(Ease.Linear);
@@ -41,7 +40,7 @@ namespace Core.Screen
                 LoadingText.text = _loadingTxt + percent + "%";
             }).OnComplete(() =>
             {
-                if (LvlNum.Value <= LevelsManager.I.MinLvlCount)
+                if (DBIntsHolder.LvlNum.Value <= LevelsManager.I.MinLvlCount)
                 {
                     SimpleEventsHolder.InitLvlEvent?.Invoke();
                     SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.GamePlayStateIndex);

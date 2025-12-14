@@ -13,13 +13,12 @@ namespace Core.Screen
     public class StorageRoomView : MonoBehaviour
     {
         [SerializeField] SODictionary_Int_Gameobject ItemInstances;
-        [SerializeField] DBInt CurrentActiveItem;
         [SerializeField] ItemView[] RoomItems;
         [SerializeField] RectTransform Content, Viewport;
         [SerializeField] GameObject[] Buttons;
         [SerializeField] Transform ItemHolder;
         [SerializeField] TextMeshProUGUI VideoText;
-        [SerializeField] string BuyEventName;
+        [SerializeField] string ItemName;
 
         int _selectedItem = -1;
         Coroutine _activationRotine;
@@ -27,29 +26,29 @@ namespace Core.Screen
 
         private void OnEnable()
         {
-            if (EventDictionariesHolder.StoreBuyEvents.TryGetValue(BuyEventName, out var evt))
+            if (EventDictionariesHolder.StoreBuyEvents.TryGetValue(ItemName, out var evt))
             {
                 evt += PurchaseByAd;
             }
             else
             {
-                Debug.Log($"Buy event key '{BuyEventName}' does not exist.");
+                Debug.Log($"Buy event key '{ItemName}' does not exist.");
             }
             SingleIntegerEventsHolder.UpdateItemStatusEvent += ChangeItemStatus;
-            _selectedItem = CurrentActiveItem.Value;
+            _selectedItem = DBIntDictionariesHolder.StoreActiveItems[ItemName].Value;
             _activationRotine = StartCoroutine(ActiveStorageRoom());
             ChangeItemStatus(_selectedItem);
         }
 
         private void OnDisable()
         {
-            if (EventDictionariesHolder.StoreBuyEvents.TryGetValue(BuyEventName, out var evt))
+            if (EventDictionariesHolder.StoreBuyEvents.TryGetValue(ItemName, out var evt))
             {
                 evt -= PurchaseByAd;
             }
             else
             {
-                Debug.Log($"Buy event key '{BuyEventName}' does not exist.");
+                Debug.Log($"Buy event key '{ItemName}' does not exist.");
             }
             SingleIntegerEventsHolder.UpdateItemStatusEvent -= ChangeItemStatus;
             StopActiveRotines();
@@ -78,7 +77,7 @@ namespace Core.Screen
                 yield return new WaitForSeconds(0.1f);
             }
             ChangeActiveItem();
-            InitItem(CurrentActiveItem.Value);
+            InitItem(DBIntDictionariesHolder.StoreActiveItems[ItemName].Value);
             yield return new WaitForSeconds(0.5f);
             float targetY = Content.rect.height - Viewport.rect.height;
             if (targetY > 200)
@@ -115,7 +114,7 @@ namespace Core.Screen
                 {
                     RoomItems[i].SelectItem();
                     InitItem(i);
-                    if (i == CurrentActiveItem.Value)
+                    if (i == DBIntDictionariesHolder.StoreActiveItems[ItemName].Value)
                     {
                         ChangeButton(0);
                     }
@@ -129,7 +128,7 @@ namespace Core.Screen
                         VideoText.text = RoomItems[_selectedItem].MyData.WatchedVideos + "/" + RoomItems[_selectedItem].MyData.TotalVideos;
                     }
                 }
-                else if (i == CurrentActiveItem.Value)
+                else if (i == DBIntDictionariesHolder.StoreActiveItems[ItemName].Value)
                 {
                     RoomItems[i].ActiveSelectItem();
                 }
@@ -151,11 +150,11 @@ namespace Core.Screen
 
         public void ChangeActiveItem()
         {
-            RoomItems[CurrentActiveItem.Value].UnSelectItem();
+            RoomItems[DBIntDictionariesHolder.StoreActiveItems[ItemName].Value].UnSelectItem();
             if (_selectedItem != -1)
             {
-                CurrentActiveItem.Value = _selectedItem;
-                RoomItems[CurrentActiveItem.Value].ActiveSelectItem();
+                DBIntDictionariesHolder.StoreActiveItems[ItemName].Value = _selectedItem;
+                RoomItems[DBIntDictionariesHolder.StoreActiveItems[ItemName].Value].ActiveSelectItem();
                 ChangeButton(0);
             }
         }

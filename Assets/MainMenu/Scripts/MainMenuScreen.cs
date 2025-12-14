@@ -13,7 +13,6 @@ namespace Core.Screen
 {
     public class MainMenuScreen : UiScreens
     {
-        [SerializeField] DBInt LvlNum;
         [SerializeField] FirebaseInitialization FirebaseInit;
         [SerializeField] InAppPurchase InAppPurchaser;
         [SerializeField] TextMeshProUGUI[] Lvls;
@@ -47,15 +46,15 @@ namespace Core.Screen
             {
                 if (l < _activeLvl)
                 {
-                    Lvls[l].text = (LvlNum.Value - (_activeLvl - l)).ToString();
+                    Lvls[l].text = (DBIntsHolder.LvlNum.Value - (_activeLvl - l)).ToString();
                 }
                 else if (l > _activeLvl)
                 {
-                    Lvls[l].text = (LvlNum.Value + (l- _activeLvl)).ToString();
+                    Lvls[l].text = (DBIntsHolder.LvlNum.Value + (l- _activeLvl)).ToString();
                 }
                 else
                 {
-                    Lvls[l].text = LvlNum.Value.ToString();
+                    Lvls[l].text = DBIntsHolder.LvlNum.Value.ToString();
                 }
             }
 

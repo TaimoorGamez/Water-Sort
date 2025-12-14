@@ -13,8 +13,6 @@ namespace Core.Screen
 {
     public class BoxRewardScreen : UiScreens
     {
-        [SerializeField] Currency CashCurrency;
-        [SerializeField] DBInt[] PowersData;
         [SerializeField] ItemData[] StorItemsData;
         [SerializeField] RectTransform[] Cards, ItemHolders;
         [SerializeField] Sprite[] PowerSprites;
@@ -47,26 +45,26 @@ namespace Core.Screen
                     {
                         LoadRewardItem(_flamesPath + randomReward);
                         PowerImage.sprite = PowerSprites[0];
-                        PowersData[0].Value += 1;
+                        DBIntDictionariesHolder.PowersData[0].Value += 1;
                     }
                     else if(randomReward < _capsLength+_flamesLength)
                     {
                         int capIndex = randomReward - _flamesLength;
                         LoadRewardItem(_capsPath + capIndex);
                         PowerImage.sprite = PowerSprites[1];
-                        PowersData[1].Value += 1;
+                        DBIntDictionariesHolder.PowersData[1].Value += 1;
                     }
                     else
                     {
                         int sprayIndex = randomReward - (_flamesLength +_capsLength);
                         LoadRewardItem(_spraysPath + sprayIndex);
                         PowerImage.sprite = PowerSprites[2];
-                        PowersData[2].Value += 1;
+                        DBIntDictionariesHolder.PowersData[2].Value += 1;
                     }
                     StorItemsData[randomReward].IsPurchased = true;
                     break;
                 case 2:
-                    CashCurrency.Amount += 300;
+                   CurrenciesHolder.CashCurrency.Amount += 300;
                     break;
             }
             StartUnBoxsing();

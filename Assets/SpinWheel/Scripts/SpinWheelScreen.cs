@@ -10,7 +10,6 @@ namespace Core.Screen
 {
     public class SpinWheelScreen : UiScreens, ISpinWheel
     {
-        [SerializeField] DBInt DailySpin;
         [SerializeField] GameObject SpinBtn, RvBtn, SpinNotification;
         [SerializeField] RectTransform SegmentParent, Shine, RewardPanel, Wheel;
         [SerializeField] SpinWheelSegment SegmentPrefab;
@@ -26,7 +25,7 @@ namespace Core.Screen
         private void OnEnable()
         {
             SimpleEventsHolder.RewardSpinWheelEvent += RewardedSpin;
-            if (DailySpin.Value == 0)
+            if (DBIntsHolder.SpinAvailable.Value == 1)
             {
                 SpinBtn.SetActive(true);
                 RvBtn.SetActive(false);
@@ -122,7 +121,7 @@ namespace Core.Screen
                         Invoke(nameof(CloseRewardPanel), 1);
                         _allSpinSegments[rewardIndex].ChangeGradient(SpinWheelData.SpinWheelRewards[rewardIndex].SegmentColor);
                     });
-                    DailySpin.Value = 1;
+                    DBIntsHolder.SpinAvailable.Value = 0;
                     SpinBtn.SetActive(false);
                     SpinNotification.SetActive(false);
                     RvBtn.SetActive(true);

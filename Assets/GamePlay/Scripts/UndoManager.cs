@@ -8,7 +8,6 @@ namespace Core.GamePlay.WaterSort
     [CreateAssetMenu(fileName = "UndoManager", menuName = "ScriptableObjects/WaterSort/UndoManager")]
     public class UndoManager : ScriptableObject
     {
-        [SerializeField] DBInt LvlNum;
         [SerializeField] SOWaterTube OpenTube;
 
         Stack<UndoData> _undoMoves = new Stack<UndoData>();
@@ -59,7 +58,7 @@ namespace Core.GamePlay.WaterSort
                     OpenTube.Tube = lastMove.GetterTube;
                     OpenTube.Tube.RemoveFromCompleted();
                     lastMove.SenderTube.UndoWater(lastMove.GetterTube, lastMove.LiquidLayers);
-                    if (LvlNum.Value >= LevelsManager.I.MinLvlCount)
+                    if (DBIntsHolder.LvlNum.Value >= LevelsManager.I.MinLvlCount)
                     {
                         SimpleEventsHolder.UpdateUndoStatusEvent?.Invoke();
                     }

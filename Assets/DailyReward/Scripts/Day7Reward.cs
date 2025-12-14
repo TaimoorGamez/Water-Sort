@@ -7,7 +7,6 @@ namespace Core.DailyReward
 {
     public class Day7Reward : DailyRewardHandler
     {
-        [SerializeField] DBInt RemainingTubes;
         [SerializeField] int TubeCounts;
         [SerializeField] TextMeshProUGUI[] TubesText;
 
@@ -38,7 +37,7 @@ namespace Core.DailyReward
         protected override void OnClickBuyButton()
         {
             base.OnClickBuyButton();
-            RemainingTubes.Value += TubeCounts;
+           DBIntsHolder.RemainingTubes.Value += TubeCounts;
             try
             {
                 FBEvents.EarnCoinsEvent("Tube", Amount, "DailyReward");
@@ -51,7 +50,7 @@ namespace Core.DailyReward
 
         protected override void GrantDoubleReward()
         {
-            RemainingTubes.Value += (TubeCounts * 2);
+            DBIntsHolder.RemainingTubes.Value += (TubeCounts * 2);
             base.GrantDoubleReward();
         }
     }

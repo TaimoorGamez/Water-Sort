@@ -9,7 +9,6 @@ namespace Core.Screen
 {
     public class WaterSortGameScreen : UiScreens
     {
-        [SerializeField] DBInt LvlNum;
         [SerializeField] GameObject SwipeColorsModePanel, PowerButtons, TopBar, PauseBtn;
         [SerializeField] TextMeshProUGUI MovesText;
 
@@ -29,7 +28,7 @@ namespace Core.Screen
 
         private void Start()
         {
-            if (LvlNum.Value < LevelsManager.I.MinLvlCount)
+            if (DBIntsHolder.LvlNum.Value < LevelsManager.I.MinLvlCount)
             {
                 PowerButtons.SetActive(false);
                 PauseBtn.SetActive(false);
@@ -49,7 +48,7 @@ namespace Core.Screen
 
         void UpdateMovesText()
         {
-            if (LvlNum.Value >= LevelsManager.I.MinLvlCount)
+            if (DBIntsHolder.LvlNum.Value >= LevelsManager.I.MinLvlCount)
             {
                 MovesText.text = LevelsManager.I.TotalMoves.ToString();
 

@@ -2,14 +2,13 @@ using TMPro;
 using DG.Tweening;
 using UnityEngine;
 using Core.Events;
-using Core.DB.Variables;
+using Core.Economy;
 using System.Collections;
 
 namespace Core.Screen
 {
     public class CurrencyBarController : MonoBehaviour
     {
-        [SerializeField] DBInt CurrencyWallet;
         [SerializeField] GameObject CurrencyIcon, CurrencyShine;
         [SerializeField] TextMeshProUGUI CurrencyTxt;
         [SerializeField] RectTransform InitLocation, SubmitLocation;
@@ -23,7 +22,7 @@ namespace Core.Screen
         private void OnEnable()
         {
             CurrencyShine.SetActive(false);
-            _currentAmount = CurrencyWallet.Value;
+            _currentAmount = CurrenciesHolder.CashCurrency.Amount;
             CurrencyTxt.text = _currentAmount.ToString();
             SingleIntegerEventsHolder.DepositEvent += DepositCash;
             SingleIntegerEventsHolder.TransactionEvent += TransactCash;
@@ -97,7 +96,7 @@ namespace Core.Screen
                 yield return new WaitForSeconds(0.1f);
             }
             yield return new WaitForSeconds(0.1f);
-            CurrencyTxt.text = CurrencyWallet.Value.ToString();
+            CurrencyTxt.text = CurrenciesHolder.CashCurrency.Amount.ToString();
             CurrencyShine.SetActive(false);
             DepositEnd();
         }
@@ -139,7 +138,7 @@ namespace Core.Screen
                 yield return new WaitForSeconds(0.1f);
             }
             yield return new WaitForSeconds(0.1f);
-            CurrencyTxt.text = CurrencyWallet.Value.ToString();
+            CurrencyTxt.text = CurrenciesHolder.CashCurrency.Amount.ToString();
             CurrencyShine.SetActive(false);
             TransactionEnd();
         }

@@ -19,7 +19,6 @@ namespace Core.GamePlay.WaterSort
         public bool IsHiddenLevel = false, CanPlay = false, BtnOnceClicked = false, SortingCompleted, UsingAnyFeature = false, 
                     IsSwaping  = false, DoingUndo = false;
 
-        [SerializeField] DBInt LvlIndex, LvlNum;
         [SerializeField] Vector3[] TubePositions, BowlPositions;
         [SerializeField] BowlColorHandler BowlObj;
 
@@ -76,7 +75,7 @@ namespace Core.GamePlay.WaterSort
             _colorTubes.Clear();
             _totalTubes.Clear();
             DestroyLevel();
-            if (LvlNum.Value % 5 == 0)
+            if (DBIntsHolder.LvlNum.Value % 5 == 0)
             {
                 IsHiddenLevel = true;
             }
@@ -87,10 +86,10 @@ namespace Core.GamePlay.WaterSort
 
             if (TempLvlIndex == -1)
             {
-                if (LvlIndex.Value < 5)
-                    LoadAddressableLevels<GameObject>(_sortingLvlPath + LvlIndex.Value);
+                if (DBIntsHolder.LvlIndex.Value < 5)
+                    LoadAddressableLevels<GameObject>(_sortingLvlPath + DBIntsHolder.LvlIndex.Value);
                 else
-                    LoadAddressableLevels<SOColors>(_sortingLvlPath + LvlIndex.Value);
+                    LoadAddressableLevels<SOColors>(_sortingLvlPath + DBIntsHolder.LvlIndex.Value);
             }
             else
             {
@@ -129,10 +128,10 @@ namespace Core.GamePlay.WaterSort
                 return;
             }
 
-            if (LvlIndex.Value < 5)
+            if (DBIntsHolder.LvlIndex.Value < 5)
             {
                 GameObject lvlObj = Instantiate(_lvlHandle.Result as GameObject, transform);
-                CurrrentLvl = LvlIndex.Value;
+                CurrrentLvl = DBIntsHolder.LvlIndex.Value;
 
                 await Task.Yield();  // frame 1
                 await Task.Yield();  // frame 2

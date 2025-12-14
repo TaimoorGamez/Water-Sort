@@ -6,7 +6,6 @@ namespace Core.Sfx
 {
     public class SoundManager : MonoBehaviour
     {
-        [SerializeField] DBInt Music, Sound;
         [SerializeField] AudioClip BgMusic, BtnClick;
         [SerializeField] AudioClip[] EffectClips;
 
@@ -37,7 +36,7 @@ namespace Core.Sfx
 
         void UpdateBGMusicState()
         {
-            if (Music.Value == 1)
+            if (DBIntsHolder.Music.Value == 1)
             {
                 _bgSource = gameObject.AddComponent<AudioSource>();
                 PlayBGMusic();
@@ -53,7 +52,7 @@ namespace Core.Sfx
 
         void PlayBGMusic()
         {
-            if (Music.Value == 1)
+            if (DBIntsHolder.Music.Value == 1)
             {
                 _bgSource.Stop();
                 _bgSource.volume = _bgVolume;
@@ -65,7 +64,7 @@ namespace Core.Sfx
 
         void UpdateSoundState()
         {
-            if (Sound.Value == 1)
+            if (DBIntsHolder.Sound.Value == 1)
             {
                 CreateSoundSources();
             }
@@ -98,7 +97,7 @@ namespace Core.Sfx
 
         void PlayBtnSound()
         {
-            if (Sound.Value == 1)
+            if (DBIntsHolder.Sound.Value == 1)
             {
                 _btnSource.Play();
             }
@@ -106,7 +105,7 @@ namespace Core.Sfx
     
         void PlaySoundEffect(int effectNum)
         {
-            if (Sound.Value == 1)
+            if (DBIntsHolder.Sound.Value == 1)
             {
                 if (_effectSource.isPlaying)
                 {

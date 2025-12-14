@@ -6,7 +6,6 @@ namespace Core.Screen
 {
     public class SpinWheelNotificationHandler : MonoBehaviour
     {
-        [SerializeField] DBInt DailySpin;
         [SerializeField] GameObject NotificationObj;
 
         private void OnEnable()
@@ -22,13 +21,13 @@ namespace Core.Screen
 
         void ResetSpinWheel()
         {
-            DailySpin.Value = 0; // Reset daily spins to 1
+            DBIntsHolder.SpinAvailable.Value = 1;
             UpdateNotificationStatus();
         }
 
         void UpdateNotificationStatus()
         {
-            NotificationObj.SetActive(DailySpin.Value == 0);
+            NotificationObj.SetActive(DBIntsHolder.SpinAvailable.Value == 1);
         }
     }
 }

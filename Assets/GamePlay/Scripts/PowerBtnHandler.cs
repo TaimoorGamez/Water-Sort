@@ -10,8 +10,6 @@ namespace Core.Screen
     public class PowerBtnHandler : MonoBehaviour
     {
         [SerializeField] AdHandler RewardedAd;
-        [SerializeField] DBInt RemaingPower;
-        [SerializeField] Currency CashCurrency;
         [SerializeField] GameObject CounterObj, PriceObj, AdObj;
         [SerializeField] TextMeshProUGUI RemaingText;
         [SerializeField] int Price;
@@ -63,12 +61,12 @@ namespace Core.Screen
             CounterObj.SetActive(false);
             PriceObj.SetActive(false);
             AdObj.SetActive(false);
-            if (RemaingPower.Value > 0)
+            if (DBIntDictionariesHolder.PowerStatusData[PowerName].Value > 0)
             {
-                RemaingText.text = RemaingPower.Value.ToString();
+                RemaingText.text = DBIntDictionariesHolder.PowerStatusData[PowerName].Value.ToString();
                 CounterObj.SetActive(true);
             }
-            else if (CashCurrency.Amount >= Price)
+            else if (CurrenciesHolder.CashCurrency.Amount >= Price)
             {
                 PriceObj.SetActive(true);
             }
@@ -80,20 +78,20 @@ namespace Core.Screen
 
         void ChangeStatus()
         {
-            if (RemaingPower.Value > 0)
+            if (DBIntDictionariesHolder.PowerStatusData[PowerName].Value > 0)
             {
-                RemaingPower.Value--;
+                DBIntDictionariesHolder.PowerStatusData[PowerName].Value--;
             }
-            else if (CashCurrency.Amount >= Price)
+            else if (CurrenciesHolder.CashCurrency.Amount >= Price)
             {
-                CashCurrency.Amount-= Price;
+                CurrenciesHolder.CashCurrency.Amount-= Price;
             }
             PowerStatus();
         }
 
         public void OnClickPowerBtn()
         {
-            if (RemaingPower.Value > 0 || CashCurrency.Amount >= Price)
+            if (DBIntDictionariesHolder.PowerStatusData[PowerName].Value > 0 || CurrenciesHolder.CashCurrency.Amount >= Price)
             {
                 if (EventDictionariesHolder.PowerEvents.TryGetValue(PowerName, out var evt))
                 {
@@ -112,7 +110,7 @@ namespace Core.Screen
 
         void RewardPower()
         {
-            RemaingPower.Value++;
+            DBIntDictionariesHolder.PowerStatusData[PowerName].Value++;
             PowerStatus();
         }
     }

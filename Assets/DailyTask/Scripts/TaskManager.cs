@@ -5,11 +5,19 @@ using System.Collections.Generic;
 
 namespace Core.DailyTasks
 {
-    [CreateAssetMenu(fileName = "DailyTaskManager", menuName = "ScriptableObjects/DaiyTask/TaskManager")]
-    public class TaskManager : ScriptableObject
+    public class TasksManager: MonoBehaviour
     {
-        [SerializeField] DailyTaskData[] AllTasks;
-        [SerializeField] DBInt[] TaskIndexs;
+        public static TasksManager I { get; private set; }
+
+        DailyTaskData[] AllTasks = new DailyTaskData[]
+        {
+            new DailyTaskData(0, "Watch 2 Rewarded Ads", 2),
+            new DailyTaskData(1, "Complete 3 levels", 3),
+            new DailyTaskData(2, "Spend 200 coins", 200),
+            new DailyTaskData(3, "Use Undo 3 times", 3),
+            new DailyTaskData(4, "Use Color Swap 2 times", 2),
+            new DailyTaskData(5, "Use Extra Bottle once", 1)
+        };
 
         int _totalTasks = 4;
         DailyTaskData[] _activeTasks;
@@ -27,10 +35,24 @@ namespace Core.DailyTasks
             DoubleIntegerEventHolder.TaskEvent -= AddTaskProgress;
         }
 
+        private void Start()
+        {
+            if (I == null)
+            {
+                I = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
+        }
+
         void GenerateDailyTasks()
         {
             _activeTasks = new DailyTaskData[_totalTasks];
-            TaskIndexs[0].Value = 0;
+            DBIntDictionariesHolder.TaskIndexies[0].Value = 0;
             AllTasks[0].Progress = 0;
             AllTasks[0].TaskClaimed = 0;
             _activeTasks[0] = AllTasks[0];
@@ -49,7 +71,7 @@ namespace Core.DailyTasks
                 int rand = Random.Range(0, availableIndexes.Count);
                 int chosenIndex = availableIndexes[rand];
 
-                TaskIndexs[i].Value = chosenIndex;
+                DBIntDictionariesHolder.TaskIndexies[i].Value = chosenIndex;
                 _activeTasks[i] = AllTasks[chosenIndex];
                 availableIndexes.RemoveAt(rand);
             }
@@ -60,7 +82,7 @@ namespace Core.DailyTasks
             _activeTasks = new DailyTaskData[_totalTasks];
             for (int i = 0; i < _totalTasks; i++)
             {
-                int index = TaskIndexs[i].Value;
+                int index = DBIntDictionariesHolder.TaskIndexies[i].Value;
                 _activeTasks[i] = AllTasks[index];
             }
         }
@@ -74,7 +96,7 @@ namespace Core.DailyTasks
         {
             for (int t = 0; t < _totalTasks; t++) 
             {
-                if (TaskIndexs[t].Value == index)
+                if (DBIntDictionariesHolder.TaskIndexies[t].Value == index)
                 {
                     _activeTasks[t].Progress += progress;
                 }

@@ -10,7 +10,6 @@ namespace Core.Plugins.Ads
     [CreateAssetMenu(fileName = "Intertitial", menuName = "ScriptableObjects/Plugin/Admob/Intertitial")]
     public class SOIntertitialAd : AdHandler
     {
-        [SerializeField] DBInt NoAdsDB, AdBlocked, LvlNum;
         [SerializeField] GameObject AdLoading;
 
         InterstitialAd _interstitialAd;
@@ -18,7 +17,7 @@ namespace Core.Plugins.Ads
 
         public override void LoadAd()
         {
-            if (!AdsManager.I.IsInitialized || NoAdsDB.Value == 1)
+            if (!AdsManager.I.IsInitialized || DBIntsHolder.NoAds.Value == 1)
                 return;
 
 
@@ -56,7 +55,7 @@ namespace Core.Plugins.Ads
             get
             {
                 return _interstitialAd != null && _interstitialAd.CanShowAd() && AdsManager.I.AdTimerComplete && !AdsManager.I.AdPlaying
-                    && LvlNum.Value > LevelsManager.I.MinLvlCount && NoAdsDB.Value != 1;
+                    && DBIntsHolder.LvlNum.Value > LevelsManager.I.MinLvlCount && DBIntsHolder.NoAds.Value != 1;
             }
         }
 
@@ -64,7 +63,7 @@ namespace Core.Plugins.Ads
         {
             if (IsAdAvailable)
             {
-                if (AdBlocked.Value == 1)
+                if (DBIntsHolder.AdBlocked.Value == 1)
                     return;
 
                 AdsManager.I.AdPlaying = true;

@@ -1,4 +1,4 @@
-using System.Drawing;
+using Core.DB.Variables;
 
 namespace Core.SpinWheel
 {
@@ -10,8 +10,7 @@ namespace Core.SpinWheel
     [System.Serializable]
     public class SpinWheelConfige
     {
-        [UnityEngine.SerializeField] DB.Variables.DBInt RewardDbs;
-
+        public DBInteger RewardDbs;
         public UnityEngine.Color SegmentColor;
         public UnityEngine.Sprite Icon;
         public int Amount;

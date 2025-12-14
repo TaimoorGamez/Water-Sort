@@ -14,7 +14,6 @@ namespace Core.GamePlay.Coloring
 {
     public class DetailsHandler : MonoBehaviour
     {
-        [SerializeField] DBInt CurrentSpray, CurrentFlame, Sound;
         [SerializeField] RectTransform SprayCan, FlameThrower, ColoringParts;
         [SerializeField] AudioSource SpraySound, FlameSound;
         [SerializeField] Vector2Int VerticalRange, HorizontalRange;
@@ -72,7 +71,7 @@ namespace Core.GamePlay.Coloring
         private void Start()
         {
             _currentCamera = Camera.main;
-            LoadSprayObj(_sprayPath + CurrentSpray.Value);
+            LoadSprayObj(_sprayPath + DBIntsHolder.CurrentActiveSpray.Value);
             Invoke(nameof(PrepareCompounD),0.1f);
         }
 
@@ -186,7 +185,7 @@ namespace Core.GamePlay.Coloring
                         _effectCheck = true;
                         BubbleParticle.SetActive(true);
                         _sprayAnimation.Play("SprayOn");
-                        if (Sound.Value == 1)
+                        if (DBIntsHolder.Sound.Value == 1)
                             SpraySound.Play();
                     }
                 }
@@ -307,7 +306,7 @@ namespace Core.GamePlay.Coloring
             _canShowNextBtn = true;
             _canThrowFlame = true;
             _movingRoutine = StartCoroutine(FlamesThrowingRoutine());
-            LoadFlameObj(_flamePath + CurrentFlame.Value);
+            LoadFlameObj(_flamePath + DBIntsHolder.CurrentActiveFlameThrower.Value);
         }
 
         async void LoadFlameObj(string path)
@@ -346,7 +345,7 @@ namespace Core.GamePlay.Coloring
                     {
                         _effectCheck = true;
                         FlameParticles.SetActive(true);
-                        if (Sound.Value == 1)
+                        if (DBIntsHolder.Sound.Value == 1)
                             FlameSound.Play();
                     }
                 }

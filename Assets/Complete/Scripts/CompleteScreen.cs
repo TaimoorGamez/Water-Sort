@@ -18,8 +18,6 @@ namespace Core.Screen
 {
     public class CompleteScreen : UiScreens
     {
-        [SerializeField] Currency CashCurrency;
-        [SerializeField] DBInt LevelIndex, LvlNum;
         [SerializeField] TextMeshProUGUI LevelBonusText, StarsBonusText, MovesBonusText, TotalBonusText;
         [SerializeField] Camera ScreenshotCamera;
         [SerializeField] RenderTexture TargetTexture;
@@ -95,7 +93,7 @@ namespace Core.Screen
         {
             ScreenshotCamera.targetTexture = TargetTexture;
             ScreenshotCamera.Render(); 
-            int currentLvl = LevelsManager.I.TempLvlIndex != -1 ? LevelsManager.I.TempLvlIndex : LvlNum.Value;
+            int currentLvl = LevelsManager.I.TempLvlIndex != -1 ? LevelsManager.I.TempLvlIndex : DBIntsHolder.LvlNum.Value;
             yield return new WaitForSeconds(0.01f);
             // Create a new Texture2D
             Texture2D screenshot = new Texture2D(TargetTexture.width, TargetTexture.height, TextureFormat.RGB24, false);
@@ -147,7 +145,7 @@ namespace Core.Screen
         void OnPanelVisible()
         {
             SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(StateManager.I.GamePlayStateIndex);
-            if (LvlNum.Value > LevelsManager.I.MinLvlCount)
+            if (DBIntsHolder.LvlNum.Value > LevelsManager.I.MinLvlCount)
             {
                 NextBtn.DOAnchorPos(_nextBtnPosition, _durationTweeing).SetEase(Ease.InOutBack).OnComplete(() =>
                 {
@@ -188,11 +186,11 @@ namespace Core.Screen
             {
                 _onceClicked = true;
                 LevelsManager.I.CanPlay = false;
-                CashCurrency.Amount += (_totalBonus * CurrentMultiplayerBar.CurrentMultiplier);
+                CurrenciesHolder.CashCurrency.Amount += (_totalBonus * CurrentMultiplayerBar.CurrentMultiplier);
                 if (LevelsManager.I.TempLvlIndex == -1)
                 {
-                    LvlNum.Value++;
-                    LevelIndex.Value++;
+                    DBIntsHolder.LvlNum.Value++;
+                    DBIntsHolder.LvlIndex.Value++;
                 }
                 Invoke(nameof(OnClose), 2);
             }
@@ -204,11 +202,11 @@ namespace Core.Screen
             {
                 _onceClicked = true;
                 LevelsManager.I.CanPlay = false;
-                CashCurrency.Amount += _totalBonus;
+                CurrenciesHolder.CashCurrency.Amount += _totalBonus;
                 if (LevelsManager.I.TempLvlIndex == -1)
                 {
-                    LvlNum.Value++;
-                    LevelIndex.Value++;
+                    DBIntsHolder.LvlNum.Value++;
+                    DBIntsHolder.LvlIndex.Value++;
                 }
                 Invoke(nameof(OnClose), 2);
             }
@@ -227,12 +225,12 @@ namespace Core.Screen
         {
             SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             Body.DOAnchorPosX(1500, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => {
-                if (LevelIndex.Value > LevelsManager.I.MaxLvlCount)
+                if (DBIntsHolder.LvlIndex.Value > LevelsManager.I.MaxLvlCount)
                 {
-                    LevelIndex.Value = LevelsManager.I.MinLvlCount;
+                    DBIntsHolder.LvlIndex.Value = LevelsManager.I.MinLvlCount;
                 }
 
-                if (LvlNum.Value <= LevelsManager.I.MinLvlCount)
+                if (DBIntsHolder.LvlNum.Value <= LevelsManager.I.MinLvlCount)
                 {
                     SimpleEventsHolder.InitLvlEvent?.Invoke();        
                     SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.GamePlayStateIndex);

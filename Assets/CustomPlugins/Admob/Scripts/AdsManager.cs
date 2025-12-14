@@ -8,7 +8,6 @@ namespace Core.Plugins.Ads
     public class AdsManager : MonoBehaviour
     {
         [SerializeField] AdDataHandler AdData;
-        [SerializeField] DBInt NoAds;
         [SerializeField] AdHandler RewardedAd, IntertitialAd;
 
         public bool IsInitialized = false, AdTimerComplete = false, AdPlaying = false, CanAddMoves = false, CanMultiply = false, CanDoubleReward = false,
@@ -114,7 +113,7 @@ namespace Core.Plugins.Ads
                         RewardedAd.LoadAd();
                     }
 
-                    if (AdData.AdData.Interstitial && NoAds.Value == 0)
+                    if (AdData.AdData.Interstitial && DBIntsHolder.NoAds.Value == 0)
                     {
                         IntertitialAd.LoadAd();
                     }

@@ -2057,8 +2057,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemInstances: {fileID: 11400000, guid: 035c2f0a3e224c64db9b71e9c86114af, type: 2}
-  ChangeItemStatusEvent: {fileID: 11400000, guid: fc450b4d657426942b071bd8616feb19, type: 2}
-  CurrentActiveItem: {fileID: 11400000, guid: 03ee6a9ec23765f4fa4a254ffb256dc1, type: 2}
   RoomItems:
   - {fileID: 6207360634587144861}
   - {fileID: 3030765144856664121}
@@ -2074,7 +2072,7 @@ MonoBehaviour:
   - {fileID: 1788939178515468398}
   ItemHolder: {fileID: 2024753824}
   VideoText: {fileID: 3854405410401488522}
-  BuyEventName: CapBuy
+  ItemName: Cap
 --- !u!1 &543846791142718099
 GameObject:
   m_ObjectHideFlags: 0
@@ -2624,7 +2622,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Body: {fileID: 5228803007865272703}
-  SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
   StoreItemsList: {fileID: 11400000, guid: 9c58c415efded7b488c3eeba18e5e38f, type: 2}
   CapItemsDictionary: {fileID: 11400000, guid: 035c2f0a3e224c64db9b71e9c86114af, type: 2}
   FlameItemsDictionary: {fileID: 11400000, guid: cf4593384f21ac1499205a8458e72aaf, type: 2}
@@ -2987,8 +2984,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemInstances: {fileID: 11400000, guid: cf4593384f21ac1499205a8458e72aaf, type: 2}
-  ChangeItemStatusEvent: {fileID: 11400000, guid: fc450b4d657426942b071bd8616feb19, type: 2}
-  CurrentActiveItem: {fileID: 11400000, guid: 63e6496758809f14cb2d76d028c3fcbf, type: 2}
   RoomItems:
   - {fileID: 6590352719117932003}
   - {fileID: 7680940779871803402}
@@ -3002,7 +2997,7 @@ MonoBehaviour:
   - {fileID: 1074964729749819697}
   ItemHolder: {fileID: 1936743982}
   VideoText: {fileID: 2541443341748096981}
-  BuyEventName: FlameThrowerBuy
+  ItemName: FlameThrower
 --- !u!1 &3623857064505699915
 GameObject:
   m_ObjectHideFlags: 0
@@ -4827,8 +4822,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemInstances: {fileID: 11400000, guid: 867607d45b110f34d9315d803c01ef51, type: 2}
-  ChangeItemStatusEvent: {fileID: 11400000, guid: fc450b4d657426942b071bd8616feb19, type: 2}
-  CurrentActiveItem: {fileID: 11400000, guid: 3ca6af44fe0017c4ebe32d1bba84d8ff, type: 2}
   RoomItems:
   - {fileID: 8326418719126440951}
   - {fileID: 4442546834874536598}
@@ -4846,7 +4839,7 @@ MonoBehaviour:
   - {fileID: 3509954880773815148}
   ItemHolder: {fileID: 1936743982}
   VideoText: {fileID: 2097501665791403400}
-  BuyEventName: SprayBuy
+  ItemName: Spray
 --- !u!1 &8332939741730857814
 GameObject:
   m_ObjectHideFlags: 0

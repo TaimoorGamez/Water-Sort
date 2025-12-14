@@ -7,7 +7,6 @@ namespace Core.Screen
 {
     public class DailyRewardScreen : UiScreens
     {
-        [SerializeField] DBInt RewardClaimed;
         [SerializeField] GameObject ClaimBtnsObj, TimerTextObj;
         [SerializeField] RectTransform[] RewardItems;
         [SerializeField] RectTransform NiddleRotator;
@@ -31,7 +30,7 @@ namespace Core.Screen
 
         private void CheckViewState()
         {
-            if (RewardClaimed.Value == 0)
+            if (DBIntsHolder.RewardClaimed.Value == 0)
             {
                 ClaimBtnsObj.SetActive(true);
                 TimerTextObj.SetActive(false);

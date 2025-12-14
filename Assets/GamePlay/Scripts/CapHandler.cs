@@ -8,15 +8,13 @@ namespace Core.GamePlay.WaterSort
 {
     public class CapHandler : MonoBehaviour
     {
-        [SerializeField] DBInt CurrentCap;
-        
         string _capsPath = "GamePlay/Cap/";
         CapAnimation _myAnimation;
         AsyncOperationHandle _capHandle;
 
         private void Start()
         {
-            LoadCapItem(_capsPath + CurrentCap.Value);
+            LoadCapItem(_capsPath + DBIntsHolder.CurrentActiveCap.Value);
         }
 
         async void LoadCapItem(string path)

@@ -6,12 +6,12 @@ namespace Core.Purchase
     [CreateAssetMenu(fileName = "storeProduct", menuName = "ScriptableObjects/Store/Consumable")]
     public class ConsumableProduct : StoreProduct
     {
-        [SerializeField] protected Currency CurrentCurency;
         [SerializeField] protected int Amount;
+        [SerializeField] protected string CurrencyName;
 
         public override void BuyProduct()
         {
-            CurrentCurency.Amount += Amount;
+            CurrencyDictionariesHolder.AllCurrencies[CurrencyName].Amount += Amount;
         }
     }
 }

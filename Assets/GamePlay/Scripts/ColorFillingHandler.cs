@@ -10,7 +10,6 @@ namespace Core.GamePlay.Coloring
 {
     public class ColorFillingHandler : MonoBehaviour
     {
-        [SerializeField] DBInt Sound;
         [SerializeField] SOColorBowl CurrentBowl;
         [SerializeField] SOColor CurrentColor;
         [SerializeField] ColorFilling[] ColoringPart;
@@ -112,7 +111,7 @@ namespace Core.GamePlay.Coloring
                         _coloringSound = true;
                         BrushAnimtion.Play();
                         ResetButton.SetActive(true);
-                        if (Sound.Value == 1)
+                        if (DBIntsHolder.Sound.Value == 1)
                             BurshSound.Play();
                     }
                 }

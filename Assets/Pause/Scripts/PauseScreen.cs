@@ -9,7 +9,6 @@ namespace Core.Screen
 {
     public class PauseScreen : UiScreens
     {
-        [SerializeField] DBInt Music, Sound;
         [SerializeField] GameObject MusicOff, SoundOff;
 
         private void OnEnable()
@@ -20,26 +19,26 @@ namespace Core.Screen
         }
         public void ToggleMusic()
         {
-            Music.Value = Music.Value == 1 ? 0 : 1;
+            DBIntsHolder.Music.Value = DBIntsHolder.Music.Value == 1 ? 0 : 1;
             SimpleEventsHolder.UpdateMusicStateEvent?.Invoke();
             UpdateMusicUI();
         }
 
         public void ToggleSound()
         {
-            Sound.Value = Sound.Value == 1 ? 0 : 1;
+            DBIntsHolder.Sound.Value = DBIntsHolder.Sound.Value == 1 ? 0 : 1;
             SimpleEventsHolder.UpdateSoundStateEvent?.Invoke();
             UpdateSoundUI();
         }
 
         void UpdateMusicUI()
         {
-            MusicOff.SetActive(Music.Value != 1);
+            MusicOff.SetActive(DBIntsHolder.Music.Value != 1);
         }
 
         void UpdateSoundUI()
         {
-            SoundOff.SetActive(Sound.Value != 1);
+            SoundOff.SetActive(DBIntsHolder.Sound.Value != 1);
         }
 
         public void RestartLevel()

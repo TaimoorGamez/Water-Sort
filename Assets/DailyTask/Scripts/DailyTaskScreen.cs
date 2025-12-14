@@ -8,8 +8,6 @@ namespace Core.Screen
 {
     public class DailyTaskScreen : UiScreens
     {
-        [SerializeField] Currency CashCurrency;
-        [SerializeField] TaskManager CurrenTaskManager;
         [SerializeField] RectTransform BoxPanel, RewardFillBar;
         [SerializeField] TaskBar[] TaskBars;
         [SerializeField] RectTransform[] RewardImgs;
@@ -29,7 +27,7 @@ namespace Core.Screen
 
         void UpdateTasks()
         {
-            _activeTasks = CurrenTaskManager.GetActiveTasks();
+            _activeTasks = TasksManager.I.GetActiveTasks();
             int _completedTasks = 0;
             _taskClaimed = 0;
             for (int i = 0; i < TaskBars.Length; i++)
@@ -62,13 +60,13 @@ namespace Core.Screen
                 switch(_taskClaimed)
                 {
                     case 0:
-                        CashCurrency.Amount += 100;
+                        CurrenciesHolder.CashCurrency.Amount += 100;
                         break;
                     case 1:
-                        CashCurrency.Amount += 150;
+                        CurrenciesHolder.CashCurrency.Amount += 150;
                         break;
                     case 2:
-                        CashCurrency.Amount += 200;
+                        CurrenciesHolder.CashCurrency.Amount += 200;
                         break;
                     case 3:
                         BoxPanel.gameObject.SetActive(true);

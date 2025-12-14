@@ -8,7 +8,6 @@ namespace Core.Sfx
     {
         [SerializeField] AudioSource AudioSourceToUse;
         [SerializeField] AudioClip ClipToPlay;
-        [SerializeField] DBInt Sound;
         [SerializeField] bool PlayOnEnable;
 
         private void OnEnable()
@@ -21,7 +20,7 @@ namespace Core.Sfx
 
         public void PlaySoundClip()
         {
-            if (Sound.Value == 1)
+            if (DBIntsHolder.Sound.Value == 1)
             {
                 AudioSourceToUse.PlayOneShot(ClipToPlay);
             }

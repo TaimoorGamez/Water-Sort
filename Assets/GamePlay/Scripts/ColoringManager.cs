@@ -11,7 +11,6 @@ namespace Core.GamePlay.Coloring
 {
     public class ColoringManager : MonoBehaviour
     {
-        [SerializeField] DBInt LevelIndex;
         [SerializeField] RectTransform ColoringImage;
         [SerializeField] Transform RefferanceBar;
 
@@ -37,7 +36,7 @@ namespace Core.GamePlay.Coloring
             ColoringImage.DOAnchorPos(Vector2.zero, _preparationTime).OnComplete(() =>
             {
                 RefferanceBar.gameObject.SetActive(true);
-                LoadReferenceObj(_refferancePath + (LevelsManager.I.TempLvlIndex == -1 ? LevelIndex.Value : LevelsManager.I.TempLvlIndex));
+                LoadReferenceObj(_refferancePath + (LevelsManager.I.TempLvlIndex == -1 ? DBIntsHolder.LvlIndex.Value : LevelsManager.I.TempLvlIndex));
             });
         }
         

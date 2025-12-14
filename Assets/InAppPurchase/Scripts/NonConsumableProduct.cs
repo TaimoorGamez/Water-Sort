@@ -7,33 +7,29 @@ namespace Core.Purchase
     [CreateAssetMenu(fileName ="storeProduct", menuName = "ScriptableObjects/Store/nonConsumable")]
     public class NonConsumableProduct : StoreProduct
     {
-        [SerializeField] DBInt ProductDB;
-        [SerializeField] string EventKey;
+        [SerializeField] string ProductName;
 
         public override void BuyProduct()
         {
-            if (ProductDB.Value != 1)
-            {
-                ProductDB.Value = 1;
-                InvokeEventFromKey();
-            }
+            DBIntDictionariesHolder.NonConsumableProductsData[ProductName].Value = 1;
+            InvokeEventFromKey();
         }
 
         void InvokeEventFromKey()
         {
-            if (string.IsNullOrEmpty(EventKey))
+            if (string.IsNullOrEmpty(ProductName))
             {
                 Debug.LogWarning($"{name}: EventKey is empty!");
                 return;
             }
 
-            if (EventDictionariesHolder.NonConsumableProductsEvents.TryGetValue(EventKey, out var evt))
+            if (EventDictionariesHolder.NonConsumableProductsEvents.TryGetValue(ProductName, out var evt))
             {
                 evt?.Invoke();
             }
             else
             {
-                Debug.LogWarning($"{name}: No event registered for key '{EventKey}'");
+                Debug.LogWarning($"{name}: No event registered for key '{ProductName}'");
             }
         }
     }

@@ -9,7 +9,6 @@ namespace Core.GamePlay.WaterSort
 {
     public class ColoringLevelInit : MonoBehaviour
     {
-        [SerializeField] DBInt LvlIndex;
         [SerializeField] Transform ColoringHolder;
          
         string _coloringPath = "Level/Coloring/";
@@ -33,7 +32,7 @@ namespace Core.GamePlay.WaterSort
 
         void InitColoring()
         {
-            LoadColoringLvl(_coloringPath + (LevelsManager.I.TempLvlIndex == -1 ? LvlIndex.Value : LevelsManager.I.TempLvlIndex));
+            LoadColoringLvl(_coloringPath + (LevelsManager.I.TempLvlIndex == -1 ? DBIntsHolder.LvlIndex.Value : LevelsManager.I.TempLvlIndex));
         }
 
         async void LoadColoringLvl(string path)

@@ -7,7 +7,6 @@ namespace Core.Plugins.Ads
 {
     public class RewardManager : MonoBehaviour
     {
-        [SerializeField] DBInt NoAds;
         [SerializeField] AdDataHandler AdData;
         [SerializeField] AdHandler IntertitialAd;
 
@@ -116,7 +115,7 @@ namespace Core.Plugins.Ads
 
         void StartLoadingAds()
         {
-            if (NoAds.Value != 1)
+            if (DBIntsHolder.NoAds.Value != 1)
             {
                 _adsRotine = StartCoroutine(LoadAds());
             }

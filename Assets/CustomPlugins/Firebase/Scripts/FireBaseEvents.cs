@@ -1,5 +1,5 @@
 using UnityEngine;
-using Core.DB.Variables;
+using Core.Economy;
 using Firebase.Analytics;
 
 namespace Core.Plugins.Firebase
@@ -7,7 +7,6 @@ namespace Core.Plugins.Firebase
     [CreateAssetMenu(fileName = "FbEvent", menuName = "ScriptableObjects/Plugin/Firebase/Events")]
     public class FireBaseEvents : ScriptableObject
     {
-        [SerializeField] DBInt CashWallet;
         [SerializeField] FirebaseInitialization FirebaseInit;
 
         public void LevelStartEvent(string lvlNum)
@@ -16,7 +15,7 @@ namespace Core.Plugins.Firebase
             {
                 Parameter[] parameters = {
             new Parameter ("level", lvlNum),
-            new Parameter ("current_gold", CashWallet.Value),
+            new Parameter ("current_gold", CurrenciesHolder.CashCurrency.Amount),
                  };
                 FirebaseAnalytics.LogEvent("level_start", parameters);
             }

@@ -10,7 +10,6 @@ namespace Core.DailyReward
     public class DayChecker : MonoBehaviour
     {
         [SerializeField] DBString LastDate;
-        [SerializeField] DBInt ToDay, RewardClaimed;
         [SerializeField] GameObject DailyRewardView, NotificationObj;
         [SerializeField] TextMeshProUGUI RemainingTimeText, PanelTimer;
 
@@ -50,20 +49,20 @@ namespace Core.DailyReward
             {
                 SimpleEventsHolder.GenerateDailyTasksEvent?.Invoke();
                 SimpleEventsHolder.ResetSpinWheelEvent?.Invoke();
-                RewardClaimed.Value = 0;
+                DBIntsHolder.RewardClaimed.Value = 0;
                 NotificationObj.SetActive(true);
-                if (daysGreater == 1 && ToDay.Value < 7)
+                if (daysGreater == 1 && DBIntsHolder.ToDay.Value < 7)
                 {
-                    ToDay.Value = (ToDay.Value + 1);
+                    DBIntsHolder.ToDay.Value = (DBIntsHolder.ToDay.Value + 1);
                 }
                 else
                 {
-                    ToDay.Value = 1;
+                    DBIntsHolder.ToDay.Value = 1;
                 }
                 DailyRewardView.SetActive(true);
                 LastDate.Value = (DateTime.Now.ToString());
             }
-            else if (daysGreater < 1 && RewardClaimed.Value == 0)
+            else if (daysGreater < 1 && DBIntsHolder.RewardClaimed.Value == 0)
             {
                 NotificationObj.SetActive(true);
                 DailyRewardView.SetActive(true);

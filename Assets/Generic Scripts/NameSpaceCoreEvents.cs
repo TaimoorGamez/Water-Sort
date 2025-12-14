@@ -74,13 +74,14 @@ namespace Core.Events
     {
         public static Dictionary<string, GameEvent> NonConsumableProductsEvents = new Dictionary<string, GameEvent>(StringComparer.Ordinal)
         {
+            { "NoAds", SimpleEventsHolder.NoAdsBuyEvent }
         };
 
         public static Dictionary<string, GameEvent> StoreBuyEvents = new Dictionary<string, GameEvent>(StringComparer.Ordinal)
         {
-            { "CapBuy", SimpleEventsHolder.BuyCaps },
-            { "SprayBuy", SimpleEventsHolder.BuySprays },
-            { "FlameThrowerBuy", SimpleEventsHolder.BuyFlames }
+            { "Cap", SimpleEventsHolder.BuyCaps },
+            { "Spray", SimpleEventsHolder.BuySprays },
+            { "FlameThrower", SimpleEventsHolder.BuyFlames }
         };
 
         public static Dictionary<string, GameEvent> PowerEvents = new Dictionary<string, GameEvent>(StringComparer.Ordinal)
