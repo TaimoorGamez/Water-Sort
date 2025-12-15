@@ -7,7 +7,6 @@ namespace Core.Plugins.Ads
 {
     public class RewardManager : MonoBehaviour
     {
-        [SerializeField] AdDataHandler AdData;
         [SerializeField] AdHandler IntertitialAd;
 
         Coroutine _rewardRotine, _adsRotine;
@@ -17,14 +16,14 @@ namespace Core.Plugins.Ads
         {
             SimpleEventsHolder.GrantRewardEvent += PlayRewardCorotine;
             SimpleEventsHolder.StartLoadingAdsEvent += StartLoadingAds;
-            SimpleEventsHolder.NoAdsBuyEvent += StopAds;
+            SimpleEventsHolder.RemoveAds += StopAds;
         }
 
         private void OnDisable()
         {
             SimpleEventsHolder.GrantRewardEvent -= PlayRewardCorotine;
             SimpleEventsHolder.StartLoadingAdsEvent -= StartLoadingAds;
-            SimpleEventsHolder.NoAdsBuyEvent -= StopAds;
+            SimpleEventsHolder.RemoveAds -= StopAds;
             CustomDisable();
         }
 
@@ -115,7 +114,7 @@ namespace Core.Plugins.Ads
 
         void StartLoadingAds()
         {
-            if (DBVariablesHolder.NoAds.Value != 1)
+            if (DBVariablesHolder.RemoveAds.Value != 1)
             {
                 _adsRotine = StartCoroutine(LoadAds());
             }
@@ -123,10 +122,10 @@ namespace Core.Plugins.Ads
 
         IEnumerator LoadAds()
         {
-            yield return new WaitForSeconds(AdData.AdData.Ad_Show_Time);
+            yield return new WaitForSeconds(RemoteDataHolder.AdData.Ad_Show_Time);
             AdsManager.I.AdTimerComplete = true;
 
-            if (AdData.AdData.Interstitial)
+            if (RemoteDataHolder.AdData.Interstitial)
                 IntertitialAd.LoadAd();
         }
 

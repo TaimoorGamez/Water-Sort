@@ -1,6 +1,6 @@
 using System.Linq;
 using UnityEngine;
-using Core.Plugins.Ads;
+using Core.Plugins;
 using UnityEngine.Purchasing;
 using System.Collections.Generic;
 
@@ -8,18 +8,17 @@ namespace Core.Purchase
 {
     public class InAppPurchase : MonoBehaviour
     {
-        public bool IsInitialized;
+        [HideInInspector] public bool IsInitialized;
 
-        [SerializeField] AdDataHandler AdDataConfige;
         [SerializeField] NonConsumableProduct[] NonConsumableProducts;
-        [SerializeField] ConsumableProduct[] ConsumableProducts;
+        //[SerializeField] ConsumableProduct[] ConsumableProducts;
 
         Dictionary<string , StoreProduct> productDictionary;
         StoreController m_StoreController;
 
         public void InitializePurchasing()
         {
-            if (IsInitialized || !AdDataConfige.AdData.CanPurchase)
+            if (IsInitialized || !RemoteDataHolder.AdData.CanPurchase)
             {
                 return;
             }
@@ -53,11 +52,11 @@ namespace Core.Purchase
                 initialProductsToFetch.Add(new ProductDefinition(NonConsumableProducts[n].ProductID, ProductType.NonConsumable));
                 productDictionary.Add(NonConsumableProducts[n].ProductID, NonConsumableProducts[n]);
             }
-            for (int c = 0; c < ConsumableProducts.Length; c++)
-            {
-                initialProductsToFetch.Add(new ProductDefinition(ConsumableProducts[c].ProductID, ProductType.Consumable));
-                productDictionary.Add(ConsumableProducts[c].ProductID, ConsumableProducts[c]);
-            }
+            //for (int c = 0; c < ConsumableProducts.Length; c++)
+            //{
+            //    initialProductsToFetch.Add(new ProductDefinition(ConsumableProducts[c].ProductID, ProductType.Consumable));
+            //    productDictionary.Add(ConsumableProducts[c].ProductID, ConsumableProducts[c]);
+            //}
             m_StoreController.FetchProducts(initialProductsToFetch);
         }
 
@@ -80,6 +79,7 @@ namespace Core.Purchase
             if (IsInitialized)
                 m_StoreController.PurchaseProduct(productId);
         }
+
         void OnPurchaseFailed(FailedOrder order)
         {
             var product = GetFirstProductInOrder(order);

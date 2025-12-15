@@ -9,12 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31244217a0804b9489d3be6dbbb86fa6, type: 3}
-  m_Name: AdData
+  m_Script: {fileID: 11500000, guid: 5834b5087d578d24c926ce20cd31e6d6, type: 3}
+  m_Name: SDKs_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
-  AdData:
-    CanShowAds: 1
-    CanPurchase: 1
-    Ad_Show_Time: 45
-    Interstitial: 1
-    Rewarded: 1
+  m_Group: {fileID: 11400000, guid: aeb5c2098c507e3418ad4c9e6adcab37, type: 2}
+  m_StaticContent: 0

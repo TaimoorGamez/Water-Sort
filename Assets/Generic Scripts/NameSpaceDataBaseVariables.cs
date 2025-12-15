@@ -68,7 +68,7 @@ namespace Core.DB.Variables
     public static class DBVariablesHolder
     {
         //---------------------Ads Related -----------------------
-        public static DBInt NoAds = new DBInt("NoAds", 0);
+        public static DBInt RemoveAds = new DBInt("removeads", 0);
         public static DBInt AdBlocked = new DBInt("AdBlocked", 0);
         public static DBString AdBlockingTime = new DBString("AdBlockingTime", DateTime.MinValue.ToString());
         public static DBString LastDate = new DBString("LastDate", DateTime.MinValue.ToString());
@@ -142,7 +142,7 @@ namespace Core.DB.Variables
 
         public static Dictionary<string, DBInt> NonConsumableProductsData = new Dictionary<string, DBInt>(StringComparer.Ordinal)
         {
-            { "NoAds", DBVariablesHolder.NoAds }
+            { "removeads", DBVariablesHolder.RemoveAds }
         };
     }
 }

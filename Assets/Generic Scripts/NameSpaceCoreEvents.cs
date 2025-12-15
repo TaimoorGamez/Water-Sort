@@ -33,7 +33,7 @@ namespace Core.Events
         GenerateDailyTasksEvent,
 
         //------------------Ads Events------------------
-        NoAdsBuyEvent, StartLoadingAdsEvent, GrantRewardEvent,
+        RemoveAds, StartLoadingAdsEvent, GrantRewardEvent,
         MultiplayRewardEvent, AddMovesEvent, DoubleDailyRewardEvent,
         RewardSpinWheelEvent, BuyCaps, BuySprays, BuyFlames, AdsBlockerEvent,
         RewardUndoEvent, RewardExtraTubeEvent, RewardSwapColor;
@@ -74,7 +74,7 @@ namespace Core.Events
     {
         public static Dictionary<string, GameEvent> NonConsumableProductsEvents = new Dictionary<string, GameEvent>(StringComparer.Ordinal)
         {
-            { "NoAds", SimpleEventsHolder.NoAdsBuyEvent }
+            { "removeads", SimpleEventsHolder.RemoveAds }
         };
 
         public static Dictionary<string, GameEvent> StoreBuyEvents = new Dictionary<string, GameEvent>(StringComparer.Ordinal)

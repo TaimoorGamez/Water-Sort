@@ -3,6 +3,7 @@ using UnityEngine;
 using Core.Events;
 using DG.Tweening;
 using Core.States;
+using Core.Plugins;
 using Core.GamePlay;
 using Core.Purchase;
 using Core.Plugins.Ads;
@@ -13,7 +14,6 @@ namespace Core.Screen
 {
     public class MainMenuScreen : UiScreens
     {
-        [SerializeField] FirebaseInitialization FirebaseInit;
         [SerializeField] InAppPurchase InAppPurchaser;
         [SerializeField] TextMeshProUGUI[] Lvls;
         [SerializeField] Transform LevelView;
@@ -24,24 +24,27 @@ namespace Core.Screen
 
         private void Start()
         {
-            LevelsManager.I.TempLvlIndex = -1;
-            if(FirebaseInit.IsFirebaseInit)
+            if(FirebaseHandler.I != null)
             {
-                if (!InAppPurchaser.IsInitialized)
+                if(FirebaseHandler.I.IsInitialize && RemoteDataHolder.IsInternetWorking)
                 {
-                    InAppPurchaser.InitializePurchasing();
-                    Invoke(nameof(InitializeAds), 1f);
+                    if (!InAppPurchaser.IsInitialized)
+                    {
+                        InAppPurchaser.InitializePurchasing();
+                        //Invoke(nameof(InitializeAds), 1f);
+                    }
+                    //else 
+                    //{
+                    //    InitializeAds();
+                    //}
                 }
-                else 
+                else
                 {
-                    InitializeAds();
+                    FirebaseHandler.I.InitPlugin();
                 }
-            }
-            else
-            {
-                FirebaseInit.InitPlugin();
             }
 
+            LevelsManager.I.TempLvlIndex = -1;
             for (int l = 0; l < Lvls.Length; l++)
             {
                 if (l < _activeLvl)

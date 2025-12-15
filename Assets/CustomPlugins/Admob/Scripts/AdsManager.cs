@@ -7,7 +7,6 @@ namespace Core.Plugins.Ads
 {
     public class AdsManager : MonoBehaviour
     {
-        [SerializeField] AdDataHandler AdData;
         [SerializeField] AdHandler RewardedAd, IntertitialAd;
 
         public bool IsInitialized = false, AdTimerComplete = false, AdPlaying = false, CanAddMoves = false, CanMultiply = false, CanDoubleReward = false,
@@ -40,7 +39,7 @@ namespace Core.Plugins.Ads
 
         void RequestConsentInfo()
         {
-            if(!AdData.AdData.CanShowAds)
+            if(!RemoteDataHolder.AdData.CanShowAds)
                 return;
 
             ConsentRequestParameters request = new ConsentRequestParameters
@@ -94,7 +93,7 @@ namespace Core.Plugins.Ads
 
         void InitAds()
         {
-            if (!AdData.AdData.CanShowAds)
+            if (!RemoteDataHolder.AdData.CanShowAds)
                 return;
             
             try
@@ -108,12 +107,12 @@ namespace Core.Plugins.Ads
                     }
                     MobileAds.RaiseAdEventsOnUnityMainThread = true;
                     IsInitialized = true;
-                    if (AdData.AdData.Rewarded)
+                    if (RemoteDataHolder.AdData.Rewarded)
                     {
                         RewardedAd.LoadAd();
                     }
 
-                    if (AdData.AdData.Interstitial && DBVariablesHolder.NoAds.Value == 0)
+                    if (RemoteDataHolder.AdData.Interstitial && DBVariablesHolder.RemoveAds.Value == 0)
                     {
                         IntertitialAd.LoadAd();
                     }

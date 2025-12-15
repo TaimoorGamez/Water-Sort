@@ -1,17 +1,15 @@
-using TMPro;
-using System;
-using UnityEngine;
-using Core.Events;
-using Core.Economy;
-using UnityEngine.UI;
 using Core.DB.Variables;
+using Core.Economy;
+using Core.Events;
 using Core.Plugins.Firebase;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Core.DailyReward
 {
     public class DailyRewardHandler : MonoBehaviour
     {
-        [SerializeField] protected FireBaseEvents FBEvents;
         [SerializeField] protected TextMeshProUGUI[] DayText, AmountText;
         [SerializeField] protected Button ClaimButton;
         [SerializeField] protected GameObject[] RewardState;
@@ -87,14 +85,7 @@ namespace Core.DailyReward
                 ClaimButton.onClick.RemoveListener(OnClickBuyButton);
                 SimpleEventsHolder.DoubleDailyRewardEvent -= GrantDoubleReward;
                 SimpleEventsHolder.UpDateDailyRewardState?.Invoke();
-                try
-                {
-                    FBEvents.EarnCoinsEvent("Coins", Amount, "DailyReward");
-                }
-                catch(Exception e)
-                {
-                    Debug.Log("***Exception " + e);
-                }
+                FirebaseHandler.I?.LogEvent($"DR|Amt:{Amount}|Day:{RewardDay}");
             }
         }
 

@@ -1,5 +1,4 @@
 using TMPro;
-using System;
 using UnityEngine;
 using Core.DB.Variables;
 
@@ -37,15 +36,7 @@ namespace Core.DailyReward
         protected override void OnClickBuyButton()
         {
             base.OnClickBuyButton();
-           DBVariablesHolder.RemainingTubes.Value += TubeCounts;
-            try
-            {
-                FBEvents.EarnCoinsEvent("Tube", Amount, "DailyReward");
-            }
-            catch (Exception e)
-            {
-                Debug.Log("***Exception " + e);
-            }
+            DBVariablesHolder.RemainingTubes.Value += TubeCounts;
         }
 
         protected override void GrantDoubleReward()

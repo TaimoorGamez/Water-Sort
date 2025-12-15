@@ -4,7 +4,6 @@ using UnityEngine;
 using DG.Tweening;
 using Core.Events;
 using Core.States;
-using Core.Plugins;
 using Core.GamePlay;
 using UnityEngine.UI;
 using Core.DB.Variables;
@@ -13,7 +12,6 @@ namespace Core.Screen
 {
     public class SplashScreen : UiScreens
     {
-        [SerializeField] Initialization FirebaseInit;
         [SerializeField] ItemData DefaultCap, DefaultFlame, DefaultSpray;
         [SerializeField] Transform FillImage;
         [SerializeField] TextMeshProUGUI LoadingText;
@@ -31,7 +29,6 @@ namespace Core.Screen
                 DefaultSpray.IsPurchased = true;
                 DBVariablesHolder.FFT.Value = 1;
             }
-            FirebaseInit.InitPlugin();
             LogoImage.DOFillAmount(1, _loadingTime).SetEase(Ease.Linear);
             FillImage.DOScaleX(1f, _loadingTime).SetEase(Ease.Linear).OnUpdate(() =>
             {

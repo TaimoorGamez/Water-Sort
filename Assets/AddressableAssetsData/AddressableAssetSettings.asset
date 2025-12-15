@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468a46d0ae32c3544b7d98094e6448a9, type: 3}
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
-  m_DefaultGroup: c096ce9ce7f670a4b9bbb78db4c10717
+  m_DefaultGroup: 08daf0bc544a28341b3b5cefb04262b6
   m_currentHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
@@ -62,6 +62,7 @@ MonoBehaviour:
   m_GroupAssets:
   - {fileID: 11400000, guid: 7ec707181b1b4fe43a1ee112ebde13b5, type: 2}
   - {fileID: 11400000, guid: ea36a4a751b77df4c890a344b65c2266, type: 2}
+  - {fileID: 11400000, guid: aeb5c2098c507e3418ad4c9e6adcab37, type: 2}
   - {fileID: 11400000, guid: 4a820367a2e01d44998909e346866049, type: 2}
   - {fileID: 11400000, guid: c8ca8667db2d2844f99409b16d6665ce, type: 2}
   - {fileID: 11400000, guid: a6c15f86b6a2b5e49baa757a9d1b0eff, type: 2}
@@ -107,6 +108,7 @@ MonoBehaviour:
     - gameplay_item
     - lvl_part
     - appreation_text
+    - sdk
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 5cf09e92517bdcd4a85a3526ccf3dd67, type: 2}
