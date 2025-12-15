@@ -13,10 +13,10 @@ namespace Core.Screen
         [SerializeField] GameObject SpinBtn, RvBtn, SpinNotification;
         [SerializeField] RectTransform SegmentParent, Shine, RewardPanel, Wheel;
         [SerializeField] SpinWheelSegment SegmentPrefab;
-        [SerializeField] SpinWheelData SpinWheelData;
         [SerializeField] Color RewardedColor;
         [SerializeField] Image RewardIcon;
         [SerializeField] TextMeshProUGUI RewardAmount;
+        [SerializeField] SpinWheelConfige[] SpinWheelRewards;
 
         float _segmentAngle, _spinDuration = 5f, _tweenDiration = 0.5f;
         bool _onceClicked = false;
@@ -53,13 +53,13 @@ namespace Core.Screen
 
         void CreateWheelView()
         {
-            int rewardCount = SpinWheelData.SpinWheelRewards.Length;
+            int rewardCount = SpinWheelRewards.Length;
             _allSpinSegments = new SpinWheelSegment[rewardCount];
             _segmentAngle = 360f / rewardCount;
             float fillAmount = 1f / rewardCount;
             for (int i = 0; i < rewardCount; i++)
             {
-                SpinWheelConfige reward = SpinWheelData.SpinWheelRewards[i];
+                SpinWheelConfige reward = SpinWheelRewards[i];
                 SpinWheelSegment segment = Instantiate(SegmentPrefab, SegmentParent);
                 segment.transform.localRotation = Quaternion.Euler(0, 0, -i * _segmentAngle);
                 segment.Initialize(reward.Icon, reward.Amount, reward.SegmentColor, fillAmount);
@@ -86,17 +86,17 @@ namespace Core.Screen
         int GetWeightedRandomIndex()
         {
             float totalWeight = 0f;
-            int rewardCount = SpinWheelData.SpinWheelRewards.Length;
+            int rewardCount = SpinWheelRewards.Length;
 
             for (int i = 0; i < rewardCount; i++)
             {
-                totalWeight += SpinWheelData.SpinWheelRewards[i].Weight;
+                totalWeight += SpinWheelRewards[i].Weight;
             }
             float randomValue = Random.Range(0, totalWeight);
             float cumulative = 0f;
             for (int i = 0; i < rewardCount; i++)
             {
-                cumulative += SpinWheelData.SpinWheelRewards[i].Weight;
+                cumulative += SpinWheelRewards[i].Weight;
                 if (randomValue <= cumulative)
                     return i;
             }
@@ -115,17 +115,17 @@ namespace Core.Screen
                 SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
                 Shine.DOScale(Vector3.one,_tweenDiration).SetEase(Ease.OutBack).OnComplete(()=>Shine.localScale = Vector3.zero).OnComplete(()=>{
                     Shine.localScale = Vector3.zero;
-                    RewardIcon.sprite = SpinWheelData.SpinWheelRewards[rewardIndex].Icon;
-                    RewardAmount.text = "+"+SpinWheelData.SpinWheelRewards[rewardIndex].Amount.ToString();
+                    RewardIcon.sprite = SpinWheelRewards[rewardIndex].Icon;
+                    RewardAmount.text = "+"+SpinWheelRewards[rewardIndex].Amount.ToString();
                     RewardPanel.DOScale(Vector3.one, _tweenDiration).SetEase(Ease.OutBack).OnComplete(() => {
                         Invoke(nameof(CloseRewardPanel), 1);
-                        _allSpinSegments[rewardIndex].ChangeGradient(SpinWheelData.SpinWheelRewards[rewardIndex].SegmentColor);
+                        _allSpinSegments[rewardIndex].ChangeGradient(SpinWheelRewards[rewardIndex].SegmentColor);
                     });
                     DBVariablesHolder.SpinAvailable.Value = 0;
                     SpinBtn.SetActive(false);
                     SpinNotification.SetActive(false);
                     RvBtn.SetActive(true);
-                    SpinWheelData.SpinWheelRewards[rewardIndex].ClaimReward();
+                    SpinWheelRewards[rewardIndex].ClaimReward();
                 });
                 _allSpinSegments[rewardIndex].ChangeGradient(RewardedColor);
             });

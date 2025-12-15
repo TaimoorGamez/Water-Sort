@@ -469,22 +469,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a3c44c485f90947b7be2bb18f5133f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
-  SpinEvent: {fileID: 11400000, guid: 0da667833518c34448e30050044c2c68, type: 2}
-  DailySpin: {fileID: 11400000, guid: bb77720219856cd489e9c9a6bb7d54c0, type: 2}
+  Body: {fileID: 5992491832964638918}
   SpinBtn: {fileID: 5370775561302987242}
   RvBtn: {fileID: 7338787099476382886}
   SpinNotification: {fileID: 0}
   SegmentParent: {fileID: 9000552268607645853}
   Shine: {fileID: 8945912994948764568}
   RewardPanel: {fileID: 8795339783823399777}
-  Body: {fileID: 5992491832964638918}
   Wheel: {fileID: 4703981586504006114}
   SegmentPrefab: {fileID: 7245321775489368684, guid: 2a0f66c327942f84eb0e26d71f851e7a, type: 3}
   SpinWheelData: {fileID: 11400000, guid: a03610bcba2e3e6428617c9f47f648f7, type: 2}
   RewardedColor: {r: 0.8039216, g: 0, b: 1, a: 1}
   RewardIcon: {fileID: 5322431006906528003}
   RewardAmount: {fileID: 4448194516099583440}
+  SpinWheelRewards:
+  - RewardName: ExtraTube
+    SegmentColor: {r: 0.29411766, g: 0.5294118, b: 0.9411765, a: 1}
+    Icon: {fileID: 21300000, guid: 391d94d2e77bebe4aba38eadfdb0728c, type: 3}
+    Amount: 1
+    Weight: 2
+  - RewardName: Cash
+    SegmentColor: {r: 0.27450982, g: 0.19607843, b: 0.4509804, a: 1}
+    Icon: {fileID: 21300000, guid: 1f6201642f9c1ca4fb24320d7b0b9274, type: 3}
+    Amount: 200
+    Weight: 10
+  - RewardName: UndoColor
+    SegmentColor: {r: 0.29411766, g: 0.5294118, b: 0.9411765, a: 1}
+    Icon: {fileID: 21300000, guid: 235f995e698ae9d47aa41ef82d258278, type: 3}
+    Amount: 1
+    Weight: 20
+  - RewardName: SwapColor
+    SegmentColor: {r: 0.27450982, g: 0.19607843, b: 0.4509804, a: 1}
+    Icon: {fileID: 21300000, guid: faceefd1610daf54a9b91b355969fdcf, type: 3}
+    Amount: 1
+    Weight: 20
+  - RewardName: Cash
+    SegmentColor: {r: 0.29411766, g: 0.5294118, b: 0.9411765, a: 1}
+    Icon: {fileID: 21300000, guid: 1f6201642f9c1ca4fb24320d7b0b9274, type: 3}
+    Amount: 100
+    Weight: 35
+  - RewardName: Cash
+    SegmentColor: {r: 0.27450982, g: 0.19607843, b: 0.4509804, a: 1}
+    Icon: {fileID: 21300000, guid: 1f6201642f9c1ca4fb24320d7b0b9274, type: 3}
+    Amount: 50
+    Weight: 50
 --- !u!1 &8578488287979468093
 GameObject:
   m_ObjectHideFlags: 0
