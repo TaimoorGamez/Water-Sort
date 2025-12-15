@@ -1,6 +1,7 @@
-using UnityEngine;
 using Core.Events;
+using UnityEngine;
 using Core.DB.Variables;
+using Core.Plugins.Firebase;
 using System.Collections.Generic;
 
 namespace Core.GamePlay.WaterSort
@@ -60,6 +61,7 @@ namespace Core.GamePlay.WaterSort
                         SimpleEventsHolder.UpdateUndoStatusEvent?.Invoke();
                     }
                     DoubleIntegerEventHolder.TaskEvent?.Invoke(3, 1);
+                    FirebaseHandler.I?.LogEvent($"undo_lvl:{DBVariablesHolder.LvlIndex.Value}");
                 }
                 else
                 {

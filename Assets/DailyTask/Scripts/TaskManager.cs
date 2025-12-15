@@ -1,7 +1,8 @@
-using UnityEngine;
-using Core.Events;
 using Core.DB.Variables;
+using Core.Events;
+using Core.Plugins.Firebase;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Core.DailyTasks
 {
@@ -99,6 +100,7 @@ namespace Core.DailyTasks
                 if (DBVariableDictionariesHolder.TaskIndexies[t].Value == index)
                 {
                     _activeTasks[t].Progress += progress;
+                    FirebaseHandler.I?.LogEvent($"DT| ID:{index}|P:{progress}");
                 }
             }
         }

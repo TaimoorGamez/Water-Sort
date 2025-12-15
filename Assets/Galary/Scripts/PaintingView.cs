@@ -3,6 +3,7 @@ using Core.States;
 using UnityEngine;
 using Core.GamePlay;
 using UnityEngine.UI;
+using Core.Plugins.Firebase;
 
 namespace Core.Screen
 {
@@ -30,6 +31,7 @@ namespace Core.Screen
             StateManager.I.ActiveState(StateManager.I.GamePlayStatePath);
             StateManager.I.DestroyState(StateManager.I.MainMenuStatePath);
             SimpleEventsHolder.InitLvlEvent?.Invoke();
+            FirebaseHandler.I?.LogEvent($"Glry_Lvl:{_currentLvl}");
         }
     }
 }

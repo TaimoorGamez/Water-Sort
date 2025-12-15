@@ -1,10 +1,11 @@
 using TMPro;
 using Core.Store;
 using UnityEngine;
-using DG.Tweening;
 using Core.Events;
+using DG.Tweening;
 using Core.DB.Variables;
 using System.Collections;
+using Core.Plugins.Firebase;
 using System.Collections.Generic;
 
 namespace Core.Screen
@@ -29,6 +30,7 @@ namespace Core.Screen
             _selectedItem = DBVariableDictionariesHolder.StoreActiveItems[ItemName].Value;
             _activationRotine = StartCoroutine(ActiveStorageRoom());
             UpdateItemStatus(_selectedItem);
+            FirebaseHandler.I?.LogEvent($"ST_Open: {ItemName}");
         }
 
         private void OnDisable()
@@ -147,6 +149,7 @@ namespace Core.Screen
             {
                 StorageData.AllItems[ItemName][_selectedItem].IsPurchased = true;
                 UpdateItemStatus(_selectedItem);
+                FirebaseHandler.I?.LogEvent($"ST: {ItemName} | item:{_selectedItem}");
             }
         }
     }

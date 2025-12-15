@@ -2,6 +2,8 @@ using Core.Events;
 using Core.States;
 using DG.Tweening;
 using Core.GamePlay;
+using Core.DB.Variables;
+using Core.Plugins.Firebase;
 
 namespace Core.Screen
 {
@@ -22,16 +24,17 @@ namespace Core.Screen
 
         void AddMoreMoves()
         {
-            OnClose();
             LevelsManager.I.TotalMoves += _extraMoves;
             SimpleEventsHolder.UpdateMovesEvent?.Invoke();
             LevelsManager.I.CanPlay = true;
+            OnClose();
         }
 
         public void RestartLevel()
         {
             SimpleEventsHolder.RestartLevelEvent?.Invoke();
             OnClose();
+            FirebaseHandler.I?.LogEvent($"fail_lvl:{DBVariablesHolder.LvlIndex.Value}|Rst");
         }
         public void GoHome()
         {
@@ -39,12 +42,14 @@ namespace Core.Screen
             StateManager.I.ActiveState(StateManager.I.MainMenuStatePath);
             StateManager.I.DestroyState(StateManager.I.GamePlayStatePath);
             OnClose();
+            FirebaseHandler.I?.LogEvent($"fail_lvl:{DBVariablesHolder.LvlIndex.Value}|Home");
         }
 
         public override void OnOpen()
         {
             SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
             Body.DOScale(1, _transitionDuration).SetEase(Ease.OutBack);
+            FirebaseHandler.I?.LogEvent($"fail_lvl:{DBVariablesHolder.LvlIndex.Value}");
         }
 
         public override void OnClose()

@@ -1,11 +1,11 @@
-using System.IO;
-using DG.Tweening;
-using UnityEngine;
 using Core.Events;
 using Core.GamePlay;
-using UnityEngine.UI;
+using Core.Plugins.Firebase;
+using DG.Tweening;
 using System.Collections;
-using Core.GamePlay.WaterSort;
+using System.IO;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Core.Screen
 {
@@ -72,12 +72,14 @@ namespace Core.Screen
         {
             SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
             Body.DOScale(1, _transitionDuration).SetEase(Ease.OutBack);
+            FirebaseHandler.I?.LogEvent("Glry_Open");
         }
 
         public override void OnClose()
         {
             SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             Body.DOScale(0, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
+            FirebaseHandler.I?.LogEvent("Glry_Close");
         }
     }
 }

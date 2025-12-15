@@ -2,6 +2,7 @@ using Core.DB.Variables;
 using Core.Economy;
 using Core.Events;
 using Core.GamePlay;
+using Core.Plugins.Firebase;
 using Core.States;
 using DG.Tweening;
 using System.Collections;
@@ -64,6 +65,7 @@ namespace Core.Screen
             _starsDataPath = Path.Combine(Application.persistentDataPath, "starsData.json");
             _screenShotRotine = StartCoroutine(CaptureColoredArea());
             DoubleIntegerEventHolder.TaskEvent?.Invoke(1,1);
+            FirebaseHandler.I?.LogEvent($"Lvl_cmp:{DBVariablesHolder.LvlIndex.Value}IStar:{LevelsManager.I.LevelStars}");
         }
 
 

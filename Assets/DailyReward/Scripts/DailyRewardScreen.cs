@@ -1,7 +1,8 @@
+using Core.Events;
 using DG.Tweening;
 using UnityEngine;
-using Core.Events;
 using Core.DB.Variables;
+using Core.Plugins.Firebase;
 
 namespace Core.Screen
 {
@@ -56,12 +57,14 @@ namespace Core.Screen
                     RewardItems[i].DOScale(Vector3.one, _transitionDuration).SetEase(Ease.OutBack);
                 }
             });
+            FirebaseHandler.I?.LogEvent("DR_Open");
         }
 
         public override void OnClose()
         {
             SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             Body.DOAnchorPosX(1500, _transitionDuration / 2).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
+            FirebaseHandler.I?.LogEvent("DR_Close");
         }
     }
 }

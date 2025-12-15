@@ -1,16 +1,17 @@
-using UnityEngine;
 using Core.Events;
+using DG.Tweening;
+using UnityEngine;
 using Core.DB.Variables;
-using Core.Animations.DT;
+using Core.Plugins.Firebase;
 using System.Collections.Generic;
 
 namespace Core.GamePlay.WaterSort
 {
     public class ColorSwapManager : MonoBehaviour
     {
-        [SerializeField] SODOTween TubeScaleUpTween, TubeScaleDownTween;
-
         Dictionary<int,TubeHandler> SwapingTubes = new Dictionary<int, TubeHandler>();
+
+        float _tweenTime = 0.25f;
 
         private void OnEnable()
         {
@@ -51,8 +52,7 @@ namespace Core.GamePlay.WaterSort
                     if (SwapingTubes.Count < 1)
                     {
                         SingleIntegerEventsHolder.ShowToastEvent?.Invoke(9);
-                        TubeScaleUpTween.TargetObj = tube.gameObject;
-                        TubeScaleUpTween.PlayAnimation();
+                        tube.transform.DOScale(1.2f,_tweenTime).SetEase(Ease.OutBack);
                     }
                     SwapingTubes.Add(SwapingTubes.Count, tube);
                 }
@@ -70,8 +70,7 @@ namespace Core.GamePlay.WaterSort
 
         void SwapColorsNow()
         {
-            TubeScaleDownTween.TargetObj = SwapingTubes[0].gameObject;
-            TubeScaleDownTween.PlayAnimation();
+            SwapingTubes[0].transform.DOScale(1f, _tweenTime).SetEase(Ease.OutBack);
 
             if (SwapingTubes[0].CurrentColor != SwapingTubes[1].CurrentColor)
             {
@@ -83,6 +82,7 @@ namespace Core.GamePlay.WaterSort
                     SimpleEventsHolder.UpdateSwapStateEvent?.Invoke();
                 }
                 DoubleIntegerEventHolder.TaskEvent?.Invoke(4, 1);
+                FirebaseHandler.I?.LogEvent($"swap_lvl:{DBVariablesHolder.LvlIndex.Value}");
             }
             else
             {

@@ -3,6 +3,7 @@ using UnityEngine;
 using Core.Events;
 using Core.Economy;
 using Core.DB.Variables;
+using Core.Plugins.Firebase;
 
 namespace Core.Purchase
 {
@@ -25,6 +26,7 @@ namespace Core.Purchase
         {
             DBVariableDictionariesHolder.NonConsumableProductsData[ProductID].Value = 1;
             InvokeEventFromKey();
+            FirebaseHandler.I?.LogEvent($"IAP|{ProductID}");
         }
 
         void InvokeEventFromKey()

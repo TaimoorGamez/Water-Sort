@@ -3,6 +3,7 @@ using DG.Tweening;
 using UnityEngine;
 using Core.DB.Variables;
 using System.Collections;
+using Core.Plugins.Firebase;
 using System.Threading.Tasks;
 using Core.GamePlay.Coloring;
 using Core.GamePlay.WaterSort;
@@ -167,6 +168,7 @@ namespace Core.GamePlay
 
         IEnumerator GenerateLvl()
         {
+            FirebaseHandler.I?.LogEvent($"WLvl_str:{DBVariablesHolder.LvlIndex.Value}");
             for (int t = 0; t < _totalTubesCount; t++)
             {
                 TubeHandler newTube = Instantiate(_tubePrefab, transform);
@@ -233,6 +235,7 @@ namespace Core.GamePlay
                 BtnOnceClicked = true;
                 CanPlay = false;
                 lvlMakingRotine = StartCoroutine(ReGenerateLevel());
+                FirebaseHandler.I?.LogEvent($"WLvl_rst:{DBVariablesHolder.LvlIndex.Value}");
             }
         }
 
@@ -284,6 +287,7 @@ namespace Core.GamePlay
                 _totalTubes.Add(newTube);
                 SimpleEventsHolder.UpdateExtraTubeStatEvent?.Invoke();
                 DoubleIntegerEventHolder.TaskEvent?.Invoke(5, 1);
+                FirebaseHandler.I?.LogEvent($"ExTube_lvl:{DBVariablesHolder.LvlIndex.Value}");
             }
             else if(_totalTubes.Count >= 10)
             {
@@ -331,6 +335,7 @@ namespace Core.GamePlay
                         Destroy(currentTube.gameObject);
                 }
             }
+            FirebaseHandler.I?.LogEvent($"color_lvl:{DBVariablesHolder.LvlIndex.Value}");
         }
 
         void DestroyLevel()

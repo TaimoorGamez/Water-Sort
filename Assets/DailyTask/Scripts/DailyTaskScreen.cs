@@ -1,8 +1,9 @@
+using Core.Events;
 using DG.Tweening;
 using UnityEngine;
-using Core.Events;
 using Core.Economy;
 using Core.DailyTasks;
+using Core.Plugins.Firebase;
 
 namespace Core.Screen
 {
@@ -73,12 +74,14 @@ namespace Core.Screen
                         break;
                 }
                 UpdateTasks();
+                FirebaseHandler.I?.LogEvent($"DT_Claim|{_taskClaimed}");
             }
         }
         public override void OnOpen()
         {
             SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
             Body.DOScale(0.9f, _transitionDuration).SetEase(Ease.OutBack);
+            FirebaseHandler.I?.LogEvent("DT_Open");
         }
         public override void OnClose()
         {
@@ -87,6 +90,7 @@ namespace Core.Screen
                 NotificationObj.SetActive(false);
                 gameObject.SetActive(false);
             });
+            FirebaseHandler.I?.LogEvent("DT_Close");
         }
     }
 }

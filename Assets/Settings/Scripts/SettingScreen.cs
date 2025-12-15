@@ -1,7 +1,8 @@
+using Core.Events;
 using DG.Tweening;
 using UnityEngine;
-using Core.Events;
 using Core.DB.Variables;
+using Core.Plugins.Firebase;
 
 namespace Core.Screen
 {
@@ -22,6 +23,7 @@ namespace Core.Screen
             SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             MusicBtn.DOAnchorPosY(-150, _transitionDuration).SetEase(Ease.OutBack);
             SoundBtn.DOAnchorPosY(-240, _transitionDuration).SetEase(Ease.OutBack);
+            FirebaseHandler.I?.LogEvent("Stg_Open");
         }
 
         public void ToggleMusic()
@@ -29,6 +31,7 @@ namespace Core.Screen
             DBVariablesHolder.Music.Value = DBVariablesHolder.Music.Value == 1 ? 0 : 1;
             SimpleEventsHolder.UpdateMusicStateEvent?.Invoke();
             UpdateMusicUI();
+            FirebaseHandler.I?.LogEvent($"Stg_Music: {DBVariablesHolder.Music.Value}");
         }
 
         public void ToggleSound()
@@ -36,6 +39,7 @@ namespace Core.Screen
             DBVariablesHolder.Sound.Value = DBVariablesHolder.Sound.Value == 1 ? 0 : 1;
             SimpleEventsHolder.UpdateSoundStateEvent?.Invoke();
             UpdateSoundUI();
+            FirebaseHandler.I?.LogEvent($"Stg_Sound: {DBVariablesHolder.Sound.Value}");
         }
 
         void UpdateMusicUI()
@@ -53,6 +57,7 @@ namespace Core.Screen
             MusicBtn.DOAnchorPosY(-60, _transitionDuration).SetEase(Ease.InBack);
             SoundBtn.DOAnchorPosY(-60, _transitionDuration).SetEase(Ease.InBack).OnComplete(()=>gameObject.SetActive(false));
             SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
+            FirebaseHandler.I?.LogEvent("Stg_Close");
         }
     }
 }

@@ -1,10 +1,11 @@
 using TMPro;
-using DG.Tweening;
-using Core.Events;
 using UnityEngine;
+using Core.Events;
+using DG.Tweening;
 using UnityEngine.UI;
 using Core.SpinWheel;
 using Core.DB.Variables;
+using Core.Plugins.Firebase;
 
 namespace Core.Screen
 {
@@ -120,6 +121,7 @@ namespace Core.Screen
                     RewardPanel.DOScale(Vector3.one, _tweenDiration).SetEase(Ease.OutBack).OnComplete(() => {
                         Invoke(nameof(CloseRewardPanel), 1);
                         _allSpinSegments[rewardIndex].ChangeGradient(SpinWheelRewards[rewardIndex].SegmentColor);
+                        FirebaseHandler.I?.LogEvent($"SpinW_Rwd|{SpinWheelRewards[rewardIndex].RewardName}");
                     });
                     DBVariablesHolder.SpinAvailable.Value = 0;
                     SpinBtn.SetActive(false);
@@ -145,6 +147,7 @@ namespace Core.Screen
                 SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(5);
                 Wheel.DOScale(Vector3.one, _transitionDuration).SetEase(Ease.OutBack);
             });
+            FirebaseHandler.I?.LogEvent("SpinW_Open");
         }
 
         public override void OnClose()
@@ -154,6 +157,7 @@ namespace Core.Screen
                 SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
                 Body.DOAnchorPosX(-1500, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
             });
+            FirebaseHandler.I?.LogEvent("SpinW_Close");
         }
 
     }
