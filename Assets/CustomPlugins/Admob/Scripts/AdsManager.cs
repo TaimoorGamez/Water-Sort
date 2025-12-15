@@ -1,5 +1,7 @@
+using Core.Events;
 using UnityEngine;
 using Core.DB.Variables;
+using System.Collections;
 using GoogleMobileAds.Api;
 using GoogleMobileAds.Ump.Api;
 
@@ -9,9 +11,30 @@ namespace Core.Plugins.Ads
     {
         [SerializeField] AdHandler RewardedAd, IntertitialAd;
 
-        public bool IsInitialized = false, AdTimerComplete = false, AdPlaying = false, CanAddMoves = false, CanMultiply = false, CanDoubleReward = false,
+        [HideInInspector] public bool IsInitialized = false;
+
+        public bool AdTimerComplete = false, AdPlaying = false, CanAddMoves = false, CanMultiply = false, CanDoubleReward = false,
                     CanSpin = false, CanCap = false, CanSpray = false, CanBlockAds = false, CanFlame = false, CanUndo = false,
                                     CanAddExtraTube = false, CanSwitchColor = false;
+
+
+        Coroutine _rewardRotine = null, _adsRotine = null;
+        bool _isEnable = false;
+
+        private void OnEnable()
+        {
+            SimpleEventsHolder.GrantRewardEvent += PlayRewardCorotine;
+            SimpleEventsHolder.StartCountingAdBreak += StartCountingAdBreak;
+            SimpleEventsHolder.RemoveAds += StopAds;
+        }
+
+        private void OnDisable()
+        {
+            SimpleEventsHolder.GrantRewardEvent -= PlayRewardCorotine;
+            SimpleEventsHolder.StartCountingAdBreak -= StartCountingAdBreak;
+            SimpleEventsHolder.RemoveAds -= StopAds;
+            CustomDisable();
+        }
 
         public static AdsManager I { get; private set; }
 
@@ -30,8 +53,11 @@ namespace Core.Plugins.Ads
 
         public void InitPlugin()
         {
+            if (!RemoteDataHolder.AdData.CanShowAds || IsInitialized)
+                return;
+
             #if UNITY_EDITOR
-                InitAds();  
+            InitAds();  
             #else
                 RequestConsentInfo();
             #endif
@@ -92,10 +118,7 @@ namespace Core.Plugins.Ads
         }
 
         void InitAds()
-        {
-            if (!RemoteDataHolder.AdData.CanShowAds)
-                return;
-            
+        { 
             try
             {
                 MobileAds.Initialize((InitializationStatus initstatus) =>
@@ -121,6 +144,137 @@ namespace Core.Plugins.Ads
             catch (System.Exception ex)
             {
                 Debug.LogError("AdMob Initialization crashed: " + ex.Message);
+            }
+        }
+
+        void PlayRewardCorotine()
+        {
+            _isEnable = true;
+            _rewardRotine = StartCoroutine(RewardCorotine());
+        }
+
+        IEnumerator RewardCorotine()
+        {
+            WaitForSeconds wait = new WaitForSeconds(0.01f);
+            while (_isEnable)
+            {
+                yield return wait;
+                if (CanAddMoves)
+                {
+                    CanAddMoves = false;
+                    SimpleEventsHolder.AddMovesEvent?.Invoke();
+                    _isEnable = false;
+                }
+                else if (CanUndo)
+                {
+                    CanUndo = false;
+                    SimpleEventsHolder.RewardUndoEvent?.Invoke();
+                    _isEnable = false;
+                }
+                else if (CanAddExtraTube)
+                {
+                    CanAddExtraTube = false;
+                    SimpleEventsHolder.RewardExtraTubeEvent?.Invoke();
+                    _isEnable = false;
+                }
+                else if (CanSwitchColor)
+                {
+                    CanSwitchColor = false;
+                    SimpleEventsHolder.RewardSwapColor?.Invoke();
+                    _isEnable = false;
+                }
+                else if (CanMultiply)
+                {
+                    CanMultiply = false;
+                    SimpleEventsHolder.MultiplayRewardEvent?.Invoke();
+                    _isEnable = false;
+                }
+                else if (CanDoubleReward)
+                {
+                    CanDoubleReward = false;
+                    SimpleEventsHolder.DoubleDailyRewardEvent?.Invoke();
+                    _isEnable = false;
+                }
+                else if (CanSpin)
+                {
+                    CanSpin = false;
+                    SimpleEventsHolder.RewardSpinWheelEvent?.Invoke();
+                    _isEnable = false;
+                }
+                else if (CanCap)
+                {
+                    CanCap = false;
+                    SimpleEventsHolder.BuyCaps?.Invoke();
+                    _isEnable = false;
+                }
+                else if (CanSpray)
+                {
+                    CanSpray = false;
+                    SimpleEventsHolder.BuySprays?.Invoke();
+                    _isEnable = false;
+                }
+                else if (CanFlame)
+                {
+                    CanFlame = false;
+                    SimpleEventsHolder.BuyFlames?.Invoke();
+                    _isEnable = false;
+                }
+                else if (CanBlockAds)
+                {
+                    CanBlockAds = false;
+                    SimpleEventsHolder.AdsBlockerEvent?.Invoke();
+                    _isEnable = false;
+                }
+            }
+            if (_rewardRotine != null)
+            {
+                StopCoroutine(_rewardRotine);
+                _rewardRotine = null;
+            }
+        }
+
+        void StartCountingAdBreak()
+        {
+            if (DBVariablesHolder.RemoveAds.Value != 1 && _adsRotine == null)
+            {
+                _adsRotine = StartCoroutine(CountAdBreak());
+            }
+        }
+
+        IEnumerator CountAdBreak()
+        {
+            yield return new WaitForSeconds(RemoteDataHolder.AdData.Ad_Show_Time);
+            AdTimerComplete = true;
+
+            if (_adsRotine != null)
+            {
+                StopCoroutine(_adsRotine);
+                _adsRotine = null;
+            }
+        }
+
+        void StopAds()
+        {
+            if (_adsRotine != null)
+            {
+                StopCoroutine(_adsRotine);
+                _adsRotine = null;
+            }
+            AdTimerComplete = false;
+        }
+
+        void CustomDisable()
+        {
+            _isEnable = false;
+            if (_rewardRotine != null)
+            {
+                StopCoroutine(_rewardRotine);
+                _rewardRotine = null;
+            }
+            if (_adsRotine != null)
+            {
+                StopCoroutine(_adsRotine);
+                _adsRotine = null;
             }
         }
     }

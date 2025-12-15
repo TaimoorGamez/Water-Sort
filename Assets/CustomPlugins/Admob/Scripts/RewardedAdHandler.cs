@@ -1,11 +1,9 @@
-using UnityEngine;
 using Core.Events;
 using GoogleMobileAds.Api;
 
 namespace Core.Plugins.Ads
 {
-    [CreateAssetMenu(fileName = "Rewarded", menuName = "ScriptableObjects/Plugin/Admob/Rewarded")]
-    public class SORewardedAd : AdHandler
+    public class RewardedAdHandler : AdHandler
     {
 
         RewardedAd _rewardedAd;
@@ -98,6 +96,8 @@ namespace Core.Plugins.Ads
             {
                 //Debug.Log("Rewarded ad full screen content closed.");
                 AdsManager.I.AdPlaying = false;
+                AdsManager.I.AdTimerComplete = false;
+                SimpleEventsHolder.StartCountingAdBreak?.Invoke();
                 LoadAd();
             };
             // Raised when the ad failed to open full screen content.
@@ -106,6 +106,8 @@ namespace Core.Plugins.Ads
                 //Debug.LogError("Rewarded ad failed to open full screen content " +
                 //               "with error : " + error);
                 AdsManager.I.AdPlaying = false;
+                AdsManager.I.AdTimerComplete = false;
+                SimpleEventsHolder.StartCountingAdBreak?.Invoke();
                 LoadAd();
             };
         }

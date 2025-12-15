@@ -2,15 +2,7 @@ using UnityEngine;
 
 namespace Core.Plugins
 {
-    public class Initialization : ScriptableObject
-    {
-        public virtual void InitPlugin()
-        {
-
-        }
-    }
-
-    public class AdHandler : ScriptableObject
+    public class AdHandler: MonoBehaviour
     {
         [SerializeField] protected string AdId, TestId;
         [SerializeField] protected bool IsTestAd;

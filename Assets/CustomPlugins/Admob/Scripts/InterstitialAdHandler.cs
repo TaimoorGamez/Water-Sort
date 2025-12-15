@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core.Plugins.Ads
 {
-    [CreateAssetMenu(fileName = "Intertitial", menuName = "ScriptableObjects/Plugin/Admob/Intertitial")]
-    public class SOIntertitialAd : AdHandler
+    public class InterstitialAdHandler : AdHandler
     {
         [SerializeField] GameObject AdLoading;
 
@@ -55,7 +54,8 @@ namespace Core.Plugins.Ads
             get
             {
                 return _interstitialAd != null && _interstitialAd.CanShowAd() && AdsManager.I.AdTimerComplete && !AdsManager.I.AdPlaying
-                    && DBVariablesHolder.LvlNum.Value > LevelsManager.I.MinLvlCount && DBVariablesHolder.RemoveAds.Value != 1;
+                    && DBVariablesHolder.LvlNum.Value > LevelsManager.I.MinLvlCount && DBVariablesHolder.RemoveAds.Value != 1
+                    && DBVariablesHolder.AdBlocked.Value != 1;
             }
         }
 
@@ -63,18 +63,14 @@ namespace Core.Plugins.Ads
         {
             if (IsAdAvailable)
             {
-                if (DBVariablesHolder.AdBlocked.Value == 1)
-                    return;
-
                 AdsManager.I.AdPlaying = true;
                 Instantiate(AdLoading);
                 await Task.Delay(1000);
                 _interstitialAd.Show();
                 SimpleEventsHolder.SelfDestructionEvent?.Invoke();
             }
-            else
+            else if(_interstitialAd == null)
             {
-                //AdsManager.I.AdTimerComplete = false;
                 LoadAd();
             }
         }
@@ -108,6 +104,7 @@ namespace Core.Plugins.Ads
             {
                 AdsManager.I.AdPlaying = false;
                 AdsManager.I.AdTimerComplete = false;
+                SimpleEventsHolder.StartCountingAdBreak?.Invoke();
                 LoadAd();
             };
             // Raised when the ad failed to open full screen content.
@@ -115,6 +112,7 @@ namespace Core.Plugins.Ads
             {
                 AdsManager.I.AdPlaying = false;
                 AdsManager.I.AdTimerComplete = false;
+                SimpleEventsHolder.StartCountingAdBreak?.Invoke();
                 LoadAd();
             };
         }

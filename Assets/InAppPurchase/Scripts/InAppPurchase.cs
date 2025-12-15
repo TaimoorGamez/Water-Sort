@@ -19,9 +19,8 @@ namespace Core.Purchase
         public void InitializePurchasing()
         {
             if (IsInitialized || !RemoteDataHolder.AdData.CanPurchase)
-            {
                 return;
-            }
+
             InitializeIAP();
         }
 
