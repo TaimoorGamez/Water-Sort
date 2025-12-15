@@ -71,8 +71,8 @@ namespace Core.Screen
         public void OnClickPlayButton()
         {
             SimpleEventsHolder.InitLvlEvent?.Invoke();
-            SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.GamePlayStateIndex);
-            SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(StateManager.I.MainMenuStateIndex);
+            StateManager.I.ActiveState(StateManager.I.GamePlayStatePath);
+            StateManager.I.DestroyState(StateManager.I.MainMenuStatePath);
         }
 
         public void OpenPrivacyPolicy()

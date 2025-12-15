@@ -43,9 +43,6 @@ namespace Core.Events
     {
         public static GameEventInteger
 
-        //-------------------UI State Events-------------------
-        ActiveStateEvent, DeActiveStateEvent, DestroyStatEvent,
-
         //-------------------Economy Events-------------------
         DepositEvent, TransactionEvent,
 

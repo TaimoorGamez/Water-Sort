@@ -1,17 +1,22 @@
-using Core.Events;
 using UnityEngine;
-using System.Collections;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Core.States
 {
     public class StateManager : MonoBehaviour
     {
-        public int MainMenuStateIndex, GamePlayStateIndex, PauseStateIndex, LevelFailStateIndex, LevelCompleteStateIndex;
+        public string SplashStatePath = "UI/State/SplashScreen", MainMenuStatePath = "UI/State/MainMenuScreen", 
+                      GamePlayStatePath = "UI/State/GamePlayScreen",PauseStatePath = "UI/State/PauseScreen", 
+                      LevelFailStatePath = "UI/State/FailScreen", LevelCompleteStatePath = "UI/State/CompleteScreen";
 
-        [SerializeField] GameState[] AllStates;
-
+        bool _isClearing = false;
         int _sceneCounter = 0, _maxSceneCount = 5;
+        Dictionary<string, GameObject> _loadedStates;
+        AsyncOperationHandle<GameObject> _statehandle;
 
         public static StateManager I { get; private set; }
 
@@ -28,58 +33,81 @@ namespace Core.States
             }
         }
 
-
-        private void OnEnable()
-        {
-            SingleIntegerEventsHolder.ActiveStateEvent += ActiveeState;
-            SingleIntegerEventsHolder.DeActiveStateEvent += DeactiveState;
-            SingleIntegerEventsHolder.DestroyStatEvent += DestroyState;
-        }
-        private void OnDisable()
-        {
-            SingleIntegerEventsHolder.ActiveStateEvent -= ActiveeState;
-            SingleIntegerEventsHolder.DeActiveStateEvent -= DeactiveState;
-            SingleIntegerEventsHolder.DestroyStatEvent -= DestroyState;
-        }
-
         private void Start()
         {
-            AllStates[0].ActiveCurrentState(transform);
+            _loadedStates = new Dictionary<string, GameObject>();
+            ActiveState(SplashStatePath);
         }
 
-        void ActiveeState(int stateIndex)
+        public async void ActiveState(string statePath)
         {
-            AllStates[stateIndex].ActiveCurrentState(transform);
-            if (stateIndex == MainMenuStateIndex)
+            await ReleaseState();
+            await Task.Delay(10);
+            _statehandle = Addressables.LoadAssetAsync<GameObject>(statePath);
+            await _statehandle.Task;
+
+            if (_statehandle.Status == AsyncOperationStatus.Succeeded)
             {
-                StartCoroutine(ClearMemoryRoutine());
+                _loadedStates[statePath] = Instantiate(_statehandle.Result, transform);
+                await Task.Delay(10);
+                if (statePath == MainMenuStatePath)
+                {
+                   await ClearMemoryRoutine();
+                }
+            }
+            else
+            {
+                Debug.Log("Failed to load AdsManager from Addressables");
+                Addressables.Release(_statehandle);
             }
         }
 
-        void DeactiveState(int stateIndex)
+        public void DestroyState(string statePath)
         {
-            AllStates[stateIndex].DeactiveState();
+            if (_loadedStates.TryGetValue(statePath, out GameObject state))
+            {
+                Destroy(state);
+                _loadedStates.Remove(statePath);
+            }
         }
 
-        void DestroyState(int stateIndex)
+        async Task ReleaseState()
         {
-            AllStates[stateIndex].DestroyState();
+            if (_statehandle.IsValid())
+            {
+                Addressables.Release(_statehandle);
+                while (_statehandle.IsValid())
+                    await Task.Yield();
+            }
+            await Task.Yield();
         }
 
-        IEnumerator ClearMemoryRoutine()
+        async Task ClearMemoryRoutine()
         {
-            DG.Tweening.DOTween.KillAll();
+            if (_isClearing)
+                return;
 
-            yield return Resources.UnloadUnusedAssets();
+            _isClearing = true;
 
             System.GC.Collect();
-            yield return null;
+            await Task.Yield();
+
+            try
+            {
+                Caching.ClearCache();
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log(e.ToString());
+            }
+            _isClearing = false;
 
             _sceneCounter++;
             if (_sceneCounter > _maxSceneCount)
             {
+                await ReleaseState();
+                await Task.Yield();
                 SceneManager.LoadScene(0);
-                yield break;
             }
         }
     }

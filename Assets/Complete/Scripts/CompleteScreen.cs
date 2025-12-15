@@ -2,7 +2,6 @@ using Core.DB.Variables;
 using Core.Economy;
 using Core.Events;
 using Core.GamePlay;
-using Core.GamePlay.WaterSort;
 using Core.States;
 using DG.Tweening;
 using System.Collections;
@@ -144,7 +143,7 @@ namespace Core.Screen
 
         void OnPanelVisible()
         {
-            SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(StateManager.I.GamePlayStateIndex);
+            StateManager.I.DestroyState(StateManager.I.GamePlayStatePath);
             if (DBVariablesHolder.LvlNum.Value > LevelsManager.I.MinLvlCount)
             {
                 NextBtn.DOAnchorPos(_nextBtnPosition, _durationTweeing).SetEase(Ease.InOutBack).OnComplete(() =>
@@ -233,13 +232,13 @@ namespace Core.Screen
                 if (DBVariablesHolder.LvlNum.Value <= LevelsManager.I.MinLvlCount)
                 {
                     SimpleEventsHolder.InitLvlEvent?.Invoke();        
-                    SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.GamePlayStateIndex);
+                    StateManager.I.ActiveState(StateManager.I.GamePlayStatePath);
                 }
                 else
                 {
-                    SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.MainMenuStateIndex);
+                    StateManager.I.ActiveState(StateManager.I.MainMenuStatePath);
                 }
-                SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(StateManager.I.LevelCompleteStateIndex);
+                StateManager.I.DestroyState(StateManager.I.LevelCompleteStatePath);
             });
         }
 

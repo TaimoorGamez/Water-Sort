@@ -36,15 +36,15 @@ namespace Core.Plugins
 
     public class AdConfig
     {
-        public bool CanShowAds, CanPurchase;
-        public float Ad_Show_Time;
-        public bool Interstitial, Rewarded;
+        public bool CanShowAds = false, CanPurchase = false;
+        public float Ad_Show_Time = 0;
+        public bool Interstitial = false, Rewarded = false;
     }
 
     public static class RemoteDataHolder
     {
         public static bool IsInternetWorking = false;
         public static int MaxLevelsAvailable = 0;
-        public static AdConfig AdData;
+        public static AdConfig AdData = new AdConfig();
     }
 }

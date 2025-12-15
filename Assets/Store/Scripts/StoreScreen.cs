@@ -173,7 +173,7 @@ namespace Core.Screen
             }
             catch (System.Exception e)
             {
-                Debug.LogError(e.ToString());
+                Debug.Log(e.ToString());
             }
 
             _isClearing = false;

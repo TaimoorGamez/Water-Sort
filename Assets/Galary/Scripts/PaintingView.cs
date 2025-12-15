@@ -27,8 +27,8 @@ namespace Core.Screen
         public void GenerateCustomLvl()
         {
             LevelsManager.I.TempLvlIndex = _currentLvl;
-            SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.GamePlayStateIndex);
-            SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(StateManager.I.MainMenuStateIndex);
+            StateManager.I.ActiveState(StateManager.I.GamePlayStatePath);
+            StateManager.I.DestroyState(StateManager.I.MainMenuStatePath);
             SimpleEventsHolder.InitLvlEvent?.Invoke();
         }
     }

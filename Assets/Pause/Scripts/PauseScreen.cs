@@ -50,8 +50,8 @@ namespace Core.Screen
         public void GoHome()
         {
             SimpleEventsHolder.DestroyLevelEvent?.Invoke();
-            SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(StateManager.I.GamePlayStateIndex);
-            SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.MainMenuStateIndex);
+            StateManager.I.ActiveState(StateManager.I.MainMenuStatePath);
+            StateManager.I.DestroyState(StateManager.I.GamePlayStatePath);
             OnClose();
         }
 
@@ -66,7 +66,7 @@ namespace Core.Screen
             SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             Body.DOScale(0, _transitionDuration / 2).SetEase(Ease.InBack).OnComplete(() => {
                 LevelsManager.I.CanPlay = true;
-                Destroy(gameObject);
+                StateManager.I.DestroyState(StateManager.I.PauseStatePath);
             });
         }
     }

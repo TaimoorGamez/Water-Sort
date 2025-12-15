@@ -139,7 +139,7 @@ namespace Core.GamePlay.Coloring
             ColoringParts.DOScale(0.75f, _preparationTime);
             ColoringParts.DOAnchorPosY(_finalPos, _preparationTime).OnComplete(() =>
             {
-                SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.LevelCompleteStateIndex);
+                StateManager.I.ActiveState(StateManager.I.LevelCompleteStatePath);
             });
         }
 

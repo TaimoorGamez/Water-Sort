@@ -40,13 +40,13 @@ namespace Core.Screen
                 if (DBVariablesHolder.LvlNum.Value <= LevelsManager.I.MinLvlCount)
                 {
                     SimpleEventsHolder.InitLvlEvent?.Invoke();
-                    SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.GamePlayStateIndex);
+                    StateManager.I.ActiveState(StateManager.I.GamePlayStatePath);
                 }
                 else
                 {
-                    SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.MainMenuStateIndex);
+                    StateManager.I.ActiveState(StateManager.I.MainMenuStatePath);
                 }
-                SingleIntegerEventsHolder.DestroyStatEvent?.Invoke(0);
+                StateManager.I.DestroyState(StateManager.I.SplashStatePath);
             });
         }
     }

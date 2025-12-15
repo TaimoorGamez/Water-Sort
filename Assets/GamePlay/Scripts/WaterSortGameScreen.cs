@@ -64,7 +64,7 @@ namespace Core.Screen
         {
             if (LevelsManager.I.CompletedTubes != LevelsManager.I.CurrrentLvl)
             {
-                SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.LevelFailStateIndex);
+                StateManager.I.ActiveState(StateManager.I.LevelFailStatePath);
             }
         }
 
@@ -77,7 +77,7 @@ namespace Core.Screen
         public void OnClickPause()
         {
             LevelsManager.I.CanPlay = false;
-            SingleIntegerEventsHolder.ActiveStateEvent?.Invoke(StateManager.I.PauseStateIndex);
+            StateManager.I.ActiveState(StateManager.I.PauseStatePath);
         }
     }
 }

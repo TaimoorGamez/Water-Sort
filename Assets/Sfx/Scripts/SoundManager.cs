@@ -97,7 +97,7 @@ namespace Core.Sfx
 
         void PlayBtnSound()
         {
-            if (DBVariablesHolder.Sound.Value == 1)
+            if (DBVariablesHolder.Sound.Value == 1 && _btnSource != null)
             {
                 _btnSource.Play();
             }
@@ -107,7 +107,7 @@ namespace Core.Sfx
         {
             if (DBVariablesHolder.Sound.Value == 1)
             {
-                if (_effectSource.isPlaying)
+                if (_effectSource!= null && _effectSource.isPlaying)
                 {
                     AudioSource tempAudioSource = gameObject.AddComponent<AudioSource>();
                     tempAudioSource.clip = EffectClips[effectNum];
@@ -118,7 +118,7 @@ namespace Core.Sfx
                     // Destroy the AudioSource after the sound has finished playing
                     Destroy(tempAudioSource, EffectClips[effectNum].length);
                 }
-                else
+                else if (_effectSource != null)
                 {
                     _effectSource.PlayOneShot(EffectClips[effectNum]);
                 }
