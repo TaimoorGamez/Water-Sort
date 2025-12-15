@@ -834,18 +834,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75460134b32094c4e8111c8f1a72f66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainMenuStateIndex: 1
-  GamePlayStateIndex: 2
-  PauseStateIndex: 3
-  LevelFailStateIndex: 4
-  LevelCompleteStateIndex: 5
-  AllStates:
-  - {fileID: 11400000, guid: d727876a364fb4d428957a9e51d89fc8, type: 2}
-  - {fileID: 11400000, guid: 173e8d3bd0a9c2a4eb44ad83ba59a4d2, type: 2}
-  - {fileID: 11400000, guid: 6205461601167a24c84c43a150b1291d, type: 2}
-  - {fileID: 11400000, guid: bf764d2b775e7d44cb3352462f066f53, type: 2}
-  - {fileID: 11400000, guid: 4ff027c0c59583546b6a455918d866eb, type: 2}
-  - {fileID: 11400000, guid: 6dd521081f1803747956a8656f299fe6, type: 2}
+  SplashStatePath: UI/State/SplashScreen
+  MainMenuStatePath: UI/State/MainMenuScreen
+  GamePlayStatePath: UI/State/GamePlayScreen
+  PauseStatePath: UI/State/PauseScreen
+  LevelFailStatePath: UI/State/FailScreen
+  LevelCompleteStatePath: UI/State/CompleteScreen
 --- !u!114 &1554149901
 MonoBehaviour:
   m_ObjectHideFlags: 0

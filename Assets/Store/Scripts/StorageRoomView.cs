@@ -5,7 +5,6 @@ using DG.Tweening;
 using Core.Events;
 using Core.DB.Variables;
 using System.Collections;
-using Core.DataStructure;
 using System.Collections.Generic;
 
 namespace Core.Screen
@@ -26,31 +25,15 @@ namespace Core.Screen
 
         private void OnEnable()
         {
-            if (EventDictionariesHolder.StoreBuyEvents.TryGetValue(ItemName, out var evt))
-            {
-                evt += PurchaseByAd;
-            }
-            else
-            {
-                Debug.Log($"Buy event key '{ItemName}' does not exist.");
-            }
-            SingleIntegerEventsHolder.UpdateItemStatusEvent += ChangeItemStatus;
+            EventDictionariesHolder.StoreBuyEvents[ItemName] += PurchaseByAd;
             _selectedItem = DBVariableDictionariesHolder.StoreActiveItems[ItemName].Value;
             _activationRotine = StartCoroutine(ActiveStorageRoom());
-            ChangeItemStatus(_selectedItem);
+            UpdateItemStatus(_selectedItem);
         }
 
         private void OnDisable()
         {
-            if (EventDictionariesHolder.StoreBuyEvents.TryGetValue(ItemName, out var evt))
-            {
-                evt -= PurchaseByAd;
-            }
-            else
-            {
-                Debug.Log($"Buy event key '{ItemName}' does not exist.");
-            }
-            SingleIntegerEventsHolder.UpdateItemStatusEvent -= ChangeItemStatus;
+            EventDictionariesHolder.StoreBuyEvents[ItemName] += PurchaseByAd;
             StopActiveRotines();
             if (_currentItem != null)
             {
@@ -66,7 +49,7 @@ namespace Core.Screen
 
         IEnumerator ActiveStorageRoom()
         {
-            _itemContainer = GlobalDataStructures.StoreItemsContainer[ItemName];
+            _itemContainer = StorageData.StoreItemsContainer[ItemName];
 
             for (int i = 0; i < RoomItems.Length; i++)
             {
@@ -102,7 +85,7 @@ namespace Core.Screen
             _currentItem = Instantiate(_itemContainer[item], ItemHolder);
         }
 
-        void ChangeItemStatus(int selectedItem)
+        public void UpdateItemStatus(int selectedItem)
         {
             _selectedItem = selectedItem;
             for (int i = 0; i < RoomItems.Length; i++)
@@ -115,14 +98,14 @@ namespace Core.Screen
                     {
                         ChangeButton(0);
                     }
-                    else if (RoomItems[i].MyData.IsPurchased)
+                    else if (StorageData.AllItems[ItemName][i].IsPurchased)
                     {
                         ChangeButton(1);
                     }
                     else
                     {
                         ChangeButton(2);
-                        VideoText.text = RoomItems[_selectedItem].MyData.WatchedVideos + "/" + RoomItems[_selectedItem].MyData.TotalVideos;
+                        VideoText.text = StorageData.AllItems[ItemName][i].WatchedVideos + "/" + StorageData.AllItems[ItemName][i].TotalVideos;
                     }
                 }
                 else if (i == DBVariableDictionariesHolder.StoreActiveItems[ItemName].Value)
@@ -145,7 +128,7 @@ namespace Core.Screen
             Buttons[activeButton].SetActive(true);
         }
 
-        public void ChangeActiveItem()
+        void ChangeActiveItem()
         {
             RoomItems[DBVariableDictionariesHolder.StoreActiveItems[ItemName].Value].UnSelectItem();
             if (_selectedItem != -1)
@@ -158,12 +141,12 @@ namespace Core.Screen
 
         void PurchaseByAd()
         {
-            RoomItems[_selectedItem].MyData.WatchedVideos += 1;
-            VideoText.text = RoomItems[_selectedItem].MyData.WatchedVideos + "/" + RoomItems[_selectedItem].MyData.TotalVideos;
-            if (RoomItems[_selectedItem].MyData.WatchedVideos >= RoomItems[_selectedItem].MyData.TotalVideos)
+            StorageData.AllItems[ItemName][_selectedItem].WatchedVideos += 1;
+            VideoText.text = StorageData.AllItems[ItemName][_selectedItem].WatchedVideos + "/" + StorageData.AllItems[ItemName][_selectedItem].TotalVideos;
+            if (StorageData.AllItems[ItemName][_selectedItem].WatchedVideos >= StorageData.AllItems[ItemName][_selectedItem].TotalVideos)
             {
-                RoomItems[_selectedItem].MyData.IsPurchased = true;
-                ChangeItemStatus(_selectedItem);
+                StorageData.AllItems[ItemName][_selectedItem].IsPurchased = true;
+                UpdateItemStatus(_selectedItem);
             }
         }
     }

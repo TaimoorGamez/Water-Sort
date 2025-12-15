@@ -1,8 +1,8 @@
 using TMPro;
+using Core.Store;
+using UnityEngine;
 using Core.Events;
 using DG.Tweening;
-using UnityEngine;
-using Core.DataStructure;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
@@ -16,7 +16,7 @@ namespace Core.Screen
         [SerializeField] TextMeshProUGUI LoadingText;
         [SerializeField] GameObject Loading;
         [SerializeField] string FlameItemsPath, SprayItemsPath, CapItemsPath;
-        [SerializeField] int MaxFlameThrowers, MaxSprayCans, MaxCaps;
+        [SerializeField] int MaxFlameThrowers, MaxCaps, MaxSprayCans;
 
         bool _isClearing = false;
         string _loadingTxt = "Loading...     ";
@@ -28,7 +28,7 @@ namespace Core.Screen
 
         private async void OnDisable()
         {
-            await ClearEverythingAsync();
+            await ClearDictionariesAsync();
         }
 
         public override void OnOpen()
@@ -42,9 +42,7 @@ namespace Core.Screen
         async void LoadStoreItems()
         {
             Loading.SetActive(true);
-            await ClearEverythingAsync();
-
-            Dictionary<int, GameObject> tempDictionary = new Dictionary<int, GameObject>();
+            await ClearDictionariesAsync();
 
             UpdateLoadingUI(0);
 
@@ -53,12 +51,12 @@ namespace Core.Screen
             int loadedCount = 0;
 
             // ============================================================
-            // --------------------- LOAD CAPS -----------------------------
+            // ------------------- LOAD FLAME THROWERS --------------------
             // ============================================================
-
-            for (int i = 0; i < MaxCaps; i++)
+            Dictionary<int, GameObject> flamesDictionary = new Dictionary<int, GameObject>();
+            for (int i = 0; i < MaxFlameThrowers; i++)
             {
-                string address = CapItemsPath + i;   // example: "Store/Cap/" + 0
+                string address = FlameItemsPath + i;
 
                 AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(address);
 
@@ -66,7 +64,32 @@ namespace Core.Screen
 
                 if (handle.Status == AsyncOperationStatus.Succeeded)
                 {
-                    tempDictionary.Add(i, handle.Result);
+                    flamesDictionary.Add(i, handle.Result);
+                }
+
+                loadedCount++;
+                float progress = (float)loadedCount / (float)totalCount;
+                UpdateLoadingUI(progress);
+            }
+            await Task.Yield();
+            StorageData.StoreItemsContainer.Add(StorageData.FlameThrowersKey, flamesDictionary);
+            await Task.Yield();
+
+            // ============================================================
+            // --------------------- LOAD CAPS ----------------------------
+            // ============================================================
+            Dictionary<int, GameObject> capsDictionary = new Dictionary<int, GameObject>();
+            for (int i = 0; i < MaxCaps; i++)
+            {
+                string address = CapItemsPath + i;   
+
+                AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(address);
+
+                await handle.Task;
+
+                if (handle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    capsDictionary.Add(i, handle.Result);
                 }
 
                 // update progress
@@ -75,53 +98,24 @@ namespace Core.Screen
                 UpdateLoadingUI(progress);
             }
             await Task.Yield();
-            GlobalDataStructures.StoreItemsContainer.Add("Cap", tempDictionary);
+            StorageData.StoreItemsContainer.Add(StorageData.CapsKey, capsDictionary);
             await Task.Yield();
 
             // ============================================================
-            // ------------------- LOAD FLAME THROWERS ---------------------
+            // --------------------- LOAD SPRAY CANS ----------------------
             // ============================================================
-            tempDictionary.Clear();
-
-            for (int i = 0; i < MaxFlameThrowers; i++)
-            {
-                string address = FlameItemsPath + i;
-
-                AsyncOperationHandle<GameObject> handle =
-                    Addressables.LoadAssetAsync<GameObject>(address);
-
-                await handle.Task;
-
-                if (handle.Status == AsyncOperationStatus.Succeeded)
-                {
-                        tempDictionary.Add(i, handle.Result);
-                }
-
-                loadedCount++;
-                float progress = (float)loadedCount / (float)totalCount;
-                UpdateLoadingUI(progress);
-            }
-            await Task.Yield();
-            GlobalDataStructures.StoreItemsContainer.Add("FlameThrower", tempDictionary);
-            await Task.Yield();
-
-            // ============================================================
-            // --------------------- LOAD SPRAY CANS -----------------------
-            // ============================================================
-            tempDictionary.Clear();
-
+            Dictionary<int, GameObject> spraysDictionary = new Dictionary<int, GameObject>();
             for (int i = 0; i < MaxSprayCans; i++)
             {
                 string address = SprayItemsPath + i;
 
-                AsyncOperationHandle<GameObject> handle =
-                    Addressables.LoadAssetAsync<GameObject>(address);
+                AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>(address);
 
                 await handle.Task;
 
                 if (handle.Status == AsyncOperationStatus.Succeeded)
                 {
-                    tempDictionary.Add(i, handle.Result);
+                    spraysDictionary.Add(i, handle.Result);
                 }
 
                 loadedCount++;
@@ -129,7 +123,7 @@ namespace Core.Screen
                 UpdateLoadingUI(progress);
             }
             await Task.Yield();
-            GlobalDataStructures.StoreItemsContainer.Add("Spray", tempDictionary);
+            StorageData.StoreItemsContainer.Add(StorageData.SpraysKey, spraysDictionary);
             await Task.Yield();
 
             // ============================================================
@@ -157,30 +151,11 @@ namespace Core.Screen
                 });
         }
 
-        async Task ClearEverythingAsync()
+        async Task ClearDictionariesAsync()
         {
             if (_isClearing) return;
             _isClearing = true;
-
-            await ClearDictionariesAsync();
-            await Task.Yield();
-
-            System.GC.Collect();
-
-            try
-            {
-                Caching.ClearCache();
-            }
-            catch (System.Exception e)
-            {
-                Debug.Log(e.ToString());
-            }
-
-            _isClearing = false;
-        }
-        async Task ClearDictionariesAsync()
-        {
-            foreach (var outerPair in GlobalDataStructures.StoreItemsContainer)
+            foreach (var outerPair in StorageData.StoreItemsContainer)
             {
                 var dict = outerPair.Value;
 
@@ -196,8 +171,9 @@ namespace Core.Screen
                 await Task.Yield();
             }
 
-            GlobalDataStructures.StoreItemsContainer.Clear();
+            StorageData.StoreItemsContainer.Clear();
             await Task.Yield();
+            _isClearing = false;
         }
 
     }

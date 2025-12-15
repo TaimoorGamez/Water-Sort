@@ -49,9 +49,6 @@ namespace Core.Events
         //-------------------Game Flow Events-------------------
         SwitchProtectorEvent,
 
-        //-------------------Store Events-------------------
-        UpdateItemStatusEvent,
-
         //-------------------Toast Events-------------------
         ShowToastEvent,
 
@@ -76,9 +73,9 @@ namespace Core.Events
 
         public static Dictionary<string, GameEvent> StoreBuyEvents = new Dictionary<string, GameEvent>(StringComparer.Ordinal)
         {
-            { "Cap", SimpleEventsHolder.BuyCaps },
-            { "Spray", SimpleEventsHolder.BuySprays },
-            { "FlameThrower", SimpleEventsHolder.BuyFlames }
+            { "Caps", SimpleEventsHolder.BuyCaps },
+            { "Sprays", SimpleEventsHolder.BuySprays },
+            { "FlameThrowers", SimpleEventsHolder.BuyFlames }
         };
 
         public static Dictionary<string, GameEvent> PowerEvents = new Dictionary<string, GameEvent>(StringComparer.Ordinal)

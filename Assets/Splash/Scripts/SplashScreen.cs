@@ -12,7 +12,6 @@ namespace Core.Screen
 {
     public class SplashScreen : UiScreens
     {
-        [SerializeField] ItemData DefaultCap, DefaultFlame, DefaultSpray;
         [SerializeField] Transform FillImage;
         [SerializeField] TextMeshProUGUI LoadingText;
         [SerializeField] Image LogoImage;
@@ -24,9 +23,9 @@ namespace Core.Screen
         {
             if (DBVariablesHolder.FFT.Value != 1)
             {
-                DefaultCap.IsPurchased = true;
-                DefaultFlame.IsPurchased = true;
-                DefaultSpray.IsPurchased = true;
+                StorageData.AllItems[StorageData.FlameThrowersKey][0].IsPurchased = true;
+                StorageData.AllItems[StorageData.CapsKey][0].IsPurchased = true;
+                StorageData.AllItems[StorageData.SpraysKey][0].IsPurchased = true;
                 DBVariablesHolder.FFT.Value = 1;
             }
             LogoImage.DOFillAmount(1, _loadingTime).SetEase(Ease.Linear);

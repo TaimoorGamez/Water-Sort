@@ -2056,7 +2056,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d28672c870ebd7249bd1889f7f368933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemInstances: {fileID: 11400000, guid: 035c2f0a3e224c64db9b71e9c86114af, type: 2}
   RoomItems:
   - {fileID: 6207360634587144861}
   - {fileID: 3030765144856664121}
@@ -2072,7 +2071,7 @@ MonoBehaviour:
   - {fileID: 1788939178515468398}
   ItemHolder: {fileID: 2024753824}
   VideoText: {fileID: 3854405410401488522}
-  ItemName: Cap
+  ItemName: Caps
 --- !u!1 &543846791142718099
 GameObject:
   m_ObjectHideFlags: 0
@@ -2622,10 +2621,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Body: {fileID: 5228803007865272703}
-  StoreItemsList: {fileID: 11400000, guid: 9c58c415efded7b488c3eeba18e5e38f, type: 2}
-  CapItemsDictionary: {fileID: 11400000, guid: 035c2f0a3e224c64db9b71e9c86114af, type: 2}
-  FlameItemsDictionary: {fileID: 11400000, guid: cf4593384f21ac1499205a8458e72aaf, type: 2}
-  SprayItemsDictionary: {fileID: 11400000, guid: 867607d45b110f34d9315d803c01ef51, type: 2}
   FillImage: {fileID: 9064336660895032566}
   LoadingText: {fileID: 8852204569882383714}
   Loading: {fileID: 1797412761274587602}
@@ -2633,8 +2628,8 @@ MonoBehaviour:
   SprayItemsPath: Store/Spray/
   CapItemsPath: Store/Cap/
   MaxFlameThrowers: 4
-  MaxSprayCans: 8
   MaxCaps: 6
+  MaxSprayCans: 8
 --- !u!1 &3229780168958179758
 GameObject:
   m_ObjectHideFlags: 0
@@ -2983,7 +2978,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d28672c870ebd7249bd1889f7f368933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemInstances: {fileID: 11400000, guid: cf4593384f21ac1499205a8458e72aaf, type: 2}
   RoomItems:
   - {fileID: 6590352719117932003}
   - {fileID: 7680940779871803402}
@@ -2997,7 +2991,7 @@ MonoBehaviour:
   - {fileID: 1074964729749819697}
   ItemHolder: {fileID: 1936743982}
   VideoText: {fileID: 2541443341748096981}
-  ItemName: FlameThrower
+  ItemName: FlameThrowers
 --- !u!1 &3623857064505699915
 GameObject:
   m_ObjectHideFlags: 0
@@ -4821,7 +4815,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d28672c870ebd7249bd1889f7f368933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemInstances: {fileID: 11400000, guid: 867607d45b110f34d9315d803c01ef51, type: 2}
   RoomItems:
   - {fileID: 8326418719126440951}
   - {fileID: 4442546834874536598}
@@ -4839,7 +4832,7 @@ MonoBehaviour:
   - {fileID: 3509954880773815148}
   ItemHolder: {fileID: 1936743982}
   VideoText: {fileID: 2097501665791403400}
-  ItemName: Spray
+  ItemName: Sprays
 --- !u!1 &8332939741730857814
 GameObject:
   m_ObjectHideFlags: 0
@@ -5541,6 +5534,10 @@ PrefabInstance:
       propertyPath: MyData
       value: 
       objectReference: {fileID: 11400000, guid: df1c515f3aeae97418add8ba9af41294, type: 2}
+    - target: {fileID: 8701390650533427503, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
+      propertyPath: MyStorageRoom
+      value: 
+      objectReference: {fileID: 1164369724}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5677,6 +5674,18 @@ PrefabInstance:
       propertyPath: MySkin
       value: 
       objectReference: {fileID: 1711813855027520504}
+    - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
+      propertyPath: ItemIndex
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
+      propertyPath: MyStorageRoom
+      value: 
+      objectReference: {fileID: 5554618089603643303}
+    - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
+      propertyPath: SelectColor.rgba
+      value: 4280839880
+      objectReference: {fileID: 0}
     - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
       propertyPath: SelecteColor.rgba
       value: 4279521430
@@ -5958,6 +5967,14 @@ PrefabInstance:
       propertyPath: MyData
       value: 
       objectReference: {fileID: 11400000, guid: bfce0613e9debdc4195abc6c3076cb67, type: 2}
+    - target: {fileID: 8701390650533427503, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
+      propertyPath: ItemIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8701390650533427503, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
+      propertyPath: MyStorageRoom
+      value: 
+      objectReference: {fileID: 5883449792384006872}
     - target: {fileID: 8782416755596380940, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -5999,6 +6016,14 @@ PrefabInstance:
       propertyPath: MySkin
       value: 
       objectReference: {fileID: 7818273991997175644}
+    - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
+      propertyPath: MyStorageRoom
+      value: 
+      objectReference: {fileID: 5554618089603643303}
+    - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
+      propertyPath: SelectColor.rgba
+      value: 4280839880
+      objectReference: {fileID: 0}
     - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
       propertyPath: SelecteColor.rgba
       value: 4284798975
@@ -6157,9 +6182,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8012737647715669784}
     - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
+      propertyPath: ItemIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
       propertyPath: MyTexture
       value: 
       objectReference: {fileID: 2800000, guid: bdc2d3587597a324c95d281c9a6e3791, type: 3}
+    - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
+      propertyPath: MyStorageRoom
+      value: 
+      objectReference: {fileID: 5554618089603643303}
+    - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
+      propertyPath: SelectColor.rgba
+      value: 4280839880
+      objectReference: {fileID: 0}
     - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
       propertyPath: SelecteColor.rgba
       value: 4282122495
@@ -6543,6 +6580,10 @@ PrefabInstance:
       propertyPath: MyData
       value: 
       objectReference: {fileID: 11400000, guid: 648b8ab9c0557ff4f8356ad27ea3f86d, type: 2}
+    - target: {fileID: 8701390650533427503, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
+      propertyPath: MyStorageRoom
+      value: 
+      objectReference: {fileID: 5883449792384006872}
     - target: {fileID: 8782416755596380940, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -6699,6 +6740,18 @@ PrefabInstance:
       propertyPath: MySkin
       value: 
       objectReference: {fileID: 8958623928953460817}
+    - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
+      propertyPath: ItemIndex
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
+      propertyPath: MyStorageRoom
+      value: 
+      objectReference: {fileID: 5554618089603643303}
+    - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
+      propertyPath: SelectColor.rgba
+      value: 4280839880
+      objectReference: {fileID: 0}
     - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
       propertyPath: SelecteColor.rgba
       value: 4282122495
@@ -7063,6 +7116,14 @@ PrefabInstance:
       propertyPath: MyData
       value: 
       objectReference: {fileID: 11400000, guid: ad3002bac56b8af468582b6669b384f4, type: 2}
+    - target: {fileID: 8701390650533427503, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
+      propertyPath: ItemIndex
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8701390650533427503, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
+      propertyPath: MyStorageRoom
+      value: 
+      objectReference: {fileID: 1164369724}
     - target: {fileID: 8782416755596380940, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -7196,6 +7257,14 @@ PrefabInstance:
       propertyPath: MyData
       value: 
       objectReference: {fileID: 11400000, guid: a6b6c64bd385e2545a76c2227d86b508, type: 2}
+    - target: {fileID: 8701390650533427503, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
+      propertyPath: ItemIndex
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8701390650533427503, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
+      propertyPath: MyStorageRoom
+      value: 
+      objectReference: {fileID: 1164369724}
     - target: {fileID: 8782416755596380940, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -7329,6 +7398,14 @@ PrefabInstance:
       propertyPath: MyData
       value: 
       objectReference: {fileID: 11400000, guid: ecad32563580928499bb8aa8b90e48b0, type: 2}
+    - target: {fileID: 8701390650533427503, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
+      propertyPath: ItemIndex
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8701390650533427503, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
+      propertyPath: MyStorageRoom
+      value: 
+      objectReference: {fileID: 1164369724}
     - target: {fileID: 8782416755596380940, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -7462,6 +7539,14 @@ PrefabInstance:
       propertyPath: MyData
       value: 
       objectReference: {fileID: 11400000, guid: c1bc9adf7304d8a4fa0a88b494894acd, type: 2}
+    - target: {fileID: 8701390650533427503, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
+      propertyPath: ItemIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8701390650533427503, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
+      propertyPath: MyStorageRoom
+      value: 
+      objectReference: {fileID: 1164369724}
     - target: {fileID: 8782416755596380940, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -7595,6 +7680,14 @@ PrefabInstance:
       propertyPath: MyData
       value: 
       objectReference: {fileID: 11400000, guid: f3520014c67793f45aa323b03965163c, type: 2}
+    - target: {fileID: 8701390650533427503, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
+      propertyPath: ItemIndex
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8701390650533427503, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
+      propertyPath: MyStorageRoom
+      value: 
+      objectReference: {fileID: 1164369724}
     - target: {fileID: 8782416755596380940, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -7728,6 +7821,14 @@ PrefabInstance:
       propertyPath: MyData
       value: 
       objectReference: {fileID: 11400000, guid: 574af868d8b97724fb3935e1d4f7f959, type: 2}
+    - target: {fileID: 8701390650533427503, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
+      propertyPath: ItemIndex
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8701390650533427503, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
+      propertyPath: MyStorageRoom
+      value: 
+      objectReference: {fileID: 1164369724}
     - target: {fileID: 8782416755596380940, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -7873,6 +7974,14 @@ PrefabInstance:
       propertyPath: MyData
       value: 
       objectReference: {fileID: 11400000, guid: 70dc0db6f590957459e09678e34eb462, type: 2}
+    - target: {fileID: 8701390650533427503, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
+      propertyPath: ItemIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8701390650533427503, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
+      propertyPath: MyStorageRoom
+      value: 
+      objectReference: {fileID: 1164369724}
     - target: {fileID: 8782416755596380940, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -8562,6 +8671,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1977077904239239648}
     - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
+      propertyPath: ItemIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
+      propertyPath: MyStorageRoom
+      value: 
+      objectReference: {fileID: 5554618089603643303}
+    - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
+      propertyPath: SelectColor.rgba
+      value: 4280839880
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
       propertyPath: SelecteColor.rgba
       value: 4279521430
       objectReference: {fileID: 0}
@@ -8845,6 +8966,18 @@ PrefabInstance:
       propertyPath: MySkin
       value: 
       objectReference: {fileID: 6420395439855758187}
+    - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
+      propertyPath: ItemIndex
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
+      propertyPath: MyStorageRoom
+      value: 
+      objectReference: {fileID: 5554618089603643303}
+    - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
+      propertyPath: SelectColor.rgba
+      value: 4280839880
+      objectReference: {fileID: 0}
     - target: {fileID: 4778644414733433830, guid: 84d2f7c5fd117f74380851db95031bbc, type: 3}
       propertyPath: SelecteColor.rgba
       value: 4284798975
@@ -9225,6 +9358,14 @@ PrefabInstance:
       propertyPath: MyData
       value: 
       objectReference: {fileID: 11400000, guid: c4cc1da3bd10978478c0cb5dbd453608, type: 2}
+    - target: {fileID: 8701390650533427503, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
+      propertyPath: ItemIndex
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8701390650533427503, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
+      propertyPath: MyStorageRoom
+      value: 
+      objectReference: {fileID: 5883449792384006872}
     - target: {fileID: 8782416755596380940, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -9864,6 +10005,14 @@ PrefabInstance:
       propertyPath: MyData
       value: 
       objectReference: {fileID: 11400000, guid: 19b478cffb5cc784cbd81dcc87d9d267, type: 2}
+    - target: {fileID: 8701390650533427503, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
+      propertyPath: ItemIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8701390650533427503, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
+      propertyPath: MyStorageRoom
+      value: 
+      objectReference: {fileID: 5883449792384006872}
     - target: {fileID: 8782416755596380940, guid: b257b1dc61be93748804cbfb10a90951, type: 3}
       propertyPath: m_Sprite
       value: 

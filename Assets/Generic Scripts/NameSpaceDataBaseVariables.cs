@@ -135,9 +135,9 @@ namespace Core.DB.Variables
 
         public static Dictionary<string, DBInt> StoreActiveItems = new Dictionary<string, DBInt>(StringComparer.Ordinal)
         {
-            { "Cap", DBVariablesHolder.CurrentActiveCap },
-            { "Spray", DBVariablesHolder.CurrentActiveSpray },
-            { "FlameThrower", DBVariablesHolder.CurrentActiveFlameThrower }
+            { "Caps", DBVariablesHolder.CurrentActiveCap },
+            { "Sprays", DBVariablesHolder.CurrentActiveSpray },
+            { "FlameThrowers", DBVariablesHolder.CurrentActiveFlameThrower }
         };
 
         public static Dictionary<string, DBInt> NonConsumableProductsData = new Dictionary<string, DBInt>(StringComparer.Ordinal)

@@ -13,13 +13,12 @@ namespace Core.Screen
 {
     public class BoxRewardScreen : UiScreens
     {
-        [SerializeField] ItemData[] StorItemsData;
         [SerializeField] RectTransform[] Cards, ItemHolders;
         [SerializeField] Sprite[] PowerSprites;
         [SerializeField] Image PowerImage;
 
         float _tweenTime = 0.5f, _unboxingTime = 1, _cardSize = 1.25f;
-        int _cardIndex = 0, _totalStoreItems = 18, _flamesLength = 4, _capsLength = 6;
+        int _cardIndex = 0, _spraysLength = 8, _capsLength = 6, _flamesLength = 4;
         Vector2 _cardPosition = new Vector2(0, -350);
         string _flamesPath = "Store/Flame/", _capsPath = "Store/Cap/", _spraysPath = "Store/Spray/";
         AsyncOperationHandle _itemHandle;
@@ -40,28 +39,34 @@ namespace Core.Screen
             switch (_cardIndex)
             {
                 case 0:
-                    int randomReward = Random.Range(0, _totalStoreItems);
-                    if (randomReward < _flamesLength)
+                    int randomItem = Random.Range(0, 3);
+                    int randomReward = -1;
+                    switch (randomItem)
                     {
-                        LoadRewardItem(_flamesPath + randomReward);
-                        PowerImage.sprite = PowerSprites[0];
-                        DBVariableDictionariesHolder.PowersData[0].Value += 1;
+                        case 0:
+                            randomReward = Random.Range(0, _flamesLength);
+                            LoadRewardItem(_flamesPath + randomReward);
+                            PowerImage.sprite = PowerSprites[0];
+                            DBVariableDictionariesHolder.PowersData[0].Value += 1;
+                            StorageData.AllItems[StorageData.FlameThrowersKey][randomReward].IsPurchased = true;
+                            break;
+
+                        case 1:
+                            randomReward = Random.Range(0, _capsLength);
+                            LoadRewardItem(_capsPath + randomReward);
+                            PowerImage.sprite = PowerSprites[1];
+                            DBVariableDictionariesHolder.PowersData[1].Value += 1;
+                            StorageData.AllItems[StorageData.CapsKey][randomReward].IsPurchased = true;
+                            break;
+
+                        case 2:
+                            randomReward = Random.Range(0, _spraysLength);
+                            LoadRewardItem(_spraysPath + randomReward);
+                            PowerImage.sprite = PowerSprites[2];
+                            DBVariableDictionariesHolder.PowersData[2].Value += 1;
+                            StorageData.AllItems[StorageData.SpraysKey][randomReward].IsPurchased = true;
+                            break;
                     }
-                    else if(randomReward < _capsLength+_flamesLength)
-                    {
-                        int capIndex = randomReward - _flamesLength;
-                        LoadRewardItem(_capsPath + capIndex);
-                        PowerImage.sprite = PowerSprites[1];
-                        DBVariableDictionariesHolder.PowersData[1].Value += 1;
-                    }
-                    else
-                    {
-                        int sprayIndex = randomReward - (_flamesLength +_capsLength);
-                        LoadRewardItem(_spraysPath + sprayIndex);
-                        PowerImage.sprite = PowerSprites[2];
-                        DBVariableDictionariesHolder.PowersData[2].Value += 1;
-                    }
-                    StorItemsData[randomReward].IsPurchased = true;
                     break;
                 case 2:
                    CurrenciesHolder.CashCurrency.Amount += 300;
