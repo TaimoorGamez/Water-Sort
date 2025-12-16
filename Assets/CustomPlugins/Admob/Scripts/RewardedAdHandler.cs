@@ -1,5 +1,6 @@
 using Core.Events;
 using GoogleMobileAds.Api;
+using Core.Plugins.Firebase;
 
 namespace Core.Plugins.Ads
 {
@@ -116,15 +117,15 @@ namespace Core.Plugins.Ads
         {
             switch (rewardName)
             {
-                case "MultiplyReward":
-                    AdsManager.I.CanMultiply = true;
-                    break;
-
                 case "AddMoves":
                     AdsManager.I.CanAddMoves = true;
                     break;
 
-                case "Undo":
+                case "MultiplyReward":
+                    AdsManager.I.CanMultiply = true;
+                    break;
+
+                case "SortUndo":
                     AdsManager.I.CanUndo = true;
                     break;
 
@@ -132,16 +133,20 @@ namespace Core.Plugins.Ads
                     AdsManager.I.CanAddExtraTube = true;
                     break;
 
-                case "SwitchColor":
+                case "SwapColor":
                     AdsManager.I.CanSwitchColor = true;
                     break;
 
-                case "DoubleReward":
-                    AdsManager.I.CanDoubleReward = true;
+                case "DoubleDailyReward":
+                    AdsManager.I.CanDoubleDailyReward = true;
                     break;
 
                 case "Spin":
                     AdsManager.I.CanSpin = true;
+                    break;
+
+                case "AdBlocker":
+                    AdsManager.I.CanBlockAds = true;
                     break;
 
                 case "Caps":
@@ -152,16 +157,13 @@ namespace Core.Plugins.Ads
                     AdsManager.I.CanFlame = true;
                     break;
 
-                case "Flames":
+                case "FlameThrowers":
                     AdsManager.I.CanFlame = true;
-                    break;
-
-                case "AdBlocker":
-                    AdsManager.I.CanBlockAds = true;
                     break;
             }
             SimpleEventsHolder.GrantRewardEvent?.Invoke();
             DoubleIntegerEventHolder.TaskEvent?.Invoke(0,1);
+            FirebaseHandler.I?.LogEvent($"rvAd :{rewardName}");
         }
     }
 }

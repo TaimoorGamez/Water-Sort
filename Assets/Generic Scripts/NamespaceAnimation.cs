@@ -40,8 +40,11 @@ namespace Core.Animations.DT
 
         public virtual void CancleAnimation()
         {
-            if (TargetObj != null)
+            if (_tween != null)
+            {
                 _tween.Kill();
+                _tween = null;
+            }
         }
 
         public virtual void ReseToDefault()

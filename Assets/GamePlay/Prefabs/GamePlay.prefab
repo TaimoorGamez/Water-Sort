@@ -1102,7 +1102,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: faceefd1610daf54a9b91b355969fdcf, type: 3}
     - target: {fileID: 8512401302037105857, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: m_Name
-      value: SwitchColor
+      value: SwapColor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

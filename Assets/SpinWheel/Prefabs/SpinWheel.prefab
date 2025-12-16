@@ -478,7 +478,6 @@ MonoBehaviour:
   RewardPanel: {fileID: 8795339783823399777}
   Wheel: {fileID: 4703981586504006114}
   SegmentPrefab: {fileID: 7245321775489368684, guid: 2a0f66c327942f84eb0e26d71f851e7a, type: 3}
-  SpinWheelData: {fileID: 11400000, guid: a03610bcba2e3e6428617c9f47f648f7, type: 2}
   RewardedColor: {r: 0.8039216, g: 0, b: 1, a: 1}
   RewardIcon: {fileID: 5322431006906528003}
   RewardAmount: {fileID: 4448194516099583440}
@@ -600,6 +599,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 593230374942282580, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: Spin
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301091734208334152, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: Spin
       objectReference: {fileID: 0}
     - target: {fileID: 3872305477753702435, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}

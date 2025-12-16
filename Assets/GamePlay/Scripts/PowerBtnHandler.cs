@@ -1,15 +1,14 @@
 using TMPro;
 using Core.Events;
 using UnityEngine;
-using Core.Plugins;
 using Core.Economy;
+using Core.Plugins.Ads;
 using Core.DB.Variables;
 
 namespace Core.Screen
 {
     public class PowerBtnHandler : MonoBehaviour
     {
-        [SerializeField] AdHandler RewardedAd;
         [SerializeField] GameObject CounterObj, PriceObj, AdObj;
         [SerializeField] TextMeshProUGUI RemaingText;
         [SerializeField] int Price;
@@ -17,43 +16,15 @@ namespace Core.Screen
 
         private void OnEnable()
         {
-            if (EventDictionariesHolder.RewardPowerEvent.TryGetValue(PowerName, out var rEvt))
-            {
-                rEvt += RewardPower;
-            }
-            else
-            {
-                Debug.LogWarning($"Buy event key '{PowerName}' does not exist.");
-            }
-            if (EventDictionariesHolder.UpdatePowerStatusEvent.TryGetValue(PowerName, out var evt))
-            {
-                evt += ChangeStatus;
-            }
-            else
-            {
-                Debug.LogWarning($"Buy event key '{PowerName}' does not exist.");
-            }
+            EventDictionariesHolder.RewardPowerEvent[PowerName] += RewardPower;
+            EventDictionariesHolder.UpdatePowerStatusEvent[PowerName] += ChangeStatus;
             PowerStatus();
         }
 
         private void OnDisable()
         {
-            if (EventDictionariesHolder.RewardPowerEvent.TryGetValue(PowerName, out var rEvt))
-            {
-                rEvt -= RewardPower;
-            }
-            else
-            {
-                Debug.LogWarning($"Buy event key '{PowerName}' does not exist.");
-            }
-            if (EventDictionariesHolder.UpdatePowerStatusEvent.TryGetValue(PowerName, out var evt))
-            {
-                evt -= ChangeStatus;
-            }
-            else
-            {
-                Debug.LogWarning($"Buy event key '{PowerName}' does not exist.");
-            }
+            EventDictionariesHolder.RewardPowerEvent[PowerName] -= RewardPower;
+            EventDictionariesHolder.UpdatePowerStatusEvent[PowerName] -= ChangeStatus;
         }
 
         void PowerStatus()
@@ -93,18 +64,11 @@ namespace Core.Screen
         {
             if (DBVariableDictionariesHolder.PowerStatusData[PowerName].Value > 0 || CurrenciesHolder.CashCurrency.Amount >= Price)
             {
-                if (EventDictionariesHolder.PowerEvents.TryGetValue(PowerName, out var evt))
-                {
-                    evt?.Invoke();
-                }
-                else
-                {
-                    Debug.LogWarning($"Buy event key '{PowerName}' does not exist.");
-                }
+                EventDictionariesHolder.PowerEvents[PowerName]?.Invoke();
             }
             else
             {
-                RewardedAd.ShowAd(PowerName);
+                AdsManager.I?.ShowRewardedAd(PowerName);
             }
         }
 

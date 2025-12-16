@@ -103,6 +103,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -388,6 +389,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -525,6 +527,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -790,6 +793,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -927,6 +931,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1063,6 +1068,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1199,6 +1205,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1472,10 +1479,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Body: {fileID: 7684202431330903828}
-  AdsBlockerEvent: {fileID: 11400000, guid: 324919a299b187c449a0814b3a1343c9, type: 2}
-  SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
-  AdBlocked: {fileID: 11400000, guid: 1cfa4b50796a77649840714845d666b1, type: 2}
-  AdBlockingTime: {fileID: 11400000, guid: 8d198cd093198ad458f78ec5d4d3aec0, type: 2}
   RvBtn: {fileID: 5662243184362970638}
   TimerObj: {fileID: 2578349615801444065}
 --- !u!1001 &154521081794275378
@@ -1602,6 +1605,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 593230374942282580, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: AdBlocker
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301091734208334152, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: AdBlocker
       objectReference: {fileID: 0}
     - target: {fileID: 3872305477753702435, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
@@ -1877,8 +1884,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c90d3b63b6fc2254a8cd0079b2f89e6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SoStore: {fileID: 11400000, guid: f36e8d40c49af0f4bb06dade4b0b7b91, type: 2}
-  CurrentProdut: {fileID: 11400000, guid: 54ff1c1cd0e6d1b4ba11164fa7932359, type: 2}
+  InAppPurchaser: {fileID: 0}
+  CurrentProdut:
+    ProductID: 
   priceText: {fileID: 8823704692055131186}
 --- !u!114 &8823704692055131186 stripped
 MonoBehaviour:

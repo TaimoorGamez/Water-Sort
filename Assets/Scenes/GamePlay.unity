@@ -492,8 +492,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e13a2c9a6700aea489b3bc5f451a1bad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TubeScaleUpTween: {fileID: 11400000, guid: 16ae342fb0f0f5041b155984471eb302, type: 2}
-  TubeScaleDownTween: {fileID: 11400000, guid: 21496ddb7ca02c445bc2b5d524a4ca0b, type: 2}
 --- !u!114 &1199090509
 MonoBehaviour:
   m_ObjectHideFlags: 0

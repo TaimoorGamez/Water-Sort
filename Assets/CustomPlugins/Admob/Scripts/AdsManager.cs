@@ -13,7 +13,7 @@ namespace Core.Plugins.Ads
 
         [HideInInspector] public bool IsInitialized = false;
 
-        public bool AdTimerComplete = false, AdPlaying = false, CanAddMoves = false, CanMultiply = false, CanDoubleReward = false,
+        public bool AdTimerComplete = false, AdPlaying = false, CanAddMoves = false, CanMultiply = false, CanDoubleDailyReward = false,
                     CanSpin = false, CanCap = false, CanSpray = false, CanBlockAds = false, CanFlame = false, CanUndo = false,
                                     CanAddExtraTube = false, CanSwitchColor = false;
 
@@ -189,9 +189,9 @@ namespace Core.Plugins.Ads
                     SimpleEventsHolder.MultiplayRewardEvent?.Invoke();
                     _isEnable = false;
                 }
-                else if (CanDoubleReward)
+                else if (CanDoubleDailyReward)
                 {
-                    CanDoubleReward = false;
+                    CanDoubleDailyReward = false;
                     SimpleEventsHolder.DoubleDailyRewardEvent?.Invoke();
                     _isEnable = false;
                 }
@@ -275,6 +275,22 @@ namespace Core.Plugins.Ads
             {
                 StopCoroutine(_adsRotine);
                 _adsRotine = null;
+            }
+        }
+
+        public void ShowRewardedAd(string reward)
+        {
+            if(RemoteDataHolder.AdData.Rewarded)
+            {
+                RewardedAd.ShowAd(reward);
+            }
+        }
+
+        public void ShowInterstitialAd(string detail = "")
+        {
+            if (RemoteDataHolder.AdData.Interstitial && DBVariablesHolder.RemoveAds.Value == 0)
+            {
+                IntertitialAd.ShowAd(detail);
             }
         }
     }
