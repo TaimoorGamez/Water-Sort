@@ -483,6 +483,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -799,31 +800,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5667325dd87aba4e8cb26633772049e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
-  CashCurrency: {fileID: 11400000, guid: 7eda067dffd0e094b883a13ef89857cd, type: 2}
-  PowersData:
-  - {fileID: 11400000, guid: ea039cf300a11a34ba289c06a95e577b, type: 2}
-  - {fileID: 11400000, guid: 5459146ae02fcad47b2dcc894e2b58fc, type: 2}
-  - {fileID: 11400000, guid: ea039cf300a11a34ba289c06a95e577b, type: 2}
-  StorItemsData:
-  - {fileID: 11400000, guid: 648b8ab9c0557ff4f8356ad27ea3f86d, type: 2}
-  - {fileID: 11400000, guid: bfce0613e9debdc4195abc6c3076cb67, type: 2}
-  - {fileID: 11400000, guid: 19b478cffb5cc784cbd81dcc87d9d267, type: 2}
-  - {fileID: 11400000, guid: c4cc1da3bd10978478c0cb5dbd453608, type: 2}
-  - {fileID: 11400000, guid: 0b5235d311f6bff409a2d712cac46ce7, type: 2}
-  - {fileID: 11400000, guid: 85c77d095b9ac694ea1dc9054aeb1bdc, type: 2}
-  - {fileID: 11400000, guid: dc18454b03c635047a48b89fb9b8093b, type: 2}
-  - {fileID: 11400000, guid: caf9b99755dbf0b488cab6985ac22bfc, type: 2}
-  - {fileID: 11400000, guid: 159ad975c07101144afb982e2d9264b4, type: 2}
-  - {fileID: 11400000, guid: 46d8ab15b3bf30442b011610ff389a45, type: 2}
-  - {fileID: 11400000, guid: df1c515f3aeae97418add8ba9af41294, type: 2}
-  - {fileID: 11400000, guid: 70dc0db6f590957459e09678e34eb462, type: 2}
-  - {fileID: 11400000, guid: c1bc9adf7304d8a4fa0a88b494894acd, type: 2}
-  - {fileID: 11400000, guid: ecad32563580928499bb8aa8b90e48b0, type: 2}
-  - {fileID: 11400000, guid: ad3002bac56b8af468582b6669b384f4, type: 2}
-  - {fileID: 11400000, guid: a6b6c64bd385e2545a76c2227d86b508, type: 2}
-  - {fileID: 11400000, guid: 574af868d8b97724fb3935e1d4f7f959, type: 2}
-  - {fileID: 11400000, guid: f3520014c67793f45aa323b03965163c, type: 2}
   Body: {fileID: 17276363352838572}
   Cards:
   - {fileID: 2711695440034688128}
@@ -1875,9 +1851,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1614815d24f63274fbf16ad5b53c0603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CashCurrency: {fileID: 11400000, guid: 7eda067dffd0e094b883a13ef89857cd, type: 2}
-  SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
-  CurrenTaskManager: {fileID: 11400000, guid: 5ac1aa20c516ae748a72ae60cd92f530, type: 2}
   Body: {fileID: 2626488614083792774}
   BoxPanel: {fileID: 17276363352838572}
   RewardFillBar: {fileID: 3543231145413511105}
@@ -2021,6 +1994,42 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 4775208833711610063, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1442573499440375344}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: ClaimReward
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: Core.Screen.DailyTaskScreen, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: DT_Claim
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6832002356361076616, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
       propertyPath: m_Name
       value: Task (2)
@@ -2169,6 +2178,10 @@ PrefabInstance:
     - target: {fileID: 7557473111223570516, guid: 0dd2edb2d3decd24ebe63737bb5f9401, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
       value: Core.Screen.DailyTaskScreen, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7557473111223570516, guid: 0dd2edb2d3decd24ebe63737bb5f9401, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_StringArgument
+      value: DT_close
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2546,6 +2559,42 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 4775208833711610063, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1442573499440375344}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: ClaimReward
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: Core.Screen.DailyTaskScreen, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: DT_Claim
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6832002356361076616, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
       propertyPath: m_Name
       value: Task (3)
@@ -2925,6 +2974,38 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 4775208833711610063, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1442573499440375344}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: ClaimReward
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: Core.Screen.DailyTaskScreen, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: DT_Claim
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6832002356361076616, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
       propertyPath: m_Name
       value: Task (1)
@@ -3224,6 +3305,42 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 4775208833711610063, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1442573499440375344}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: ClaimReward
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: Core.Screen.DailyTaskScreen, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_IntArgument
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: DT_Claim
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302629806491349135, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6832002356361076616, guid: 673f9a3beeaf36f49a66fe9b2a968728, type: 3}
       propertyPath: m_Name
       value: Task (4)

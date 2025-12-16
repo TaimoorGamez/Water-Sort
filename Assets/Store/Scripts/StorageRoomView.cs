@@ -130,7 +130,7 @@ namespace Core.Screen
             Buttons[activeButton].SetActive(true);
         }
 
-        void ChangeActiveItem()
+        public void ChangeActiveItem()
         {
             RoomItems[DBVariableDictionariesHolder.StoreActiveItems[ItemName].Value].UnSelectItem();
             if (_selectedItem != -1)

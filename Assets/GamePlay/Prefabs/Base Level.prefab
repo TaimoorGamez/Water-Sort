@@ -103,6 +103,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -903,14 +904,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84f67f698e734844895b2cf8edd783f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentSpray: {fileID: 11400000, guid: 3ca6af44fe0017c4ebe32d1bba84d8ff, type: 2}
-  CurrentFlame: {fileID: 11400000, guid: 63e6496758809f14cb2d76d028c3fcbf, type: 2}
-  Sound: {fileID: 11400000, guid: 09754934285b3444699e95c33f208b73, type: 2}
-  LevelStars: {fileID: 11400000, guid: 88bc526aa03fb954c879ac3dbef7ef51, type: 2}
-  DetailsApplied: {fileID: 11400000, guid: 8894a4602ebb75348a39383060b968e0, type: 2}
-  CompleteStateIndex: {fileID: 11400000, guid: 372a4013c41549545822b875f34f8aa3, type: 2}
-  SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
-  ActiveStateEvent: {fileID: 11400000, guid: 73a86ca2cef7acd4f811ad88434fbb53, type: 2}
   SprayCan: {fileID: 7163878793657576286}
   FlameThrower: {fileID: 1117509954389739820}
   ColoringParts: {fileID: 8155223143100574219}
@@ -983,13 +976,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e436ff83a49b96549bd523d1a4202c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sound: {fileID: 11400000, guid: 09754934285b3444699e95c33f208b73, type: 2}
-  CurrentBowl: {fileID: 11400000, guid: 5bdb2b9ae995a074b958977cacc85f03, type: 2}
-  LevelStars: {fileID: 11400000, guid: 88bc526aa03fb954c879ac3dbef7ef51, type: 2}
-  StartColoringEvent: {fileID: 11400000, guid: ed751afbb0214de499cef1891112c6d6, type: 2}
-  ColorSelectedEvent: {fileID: 11400000, guid: fe2489cc2d4d5e14f9d85776a00266f3, type: 2}
-  HideColorBowlEvent: {fileID: 11400000, guid: df676412f262a30498589c22220395c8, type: 2}
-  CurrentColor: {fileID: 11400000, guid: 2fed6872c6a33cb40accd289f78eb6eb, type: 2}
   ColoringPart:
   - {fileID: 8155223144613782485}
   BrushTransform: {fileID: 8155223144596094439}
@@ -1096,8 +1082,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cefa8ef9b78a3a249b9185f72db48140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ColorSelectedEvent: {fileID: 11400000, guid: fe2489cc2d4d5e14f9d85776a00266f3, type: 2}
-  CurrentColor: {fileID: 11400000, guid: 2fed6872c6a33cb40accd289f78eb6eb, type: 2}
   BurshImage: {fileID: 8155223143177507435}
 --- !u!1 &8155223144125208729
 GameObject:
@@ -1232,10 +1216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c35743e1571027748b3513c74bbe190d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelIndex: {fileID: 11400000, guid: 41c1752188b0e634bace9427b11cb2a0, type: 2}
-  TempLevelIndex: {fileID: 11400000, guid: 1ce211a6ca2ede84c9718479db351404, type: 2}
-  StartColoringEvent: {fileID: 11400000, guid: ed751afbb0214de499cef1891112c6d6, type: 2}
-  SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
   ColoringImage: {fileID: 8155223143100574219}
   RefferanceBar: {fileID: 6283109655976388234}
 --- !u!1 &8155223144596094436
@@ -1559,7 +1539,8 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -3013851677243336866, guid: 7b26c9a2eac24f144815375a741df200, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1816,6 +1797,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 593230374942282580, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Core.GamePlay.Coloring.ColorFillingHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301091734208334152, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301091734208334152, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1898423574410225127}
+    - target: {fileID: 1301091734208334152, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnNextBtnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301091734208334152, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: Core.GamePlay.Coloring.ColorFillingHandler, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3872305477753702435, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
@@ -2358,6 +2355,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 593230374942282580, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Core.GamePlay.Coloring.DetailsHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301091734208334152, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301091734208334152, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3879729677403443680}
+    - target: {fileID: 1301091734208334152, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnNextBtnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301091734208334152, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: Core.GamePlay.Coloring.DetailsHandler, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3872305477753702435, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}

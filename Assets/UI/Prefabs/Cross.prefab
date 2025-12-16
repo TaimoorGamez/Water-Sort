@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 764824482630527910}
   - component: {fileID: 1377998169912633410}
   - component: {fileID: 8967813190842921152}
+  - component: {fileID: 4876114345673064970}
   - component: {fileID: 7557473111223570516}
   m_Layer: 5
   m_Name: Cross
@@ -88,6 +89,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 892628e74f722f2448819965d46c100a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4876114345673064970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3730611019050893826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c56c9c93c78f0d41b49ba2f08939107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &7557473111223570516
@@ -206,6 +219,18 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 4876114345673064970}
+          m_TargetAssemblyTypeName: CallInterstitialAd, Assembly-CSharp
+          m_MethodName: ShowAd
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: cross
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!1 &5200849272859402782
