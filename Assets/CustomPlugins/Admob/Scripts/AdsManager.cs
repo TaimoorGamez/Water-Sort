@@ -17,7 +17,6 @@ namespace Core.Plugins.Ads
                     CanSpin = false, CanCap = false, CanSpray = false, CanBlockAds = false, CanFlame = false, CanUndo = false,
                                     CanAddExtraTube = false, CanSwitchColor = false;
 
-
         Coroutine _rewardRotine = null, _adsRotine = null;
         bool _isEnable = false;
 
@@ -280,10 +279,7 @@ namespace Core.Plugins.Ads
 
         public void ShowRewardedAd(string reward)
         {
-            if(RemoteDataHolder.AdData.Rewarded)
-            {
-                RewardedAd.ShowAd(reward);
-            }
+            RewardedAd.ShowAd(reward);
         }
 
         public void ShowInterstitialAd(string detail = "")

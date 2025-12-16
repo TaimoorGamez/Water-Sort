@@ -605,6 +605,10 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: Spin
       objectReference: {fileID: 0}
+    - target: {fileID: 1301091734208334152, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: Spin
+      objectReference: {fileID: 0}
     - target: {fileID: 3872305477753702435, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

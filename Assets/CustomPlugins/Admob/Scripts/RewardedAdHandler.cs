@@ -12,7 +12,7 @@ namespace Core.Plugins.Ads
 
         public override void LoadAd()
         {
-            if(AdsManager.I.IsInitialized)
+            if(!AdsManager.I.IsInitialized)
                 return;
             
 

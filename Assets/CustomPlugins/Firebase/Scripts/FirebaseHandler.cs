@@ -76,8 +76,7 @@ namespace Core.Plugins.Firebase
                    Task =>
                    {
                        RemoteDataHolder.IsInternetWorking = remoteConfig.GetValue("IsInternetWorking").BooleanValue;
-
-                       RemoteDataHolder.MaxLevelsAvailable = (int)remoteConfig.GetValue("IsInternetWorking").LongValue;
+                       RemoteDataHolder.MaxLevelsAvailable = (int)remoteConfig.GetValue("MaxLevelsAvailable").LongValue;
 
                        string adJson = remoteConfig.GetValue("AdConfig").StringValue;
                        RemoteDataHolder.AdData = JsonUtility.FromJson<AdConfig>(adJson);

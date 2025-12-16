@@ -1381,6 +1381,10 @@ PrefabInstance:
       propertyPath: InAppPurchaser
       value: 
       objectReference: {fileID: 4126806259939525033}
+    - target: {fileID: 4722004757247108466, guid: 7349dc96eefee6b4ebad15ccf5cb656d, type: 3}
+      propertyPath: CurrentProdut.ProductID
+      value: removeads
+      objectReference: {fileID: 0}
     - target: {fileID: 7534718703472639583, guid: 7349dc96eefee6b4ebad15ccf5cb656d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2778,7 +2782,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6840285968148839464, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 17534140
+      value: 17544104
       objectReference: {fileID: 0}
     - target: {fileID: 7277540639624644133, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_sharedMaterial

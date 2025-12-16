@@ -107,10 +107,7 @@ namespace Core.Screen
                 await Task.Delay(1000);
 
                 // Init ads
-                if (AdsManager.I != null)
-                {
-                    AdsManager.I.InitPlugin();
-                }
+                AdsManager.I?.InitPlugin();
             }
             else
             {

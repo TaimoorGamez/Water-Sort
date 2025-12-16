@@ -1,9 +1,9 @@
-using Core.DB.Variables;
 using Core.Events;
 using Core.GamePlay;
 using Core.Plugins.Firebase;
 using GoogleMobileAds.Api;
 using System.Threading.Tasks;
+using Core.DB.Variables;
 using UnityEngine;
 
 namespace Core.Plugins.Ads
@@ -19,7 +19,6 @@ namespace Core.Plugins.Ads
         {
             if (!AdsManager.I.IsInitialized || DBVariablesHolder.RemoveAds.Value == 1)
                 return;
-
 
             if (IsTestAd)
             {
