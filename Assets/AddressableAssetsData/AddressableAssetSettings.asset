@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468a46d0ae32c3544b7d98094e6448a9, type: 3}
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
-  m_DefaultGroup: e22cc799ccf7afe48ba22218e317ed6c
+  m_DefaultGroup: 353dff07c90002b4486ade958b3f01b9
   m_currentHash:
     serializedVersion: 2
-    Hash: 4ee70770c471d3ade235e9cbfa7ad0c8
+    Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 0
+  m_BuildRemoteCatalog: 1
+  m_BundleLocalCatalog: 0
   m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
   m_InternalIdNamingMode: 0
@@ -31,7 +32,7 @@ MonoBehaviour:
     m_ClassName: UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider
   m_IgnoreUnsupportedFilesInBuild: 0
   m_UniqueBundleIds: 0
-  m_EnableJsonCatalog: 0
+  m_EnableJsonCatalog: 1
   m_NonRecursiveBuilding: 1
   m_AllowNestedBundleFolders: 0
   m_CCDEnabled: 0
@@ -63,6 +64,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ea36a4a751b77df4c890a344b65c2266, type: 2}
   - {fileID: 11400000, guid: aeb5c2098c507e3418ad4c9e6adcab37, type: 2}
   - {fileID: 11400000, guid: 7ec707181b1b4fe43a1ee112ebde13b5, type: 2}
+  - {fileID: 11400000, guid: ac4cc27c321903343b8c9f28eed80004, type: 2}
   - {fileID: 11400000, guid: 4a820367a2e01d44998909e346866049, type: 2}
   - {fileID: 11400000, guid: c8ca8667db2d2844f99409b16d6665ce, type: 2}
   - {fileID: 11400000, guid: 419cb10fa4382574db43c02ab0339809, type: 2}
@@ -77,15 +79,15 @@ MonoBehaviour:
       m_ProfileName: Default
       m_Values:
       - m_Id: 32d02ef374071da40b1f9562e4daa217
-        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+        m_Value: 
       - m_Id: 34e12ee5a174c5f42a3bf14ccf733c8b
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
       - m_Id: 58507e8b73fe820438fb152123bb9175
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: a8492dd697c60e14e8530873fc2a7cbe
-        m_Value: <undefined>
+        m_Value: https://playmenu-sorting-painting-android.pages.dev
       - m_Id: b8b71fee12e258948ab52d101d9cfcf1
-        m_Value: 'ServerData/[BuildTarget]'
+        m_Value: ServerData
     m_ProfileEntryNames:
     - m_Id: 32d02ef374071da40b1f9562e4daa217
       m_Name: BuildTarget
@@ -111,6 +113,7 @@ MonoBehaviour:
     - appreation_text
     - sdk
     - ui_state
+    - remote_lvl
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 5cf09e92517bdcd4a85a3526ccf3dd67, type: 2}

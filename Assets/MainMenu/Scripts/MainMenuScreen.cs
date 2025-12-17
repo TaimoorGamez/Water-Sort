@@ -1,13 +1,14 @@
 using TMPro;
-using Core.Events;
 using UnityEngine;
 using Core.States;
 using DG.Tweening;
+using Core.Events;
 using Core.Plugins;
-using Core.GamePlay;
 using Core.Purchase;
+using Core.GamePlay;
 using Core.Plugins.Ads;
 using Core.DB.Variables;
+using System.Collections;
 using Core.Plugins.Firebase;
 using System.Threading.Tasks;
 using UnityEngine.AddressableAssets;
@@ -19,12 +20,16 @@ namespace Core.Screen
     {
         [SerializeField] InAppPurchase InAppPurchaser;
         [SerializeField] TextMeshProUGUI[] Lvls;
+        [SerializeField] TextMeshProUGUI LoadingText;
         [SerializeField] Transform LevelView;
-        [SerializeField] RectTransform LevelsHolder;
+        [SerializeField] RectTransform LevelsHolder, FillImage;
+        [SerializeField] GameObject DownloadingScreen;
 
         int _activeLvl = 3;
-        string _privacyLink = "https://sites.google.com/view/sortpaint-privacy-policy/", _adsManagerPath = "SDK/AdsManager";
+        string _privacyLink = "https://sites.google.com/view/sortpaint-privacy-policy/", _adsManagerPath = "SDK/AdsManager",
+               _loadingTxt = "Downloading...     ";
         AsyncOperationHandle<GameObject> _adsManagerhandle;
+        Coroutine _downloadRotine;
 
         private void Start()
         {
@@ -32,14 +37,14 @@ namespace Core.Screen
             {
                 if (FirebaseHandler.I.IsInitialize && RemoteDataHolder.IsInternetWorking)
                 {
-                    if (!InAppPurchaser.IsInitialized)
+                    if(RemoteDataHolder.MaxLevelsAvailable > LevelsManager.I.MaxLvlCount)
                     {
-                        InAppPurchaser.InitializePurchasing();
-                        Invoke(nameof(InitializeAds), 1f);
+                        DownloadingScreen.SetActive(true);
+                        _downloadRotine = StartCoroutine(RemoteDownloadFlow());
                     }
                     else
                     {
-                        InitializeAds();
+                        InitializeSdkAdapters();
                     }
                 }
                 else
@@ -66,6 +71,75 @@ namespace Core.Screen
             }
 
             LevelView.DOScale(1, 1).SetEase(Ease.OutBack).OnComplete(() => LevelsHolder.DOAnchorPosY(150, 1).SetEase(Ease.OutBack));
+        }
+
+        void InitializeSdkAdapters()
+        {
+            if (!InAppPurchaser.IsInitialized)
+            {
+                InAppPurchaser.InitializePurchasing();
+                Invoke(nameof(InitializeAds), 1f);
+            }
+            else
+            {
+                InitializeAds();
+            }
+        }
+
+        IEnumerator RemoteDownloadFlow()
+        {
+            yield return CheckAndUpdateCatalog();
+            yield return DownloadRemoteLevels();
+            LevelsManager.I.MaxLvlCount = RemoteDataHolder.MaxLevelsAvailable;
+            DownloadingScreen.SetActive(false);
+            InitializeSdkAdapters();
+        }
+
+        IEnumerator CheckAndUpdateCatalog()
+        {
+            var checkHandle = Addressables.CheckForCatalogUpdates(false);
+            yield return checkHandle;
+
+            if (checkHandle.Status == AsyncOperationStatus.Succeeded && checkHandle.Result != null && checkHandle.Result.Count > 0)
+            {
+                var updateHandle = Addressables.UpdateCatalogs(checkHandle.Result, false);
+                yield return updateHandle;
+            }
+
+            Addressables.Release(checkHandle);
+        }
+
+        IEnumerator DownloadRemoteLevels()
+        {
+            DownloadingScreen.SetActive(true);
+
+            var sizeHandle = Addressables.GetDownloadSizeAsync("remote_lvl");
+            yield return sizeHandle;
+
+            long downloadSize = sizeHandle.Result;
+
+            if (downloadSize > 0)
+            {
+                var downloadHandle =
+                    Addressables.DownloadDependenciesAsync("remote_lvl", true);
+
+                while (!downloadHandle.IsDone)
+                {
+                    float percent = downloadHandle.PercentComplete;
+                    UpdateLoadingUI(percent);
+                    yield return new WaitForSeconds(0.1f);
+                }
+
+                Addressables.Release(downloadHandle);
+            }
+            UpdateLoadingUI(1);
+        }
+
+        void UpdateLoadingUI(float progress)
+        {
+            FillImage.DOScaleX(progress, 0.1f).SetEase(Ease.Linear).SetUpdate(true);
+            int txtPercent = (int)(progress * 100f);
+            LoadingText.text = _loadingTxt + txtPercent.ToString() + "%";
         }
 
         public void OnClickPlayButton()
@@ -118,6 +192,11 @@ namespace Core.Screen
 
         private async void OnDisable()
         {
+            if(_downloadRotine != null)
+            {
+                StopCoroutine(_downloadRotine);
+                _downloadRotine = null;
+            }
             await ReleaseHandler();
         }
 

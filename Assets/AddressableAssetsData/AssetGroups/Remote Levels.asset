@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Remote Levels
+  m_EditorClassIdentifier: 
+  m_GroupName: Remote Levels
+  m_GUID: 353dff07c90002b4486ade958b3f01b9
+  m_SerializeEntries:
+  - m_GUID: 06d5756246f995d4497ff584e892263e
+    m_Address: Level/Coloring/23
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - remote_lvl
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 15feb8654ed470648acddc189151041e
+    m_Address: Level/Sort/23
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - remote_lvl
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: affc2ee3d8eb5d44db55b74e281373a3
+    m_Address: Level/Reference/23
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - remote_lvl
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 473b0375ea61a5543942b5d8193a6fef, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: e01681c2d69e209479212f2e8ba7d369, type: 2}
+    - {fileID: 11400000, guid: b2ff0362e0f575041875e26bacf0f2db, type: 2}
