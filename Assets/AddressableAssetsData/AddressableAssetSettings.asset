@@ -85,7 +85,7 @@ MonoBehaviour:
       - m_Id: 58507e8b73fe820438fb152123bb9175
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: a8492dd697c60e14e8530873fc2a7cbe
-        m_Value: 'https://playmenu-sorting-painting-android.pages.dev/[BuildTarget] '
+        m_Value: https://sort-paint-anime-art-puz-d825c.web.app
       - m_Id: b8b71fee12e258948ab52d101d9cfcf1
         m_Value: 'ServerData/[BuildTarget] '
     m_ProfileEntryNames:
