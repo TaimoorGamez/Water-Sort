@@ -82,7 +82,7 @@ namespace Core.Screen
 
             if (_itemHandle.Status != AsyncOperationStatus.Succeeded)
             {
-                Debug.LogError($"Failed to load Addressable prefab at: {path}");
+                Debug.Log($"Failed to load Addressable prefab at: {path}");
                 return;
             }
 

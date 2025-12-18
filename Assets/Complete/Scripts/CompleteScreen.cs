@@ -5,14 +5,14 @@ using Core.GamePlay;
 using Core.Plugins.Firebase;
 using Core.States;
 using DG.Tweening;
-using System.Collections;
 using System.IO;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.UI;
 
 namespace Core.Screen
 {
@@ -76,7 +76,7 @@ namespace Core.Screen
 
             if (_txtHandle.Status != AsyncOperationStatus.Succeeded)
             {
-                Debug.LogError($"Failed to load Addressable prefab at: {path}");
+                Debug.Log($"Failed to load Addressable prefab at: {path}");
                 return;
             }
 

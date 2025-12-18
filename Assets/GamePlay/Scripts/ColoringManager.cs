@@ -47,7 +47,7 @@ namespace Core.GamePlay.Coloring
 
             if (_referenceHandle.Status != AsyncOperationStatus.Succeeded)
             {
-                Debug.LogError($"Failed to load Addressable prefab at: {path}");
+                Debug.Log($"Failed to load Addressable prefab at: {path}");
                 return;
             }
 

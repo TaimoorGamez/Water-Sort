@@ -82,7 +82,7 @@ namespace Core.GamePlay.Coloring
 
             if (_sprayHandle.Status != AsyncOperationStatus.Succeeded)
             {
-                Debug.LogError($"Failed to load Addressable prefab at: {path}");
+                Debug.Log($"Failed to load Addressable prefab at: {path}");
                 return;
             }
 
@@ -316,7 +316,7 @@ namespace Core.GamePlay.Coloring
 
             if (_flameHandle.Status != AsyncOperationStatus.Succeeded)
             {
-                Debug.LogError($"Failed to load Addressable prefab at: {path}");
+                Debug.Log($"Failed to load Addressable prefab at: {path}");
                 return;
             }
 

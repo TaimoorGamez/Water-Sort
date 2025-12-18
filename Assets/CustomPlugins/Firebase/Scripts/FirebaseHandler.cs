@@ -48,7 +48,7 @@ namespace Core.Plugins.Firebase
         {
             if (FirebaseApp.DefaultInstance == null)
             {
-                Debug.LogError($"Do not use Firebase until it is properly initialized by calling");
+                Debug.Log($"Do not use Firebase until it is properly initialized by calling");
                 return;
             }
 
@@ -59,7 +59,7 @@ namespace Core.Plugins.Firebase
                {
                    if (!Task.IsCompleted)
                    {
-                       Debug.LogError($"{nameof(remoteConfig.FetchAsync)} incomplete: Status '{Task.Status}'");
+                       Debug.Log($"{nameof(remoteConfig.FetchAsync)} incomplete: Status '{Task.Status}'");
                        return;
                    }
                    ActivateRetrievedRemoteConfigValues();

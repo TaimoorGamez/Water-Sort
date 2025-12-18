@@ -111,7 +111,7 @@ namespace Core.GamePlay
 
             if (_tubeHandle.Status != AsyncOperationStatus.Succeeded)
             {
-                Debug.LogError($"Failed to load Addressable prefab at: {_tubePath}");
+                Debug.Log($"Failed to load Addressable prefab at: {_tubePath}");
                 return;
             }
             _tubePrefab = null;
@@ -131,7 +131,7 @@ namespace Core.GamePlay
 
             if (_lvlHandle.Status != AsyncOperationStatus.Succeeded)
             {
-                Debug.LogError($"Failed to load Addressable prefab at: {path}");
+                Debug.Log($"Failed to load Addressable prefab at: {path}");
                 return;
             }
 

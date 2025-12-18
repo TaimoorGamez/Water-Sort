@@ -104,7 +104,7 @@ namespace Core.Plugins.Ads
             // Raised when the ad failed to open full screen content.
             ad.OnAdFullScreenContentFailed += (AdError error) =>
             {
-                //Debug.LogError("Rewarded ad failed to open full screen content " +
+                //Debug.Log("Rewarded ad failed to open full screen content " +
                 //               "with error : " + error);
                 AdsManager.I.AdPlaying = false;
                 AdsManager.I.AdTimerComplete = false;

@@ -124,7 +124,7 @@ namespace Core.Plugins.Ads
                 {
                     if (initstatus == null)
                     {
-                        Debug.LogError("InitializationStatus is null!");
+                        Debug.Log("InitializationStatus is null!");
                         return;
                     }
                     MobileAds.RaiseAdEventsOnUnityMainThread = true;
@@ -142,7 +142,7 @@ namespace Core.Plugins.Ads
             }
             catch (System.Exception ex)
             {
-                Debug.LogError("AdMob Initialization crashed: " + ex.Message);
+                Debug.Log("AdMob Initialization crashed: " + ex.Message);
             }
         }
 
