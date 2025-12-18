@@ -23,9 +23,9 @@ namespace Core.Screen
         [SerializeField] TextMeshProUGUI LoadingText;
         [SerializeField] Transform LevelView;
         [SerializeField] RectTransform LevelsHolder, FillImage;
-        [SerializeField] GameObject DownloadingScreen;
+        [SerializeField] GameObject DownloadingScreen, FeedbackBtn;
 
-        int _activeLvl = 3;
+        int _activeLvl = 3, requiredFeedbackLvl = 15;
         string _privacyLink = "https://sites.google.com/view/sortpaint-privacy-policy/", _adsManagerPath = "SDK/AdsManager",
                _loadingTxt = "Downloading...     ";
         AsyncOperationHandle<GameObject> _adsManagerhandle;
@@ -51,6 +51,11 @@ namespace Core.Screen
                 {
                     FirebaseHandler.I.InitPlugin();
                 }
+            }
+
+            if(DBVariablesHolder.LvlNum.Value > requiredFeedbackLvl)
+            {
+                FeedbackBtn.SetActive(true);
             }
 
             LevelsManager.I.TempLvlIndex = -1;

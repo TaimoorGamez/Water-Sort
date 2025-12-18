@@ -661,9 +661,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 122519cb37f83b544b26239d0901a26e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
-  LevelCompleteStateIndex: {fileID: 0}
-  SwitchProtectorEvent: {fileID: 11400000, guid: a23a193df529a5742b69a31e2a0a2720, type: 2}
   MyCollider: {fileID: 8351219351031278332}
   SecondCollider: {fileID: 0}
   ThirdCollider: {fileID: 1223959023396332102}
@@ -927,15 +924,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 122519cb37f83b544b26239d0901a26e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
-  LevelCompleteStateIndex: {fileID: 11400000, guid: 372a4013c41549545822b875f34f8aa3, type: 2}
-  SwitchProtectorEvent: {fileID: 0}
   MyCollider: {fileID: 8351219351031278332}
   SecondCollider: {fileID: 1964732830773812797}
   ThirdCollider: {fileID: 1223959023396332102}
-  MyLiquid: {fileID: 0}
-  OtherLiquid: {fileID: 0}
-  ThirdLiquid: {fileID: 0}
+  MyLiquid: {fileID: 8370839497526712387}
+  OtherLiquid: {fileID: 2056577080806075522}
+  ThirdLiquid: {fileID: 1671450998538359033}
   InfoTextObj: {fileID: 3295146771323555393}
   UndoBtn: {fileID: 0}
   HandObj: {fileID: 5544683389306859722}
@@ -943,7 +937,7 @@ MonoBehaviour:
   CurrentColors: []
   IsUndoBtn: 1
   ExtraTube: 0
-  BowlObj: {fileID: 0}
+  BowlObj: {fileID: 1613508317186387605, guid: f2a0fcc19d7d3f54ca8d4d1cfb5cfbce, type: 3}
 --- !u!1001 &5103895360099310060
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1139,9 +1133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 122519cb37f83b544b26239d0901a26e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
-  LevelCompleteStateIndex: {fileID: 0}
-  SwitchProtectorEvent: {fileID: 0}
   MyCollider: {fileID: 1223959023396332102}
   SecondCollider: {fileID: 0}
   ThirdCollider: {fileID: 0}
