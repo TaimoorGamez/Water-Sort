@@ -31,7 +31,7 @@ namespace Core.Screen
             StateManager.I.ActiveState(StateManager.I.GamePlayStatePath);
             StateManager.I.DestroyState(StateManager.I.MainMenuStatePath);
             SimpleEventsHolder.InitLvlEvent?.Invoke();
-            FirebaseHandler.I?.LogEvent($"Glry_Lvl:{_currentLvl}");
+            FirebaseHandler.I?.LogEvent($"Glry_Lvl_{_currentLvl}");
         }
     }
 }

@@ -26,6 +26,7 @@ namespace Core.Screen
             if (msg.Length == 0)
                 return;
 
+            msg = msg.Replace(":", "_");
             FirebaseHandler.I.LogEvent(msg);
             FeedBackField.text = "";
             OnClose();

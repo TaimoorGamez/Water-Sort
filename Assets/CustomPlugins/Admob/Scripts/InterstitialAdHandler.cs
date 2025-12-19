@@ -65,7 +65,7 @@ namespace Core.Plugins.Ads
             {
                 AdsManager.I.AdPlaying = true;
                 Instantiate(AdLoading);
-                FirebaseHandler.I?.LogEvent($"InterAd :{detail}");
+                FirebaseHandler.I?.LogEvent($"InterAd_{detail}");
                 await Task.Delay(1000);
                 _interstitialAd.Show();
                 SimpleEventsHolder.SelfDestructionEvent?.Invoke();

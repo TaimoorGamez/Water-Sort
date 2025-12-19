@@ -163,7 +163,7 @@ namespace Core.Plugins.Ads
             }
             SimpleEventsHolder.GrantRewardEvent?.Invoke();
             DoubleIntegerEventHolder.TaskEvent?.Invoke(0,1);
-            FirebaseHandler.I?.LogEvent($"rvAd :{rewardName}");
+            FirebaseHandler.I?.LogEvent($"rvAd_{rewardName}");
         }
     }
 }

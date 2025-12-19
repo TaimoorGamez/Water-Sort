@@ -31,7 +31,7 @@ namespace Core.Screen
             DBVariablesHolder.Music.Value = DBVariablesHolder.Music.Value == 1 ? 0 : 1;
             SimpleEventsHolder.UpdateMusicStateEvent?.Invoke();
             UpdateMusicUI();
-            FirebaseHandler.I?.LogEvent($"Stg_Music: {DBVariablesHolder.Music.Value}");
+            FirebaseHandler.I?.LogEvent($"Stg_Music_{DBVariablesHolder.Music.Value}");
         }
 
         public void ToggleSound()
@@ -39,7 +39,7 @@ namespace Core.Screen
             DBVariablesHolder.Sound.Value = DBVariablesHolder.Sound.Value == 1 ? 0 : 1;
             SimpleEventsHolder.UpdateSoundStateEvent?.Invoke();
             UpdateSoundUI();
-            FirebaseHandler.I?.LogEvent($"Stg_Sound: {DBVariablesHolder.Sound.Value}");
+            FirebaseHandler.I?.LogEvent($"Stg_Sound_{DBVariablesHolder.Sound.Value}");
         }
 
         void UpdateMusicUI()

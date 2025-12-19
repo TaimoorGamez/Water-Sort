@@ -34,7 +34,7 @@ namespace Core.Screen
         {
             SimpleEventsHolder.RestartLevelEvent?.Invoke();
             OnClose();
-            FirebaseHandler.I?.LogEvent($"fail_lvl:{DBVariablesHolder.LvlIndex.Value}|Rst");
+            FirebaseHandler.I?.LogEvent($"fail_lvl_{DBVariablesHolder.LvlIndex.Value}|Rst");
         }
         public void GoHome()
         {
@@ -42,14 +42,14 @@ namespace Core.Screen
             StateManager.I.ActiveState(StateManager.I.MainMenuStatePath);
             StateManager.I.DestroyState(StateManager.I.GamePlayStatePath);
             OnClose();
-            FirebaseHandler.I?.LogEvent($"fail_lvl:{DBVariablesHolder.LvlIndex.Value}|Home");
+            FirebaseHandler.I?.LogEvent($"fail_lvl_{DBVariablesHolder.LvlIndex.Value}|Home");
         }
 
         public override void OnOpen()
         {
             SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
             Body.DOScale(1, _transitionDuration).SetEase(Ease.OutBack);
-            FirebaseHandler.I?.LogEvent($"fail_lvl:{DBVariablesHolder.LvlIndex.Value}");
+            FirebaseHandler.I?.LogEvent($"fail_Open_lvl_{DBVariablesHolder.LvlIndex.Value}");
         }
 
         public override void OnClose()

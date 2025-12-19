@@ -61,7 +61,7 @@ namespace Core.GamePlay.WaterSort
                         SimpleEventsHolder.UpdateUndoStatusEvent?.Invoke();
                     }
                     DoubleIntegerEventHolder.TaskEvent?.Invoke(3, 1);
-                    FirebaseHandler.I?.LogEvent($"undo_lvl:{DBVariablesHolder.LvlIndex.Value}");
+                    FirebaseHandler.I?.LogEvent($"undo_lvl_{DBVariablesHolder.LvlIndex.Value}");
                 }
                 else
                 {

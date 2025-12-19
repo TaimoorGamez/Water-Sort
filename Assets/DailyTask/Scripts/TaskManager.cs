@@ -100,7 +100,7 @@ namespace Core.DailyTasks
                 if (DBVariableDictionariesHolder.TaskIndexies[t].Value == index)
                 {
                     _activeTasks[t].Progress += progress;
-                    FirebaseHandler.I?.LogEvent($"DT| ID:{index}|P:{progress}");
+                    FirebaseHandler.I?.LogEvent($"DT_ID_{index}|Prog_{progress}");
                 }
             }
         }

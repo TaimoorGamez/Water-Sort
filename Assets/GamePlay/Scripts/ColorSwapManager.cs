@@ -82,7 +82,7 @@ namespace Core.GamePlay.WaterSort
                     SimpleEventsHolder.UpdateSwapStateEvent?.Invoke();
                 }
                 DoubleIntegerEventHolder.TaskEvent?.Invoke(4, 1);
-                FirebaseHandler.I?.LogEvent($"swap_lvl:{DBVariablesHolder.LvlIndex.Value}");
+                FirebaseHandler.I?.LogEvent($"swap_lvl_{DBVariablesHolder.LvlIndex.Value}");
             }
             else
             {
