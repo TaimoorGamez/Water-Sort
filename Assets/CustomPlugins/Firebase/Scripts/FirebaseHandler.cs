@@ -83,7 +83,7 @@ namespace Core.Plugins.Firebase
                    });
             }
 
-            _deviceId = SystemInfo.deviceUniqueIdentifier;
+            string rawId = SystemInfo.deviceUniqueIdentifier; _deviceId = string.IsNullOrEmpty(rawId)? "unknown": rawId.Length > 10? rawId[^10..]: rawId;
         }
 
         public void LogEvent(string eventString)

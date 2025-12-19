@@ -104,9 +104,6 @@ namespace Core.Screen
             screenshot.ReadPixels(new Rect(0, 0, TargetTexture.width, TargetTexture.height), 0, 0);
             screenshot.Apply();
             yield return new WaitForSeconds(0.25f);
-            ScreenshotCamera.targetTexture = null;
-            RenderTexture.active = null;
-
 
             DisplayImage.texture = screenshot;
             string directoryPath = Path.Combine(Application.persistentDataPath, "Paintings");
