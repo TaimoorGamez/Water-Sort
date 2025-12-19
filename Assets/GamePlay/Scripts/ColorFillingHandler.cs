@@ -25,7 +25,7 @@ namespace Core.GamePlay.Coloring
         RectTransform _coloringParTransform;
         Camera _currentCamera;
         Texture2D _partTexture;
-        int _paintingCounter = 0, _totalColorPixles = 1, _coloredPixlesCounter = 0;
+        int _paintingCounter = 0, _totalColorPixles = 1, _coloredPixlesCounter = 0, _previousColoredPixel = 0, _previousPaintingCounter = -1;
         Color32[] _partPixles;
         Color _whiteColor = Color.white;
         ParticleSystem.MainModule _pm;
@@ -146,6 +146,13 @@ namespace Core.GamePlay.Coloring
                     initialOffset = Vector2.zero;
                     if(_canShowNextBtn)
                        TextHolder.SetActive(true);
+                    if (_coloredPixlesCounter > _previousColoredPixel && LevelsManager.I.LevelStars > 1 && _previousPaintingCounter != _paintingCounter
+                        && !LevelsManager.I.CurrentColor.Equals(ColoringPart[_paintingCounter].DefaultColor))
+                    {
+                        LevelsManager.I.LevelStars--;
+                        _previousPaintingCounter = _paintingCounter;
+                    }
+                    _previousColoredPixel = _coloredPixlesCounter;
                 }
                 yield return null; // Yield until the next frame
             }
@@ -243,10 +250,6 @@ namespace Core.GamePlay.Coloring
                 LevelsManager.I.CurrentBowl.BowlState(false);
                 _coloredPixlesCounter = 0;
                 BurshSound.Stop();
-                if (LevelsManager.I.LevelStars > 2 && !LevelsManager.I.CurrentColor.Equals(ColoringPart[_paintingCounter - 1].DefaultColor))
-                {
-                    LevelsManager.I.LevelStars--;
-                }
 
                 if (_paintingCounter < ColoringPart.Length)
                 {

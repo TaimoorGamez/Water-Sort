@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 353dff07c90002b4486ade958b3f01b9
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: ceff46026c1809ddf609724f5d62fdf8
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
@@ -79,15 +79,15 @@ MonoBehaviour:
       m_ProfileName: Default
       m_Values:
       - m_Id: 32d02ef374071da40b1f9562e4daa217
-        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget] '
+        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
       - m_Id: 34e12ee5a174c5f42a3bf14ccf733c8b
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
       - m_Id: 58507e8b73fe820438fb152123bb9175
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: a8492dd697c60e14e8530873fc2a7cbe
-        m_Value: https://sort-paint-anime-art-puz-d825c.web.app
+        m_Value: 'https://sort-paint-anime-art-puz-d825c.web.app/[BuildTarget]'
       - m_Id: b8b71fee12e258948ab52d101d9cfcf1
-        m_Value: 'ServerData/[BuildTarget] '
+        m_Value: 'ServerData/[BuildTarget]'
     m_ProfileEntryNames:
     - m_Id: 32d02ef374071da40b1f9562e4daa217
       m_Name: BuildTarget
