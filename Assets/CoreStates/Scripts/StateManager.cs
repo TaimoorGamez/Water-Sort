@@ -1,4 +1,5 @@
 using UnityEngine;
+using DG.Tweening;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
@@ -66,6 +67,9 @@ namespace Core.States
         {
             if (_loadedStates.TryGetValue(statePath, out GameObject state))
             {
+                DOTween.Kill(state, complete: false);
+                DOTween.Kill(state.transform);
+
                 Destroy(state);
                 _loadedStates.Remove(statePath);
             }
