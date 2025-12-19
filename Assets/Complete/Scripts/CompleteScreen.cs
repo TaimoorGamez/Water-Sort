@@ -20,7 +20,6 @@ namespace Core.Screen
     {
         [SerializeField] TextMeshProUGUI LevelBonusText, StarsBonusText, MovesBonusText, TotalBonusText;
         [SerializeField] Camera ScreenshotCamera;
-        [SerializeField] RenderTexture TargetTexture;
         [SerializeField] RawImage DisplayImage;
         [SerializeField] Image[] StarsImg;
         [SerializeField] RectTransform StarsObj, NextBtn;
@@ -37,6 +36,7 @@ namespace Core.Screen
         string _textPath = "Appreation/Text/";
         GameObject _textObj;
         AsyncOperationHandle _txtHandle;
+        RenderTexture _tempRT;
 
         private void OnEnable()
         {
@@ -92,16 +92,23 @@ namespace Core.Screen
 
         IEnumerator CaptureColoredArea()
         {
-            ScreenshotCamera.targetTexture = TargetTexture;
+            _tempRT = RenderTexture.GetTemporary(
+                150,
+                150,
+                24
+            );
+            _tempRT.filterMode = FilterMode.Bilinear;
+            _tempRT.wrapMode = TextureWrapMode.Clamp;
+            ScreenshotCamera.targetTexture = _tempRT;
             ScreenshotCamera.Render(); 
             int currentLvl = LevelsManager.I.TempLvlIndex != -1 ? LevelsManager.I.TempLvlIndex : DBVariablesHolder.LvlNum.Value;
             yield return new WaitForSeconds(0.01f);
             // Create a new Texture2D
-            Texture2D screenshot = new Texture2D(TargetTexture.width, TargetTexture.height, TextureFormat.RGB24, false);
+            Texture2D screenshot = new Texture2D(_tempRT.width, _tempRT.height, TextureFormat.RGB24, false);
             yield return new WaitForSeconds(0.01f);
             // Read the pixels from the RenderTexture
-            RenderTexture.active = TargetTexture;
-            screenshot.ReadPixels(new Rect(0, 0, TargetTexture.width, TargetTexture.height), 0, 0);
+            RenderTexture.active = _tempRT;
+            screenshot.ReadPixels(new Rect(0, 0, _tempRT.width, _tempRT.height), 0, 0);
             screenshot.Apply();
             yield return new WaitForSeconds(0.25f);
 
