@@ -46,19 +46,13 @@ namespace Core.Screen
         private async void OnDisable()
         {
             SimpleEventsHolder.MultiplayRewardEvent -= OnMultiplyReward;
-            DOTween.Kill(this);
 
             if (_screenShotRotine != null)
                 StopCoroutine(_screenShotRotine);
 
-            if (ScreenshotCamera != null)
-                ScreenshotCamera.targetTexture = null;
+            _tempRT = null;
 
-            if (_tempRT != null)
-            {
-                RenderTexture.ReleaseTemporary(_tempRT);
-                _tempRT = null;
-            }
+
             await ReleaseHandler();
         }
 
@@ -153,7 +147,8 @@ namespace Core.Screen
 
             string json = JsonUtility.ToJson(starsData, true);
             File.WriteAllText(_starsDataPath, json);
-            yield return new WaitForSeconds(0.1f); 
+            yield return new WaitForSeconds(0.1f);
+            ScreenshotCamera.enabled = false;
             _onceClicked = false;
         }
 
