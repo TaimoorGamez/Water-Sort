@@ -29,9 +29,6 @@
     <type fullname="Core.GamePlay.WaterSort.WaterSortTutorialOne" preserve="all" />
     <type fullname="Core.GamePlay.WaterSort.WaterSortTutorialThree" preserve="all" />
     <type fullname="Core.GamePlay.WaterSort.WaterSortTutorialTwo" preserve="all" />
-    <type fullname="Core.Plugins.Ads.AdsManager" preserve="all" />
-    <type fullname="Core.Plugins.Ads.InterstitialAdHandler" preserve="all" />
-    <type fullname="Core.Plugins.Ads.RewardedAdHandler" preserve="all" />
     <type fullname="Core.Purchase.InAppPurchase" preserve="all" />
     <type fullname="Core.Purchase.ProductHandler" preserve="all" />
     <type fullname="Core.Screen.AdBlockingHandler" preserve="all" />
@@ -63,7 +60,6 @@
     <type fullname="Core.SpinWheel.SpinWheelSegment" preserve="all" />
     <type fullname="Core.Store.ImageItemView" preserve="all" />
     <type fullname="Core.Store.MeshItemView" preserve="all" />
-    <type fullname="SelfDestruct" preserve="all" />
     <type fullname="Core.Purchase.NonConsumableProduct" preserve="nothing" serialized="true" />
     <type fullname="Core.Purchase.StoreProduct" preserve="nothing" serialized="true" />
     <type fullname="Core.SpinWheel.SpinWheelConfige" preserve="nothing" serialized="true" />
@@ -85,6 +81,11 @@
     <type fullname="TMPro.TextMeshProUGUI" preserve="all" />
     <type fullname="TMPro.TMP_FontAsset" preserve="all" />
     <type fullname="TMPro.TMP_InputField" preserve="all" />
+    <type fullname="TMPro.TMP_InputField/OnChangeEvent" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_InputField/SelectionEvent" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_InputField/SubmitEvent" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_InputField/TextSelectionEvent" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_InputField/TouchScreenKeyboardEvent" preserve="nothing" serialized="true" />
     <type fullname="TMPro.VertexGradient" preserve="nothing" serialized="true" />
     <type fullname="TMPro.FaceInfo_Legacy" preserve="nothing" serialized="true" />
     <type fullname="TMPro.FontAssetCreationSettings" preserve="nothing" serialized="true" />
@@ -92,11 +93,6 @@
     <type fullname="TMPro.TMP_Character" preserve="nothing" serialized="true" />
     <type fullname="TMPro.TMP_FontFeatureTable" preserve="nothing" serialized="true" />
     <type fullname="TMPro.TMP_FontWeightPair" preserve="nothing" serialized="true" />
-    <type fullname="TMPro.TMP_InputField/OnChangeEvent" preserve="nothing" serialized="true" />
-    <type fullname="TMPro.TMP_InputField/SelectionEvent" preserve="nothing" serialized="true" />
-    <type fullname="TMPro.TMP_InputField/SubmitEvent" preserve="nothing" serialized="true" />
-    <type fullname="TMPro.TMP_InputField/TextSelectionEvent" preserve="nothing" serialized="true" />
-    <type fullname="TMPro.TMP_InputField/TouchScreenKeyboardEvent" preserve="nothing" serialized="true" />
   </assembly>
   <assembly fullname="UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="UnityEngine.Animation" preserve="all" />

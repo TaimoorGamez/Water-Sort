@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GamePlay Items
   m_EditorClassIdentifier: 
   m_GroupName: GamePlay Items
-  m_GUID: c096ce9ce7f670a4b9bbb78db4c10717
+  m_GUID: 56ee44e77ed2a1a44b5c4a1dab092041
   m_SerializeEntries:
   - m_GUID: 0b49ed956e9b556418350f8021e6fee0
     m_Address: GamePlay/Spray/6
@@ -130,8 +130,8 @@ MonoBehaviour:
     - gameplay_item
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
-  m_Settings: {fileID: 11400000, guid: 473b0375ea61a5543942b5d8193a6fef, type: 2}
+  m_Settings: {fileID: 11400000, guid: 08e55d4409f89ac47a12dfaafbfe9821, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 8965cd6c8446a4940804627b293345c5, type: 2}
-    - {fileID: 11400000, guid: 6be4f7209d16bec42829fe518ae34392, type: 2}
+    - {fileID: 11400000, guid: 01a2334dbae6d74459f208d43f43b731, type: 2}
+    - {fileID: 11400000, guid: a4e7bc7f4634a13478e29f7cf2bc7cce, type: 2}

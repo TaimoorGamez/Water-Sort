@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Store Group
+  m_Name: Store Items
   m_EditorClassIdentifier: 
-  m_GroupName: Store Group
-  m_GUID: b153a53c3a77704438a28072b9d20c4c
+  m_GroupName: Store Items
+  m_GUID: 4a51112de49a2754294020a11e59dc42
   m_SerializeEntries:
   - m_GUID: 03ee5b42f10b310458e838c1e0a7bd0c
     m_Address: Store/Cap/2
@@ -124,8 +124,8 @@ MonoBehaviour:
     - store_item
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
-  m_Settings: {fileID: 11400000, guid: 473b0375ea61a5543942b5d8193a6fef, type: 2}
+  m_Settings: {fileID: 11400000, guid: 08e55d4409f89ac47a12dfaafbfe9821, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: ffbf91c2e7e0c9a4eabbfdf2a34c08e4, type: 2}
-    - {fileID: 11400000, guid: fa10babaea28f8141ae59eb126d61494, type: 2}
+    - {fileID: 11400000, guid: 2ee58c74bb32ee54b8a2e348954b82b3, type: 2}
+    - {fileID: 11400000, guid: 9fc3495f47776e2479723e521902ce23, type: 2}

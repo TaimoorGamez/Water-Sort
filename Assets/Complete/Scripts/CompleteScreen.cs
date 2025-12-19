@@ -34,7 +34,7 @@ namespace Core.Screen
         Coroutine _screenShotRotine;
         string _starsDataPath;
         Vector2 _nextBtnPosition = new Vector2(-135, -430);
-        string textFolder = "Appreation/Text/";
+        string _textPath = "Appreation/Text/";
         GameObject _textObj;
         AsyncOperationHandle _txtHandle;
 
@@ -60,7 +60,7 @@ namespace Core.Screen
             { 
                 textNum = Random.Range(1,9);
             }
-            LoadAppreationText(textFolder + textNum);
+            LoadAppreationText(_textPath + textNum);
             LevelsManager.I.SortingCompleted = false;
             _starsDataPath = Path.Combine(Application.persistentDataPath, "starsData.json");
             _screenShotRotine = StartCoroutine(CaptureColoredArea());
