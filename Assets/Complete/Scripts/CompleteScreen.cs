@@ -1,15 +1,15 @@
-using Core.DB.Variables;
-using Core.Economy;
-using Core.Events;
-using Core.GamePlay;
-using Core.Plugins.Firebase;
+using TMPro;
+using System.IO;
+using UnityEngine;
 using Core.States;
 using DG.Tweening;
-using System.IO;
-using TMPro;
-using UnityEngine;
+using Core.Events;
+using Core.Economy;
+using Core.GamePlay;
 using UnityEngine.UI;
+using Core.DB.Variables;
 using System.Collections;
+using Core.Plugins.Firebase;
 using System.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -46,9 +46,18 @@ namespace Core.Screen
         private async void OnDisable()
         {
             SimpleEventsHolder.MultiplayRewardEvent -= OnMultiplyReward;
+            DOTween.Kill(this);
+
             if (_screenShotRotine != null)
-            {
                 StopCoroutine(_screenShotRotine);
+
+            if (ScreenshotCamera != null)
+                ScreenshotCamera.targetTexture = null;
+
+            if (_tempRT != null)
+            {
+                RenderTexture.ReleaseTemporary(_tempRT);
+                _tempRT = null;
             }
             await ReleaseHandler();
         }
