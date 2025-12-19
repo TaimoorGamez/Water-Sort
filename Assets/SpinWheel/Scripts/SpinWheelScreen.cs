@@ -121,7 +121,7 @@ namespace Core.Screen
                     RewardPanel.DOScale(Vector3.one, _tweenDiration).SetEase(Ease.OutBack).OnComplete(() => {
                         Invoke(nameof(CloseRewardPanel), 1);
                         _allSpinSegments[rewardIndex].ChangeGradient(SpinWheelRewards[rewardIndex].SegmentColor);
-                        FirebaseHandler.I?.LogEvent($"SpinW_Rwd|{SpinWheelRewards[rewardIndex].RewardName}");
+                        FirebaseHandler.I?.LogEvent($"SpinW_Rwd_{SpinWheelRewards[rewardIndex].RewardName}");
                     });
                     DBVariablesHolder.SpinAvailable.Value = 0;
                     SpinBtn.SetActive(false);

@@ -34,7 +34,7 @@ namespace Core.Screen
         {
             SimpleEventsHolder.RestartLevelEvent?.Invoke();
             OnClose();
-            FirebaseHandler.I?.LogEvent($"fail_lvl_{DBVariablesHolder.LvlIndex.Value}|Rst");
+            FirebaseHandler.I?.LogEvent($"fail_lvl_{DBVariablesHolder.LvlIndex.Value}_Rst");
         }
         public void GoHome()
         {
@@ -42,7 +42,7 @@ namespace Core.Screen
             StateManager.I.ActiveState(StateManager.I.MainMenuStatePath);
             StateManager.I.DestroyState(StateManager.I.GamePlayStatePath);
             OnClose();
-            FirebaseHandler.I?.LogEvent($"fail_lvl_{DBVariablesHolder.LvlIndex.Value}|Home");
+            FirebaseHandler.I?.LogEvent($"fail_lvl_{DBVariablesHolder.LvlIndex.Value}_Home");
         }
 
         public override void OnOpen()

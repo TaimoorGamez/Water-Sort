@@ -74,7 +74,7 @@ namespace Core.Screen
                         break;
                 }
                 UpdateTasks();
-                FirebaseHandler.I?.LogEvent($"DT_Claim|{_taskClaimed}");
+                FirebaseHandler.I?.LogEvent($"DT_Claim_{_taskClaimed}");
             }
         }
         public override void OnOpen()

@@ -91,7 +91,7 @@ namespace Core.DB.Variables
 
         //---------------------Sound Related ----------------------
         public static DBInt Music = new DBInt("Music", 1);
-        public static DBInt Sound = new DBInt("RewardClaimed", 1);
+        public static DBInt Sound = new DBInt("Sound", 1);
 
         //---------------------Store Data -------------------------
         public static DBInt CurrentActiveCap = new DBInt("CurrentActiveCap", 0);

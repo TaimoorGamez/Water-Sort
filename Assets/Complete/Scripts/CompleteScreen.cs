@@ -65,7 +65,7 @@ namespace Core.Screen
             _starsDataPath = Path.Combine(Application.persistentDataPath, "starsData.json");
             _screenShotRotine = StartCoroutine(CaptureColoredArea());
             DoubleIntegerEventHolder.TaskEvent?.Invoke(1,1);
-            FirebaseHandler.I?.LogEvent($"Lvl_cmp_{DBVariablesHolder.LvlIndex.Value}|Star_{LevelsManager.I.LevelStars}");
+            FirebaseHandler.I?.LogEvent($"Lvl_cmp_{DBVariablesHolder.LvlIndex.Value}_Star_{LevelsManager.I.LevelStars}");
         }
 
 
@@ -104,10 +104,9 @@ namespace Core.Screen
             screenshot.ReadPixels(new Rect(0, 0, TargetTexture.width, TargetTexture.height), 0, 0);
             screenshot.Apply();
             yield return new WaitForSeconds(0.25f);
-            // Reset the RenderTexture
-            RenderTexture.active = null;
-            TargetTexture.Release();
             ScreenshotCamera.targetTexture = null;
+            RenderTexture.active = null;
+
 
             DisplayImage.texture = screenshot;
             string directoryPath = Path.Combine(Application.persistentDataPath, "Paintings");

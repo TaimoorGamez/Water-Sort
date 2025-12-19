@@ -90,9 +90,8 @@ namespace Core.Plugins.Firebase
         {
             if (IsInitialize)
             {
-                eventString = eventString.Replace(":", "_");
-                eventString = eventString.Replace(" ", "");
-                string finalEvent =  $"{eventString}|DeviceId_{_deviceId}";
+                eventString = eventString.Replace(":", "_").Replace("|", "_").Replace(" ", "");
+                string finalEvent =  $"{eventString}_DeviceId_{_deviceId}";
                 FirebaseAnalytics.LogEvent(finalEvent);
             }
         }

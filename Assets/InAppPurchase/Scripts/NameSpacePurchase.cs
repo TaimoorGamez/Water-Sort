@@ -26,7 +26,7 @@ namespace Core.Purchase
         {
             DBVariableDictionariesHolder.NonConsumableProductsData[ProductID].Value = 1;
             InvokeEventFromKey();
-            FirebaseHandler.I?.LogEvent($"IAP|{ProductID}");
+            FirebaseHandler.I?.LogEvent($"IAP_{ProductID}");
         }
 
         void InvokeEventFromKey()
@@ -51,7 +51,7 @@ namespace Core.Purchase
         public override void BuyProduct()
         {
             CurrencyDictionariesHolder.AllCurrencies[CurrencyName].Amount += Amount;
-            FirebaseHandler.I?.LogEvent($"IAP|{CurrencyName}|Amt{Amount}");
+            FirebaseHandler.I?.LogEvent($"IAP_{CurrencyName}_Amt{Amount}");
         }
     }
 }

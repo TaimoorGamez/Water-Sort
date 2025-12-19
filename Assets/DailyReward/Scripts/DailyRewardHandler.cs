@@ -85,7 +85,7 @@ namespace Core.DailyReward
                 ClaimButton.onClick.RemoveListener(OnClickBuyButton);
                 SimpleEventsHolder.DoubleDailyRewardEvent -= GrantDoubleReward;
                 SimpleEventsHolder.UpDateDailyRewardState?.Invoke();
-                FirebaseHandler.I?.LogEvent($"DR|Amt_{Amount}|Day_{RewardDay}");
+                FirebaseHandler.I?.LogEvent($"DR_Amt_{Amount}_Day_{RewardDay}");
             }
         }
 
