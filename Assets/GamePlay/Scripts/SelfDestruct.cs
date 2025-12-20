@@ -3,7 +3,7 @@ using Core.Events;
 
 public class SelfDestruct : MonoBehaviour
 {
-    [SerializeField] float BlasTime;
+    [SerializeField] float DelayTime;
 
     private void OnEnable()
     {
@@ -17,6 +17,6 @@ public class SelfDestruct : MonoBehaviour
 
     void BlastNow()
     {
-        Destroy(gameObject, BlasTime);
+        Destroy(gameObject, DelayTime);
     }
 }

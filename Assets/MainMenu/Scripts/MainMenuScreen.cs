@@ -37,7 +37,7 @@ namespace Core.Screen
             {
                 if (FirebaseHandler.I.IsInitialize && RemoteDataHolder.IsInternetWorking)
                 {
-                    if(RemoteDataHolder.MaxLevelsAvailable > LevelsManager.I.MaxLvlCount)
+                    if(RemoteDataHolder.MaxLevelsAvailable > DBVariablesHolder.MaxLvlCount.Value)
                     {
                         DownloadingScreen.SetActive(true);
                         _downloadRotine = StartCoroutine(RemoteDownloadFlow());
@@ -95,7 +95,7 @@ namespace Core.Screen
         {
             yield return CheckAndUpdateCatalog();
             yield return DownloadRemoteLevels();
-            LevelsManager.I.MaxLvlCount = RemoteDataHolder.MaxLevelsAvailable;
+            DBVariablesHolder.MaxLvlCount.Value = RemoteDataHolder.MaxLevelsAvailable;
             DownloadingScreen.SetActive(false);
             InitializeSdkAdapters();
         }

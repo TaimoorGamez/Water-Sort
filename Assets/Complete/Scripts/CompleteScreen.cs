@@ -233,7 +233,7 @@ namespace Core.Screen
             KillAllTweens();
             SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             Body.DOAnchorPosX(1500, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => {
-                if (DBVariablesHolder.LvlIndex.Value > LevelsManager.I.MaxLvlCount)
+                if (DBVariablesHolder.LvlIndex.Value > DBVariablesHolder.MaxLvlCount.Value)
                 {
                     DBVariablesHolder.LvlIndex.Value = LevelsManager.I.MinLvlCount;
                 }

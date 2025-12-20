@@ -1,10 +1,10 @@
 using Core.Events;
-using Core.GamePlay;
-using Core.Plugins.Firebase;
-using GoogleMobileAds.Api;
-using System.Threading.Tasks;
-using Core.DB.Variables;
 using UnityEngine;
+using Core.GamePlay;
+using Core.DB.Variables;
+using GoogleMobileAds.Api;
+using Core.Plugins.Firebase;
+using System.Threading.Tasks;
 
 namespace Core.Plugins.Ads
 {
@@ -64,7 +64,8 @@ namespace Core.Plugins.Ads
             if (IsAdAvailable)
             {
                 AdsManager.I.AdPlaying = true;
-                Instantiate(AdLoading);
+                if (AdLoading != null)
+                    Instantiate(AdLoading);
                 FirebaseHandler.I?.LogEvent($"InterAd_{detail}");
                 await Task.Delay(1000);
                 _interstitialAd.Show();
