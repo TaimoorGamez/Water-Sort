@@ -59,7 +59,7 @@ namespace Core.Plugins.Ads
             }
         }
 
-        public override async void ShowAd(string detail = "")
+        public override void ShowAd(string detail = "")
         {
             if (IsAdAvailable)
             {
@@ -67,14 +67,17 @@ namespace Core.Plugins.Ads
                 if (AdLoading != null)
                     Instantiate(AdLoading);
                 FirebaseHandler.I?.LogEvent($"InterAd_{detail}");
-                await Task.Delay(1000);
-                _interstitialAd.Show();
-                SimpleEventsHolder.SelfDestructionEvent?.Invoke();
+                Invoke(nameof(ShowIntertitia), 0.5f);
             }
             else if(_interstitialAd == null)
             {
                 LoadAd();
             }
+        }
+
+        void ShowIntertitia()
+        {
+            _interstitialAd.Show();
         }
 
         private void RegisterEventHandlers(InterstitialAd interstitialAd)

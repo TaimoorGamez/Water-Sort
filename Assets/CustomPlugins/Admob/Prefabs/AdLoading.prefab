@@ -405,3 +405,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DelayTime: 2
+  BlastOnStart: 1
