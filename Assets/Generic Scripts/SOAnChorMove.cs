@@ -11,7 +11,10 @@ namespace Core.Animations.DT
         public override void PlayAnimation()
         {
             _objRect = TargetObj.GetComponent<RectTransform>();
-            _tween = _objRect.DOAnchorPos(TargetAction, Duration);
+            if (_objRect == null)
+                return;
+
+            _tween = _objRect.DOAnchorPos(TargetAction, Duration).SetTarget(TargetObj).SetLink(TargetObj, LinkBehaviour.KillOnDestroy);
             base.PlayAnimation();
         }
 

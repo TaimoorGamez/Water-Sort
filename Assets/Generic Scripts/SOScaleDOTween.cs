@@ -8,7 +8,7 @@ namespace Core.Animations.DT
     {
         public override void PlayAnimation()
         {
-            _tween = TargetObj.transform.DOScale(TargetAction, Duration);
+            _tween = TargetObj.transform.DOScale(TargetAction, Duration).SetTarget(TargetObj).SetLink(TargetObj, LinkBehaviour.KillOnDestroy);
             base.PlayAnimation();
         }
 

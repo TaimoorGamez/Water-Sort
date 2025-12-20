@@ -50,9 +50,6 @@ namespace Core.Screen
             if (_screenShotRotine != null)
                 StopCoroutine(_screenShotRotine);
 
-            _tempRT = null;
-
-
             await ReleaseHandler();
         }
 
@@ -233,6 +230,7 @@ namespace Core.Screen
 
         public override void OnClose()
         {
+            KillAllTweens();
             SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             Body.DOAnchorPosX(1500, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => {
                 if (DBVariablesHolder.LvlIndex.Value > LevelsManager.I.MaxLvlCount)
@@ -252,6 +250,18 @@ namespace Core.Screen
                 StateManager.I.DestroyState(StateManager.I.LevelCompleteStatePath);
             });
         }
+
+        void KillAllTweens()
+        {
+            DOTween.Kill(NextBtn.transform);
+            DOTween.Kill(StarsObj.transform);
+            DOTween.Kill(DisplayImage.transform);
+            DOTween.Kill(LevelBonusText.text);
+            DOTween.Kill(StarsBonusText.text);
+            DOTween.Kill(MovesBonusText.text);
+            DOTween.Kill(TotalBonusText.text);
+        }
+
 
         async Task ReleaseHandler()
         {

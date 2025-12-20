@@ -6,7 +6,7 @@ using System.Collections;
 
 namespace Core.Screen
 {
-    public class MultiplierBar : MonoBehaviour
+    public class MultiplierBar : UiScreens
     {
         public int CurrentMultiplier;
 
@@ -23,7 +23,12 @@ namespace Core.Screen
 
         private void Start()
         {
-            _moveCoroutine = StartCoroutine(MoveToNextPoint());
+            OnOpen();
+        }
+
+        public override void OnOpen()
+        {
+            transform.DOScale(0.5f, _transitionDuration).SetEase(Ease.OutBack).OnComplete(() => _moveCoroutine = StartCoroutine(MoveToNextPoint()));
         }
 
         private IEnumerator MoveToNextPoint()
@@ -129,7 +134,14 @@ namespace Core.Screen
             }
         }
 
-        public void StopMovement()
+        public override void OnClose()
+        {
+            base.OnClose();
+            StopMovement();
+            transform.DOScale(0,_transitionDuration).SetEase(Ease.InBack);
+        }
+
+        void StopMovement()
         {
             _canMove = false;
             if (_currentTween != null && _currentTween.IsActive())
@@ -145,7 +157,7 @@ namespace Core.Screen
 
         private void OnDisable()
         {
-            StopMovement();
+            DOTween.Kill(this);
         }
     }
 }
