@@ -142,6 +142,7 @@ namespace Core.GamePlay.WaterSort
                 FirstTube.TubeCap.gameObject.SetActive(false);
                 FirstTube.transform.DOKill();
                 FirstTube.transform.DOScale(_bowlScale, tweenTime);
+                FirstTube.transform.DOLocalMoveZ(0, tweenTime);
                 FirstTube.transform.DOLocalMoveY(_first5Pos, tweenTime).OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
@@ -160,6 +161,7 @@ namespace Core.GamePlay.WaterSort
                 SecondTube.TubeCap.gameObject.SetActive(false);
                 SecondTube.transform.DOKill();
                 SecondTube.transform.DOScale(_bowlScale, tweenTime);
+                SecondTube.transform.DOLocalMoveZ(0, tweenTime);
                 SecondTube.transform.DOLocalMoveY(_first5Pos, tweenTime).OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
@@ -178,6 +180,7 @@ namespace Core.GamePlay.WaterSort
                 ThirdTube.TubeCap.gameObject.SetActive(false);
                 ThirdTube.transform.DOKill();
                 ThirdTube.transform.DOScale(_bowlScale, tweenTime);
+                ThirdTube.transform.DOLocalMoveZ(0, tweenTime);
                 ThirdTube.transform.DOLocalMoveY(_first5Pos, tweenTime).OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
@@ -196,6 +199,7 @@ namespace Core.GamePlay.WaterSort
                 ForthTube.TubeCap.gameObject.SetActive(false);
                 ForthTube.transform.DOKill();
                 ForthTube.transform.DOScale(_bowlScale, tweenTime);
+                ForthTube.transform.DOLocalMoveZ(0, tweenTime);
                 ForthTube.transform.DOLocalMoveY(_first5Pos, tweenTime).OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
@@ -214,6 +218,7 @@ namespace Core.GamePlay.WaterSort
                 FifthTube.TubeCap.gameObject.SetActive(false);
                 FifthTube.transform.DOKill();
                 FifthTube.transform.DOScale(_bowlScale, tweenTime);
+                FifthTube.transform.DOLocalMoveZ(0, tweenTime);
                 FifthTube.transform.DOLocalMoveY(_first5Pos, tweenTime).OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
@@ -233,6 +238,7 @@ namespace Core.GamePlay.WaterSort
                 SixthTube.TubeCap.gameObject.SetActive(false);
                 SixthTube.transform.DOKill();
                 SixthTube.transform.DOScale(_bowlScale, tweenTime);
+                SixthTube.transform.DOLocalMoveZ(0, tweenTime);
                 SixthTube.transform.DOLocalMoveY(_nextPos, tweenTime).OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
