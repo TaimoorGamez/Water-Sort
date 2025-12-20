@@ -1097,9 +1097,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 413addbc900e1d74da78ab06b0629697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SwitchProtectorEvent: {fileID: 11400000, guid: a23a193df529a5742b69a31e2a0a2720, type: 2}
-  CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
-  LevelCompleteStateIndex: {fileID: 11400000, guid: 372a4013c41549545822b875f34f8aa3, type: 2}
   ColliderOne: {fileID: 0}
   ColliderTwo: {fileID: 0}
   ColliderThree: {fileID: 6938949045176832770}
@@ -1112,6 +1109,7 @@ MonoBehaviour:
   FifthTube: {fileID: 3666029037561699324}
   SixthTube: {fileID: 6604872475992754143}
   InfoTextObj: {fileID: 3044361965994056459}
+  SwapBtn: {fileID: 5023921638124432280}
   CurrentColors:
   - {r: 1, g: 0.7254902, b: 0.60784316, a: 1}
   - {r: 0.078431375, g: 0.23529412, b: 0.54901963, a: 1}
@@ -1237,9 +1235,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 413addbc900e1d74da78ab06b0629697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SwitchProtectorEvent: {fileID: 0}
-  CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
-  LevelCompleteStateIndex: {fileID: 0}
   ColliderOne: {fileID: 0}
   ColliderTwo: {fileID: 1423496976135322080}
   ColliderThree: {fileID: 6938949045176832770}
@@ -1252,6 +1247,7 @@ MonoBehaviour:
   FifthTube: {fileID: 0}
   SixthTube: {fileID: 0}
   InfoTextObj: {fileID: 0}
+  SwapBtn: {fileID: 0}
   CurrentColors: []
   IsSwipButton: 0
   IsFirstTube: 1
@@ -1350,9 +1346,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 413addbc900e1d74da78ab06b0629697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SwitchProtectorEvent: {fileID: 0}
-  CanPlay: {fileID: 11400000, guid: a7a714764d2d6a249a0717dd55c23bac, type: 2}
-  LevelCompleteStateIndex: {fileID: 0}
   ColliderOne: {fileID: 5045365827900934022}
   ColliderTwo: {fileID: 3286160852955848154}
   ColliderThree: {fileID: 6938949045176832770}
@@ -1365,6 +1358,7 @@ MonoBehaviour:
   FifthTube: {fileID: 0}
   SixthTube: {fileID: 0}
   InfoTextObj: {fileID: 0}
+  SwapBtn: {fileID: 0}
   CurrentColors: []
   IsSwipButton: 0
   IsFirstTube: 0

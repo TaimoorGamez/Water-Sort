@@ -163,6 +163,7 @@ namespace Core.Screen
         {
             if (AdsManager.I == null)
             {
+                DownloadingScreen.SetActive(true);
                 LoadAdsManager();
             }
             else if (!AdsManager.I.IsInitialized)
@@ -175,7 +176,11 @@ namespace Core.Screen
         {
             _adsManagerhandle = Addressables.LoadAssetAsync<GameObject>(_adsManagerPath);
 
-            await _adsManagerhandle.Task;
+            while (!_adsManagerhandle.IsDone)
+            {
+                UpdateLoadingUI(_adsManagerhandle.PercentComplete);
+                await Task.Yield();
+            }
 
             if (_adsManagerhandle.Status == AsyncOperationStatus.Succeeded)
             {
@@ -193,6 +198,7 @@ namespace Core.Screen
                 Debug.Log("Failed to load AdsManager from Addressables");
                 Addressables.Release(_adsManagerhandle);
             }
+            DownloadingScreen.SetActive(false);
         }
 
         private async void OnDisable()

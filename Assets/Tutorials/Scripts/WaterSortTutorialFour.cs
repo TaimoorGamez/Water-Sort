@@ -10,7 +10,7 @@ namespace Core.GamePlay.WaterSort
     {
         [SerializeField] CapsuleCollider ColliderOne, ColliderTwo, ColliderThree, ColliderFour, ColliderFive;
         [SerializeField] TubeHandler FirstTube, SecondTube, ThirdTube, ForthTube, FifthTube, SixthTube;
-        [SerializeField] GameObject InfoTextObj;
+        [SerializeField] GameObject InfoTextObj, SwapBtn;
         [SerializeField] Color[] CurrentColors;
         [SerializeField] bool IsSwipButton, IsFirstTube, IsLastTube;
         [SerializeField] BowlColorHandler BowlObj;
@@ -18,7 +18,7 @@ namespace Core.GamePlay.WaterSort
 
         Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f);
         int _colorIndex = 0;
-        Vector3 _bowlYPos = new Vector3(-2, 4.5f, 0);
+        float _first5Pos = 4.8f, _nextPos = 3.5f;
         bool _isFirstClick = true;
         float _tutorialAnimationTime = 1;
 
@@ -86,10 +86,9 @@ namespace Core.GamePlay.WaterSort
             SingleIntegerEventsHolder.SwitchProtectorEvent?.Invoke(0);
             LevelsManager.I.CanPlay = true;
             Circle.gameObject.SetActive(true);
-            Circle.DOScale(1, _tutorialAnimationTime).SetEase(Ease.Linear).OnComplete(() => {
-                HandObj.gameObject.SetActive(true);
-                HandObj.DOLocalMoveY(-510, _tutorialAnimationTime).SetEase(Ease.InBack);
-            });
+            HandObj.gameObject.SetActive(true);
+            HandObj.DOLocalMoveY(-510, _tutorialAnimationTime).SetEase(Ease.InBack);
+            Circle.DOScale(1, _tutorialAnimationTime).SetEase(Ease.Linear).OnComplete(()=>SwapBtn.SetActive(true));
         }
 
         private void OnMouseDown()
@@ -101,7 +100,7 @@ namespace Core.GamePlay.WaterSort
                     if (_isFirstClick)
                     {
                         _isFirstClick = false;
-                        HandObj.DOLocalMoveX(-45f, _tutorialAnimationTime).SetEase(Ease.InOutBack);
+                        HandObj.DOLocalMove(new Vector3(-45f, 0, 0), _tutorialAnimationTime).SetEase(Ease.InOutBack);
                         ColliderThree.enabled = false;
                         ColliderTwo.enabled = true;
                         enabled = false;
@@ -143,14 +142,13 @@ namespace Core.GamePlay.WaterSort
                 FirstTube.TubeCap.gameObject.SetActive(false);
                 FirstTube.transform.DOKill();
                 FirstTube.transform.DOScale(_bowlScale, tweenTime);
-                FirstTube.transform.DOLocalMove(_bowlYPos, tweenTime).OnKill(() =>
+                FirstTube.transform.DOLocalMoveY(_first5Pos, tweenTime).OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
                     colorBowl.transform.localPosition = FirstTube.transform.localPosition;
                     colorBowl.SetColor(FirstTube.CurrentColor);
                     Destroy(FirstTube.gameObject, 0.15f);
                 });
-                _bowlYPos += new Vector3(1, 0, 0);
             }
             else
             {
@@ -162,14 +160,13 @@ namespace Core.GamePlay.WaterSort
                 SecondTube.TubeCap.gameObject.SetActive(false);
                 SecondTube.transform.DOKill();
                 SecondTube.transform.DOScale(_bowlScale, tweenTime);
-                SecondTube.transform.DOLocalMove(_bowlYPos, tweenTime).OnKill(() =>
+                SecondTube.transform.DOLocalMoveY(_first5Pos, tweenTime).OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
                     colorBowl.transform.localPosition = SecondTube.transform.localPosition;
                     colorBowl.SetColor(SecondTube.CurrentColor);
                     Destroy(SecondTube.gameObject, 0.15f);
                 });
-                _bowlYPos += new Vector3(1, 0, 0);
             }
             else
             {
@@ -181,14 +178,13 @@ namespace Core.GamePlay.WaterSort
                 ThirdTube.TubeCap.gameObject.SetActive(false);
                 ThirdTube.transform.DOKill();
                 ThirdTube.transform.DOScale(_bowlScale, tweenTime);
-                ThirdTube.transform.DOLocalMove(_bowlYPos, tweenTime).OnKill(() =>
+                ThirdTube.transform.DOLocalMoveY(_first5Pos, tweenTime).OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
                         colorBowl.transform.localPosition = ThirdTube.transform.localPosition;
                         colorBowl.SetColor(ThirdTube.CurrentColor);
                         Destroy(ThirdTube.gameObject, 0.15f);
                 });
-                _bowlYPos += new Vector3(1, 0, 0);
             }
             else
             {
@@ -200,14 +196,13 @@ namespace Core.GamePlay.WaterSort
                 ForthTube.TubeCap.gameObject.SetActive(false);
                 ForthTube.transform.DOKill();
                 ForthTube.transform.DOScale(_bowlScale, tweenTime);
-                ForthTube.transform.DOLocalMove(_bowlYPos, tweenTime).OnKill(() =>
+                ForthTube.transform.DOLocalMoveY(_first5Pos, tweenTime).OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
                     colorBowl.transform.localPosition = ForthTube.transform.localPosition;
                     colorBowl.SetColor(ForthTube.CurrentColor);
                     Destroy(ForthTube.gameObject, 0.15f);
                 });
-                _bowlYPos += new Vector3(1, 0, 0);
             }
             else
             {
@@ -219,7 +214,7 @@ namespace Core.GamePlay.WaterSort
                 FifthTube.TubeCap.gameObject.SetActive(false);
                 FifthTube.transform.DOKill();
                 FifthTube.transform.DOScale(_bowlScale, tweenTime);
-                FifthTube.transform.DOLocalMove(_bowlYPos, tweenTime).OnKill(() =>
+                FifthTube.transform.DOLocalMoveY(_first5Pos, tweenTime).OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
                     colorBowl.transform.localPosition = FifthTube.transform.localPosition;
@@ -227,7 +222,6 @@ namespace Core.GamePlay.WaterSort
                     Destroy(FifthTube.gameObject, 0.15f);
 
                 });
-                _bowlYPos += new Vector3(1, 0, 0);
             }
             else
             {
@@ -239,14 +233,13 @@ namespace Core.GamePlay.WaterSort
                 SixthTube.TubeCap.gameObject.SetActive(false);
                 SixthTube.transform.DOKill();
                 SixthTube.transform.DOScale(_bowlScale, tweenTime);
-                SixthTube.transform.DOLocalMove(_bowlYPos, tweenTime).OnKill(() =>
+                SixthTube.transform.DOLocalMoveY(_nextPos, tweenTime).OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, BowlParent);
                     colorBowl.transform.localPosition = SixthTube.transform.localPosition;
                     colorBowl.SetColor(SixthTube.CurrentColor);
                     Destroy(SixthTube.gameObject, 0.15f);
                 });
-                _bowlYPos += new Vector3(1, 0, 0);
             }
             else
             {

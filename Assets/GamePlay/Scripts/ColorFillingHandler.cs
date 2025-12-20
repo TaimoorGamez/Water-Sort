@@ -20,12 +20,12 @@ namespace Core.GamePlay.Coloring
         [SerializeField] ParticleSystem BrushParitcle;
 
         float _speed = 5, _brushSize = 20, _preparationTime = 1, _fillingCOmpletePercentage = 75;
-        bool _canColor = false, _coloringSound = false, _canShowNextBtn = true, _onceClicked = false, _isReseting = false;
+        bool _canColor = false, _coloringSound = false, _canShowNextBtn = true, _onceClicked = false, _isReseting = false, _startCutforthisPart = false;
         Coroutine _movingRoutine;
         RectTransform _coloringParTransform;
         Camera _currentCamera;
         Texture2D _partTexture;
-        int _paintingCounter = 0, _totalColorPixles = 1, _coloredPixlesCounter = 0, _previousColoredPixel = 0, _previousPaintingCounter = -1;
+        int _paintingCounter = 0, _totalColorPixles = 1, _coloredPixlesCounter = 0, _previousColoredPixel = 0;
         Color32[] _partPixles;
         Color _whiteColor = Color.white;
         ParticleSystem.MainModule _pm;
@@ -144,13 +144,14 @@ namespace Core.GamePlay.Coloring
                     BurshSound.Stop();
                     _coloringSound = false;
                     initialOffset = Vector2.zero;
-                    if(_canShowNextBtn)
+                    if (_canShowNextBtn)
                        TextHolder.SetActive(true);
-                    if (_coloredPixlesCounter > _previousColoredPixel && LevelsManager.I.LevelStars > 1 && _previousPaintingCounter != _paintingCounter
+
+                    if (_coloredPixlesCounter > _previousColoredPixel && LevelsManager.I.LevelStars > 1 && !_startCutforthisPart
                         && !LevelsManager.I.CurrentColor.Equals(ColoringPart[_paintingCounter].DefaultColor))
                     {
                         LevelsManager.I.LevelStars--;
-                        _previousPaintingCounter = _paintingCounter;
+                        _startCutforthisPart = true;
                     }
                     _previousColoredPixel = _coloredPixlesCounter;
                 }
@@ -217,6 +218,11 @@ namespace Core.GamePlay.Coloring
         {
             if (_coloredPixlesCounter < _totalColorPixles)
             {
+                if (LevelsManager.I.LevelStars > 1 && !_startCutforthisPart && !LevelsManager.I.CurrentColor.Equals(ColoringPart[_paintingCounter].DefaultColor))
+                {
+                    LevelsManager.I.LevelStars--;
+                    _startCutforthisPart = true;
+                }
                 for (int p = 0; p < _partPixles.Length; p++)
                 {
                     if (_partPixles[p] == _whiteColor)
@@ -227,6 +233,7 @@ namespace Core.GamePlay.Coloring
                 _partTexture.SetPixels32(_partPixles);
                 _partTexture.Apply();
             }
+            _paintingCounter++;
         }
 
         public void OnNextBtnClick()
@@ -234,7 +241,6 @@ namespace Core.GamePlay.Coloring
             if (!_onceClicked)
             {
                 _onceClicked = true;
-                _paintingCounter++;
                 _canColor = false;
                 TouchProtector.SetActive(true);
                 BrushTransform.gameObject.SetActive(false);
@@ -254,6 +260,7 @@ namespace Core.GamePlay.Coloring
                 if (_paintingCounter < ColoringPart.Length)
                 {
                     BrushTransform.DOAnchorPosX(175, 0.2f).SetEase(Ease.InBack);
+                    _startCutforthisPart = false;
                     _partTexture = ColoringPart[_paintingCounter].GetCurrenTexture();
                     _totalColorPixles = ColoringPart[_paintingCounter].GetColoredPixlesCount();
                     _partPixles = _partTexture.GetPixels32();
@@ -317,6 +324,11 @@ namespace Core.GamePlay.Coloring
             BrushTransform.gameObject.SetActive(true);
             TextHolder.SetActive(true);
             ColoringPart[_paintingCounter].MyAnimation.Play("CurrentColoringPart");
+            if (_startCutforthisPart && LevelsManager.I.LevelStars < 3)
+            {
+                LevelsManager.I.LevelStars++;
+                _startCutforthisPart = false;
+            }
         }
     }
 }

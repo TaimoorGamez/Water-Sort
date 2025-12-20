@@ -444,7 +444,6 @@ MonoBehaviour:
   Tube: {fileID: 0}
   CurrentBowl: {fileID: 0}
   MinLvlCount: 5
-  MaxLvlCount: 22
   LevelStars: 3
   TotalMoves: 0
   CurrrentLvl: 0
