@@ -9,7 +9,7 @@ namespace Core.GamePlay.WaterSort
     public class WaterSortTutorialThree : MonoBehaviour
     {
         [SerializeField] TubeHandler FirstTube, SecondTube, ThirdTube, ForthTube, ExtraTube;
-        [SerializeField] GameObject InfoTextObj;
+        [SerializeField] GameObject InfoTextObj, TubeBtn;
         [SerializeField] Transform HandObj, TutorialCircle;
         [SerializeField] Color[] CurrentColors;
         [SerializeField] BowlColorHandler BowlObj;
@@ -67,7 +67,7 @@ namespace Core.GamePlay.WaterSort
             HandObj.gameObject.SetActive(true);
             TutorialCircle.gameObject.SetActive(true);
             TutorialCircle.DOScale(1, 1f).SetEase(Ease.Linear);
-            HandObj.DOLocalMove(_btnPosition, 1f).SetEase(Ease.InBack);
+            HandObj.DOLocalMove(_btnPosition, 1f).SetEase(Ease.InBack).OnComplete(()=>TubeBtn.SetActive(true));
         }
 
         void ColoringPreparation()
