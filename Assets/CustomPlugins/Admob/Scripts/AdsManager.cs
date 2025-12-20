@@ -242,7 +242,7 @@ namespace Core.Plugins.Ads
 
         IEnumerator CountAdBreak()
         {
-            yield return new WaitForSeconds(RemoteDataHolder.AdData.Ad_Show_Time);
+            yield return new WaitForSeconds(RemoteDataHolder.AdData.AdShowTime);
             AdTimerComplete = true;
 
             if (_adsRotine != null)

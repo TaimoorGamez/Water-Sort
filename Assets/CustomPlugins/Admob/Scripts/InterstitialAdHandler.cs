@@ -4,7 +4,6 @@ using Core.GamePlay;
 using Core.DB.Variables;
 using GoogleMobileAds.Api;
 using Core.Plugins.Firebase;
-using System.Threading.Tasks;
 
 namespace Core.Plugins.Ads
 {

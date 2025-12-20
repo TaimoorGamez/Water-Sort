@@ -2,7 +2,6 @@ using Core.DB.Variables;
 using Core.Events;
 using Core.Plugins.Firebase;
 using DG.Tweening;
-using System;
 using UnityEngine;
 
 namespace Core.Screen
@@ -34,8 +33,6 @@ namespace Core.Screen
 
         void BlockAdForTime()
         {
-            DBVariablesHolder.AdBlocked.Value = 1;
-            DBVariablesHolder.AdBlockingTime.Value = DateTime.Now.ToString();
             RvBtn.SetActive(false);
             TimerObj.SetActive(true);
             OnClose();

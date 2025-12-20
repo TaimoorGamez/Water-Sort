@@ -37,7 +37,7 @@ namespace Core.Plugins
     public class AdConfig
     {
         public bool CanShowAds = false, CanPurchase = false;
-        public float Ad_Show_Time = 0;
+        public float AdShowTime = 0, AdBlockTime = 5;
         public bool Interstitial = false, Rewarded = false;
     }
 
