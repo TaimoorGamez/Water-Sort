@@ -10,7 +10,6 @@ using Core.Plugins.Ads;
 using Core.DB.Variables;
 using System.Collections;
 using Core.Plugins.Firebase;
-using System.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
@@ -161,68 +160,16 @@ namespace Core.Screen
 
         private void InitializeAds()
         {
-            if (AdsManager.I == null)
-            {
-                DownloadingScreen.SetActive(true);
-                LoadAdsManager();
-            }
-            else if (!AdsManager.I.IsInitialized)
-            {
-                AdsManager.I.InitPlugin();
-            }
+            AdsManager.I?.InitPlugin();
         }
 
-        async void LoadAdsManager()
-        {
-            _adsManagerhandle = Addressables.LoadAssetAsync<GameObject>(_adsManagerPath);
-
-            while (!_adsManagerhandle.IsDone)
-            {
-                UpdateLoadingUI(_adsManagerhandle.PercentComplete);
-                await Task.Yield();
-            }
-
-            if (_adsManagerhandle.Status == AsyncOperationStatus.Succeeded)
-            {
-                GameObject adsObj = Instantiate(_adsManagerhandle.Result);
-                adsObj.name = "AdsManager";
-
-                // Give 1 frame so Awake() runs & singleton is assigned
-                await Task.Delay(1000);
-
-                // Init ads
-                AdsManager.I?.InitPlugin();
-            }
-            else
-            {
-                Debug.Log("Failed to load AdsManager from Addressables");
-                Addressables.Release(_adsManagerhandle);
-            }
-
-            if(DownloadingScreen!=null)
-                DownloadingScreen.SetActive(false);
-        }
-
-        private async void OnDisable()
+        private void OnDisable()
         {
             if(_downloadRotine != null)
             {
                 StopCoroutine(_downloadRotine);
                 _downloadRotine = null;
             }
-            await ReleaseHandler();
-        }
-
-        async Task ReleaseHandler()
-        {
-            if (!_adsManagerhandle.IsValid())
-                return;
-
-            Addressables.Release(_adsManagerhandle);
-            while (_adsManagerhandle.IsValid())
-                await Task.Yield();
-
-            await Task.Yield();
         }
     }
 }
