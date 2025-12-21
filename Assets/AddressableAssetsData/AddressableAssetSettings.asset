@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468a46d0ae32c3544b7d98094e6448a9, type: 3}
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
-  m_DefaultGroup: 50e7b67124b469d4eb7b1a3d70df6297
+  m_DefaultGroup: b4dfeee0de7aa3e41803e24405f889dd
   m_currentHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
@@ -66,6 +66,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ac5fc11fd9b4b234cbd5607d59aab615, type: 2}
   - {fileID: 11400000, guid: 5ae6c77c3e835584393e6c7d91f82e5e, type: 2}
   - {fileID: 11400000, guid: 65d28c886e65ccb4dbb082edbbea4635, type: 2}
+  - {fileID: 11400000, guid: a02a4c7ce30c95244aaadd5a322d4d63, type: 2}
   - {fileID: 11400000, guid: 865e3fe5d36c461448241eab7acbdbf3, type: 2}
   m_BuildSettings:
     m_LogResourceManagerExceptions: 1
@@ -79,7 +80,7 @@ MonoBehaviour:
       - m_Id: 5a8c92cc98e5d3c4f8868324878a46fb
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
       - m_Id: 6549233b74505eb4d9796cd9b2ac6b45
-        m_Value: <undefined>
+        m_Value: 'https://sort-paint-anime-art-puz-d825c.web.app/[BuildTarget]'
       - m_Id: 6ea824d445d0fb04e8350a27e6e10e18
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: 95d849656ef7941499d785c027e042b9
@@ -112,6 +113,7 @@ MonoBehaviour:
     - local_lvl
     - gameplay_item
     - sdk
+    - remote_lvl
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 8a3dea8bfef544c40afef856c576c446, type: 2}
