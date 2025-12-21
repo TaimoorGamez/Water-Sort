@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Duplicate Asset Isolation
   m_EditorClassIdentifier: 
   m_GroupName: Duplicate Asset Isolation
-  m_GUID: e435abd6e99e8654c8e9e308a3172bdc
+  m_GUID: 04c9a4b1c585772459736d51333bb9d3
   m_SerializeEntries:
   - m_GUID: 0406db5a14f94604a8c57ccfbc9f3b46
     m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Particles/ParticlesUnlit.shader
@@ -157,11 +157,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6030f8cfc8c3f4240ba884e4f9390a7a
     m_Address: Assets/3dModles/source/StarCap.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 62177c4b4f0c8094188957ed86205dc4
-    m_Address: Assets/Splash/Sprites/logo.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -362,6 +357,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d7bb2be1973ca8e429d2aa7305d53124
     m_Address: Assets/3dModles/source/GlassTube.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: de92fd8cc582e1d4c81b36e7c2641b1c
+    m_Address: Assets/UI/ShaderGraphs/UIAdditive.shader
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
