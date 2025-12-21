@@ -17,8 +17,8 @@ namespace Core.Events
         SelfDestructionEvent, HideColorBowlEvent, CheckCompleteEvent,
         StartColoringEvent, ColorSelectedEvent, DestroyLevelEvent, InitLvlEvent,
         MoreMovesEvent, UpdateMovesEvent, RestartLevelEvent, ExtraTubeEvent,
-        UpdateExtraTubeStatEvent, RegisterMoveEvent, UndoEvent, UpdateUndoStatusEvent,
-        SwapColorsEvent, UpdateSwapStateEvent,
+        UpdateExtraTubeStatusEvent, RegisterMoveEvent, UndoEvent, UpdateUndoStatusEvent,
+        SwapColorsEvent, UpdateSwapStatusEvent, UpdatePowerBtnsUIEvent,
 
         //-------------------Sound Events-------------------
         BtnPressSfxEvent, UpdateMusicStateEvent, UpdateSoundStateEvent,
@@ -77,8 +77,8 @@ namespace Core.Events
         public static Dictionary<string, GameEvent> UpdatePowerStatusEvent = new Dictionary<string, GameEvent>(StringComparer.Ordinal)
         {
             { "SortUndo", SimpleEventsHolder.UpdateUndoStatusEvent },
-            { "SwapColor", SimpleEventsHolder.UpdateSwapStateEvent },
-            { "ExtraTube", SimpleEventsHolder.UpdateExtraTubeStatEvent }
+            { "SwapColor", SimpleEventsHolder.UpdateSwapStatusEvent },
+            { "ExtraTube", SimpleEventsHolder.UpdateExtraTubeStatusEvent }
         };
 
         public static Dictionary<string, GameEvent> RewardPowerEvent = new Dictionary<string, GameEvent>(StringComparer.Ordinal)

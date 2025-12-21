@@ -285,7 +285,7 @@ namespace Core.GamePlay
                 newTube.transform.position = TubePositions[_totalTubesCount];
                 _totalTubesCount++;
                 _totalTubes.Add(newTube);
-                SimpleEventsHolder.UpdateExtraTubeStatEvent?.Invoke();
+                SimpleEventsHolder.UpdateExtraTubeStatusEvent?.Invoke();
                 DoubleIntegerEventHolder.TaskEvent?.Invoke(5, 1);
                 FirebaseHandler.I?.LogEvent($"ExTube_lvl_{DBVariablesHolder.LvlIndex.Value}");
             }

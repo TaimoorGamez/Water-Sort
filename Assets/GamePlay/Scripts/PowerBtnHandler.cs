@@ -16,25 +16,18 @@ namespace Core.Screen
 
         private void OnEnable()
         {
-            EventDictionariesHolder.RewardPowerEvent[PowerName] += RewardPower; 
-            if (EventDictionariesHolder.UpdatePowerStatusEvent.TryGetValue(PowerName, out var powerEvent))
-            {
-                powerEvent += ChangeStatus;
-                EventDictionariesHolder.UpdatePowerStatusEvent[PowerName] = powerEvent;
-            }
+            RewardPowerEventsHandler.I.BindEvent(PowerName, RewardPower);
+            UpdatePowerStatusEventsHandler.I.BindEvent(PowerName, ChangeStatus);
+            SimpleEventsHolder.UpdatePowerBtnsUIEvent += PowerStatus;
 
             PowerStatus();
         }
 
         private void OnDisable()
         {
-            EventDictionariesHolder.RewardPowerEvent[PowerName] -= RewardPower;
-            if (EventDictionariesHolder.UpdatePowerStatusEvent.TryGetValue(PowerName, out var powerEvent))
-            {
-                powerEvent -= ChangeStatus;
-                EventDictionariesHolder.UpdatePowerStatusEvent[PowerName] = powerEvent;
-            }
-
+            RewardPowerEventsHandler.I.UnBindEvent(PowerName, RewardPower);
+            UpdatePowerStatusEventsHandler.I.UnBindEvent(PowerName, ChangeStatus);
+            SimpleEventsHolder.UpdatePowerBtnsUIEvent -= PowerStatus;
         }
 
         void PowerStatus()
@@ -59,23 +52,22 @@ namespace Core.Screen
 
         void ChangeStatus()
         {
-            Debug.Log("Change Status Called");
             if (DBVariableDictionariesHolder.PowerStatusData[PowerName].Value > 0)
             {
                 DBVariableDictionariesHolder.PowerStatusData[PowerName].Value--;
             }
             else if (CurrenciesHolder.CashCurrency.Amount >= Price)
             {
-                CurrenciesHolder.CashCurrency.Amount-= Price;
+                CurrenciesHolder.CashCurrency.Amount -= Price;
             }
-            PowerStatus();
+            SimpleEventsHolder.UpdatePowerBtnsUIEvent?.Invoke();
         }
 
         public void OnClickPowerBtn()
         {
             if (DBVariableDictionariesHolder.PowerStatusData[PowerName].Value > 0 || CurrenciesHolder.CashCurrency.Amount >= Price)
             {
-                EventDictionariesHolder.PowerEvents[PowerName]?.Invoke();
+                PowerEventsHandler.I.TriggerEvent(PowerName);
             }
             else
             {

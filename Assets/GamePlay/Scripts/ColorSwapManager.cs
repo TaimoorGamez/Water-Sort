@@ -79,7 +79,7 @@ namespace Core.GamePlay.WaterSort
                 SwapingTubes[1].SwapeColor(oneColor);
                 if (DBVariablesHolder.LvlNum.Value >= LevelsManager.I.MinLvlCount)
                 {
-                    SimpleEventsHolder.UpdateSwapStateEvent?.Invoke();
+                    SimpleEventsHolder.UpdateSwapStatusEvent?.Invoke();
                 }
                 DoubleIntegerEventHolder.TaskEvent?.Invoke(4, 1);
                 FirebaseHandler.I?.LogEvent($"swap_lvl_{DBVariablesHolder.LvlIndex.Value}");

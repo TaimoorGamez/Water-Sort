@@ -6,6 +6,6 @@ namespace Core.Events
     {
         public virtual void BindEvent(string name, GameEvent fun) { }
         public virtual void UnBindEvent(string name, GameEvent fun) { }
-        public virtual void InvokeEvent(string name) { }
+        public virtual void TriggerEvent(string name) { }
     }
 }

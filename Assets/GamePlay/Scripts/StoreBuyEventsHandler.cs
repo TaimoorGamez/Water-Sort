@@ -51,7 +51,7 @@ namespace Core.Events {
             }
         }
 
-        public override void InvokeEvent(string name)
+        public override void TriggerEvent(string name)
         {
             switch (name)
             {
