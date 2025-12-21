@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Duplicate Asset Isolation
   m_EditorClassIdentifier: 
   m_GroupName: Duplicate Asset Isolation
-  m_GUID: 04c9a4b1c585772459736d51333bb9d3
+  m_GUID: b06f4dd7280ab8c4faa190c539d14ff0
   m_SerializeEntries:
   - m_GUID: 0406db5a14f94604a8c57ccfbc9f3b46
     m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Particles/ParticlesUnlit.shader
@@ -27,6 +27,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0648c05403788fe4095f92ccc4937e15
     m_Address: Assets/GamePlay/Materials/CapMaterial.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 083c33b56029fea4caa9766c12054ddf
+    m_Address: Assets/GamePlay/Animations/legacy/CurrentColoringPart.anim
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -155,6 +160,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5fc3b2fb3198c284f8ae878289cd6510
+    m_Address: Assets/GamePlay/Animations/legacy/Brush Movement.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6030f8cfc8c3f4240ba884e4f9390a7a
     m_Address: Assets/3dModles/source/StarCap.fbx
     m_ReadOnly: 0
@@ -167,6 +177,16 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 68e6db2ebdc24f95958faec2be5558d6
     m_Address: Assets/TextMesh Pro/Shaders/TMP_SDF.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6b1ea60c69f3b654bbb89fddf42a9f6e
+    m_Address: Assets/GamePlay/Animations/TextUPScale.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6c045eef97e8fe14484fc70b31dfd794
+    m_Address: Assets/UI/Sprites/recycle.png
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -280,6 +300,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 992681ded4241e548a44b7aa05485a05
+    m_Address: Assets/UI/Sprites/cloud.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9930aac458885af4e8f4f5ba73965382
     m_Address: Assets/UI/Sprites/BrushHook.png
     m_ReadOnly: 0
@@ -287,6 +312,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a08810e2288b18b4c8e35d6da3b58571
     m_Address: Assets/UI/Sprites/Bubble.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a6582f934a452a24d81587b976b46ab5
+    m_Address: Assets/Sfx/Sounds/Coloring.mp3
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -330,6 +360,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b8286d7a2b2132e4d97255273299a70c
+    m_Address: Assets/GamePlay/Animations/TextDownScale.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bd6d8eb75d0de544aa4fc60891507a60
     m_Address: Assets/GamePlay/Animations/legacy/Liquid 33.anim
     m_ReadOnly: 0
@@ -347,6 +382,16 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c6b38062ec6b4c047ad36771d039a088
     m_Address: Assets/GamePlay/Animations/legacy/Liquid 31.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c88ae0fdb0aef7a409ed67bd51c1412e
+    m_Address: Assets/GamePlay/Animations/legacy/DefaultColoringPart.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb3b7a5c1d4dffd4a9858e1156bb4433
+    m_Address: Assets/GamePlay/Materials/StarParticles.mat
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
