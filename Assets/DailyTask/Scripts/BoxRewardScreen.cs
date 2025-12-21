@@ -22,6 +22,7 @@ namespace Core.Screen
         Vector2 _cardPosition = new Vector2(0, -350);
         string _flamesPath = "Store/Flame/", _capsPath = "Store/Cap/", _spraysPath = "Store/Spray/";
         AsyncOperationHandle _itemHandle;
+        bool _itemReleaseInProgress = false;
 
         private void Start()
         {
@@ -90,9 +91,6 @@ namespace Core.Screen
             
             await Task.Yield();
             await Task.Yield();
-
-            while (itemObj == null)
-                await Task.Yield();
         }
 
         void StartUnBoxsing()
@@ -133,17 +131,29 @@ namespace Core.Screen
 
         private async void OnDisable()
         {
-            await ReleaseHandler();
+            await ReleaseItemHandleSafelyAsync();
         }
-
-        async Task ReleaseHandler()
+        async Task ReleaseItemHandleSafelyAsync()
         {
-            if (!_itemHandle.IsValid())
+            if (_itemReleaseInProgress)
                 return;
 
-            Addressables.Release(_itemHandle);
-            while (_itemHandle.IsValid())
-                await Task.Yield();
+            _itemReleaseInProgress = true;
+
+            // wait for next frame (Unity safe point)
+            await Task.Yield();
+
+            if (_itemHandle.IsValid())
+            {
+                Addressables.Release(_itemHandle);
+                _itemHandle = default;
+            }
+
+            // optional extra frame (Android / scene safety)
+            await Task.Yield();
+
+            _itemReleaseInProgress = false;
         }
+
     }
 }

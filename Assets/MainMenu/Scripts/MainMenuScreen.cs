@@ -1,15 +1,17 @@
-using TMPro;
-using UnityEngine;
+using Core.DB.Variables;
+using Core.Events;
+using Core.GamePlay;
+using Core.Plugins;
+using Core.Plugins.Ads;
+using Core.Plugins.Firebase;
+using Core.Purchase;
 using Core.States;
 using DG.Tweening;
-using Core.Events;
-using Core.Plugins;
-using Core.Purchase;
-using Core.GamePlay;
-using Core.Plugins.Ads;
-using Core.DB.Variables;
 using System.Collections;
-using Core.Plugins.Firebase;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using TMPro;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
@@ -25,10 +27,13 @@ namespace Core.Screen
         [SerializeField] GameObject DownloadingScreen, FeedbackBtn;
 
         int _activeLvl = 3, requiredFeedbackLvl = 15;
-        string _privacyLink = "https://sites.google.com/view/sortpaint-privacy-policy/", _adsManagerPath = "SDK/AdsManager",
-               _loadingTxt = "Downloading...     ";
-        AsyncOperationHandle<GameObject> _adsManagerhandle;
+        string _privacyLink = "https://sites.google.com/view/sortpaint-privacy-policy/", _loadingTxt = "Downloading...     ";
         Coroutine _downloadRotine;
+        AsyncOperationHandle<List<string>> _checkCatalogHandle;
+        AsyncOperationHandle _updateCatalogHandle;
+        AsyncOperationHandle<long> _sizeHandle;
+        AsyncOperationHandle _downloadHandle;
+        bool _releaseInProgress = false;
 
         private void Start()
         {
@@ -98,44 +103,41 @@ namespace Core.Screen
             DownloadingScreen.SetActive(false);
             InitializeSdkAdapters();
         }
-
         IEnumerator CheckAndUpdateCatalog()
         {
-            var checkHandle = Addressables.CheckForCatalogUpdates(false);
-            yield return checkHandle;
+            _checkCatalogHandle = Addressables.CheckForCatalogUpdates(false);
+            yield return _checkCatalogHandle;
 
-            if (checkHandle.Status == AsyncOperationStatus.Succeeded && checkHandle.Result != null && checkHandle.Result.Count > 0)
+            if (_checkCatalogHandle.Status == AsyncOperationStatus.Succeeded &&
+                _checkCatalogHandle.Result != null &&
+                _checkCatalogHandle.Result.Count > 0)
             {
-                var updateHandle = Addressables.UpdateCatalogs(checkHandle.Result, false);
-                yield return updateHandle;
-            }
+                _updateCatalogHandle =
+                    Addressables.UpdateCatalogs(_checkCatalogHandle.Result, false);
 
-            Addressables.Release(checkHandle);
+                yield return _updateCatalogHandle;
+            }
         }
 
         IEnumerator DownloadRemoteLevels()
         {
-            DownloadingScreen.SetActive(true);
+            _sizeHandle = Addressables.GetDownloadSizeAsync("remote_lvl");
+            yield return _sizeHandle;
 
-            var sizeHandle = Addressables.GetDownloadSizeAsync("remote_lvl");
-            yield return sizeHandle;
-
-            long downloadSize = sizeHandle.Result;
+            long downloadSize = _sizeHandle.Result;
 
             if (downloadSize > 0)
             {
-                var downloadHandle =
+                _downloadHandle =
                     Addressables.DownloadDependenciesAsync("remote_lvl", true);
 
-                while (!downloadHandle.IsDone)
+                while (!_downloadHandle.IsDone)
                 {
-                    float percent = downloadHandle.PercentComplete;
-                    UpdateLoadingUI(percent);
-                    yield return new WaitForSeconds(0.1f);
+                    UpdateLoadingUI(_downloadHandle.PercentComplete);
+                    yield return null;
                 }
-
-                Addressables.Release(downloadHandle);
             }
+
             UpdateLoadingUI(1);
         }
 
@@ -163,13 +165,50 @@ namespace Core.Screen
             AdsManager.I?.InitPlugin();
         }
 
-        private void OnDisable()
+        private async void OnDisable()
         {
             if(_downloadRotine != null)
             {
                 StopCoroutine(_downloadRotine);
                 _downloadRotine = null;
             }
+            await ReleaseAllAddressableHandlesSafelyAsync();
         }
+
+        async Task ReleaseAllAddressableHandlesSafelyAsync()
+        {
+            if (_releaseInProgress)
+                return;
+
+            _releaseInProgress = true;
+
+            await Task.Yield();
+
+
+            if (_downloadHandle.IsValid())
+            {
+                Addressables.Release(_downloadHandle);
+                _downloadHandle = default;
+            }
+            if (_sizeHandle.IsValid())
+            {
+                Addressables.Release(_sizeHandle);
+                _sizeHandle = default;
+            }
+            if (_updateCatalogHandle.IsValid())
+            {
+                Addressables.Release(_updateCatalogHandle);
+                _updateCatalogHandle = default;
+            }
+            if (_checkCatalogHandle.IsValid())
+            {
+                Addressables.Release(_checkCatalogHandle);
+                _checkCatalogHandle = default;
+            }
+            await Task.Yield();
+
+            _releaseInProgress = false;
+        }
+
     }
 }

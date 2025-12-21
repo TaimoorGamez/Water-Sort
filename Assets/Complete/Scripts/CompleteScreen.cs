@@ -28,7 +28,7 @@ namespace Core.Screen
 
 
         float _starsPos = 100, _durationTweeing = 1f;
-        bool _onceClicked = true;
+        bool _onceClicked = true, _txtReleaseInProgress = false;
         int _levelBonus = 15, _starsBonus = 10, _totalBonus = 0; 
         Coroutine _screenShotRotine;
         string _starsDataPath;
@@ -50,7 +50,7 @@ namespace Core.Screen
             if (_screenShotRotine != null)
                 StopCoroutine(_screenShotRotine);
 
-            await ReleaseHandler();
+            await ReleaseTextHandleSafelyAsync();
         }
 
         void Start()
@@ -85,9 +85,6 @@ namespace Core.Screen
 
             await Task.Yield();
             await Task.Yield();
-
-            while (_textObj == null)
-                await Task.Yield();
         }
 
         IEnumerator CaptureColoredArea()
@@ -261,16 +258,27 @@ namespace Core.Screen
             DOTween.Kill(MovesBonusText.text);
             DOTween.Kill(TotalBonusText.text);
         }
-
-
-        async Task ReleaseHandler()
+        async Task ReleaseTextHandleSafelyAsync()
         {
-            if(!_txtHandle.IsValid())
+            if (_txtReleaseInProgress)
                 return;
 
-            Addressables.Release(_txtHandle);
-            while (_txtHandle.IsValid())
-                await Task.Yield();
+            _txtReleaseInProgress = true;
+
+            // wait one frame – Unity safe point
+            await Task.Yield();
+
+            if (_txtHandle.IsValid())
+            {
+                Addressables.Release(_txtHandle);
+                _txtHandle = default;
+            }
+
+            // optional extra frame (Android / scene safety)
+            await Task.Yield();
+
+            _txtReleaseInProgress = false;
         }
+
     }
 }

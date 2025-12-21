@@ -11,6 +11,7 @@ namespace Core.GamePlay.WaterSort
         string _capsPath = "GamePlay/Cap/";
         CapAnimation _myAnimation;
         AsyncOperationHandle _capHandle;
+        bool _capReleaseInProgress = false;
 
         private void Start()
         {
@@ -34,8 +35,7 @@ namespace Core.GamePlay.WaterSort
             await Task.Yield();
             _myAnimation = obj.GetComponent<CapAnimation>();
 
-            while (_myAnimation == null)
-                await Task.Yield();
+            await Task.Yield();
         }
 
         public void PlayCelebration(Color currentColor)
@@ -51,17 +51,28 @@ namespace Core.GamePlay.WaterSort
 
         private async void OnDisable()
         {
-            await ReleaseHandler();
+            await ReleaseCapHandleSafelyAsync();
         }
 
-        async Task ReleaseHandler()
+        async Task ReleaseCapHandleSafelyAsync()
         {
-            if (!_capHandle.IsValid())
+            if (_capReleaseInProgress)
                 return;
 
-            Addressables.Release(_capHandle);
-            while (_capHandle.IsValid())
-                await Task.Yield();
+            _capReleaseInProgress = true;
+
+            await Task.Yield();
+
+            if (_capHandle.IsValid())
+            {
+                Addressables.Release(_capHandle);
+                _capHandle = default;
+            }
+
+            await Task.Yield();
+
+            _capReleaseInProgress = false;
         }
+
     }
 }

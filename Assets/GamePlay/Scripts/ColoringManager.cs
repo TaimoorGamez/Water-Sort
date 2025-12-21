@@ -16,6 +16,7 @@ namespace Core.GamePlay.Coloring
         float _preparationTime = 1;
         string _refferancePath = "Level/Reference/";
         AsyncOperationHandle _referenceHandle;
+        bool _referenceReleaseInProgress = false;
 
         private void OnEnable()
         {
@@ -25,7 +26,7 @@ namespace Core.GamePlay.Coloring
         private async void OnDisable()
         {
             SimpleEventsHolder.StartColoringEvent -= StartColoring;
-            await ReleaseHandler();
+            await ReleaseReferenceHandleSafelyAsync();
         }
 
         void StartColoring()
@@ -53,20 +54,27 @@ namespace Core.GamePlay.Coloring
             GameObject referenceObj = Instantiate(_referenceHandle.Result as GameObject, RefferanceBar.GetChild(0));
 
             await Task.Yield();
-            await Task.Yield();
-
-            while (referenceObj == null)
-                await Task.Yield();
         }
 
-        async Task ReleaseHandler()
+        async Task ReleaseReferenceHandleSafelyAsync()
         {
-            if(!_referenceHandle.IsValid())
+            if (_referenceReleaseInProgress)
                 return;
 
-            Addressables.Release(_referenceHandle);
-            while (_referenceHandle.IsValid())
-                await Task.Yield();
+            _referenceReleaseInProgress = true;
+
+            await Task.Yield();
+
+            if (_referenceHandle.IsValid())
+            {
+                Addressables.Release(_referenceHandle);
+                _referenceHandle = default;
+            }
+
+            await Task.Yield();
+
+            _referenceReleaseInProgress = false;
         }
+
     }
 }

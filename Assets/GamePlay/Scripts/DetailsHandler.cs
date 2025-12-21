@@ -27,7 +27,7 @@ namespace Core.GamePlay.Coloring
 
         float _speed = 5, _brushSize = 25, _preparationTime = 0.5f, _finalPos = 175, _detailFillingTime = 0.1f;
         bool _canSpray = false, _effectCheck = false, _canShowNextBtn = true, _onceClicked = true, _canThrowFlame = false, 
-             _detailsApplied = false;
+             _detailsApplied = false, _sprayFlameReleaseInProgress = false;
         Coroutine _movingRoutine;
         Camera _currentCamera;
         Texture2D _partTexture;
@@ -48,25 +48,37 @@ namespace Core.GamePlay.Coloring
                 StopCoroutine(_movingRoutine);
                 _movingRoutine = null;
             }
-            await ReleaseHandler();
+            await ReleaseSprayAndFlameHandlesSafelyAsync();
         }
 
-        async Task ReleaseHandler()
+        async Task ReleaseSprayAndFlameHandlesSafelyAsync()
         {
-            if (!_sprayHandle.IsValid())
+            if (_sprayFlameReleaseInProgress)
                 return;
 
-            Addressables.Release(_sprayHandle);
-            while (_sprayHandle.IsValid())
-            { await Task.Yield(); }
+            _sprayFlameReleaseInProgress = true;
 
-            if (!_flameHandle.IsValid())
-                return;
+            // wait for next frame (Unity safe point)
+            await Task.Yield();
 
-            Addressables.Release(_flameHandle);
-            while (_flameHandle.IsValid())
-            { await Task.Yield(); }
+            if (_sprayHandle.IsValid())
+            {
+                Addressables.Release(_sprayHandle);
+                _sprayHandle = default;
+            }
+
+            if (_flameHandle.IsValid())
+            {
+                Addressables.Release(_flameHandle);
+                _flameHandle = default;
+            }
+
+            // optional extra frame (Android / scene safety)
+            await Task.Yield();
+
+            _sprayFlameReleaseInProgress = false;
         }
+
 
         private void Start()
         {
@@ -91,8 +103,7 @@ namespace Core.GamePlay.Coloring
             await Task.Yield();
             _sprayAnimation = obj.GetComponent<Animation>();
 
-            while (_sprayAnimation == null)
-                await Task.Yield();
+            await Task.Yield();
         }
 
         public void OnNextBtnClick()
@@ -324,9 +335,6 @@ namespace Core.GamePlay.Coloring
 
             await Task.Yield();
             await Task.Yield();
-
-            while (flameObj == null)
-                await Task.Yield();
         }
 
         IEnumerator FlamesThrowingRoutine()

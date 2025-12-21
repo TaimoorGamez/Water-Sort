@@ -40,6 +40,7 @@ namespace Core.GamePlay
         Dictionary<int, List<Color32>> _currentLevelColors = new Dictionary<int, List<Color32>>();
         Vector3 _bowlScale = new Vector3(1.5f, 0.1f, 1.5f);
         AsyncOperationHandle _lvlHandle, _tubeHandle;
+        bool _releaseInProgress = false;
 
         private void OnEnable()
         {
@@ -59,7 +60,7 @@ namespace Core.GamePlay
             SimpleEventsHolder.RestartLevelEvent -= RestartLevel;
             SimpleEventsHolder.DestroyLevelEvent -= DestroyLevel;
             SimpleEventsHolder.StartColoringEvent -= ColoringPreparation;
-            await ReleaseHandler();
+            await ReleaseAllHandlesSafelyAsync();
         }
 
         private void Start()
@@ -126,6 +127,13 @@ namespace Core.GamePlay
 
         async void LoadAddressableLevels<T>(string path)
         {
+            if (_lvlHandle.IsValid())
+            {
+                Addressables.Release(_lvlHandle);
+                _lvlHandle = default;
+            }
+            await Task.Yield();
+
             _lvlHandle = Addressables.LoadAssetAsync<T>(path);
             await _lvlHandle.Task;
 
@@ -340,7 +348,6 @@ namespace Core.GamePlay
 
         void DestroyLevel()
         {
-            ReleaseLevel();
             int childCount = transform.childCount;
             for (int i = childCount - 1; i >= 0; i--)
             {
@@ -348,28 +355,37 @@ namespace Core.GamePlay
             }
         }
 
-        async void ReleaseLevel()
+        async Task ReleaseAllHandlesSafelyAsync()
         {
-            if(!_lvlHandle.IsValid())
+            // prevent double release
+            if (_releaseInProgress)
                 return;
 
-            Addressables.Release(_lvlHandle);
-            while (_lvlHandle.IsValid())
-                await Task.Yield();
+            _releaseInProgress = true;
+
+
+            // STEP 2: wait one frame (Unity safe point)
+            await Task.Yield();
+
+            // STEP 3: release level handle
+            if (_lvlHandle.IsValid())
+            {
+                Addressables.Release(_lvlHandle);
+                _lvlHandle = default;
+            }
+
+            // STEP 4: release tube handle
+            if (_tubeHandle.IsValid())
+            {
+                Addressables.Release(_tubeHandle);
+                _tubeHandle = default;
+            }
+
+            // STEP 5: optional extra frame (Android lifecycle safety)
+            await Task.Yield();
+
+            _releaseInProgress = false;
         }
 
-        async Task ReleaseHandler()
-        {
-            ReleaseLevel();
-            await Task.Yield();
-            if (!_tubeHandle.IsValid())
-                return;
-
-            Addressables.Release(_tubeHandle);
-            while (_tubeHandle.IsValid())
-                await Task.Yield();
-
-            await Task.Yield();
-        }
     }
 }

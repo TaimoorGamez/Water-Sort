@@ -13,6 +13,7 @@ namespace Core.GamePlay.WaterSort
          
         string _coloringPath = "Level/Coloring/";
         AsyncOperationHandle _coloringHandle;
+        bool _coloringReleaseInProgress = false;
 
 
         private void OnEnable()
@@ -27,7 +28,7 @@ namespace Core.GamePlay.WaterSort
             SimpleEventsHolder.InitLvlEvent -= InitColoring;
             SimpleEventsHolder.RestartLevelEvent -= RegenrateColoring;
             SimpleEventsHolder.DestroyLevelEvent -= DestroyColoring;
-            await ReleaseHandler();
+            await ReleaseColoringHandleSafelyAsync();
         }
 
         void InitColoring()
@@ -49,10 +50,6 @@ namespace Core.GamePlay.WaterSort
             GameObject lvlObj = Instantiate(_coloringHandle.Result as GameObject, ColoringHolder);
 
             await Task.Yield();
-            await Task.Yield();
-
-            while (lvlObj == null)
-                await Task.Yield();
         }
 
         void RegenrateColoring()
@@ -63,18 +60,29 @@ namespace Core.GamePlay.WaterSort
 
         async void DestroyColoring()
         {
-            await ReleaseHandler();
+            await ReleaseColoringHandleSafelyAsync();
             Destroy(ColoringHolder.GetChild(0).gameObject);
         }
 
-        async Task ReleaseHandler()
+        async Task ReleaseColoringHandleSafelyAsync()
         {
-            if(!_coloringHandle.IsValid())
+            if (_coloringReleaseInProgress)
                 return;
 
-            Addressables.Release(_coloringHandle);
-            while (_coloringHandle.IsValid())
-                await Task.Yield();
+            _coloringReleaseInProgress = true;
+
+            await Task.Yield();
+
+            if (_coloringHandle.IsValid())
+            {
+                Addressables.Release(_coloringHandle);
+                _coloringHandle = default;
+            }
+
+            await Task.Yield();
+
+            _coloringReleaseInProgress = false;
         }
+
     }
 }

@@ -14,7 +14,7 @@ namespace Core.States
                       GamePlayStatePath = "UI/State/GamePlayScreen",PauseStatePath = "UI/State/PauseScreen", 
                       LevelFailStatePath = "UI/State/FailScreen", LevelCompleteStatePath = "UI/State/CompleteScreen";
 
-        bool _isClearing = false;
+        bool _isClearing = false, _stateReleaseInProgress = false;
         int _sceneCounter = 0, _maxSceneCount = 5;
         Dictionary<string, GameObject> _loadedStates;
         AsyncOperationHandle<GameObject> _statehandle;
@@ -42,7 +42,7 @@ namespace Core.States
 
         public async void ActiveState(string statePath)
         {
-            await ReleaseState();
+            await ReleaseStateHandleSafelyAsync();
             await Task.Delay(10);
             _statehandle = Addressables.LoadAssetAsync<GameObject>(statePath);
             await _statehandle.Task;
@@ -74,17 +74,28 @@ namespace Core.States
                 _loadedStates.Remove(statePath);
             }
         }
-
-        async Task ReleaseState()
+        async Task ReleaseStateHandleSafelyAsync()
         {
+            if (_stateReleaseInProgress)
+                return;
+
+            _stateReleaseInProgress = true;
+
+            // wait one frame – Unity safe point
+            await Task.Yield();
+
             if (_statehandle.IsValid())
             {
                 Addressables.Release(_statehandle);
-                while (_statehandle.IsValid())
-                    await Task.Yield();
+                _statehandle = default;
             }
+
+            // optional extra frame (Android / scene safety)
             await Task.Yield();
+
+            _stateReleaseInProgress = false;
         }
+
 
         async Task ClearMemoryRoutine()
         {
@@ -109,7 +120,7 @@ namespace Core.States
             _sceneCounter++;
             if (_sceneCounter > _maxSceneCount)
             {
-                await ReleaseState();
+                await ReleaseStateHandleSafelyAsync();
                 await Task.Yield();
                 SceneManager.LoadScene(0);
             }
