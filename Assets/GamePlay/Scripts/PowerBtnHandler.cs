@@ -16,15 +16,25 @@ namespace Core.Screen
 
         private void OnEnable()
         {
-            EventDictionariesHolder.RewardPowerEvent[PowerName] += RewardPower;
-            EventDictionariesHolder.UpdatePowerStatusEvent[PowerName] += ChangeStatus;
+            EventDictionariesHolder.RewardPowerEvent[PowerName] += RewardPower; 
+            if (EventDictionariesHolder.UpdatePowerStatusEvent.TryGetValue(PowerName, out var powerEvent))
+            {
+                powerEvent += ChangeStatus;
+                EventDictionariesHolder.UpdatePowerStatusEvent[PowerName] = powerEvent;
+            }
+
             PowerStatus();
         }
 
         private void OnDisable()
         {
             EventDictionariesHolder.RewardPowerEvent[PowerName] -= RewardPower;
-            EventDictionariesHolder.UpdatePowerStatusEvent[PowerName] -= ChangeStatus;
+            if (EventDictionariesHolder.UpdatePowerStatusEvent.TryGetValue(PowerName, out var powerEvent))
+            {
+                powerEvent -= ChangeStatus;
+                EventDictionariesHolder.UpdatePowerStatusEvent[PowerName] = powerEvent;
+            }
+
         }
 
         void PowerStatus()
@@ -49,6 +59,7 @@ namespace Core.Screen
 
         void ChangeStatus()
         {
+            Debug.Log("Change Status Called");
             if (DBVariableDictionariesHolder.PowerStatusData[PowerName].Value > 0)
             {
                 DBVariableDictionariesHolder.PowerStatusData[PowerName].Value--;

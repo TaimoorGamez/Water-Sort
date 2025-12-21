@@ -10,6 +10,9 @@ namespace Core.Animations.DT
 
         public override void PlayAnimation()
         {
+            if (TargetObj == null)
+                return;
+
             _objRect = TargetObj.GetComponent<RectTransform>();
             if (_objRect == null)
                 return;
@@ -20,6 +23,9 @@ namespace Core.Animations.DT
 
         public override void ReseToDefault()
         {
+            if (TargetObj == null)
+                return;
+
             _objRect.anchoredPosition = OriginalVallue;
         }
     }

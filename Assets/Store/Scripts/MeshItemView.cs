@@ -1,4 +1,3 @@
-using Core.Events;
 using UnityEngine;
 
 namespace Core.Store

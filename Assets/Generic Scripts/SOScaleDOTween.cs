@@ -8,12 +8,18 @@ namespace Core.Animations.DT
     {
         public override void PlayAnimation()
         {
+            if(TargetObj == null)
+                return;
+
             _tween = TargetObj.transform.DOScale(TargetAction, Duration).SetTarget(TargetObj).SetLink(TargetObj, LinkBehaviour.KillOnDestroy);
             base.PlayAnimation();
         }
 
         public override void ReseToDefault()
         {
+            if(TargetObj == null)
+                return;
+
             TargetObj.transform.localScale = OriginalVallue;
         }
     }

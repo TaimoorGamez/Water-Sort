@@ -112,6 +112,7 @@ MonoBehaviour:
     - store_item
     - local_lvl
     - gameplay_item
+    - sdk
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 8a3dea8bfef544c40afef856c576c446, type: 2}

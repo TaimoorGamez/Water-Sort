@@ -66,17 +66,6 @@ namespace Core.Events
 
     public static class EventDictionariesHolder
     {
-        public static Dictionary<string, GameEvent> NonConsumableProductsEvents = new Dictionary<string, GameEvent>(StringComparer.Ordinal)
-        {
-            { "removeads", SimpleEventsHolder.RemoveAds }
-        };
-
-        public static Dictionary<string, GameEvent> StoreBuyEvents = new Dictionary<string, GameEvent>(StringComparer.Ordinal)
-        {
-            { "Caps", SimpleEventsHolder.BuyCaps },
-            { "Sprays", SimpleEventsHolder.BuySprays },
-            { "FlameThrowers", SimpleEventsHolder.BuyFlames }
-        };
 
         public static Dictionary<string, GameEvent> PowerEvents = new Dictionary<string, GameEvent>(StringComparer.Ordinal)
         {

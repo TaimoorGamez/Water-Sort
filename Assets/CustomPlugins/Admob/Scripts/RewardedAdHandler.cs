@@ -150,11 +150,11 @@ namespace Core.Plugins.Ads
                     break;
 
                 case "Caps":
-                    AdsManager.I.CanFlame = true;
+                    AdsManager.I.CanCap = true;
                     break;
 
                 case "Sprays":
-                    AdsManager.I.CanFlame = true;
+                    AdsManager.I.CanSpray = true;
                     break;
 
                 case "FlameThrowers":

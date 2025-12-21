@@ -26,19 +26,22 @@ namespace Core.Screen
 
         private void OnEnable()
         {
-            EventDictionariesHolder.StoreBuyEvents[ItemName] += PurchaseByAd;
+            StoreBuyEventsHandler.I.BindEvent(ItemName, PurchaseByAd);
             _selectedItem = DBVariableDictionariesHolder.StoreActiveItems[ItemName].Value;
             _activationRotine = StartCoroutine(ActiveStorageRoom());
             UpdateItemStatus(_selectedItem);
-            FirebaseHandler.I?.LogEvent($"ST_Open: {ItemName}");
+            FirebaseHandler.I?.LogEvent($"ST_Open_{ItemName}");
         }
 
         private void OnDisable()
         {
-            EventDictionariesHolder.StoreBuyEvents[ItemName] += PurchaseByAd;
+            StoreBuyEventsHandler.I.UnBindEvent(ItemName, PurchaseByAd);
+            DOTween.Kill(this);
+            Content.DOKill();
             StopActiveRotines();
             if (_currentItem != null)
             {
+                _currentItem.transform.DOKill();
                 Destroy(_currentItem);
             }
             for (int i = 0; i < RoomItems.Length; i++)
@@ -149,7 +152,7 @@ namespace Core.Screen
             {
                 StorageData.AllItems[ItemName][_selectedItem].IsPurchased = true;
                 UpdateItemStatus(_selectedItem);
-                FirebaseHandler.I?.LogEvent($"ST: {ItemName} | item:{_selectedItem}");
+                FirebaseHandler.I?.LogEvent($"ST_{ItemName}_item_{_selectedItem}");
             }
         }
     }

@@ -29,14 +29,14 @@ namespace Core.GamePlay.WaterSort
             _propBlock.SetTexture("_MainTex", MyTexture);
             _propBlock.SetFloat("_ColorRange", 0);
             MySkin.SetPropertyBlock(_propBlock); 
-            transform.DOLocalMoveY(0,0.2f).OnComplete(() =>
+            transform.DOLocalMoveY(0,0.2f).SetLink(gameObject).OnComplete(() =>
             {
                 SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(9);
                 DOTween.To(() => 0f, value =>
                 {
                     _propBlock.SetFloat("_ColorRange", value);
                     MySkin.SetPropertyBlock(_propBlock);
-                }, _targetTransparency, _transparencyChangeDuration);
+                }, _targetTransparency, _transparencyChangeDuration).SetLink(gameObject);
             });
         }
 

@@ -198,7 +198,9 @@ namespace Core.Screen
                 Debug.Log("Failed to load AdsManager from Addressables");
                 Addressables.Release(_adsManagerhandle);
             }
-            DownloadingScreen.SetActive(false);
+
+            if(DownloadingScreen!=null)
+                DownloadingScreen.SetActive(false);
         }
 
         private async void OnDisable()

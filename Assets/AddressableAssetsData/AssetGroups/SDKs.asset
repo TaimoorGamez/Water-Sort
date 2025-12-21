@@ -18,7 +18,8 @@ MonoBehaviour:
   - m_GUID: 4809cbe9263be3e4ebf4341311a301de
     m_Address: SDK/AdsManager
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - sdk
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 08e55d4409f89ac47a12dfaafbfe9821, type: 2}

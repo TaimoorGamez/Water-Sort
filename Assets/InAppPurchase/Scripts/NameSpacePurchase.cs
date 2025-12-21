@@ -25,21 +25,10 @@ namespace Core.Purchase
         public override void BuyProduct()
         {
             DBVariableDictionariesHolder.NonConsumableProductsData[ProductID].Value = 1;
-            InvokeEventFromKey();
+            NonConsumableProductsEventsHandler.I.InvokeEvent(ProductID);
             FirebaseHandler.I?.LogEvent($"IAP_{ProductID}");
         }
 
-        void InvokeEventFromKey()
-        {
-            if (EventDictionariesHolder.NonConsumableProductsEvents.TryGetValue(ProductID, out var evt))
-            {
-                evt?.Invoke();
-            }
-            else
-            {
-                Debug.LogWarning($"{ProductID}: No event registered for key");
-            }
-        }
     }
 
     [Serializable]
