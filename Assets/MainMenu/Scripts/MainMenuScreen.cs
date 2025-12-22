@@ -33,7 +33,7 @@ namespace Core.Screen
         AsyncOperationHandle _updateCatalogHandle;
         AsyncOperationHandle<long> _sizeHandle;
         AsyncOperationHandle _downloadHandle;
-        bool _releaseInProgress = false;
+        bool _releaseInProgress = false, _remoteDownloadSuccess = false;
 
         private void Start()
         {
@@ -99,13 +99,15 @@ namespace Core.Screen
         {
             yield return CheckAndUpdateCatalog();
             yield return DownloadRemoteLevels();
-
-            if(DBVariablesHolder.LvlNum.Value > RemoteDataHolder.MaxLevelsAvailable)
+            if (_remoteDownloadSuccess)
             {
-                DBVariablesHolder.LvlIndex.Value = DBVariablesHolder.MaxLvlCount.Value;
+                if (DBVariablesHolder.LvlNum.Value > RemoteDataHolder.MaxLevelsAvailable)
+                {
+                    DBVariablesHolder.LvlIndex.Value = DBVariablesHolder.MaxLvlCount.Value;
+                }
+                yield return new WaitForEndOfFrame();
+                DBVariablesHolder.MaxLvlCount.Value = RemoteDataHolder.MaxLevelsAvailable;
             }
-            yield return new WaitForEndOfFrame();
-            DBVariablesHolder.MaxLvlCount.Value = RemoteDataHolder.MaxLevelsAvailable;
             DownloadingScreen.SetActive(false);
 
             InitializeSdkAdapters();
@@ -128,21 +130,29 @@ namespace Core.Screen
 
         IEnumerator DownloadRemoteLevels()
         {
+            _remoteDownloadSuccess = false;
             _sizeHandle = Addressables.GetDownloadSizeAsync("remote_lvl");
             yield return _sizeHandle;
 
             long downloadSize = _sizeHandle.Result;
 
-            if (downloadSize > 0)
-            {
-                _downloadHandle =
-                    Addressables.DownloadDependenciesAsync("remote_lvl", true);
+            if (downloadSize <= 0)
+                yield break;
 
-                while (!_downloadHandle.IsDone)
-                {
-                    UpdateLoadingUI(_downloadHandle.PercentComplete);
-                    yield return null;
-                }
+
+            _downloadHandle =
+                Addressables.DownloadDependenciesAsync("remote_lvl", true);
+
+            while (!_downloadHandle.IsDone)
+            {
+                UpdateLoadingUI(_downloadHandle.PercentComplete);
+                yield return null;
+            }
+
+
+            if (_downloadHandle.Status == AsyncOperationStatus.Succeeded)
+            {
+                _remoteDownloadSuccess = true;
             }
 
             UpdateLoadingUI(1);
