@@ -1234,6 +1234,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1472201560218512147, guid: 091cedca56a25ed47a9aa069563696ea, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1535169866930669153, guid: 091cedca56a25ed47a9aa069563696ea, type: 3}
       propertyPath: m_Name
       value: StoreBtn
@@ -1505,6 +1509,10 @@ PrefabInstance:
     - target: {fileID: 12208698866113545, guid: c870eb46c044a5c43be5b9007e7ad687, type: 3}
       propertyPath: m_Name
       value: GalleryBtn
+      objectReference: {fileID: 0}
+    - target: {fileID: 75176804671123835, guid: c870eb46c044a5c43be5b9007e7ad687, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1697219570756455729, guid: c870eb46c044a5c43be5b9007e7ad687, type: 3}
       propertyPath: m_Pivot.x
@@ -2591,7 +2599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6840285968148839464, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 19170334
+      value: 19179836
       objectReference: {fileID: 0}
     - target: {fileID: 7277540639624644133, guid: b703dbe6d2812f249ba69459634ba4c6, type: 3}
       propertyPath: m_sharedMaterial
@@ -2971,6 +2979,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4948931148560048272, guid: e6534db77b45e0a4fa8e27778994360a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920133968695090394, guid: e6534db77b45e0a4fa8e27778994360a, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5983244459219595688, guid: e6534db77b45e0a4fa8e27778994360a, type: 3}

@@ -14,7 +14,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: Remote Levels
   m_GUID: b4dfeee0de7aa3e41803e24405f889dd
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 195feb9c39bd8b6418d1bb8e06edc5c0
+    m_Address: Level/Coloring/27
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - remote_lvl
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3fa484a45f1b41a4184d4b5229914b1d
+    m_Address: Level/Sort/28
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - remote_lvl
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 45d9951fc3d3d924c8512b478f966717
+    m_Address: Level/Sort/27
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - remote_lvl
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 716fc30dcd4bb0d469f8d0167c0da3a3
+    m_Address: Level/Coloring/28
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - remote_lvl
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 824947d8e9c168044926a67d548f2f0d
+    m_Address: Level/Reference/28
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - remote_lvl
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cf68280380bc41d46a54e6b9250ca139
+    m_Address: Level/Reference/27
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - remote_lvl
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 08e55d4409f89ac47a12dfaafbfe9821, type: 2}
   m_SchemaSet:
