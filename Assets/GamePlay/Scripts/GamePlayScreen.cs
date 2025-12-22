@@ -9,7 +9,7 @@ namespace Core.Screen
 {
     public class GamePlayScreen : UiScreens
     {
-        [SerializeField] GameObject SwipeColorsModePanel, PowerButtons, TopBar, PauseBtn;
+        [SerializeField] GameObject SwipeColorsModePanel, PowerButtons, TopBar, PauseBtn, LoadingPanel;
         [SerializeField] TextMeshProUGUI MovesText;
 
         private void OnEnable()
@@ -32,9 +32,11 @@ namespace Core.Screen
             {
                 PowerButtons.SetActive(false);
                 PauseBtn.SetActive(false);
+                LoadingPanel.SetActive(false);
             }
             else
             {
+                LoadingPanel.SetActive(true);
                 PowerButtons.SetActive(true);
                 PauseBtn.SetActive(true);
             }
@@ -43,6 +45,7 @@ namespace Core.Screen
         void SwitchProtector(int state)
         {
             SwipeColorsModePanel.SetActive(state == 1);
+            LoadingPanel.SetActive(false);
         }
 
 
