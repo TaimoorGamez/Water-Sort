@@ -16,7 +16,7 @@ namespace Core.Events
         //-------------------Game Flow Events-------------------
         SelfDestructionEvent, HideColorBowlEvent, CheckCompleteEvent,
         StartColoringEvent, ColorSelectedEvent, DestroyLevelEvent, InitLvlEvent,
-        MoreMovesEvent, UpdateMovesEvent, RestartLevelEvent, ExtraTubeEvent,
+        UpdateMovesEvent, RestartLevelEvent, ExtraTubeEvent,
         UpdateExtraTubeStatusEvent, RegisterMoveEvent, UndoEvent, UpdateUndoStatusEvent,
         SwapColorsEvent, UpdateSwapStatusEvent, UpdatePowerBtnsUIEvent,
 

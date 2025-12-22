@@ -8,6 +8,6 @@ public class levelChanger : MonoBehaviour
     private void OnEnable()
     {
         DBVariablesHolder.LvlIndex.Value = NextLvl;
-        DBVariablesHolder.LvlNum.Value += NextLvl;
+        DBVariablesHolder.LvlNum.Value = NextLvl;
     }
 }

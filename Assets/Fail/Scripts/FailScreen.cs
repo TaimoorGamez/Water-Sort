@@ -1,5 +1,6 @@
 using Core.Events;
 using Core.States;
+using UnityEngine;
 using DG.Tweening;
 using Core.GamePlay;
 using Core.DB.Variables;
@@ -13,13 +14,13 @@ namespace Core.Screen
 
         private void OnEnable()
         {
-            SimpleEventsHolder.MoreMovesEvent += AddMoreMoves;
+            SimpleEventsHolder.AddMovesEvent += AddMoreMoves;
             OnOpen();
         }
 
         private void OnDisable()
         {
-            SimpleEventsHolder.MoreMovesEvent -= AddMoreMoves;
+            SimpleEventsHolder.AddMovesEvent -= AddMoreMoves;
         }
 
         void AddMoreMoves()

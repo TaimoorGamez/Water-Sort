@@ -7,7 +7,7 @@ using Core.DB.Variables;
 
 namespace Core.Screen
 {
-    public class WaterSortGameScreen : UiScreens
+    public class GamePlayScreen : UiScreens
     {
         [SerializeField] GameObject SwipeColorsModePanel, PowerButtons, TopBar, PauseBtn;
         [SerializeField] TextMeshProUGUI MovesText;

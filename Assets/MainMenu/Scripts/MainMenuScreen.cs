@@ -99,8 +99,15 @@ namespace Core.Screen
         {
             yield return CheckAndUpdateCatalog();
             yield return DownloadRemoteLevels();
+
+            if(DBVariablesHolder.LvlNum.Value > RemoteDataHolder.MaxLevelsAvailable)
+            {
+                DBVariablesHolder.LvlIndex.Value = DBVariablesHolder.MaxLvlCount.Value;
+            }
+            yield return new WaitForEndOfFrame();
             DBVariablesHolder.MaxLvlCount.Value = RemoteDataHolder.MaxLevelsAvailable;
             DownloadingScreen.SetActive(false);
+
             InitializeSdkAdapters();
         }
         IEnumerator CheckAndUpdateCatalog()

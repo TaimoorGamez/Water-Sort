@@ -60,8 +60,12 @@ namespace Core.GamePlay.WaterSort
 
         async void DestroyColoring()
         {
-            await ReleaseColoringHandleSafelyAsync();
-            Destroy(ColoringHolder.GetChild(0).gameObject);
+            await ReleaseColoringHandleSafelyAsync(); 
+            if (ColoringHolder.childCount > 0)
+            {
+                Destroy(ColoringHolder.GetChild(0).gameObject);
+            }
+
         }
 
         async Task ReleaseColoringHandleSafelyAsync()

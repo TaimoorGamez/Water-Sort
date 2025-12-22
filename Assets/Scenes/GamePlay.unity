@@ -589,7 +589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967030b6ff6e23743afd5f65b6ec9435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NextLvl: 24
+  NextLvl: 2
 --- !u!4 &1252830568
 Transform:
   m_ObjectHideFlags: 0
