@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Duplicate Asset Isolation
   m_EditorClassIdentifier: 
   m_GroupName: Duplicate Asset Isolation
-  m_GUID: b197b683b3a70c640a3e93acea4339a5
+  m_GUID: 9c16c09c41026c442b5d9b93d1c4288d
   m_SerializeEntries:
   - m_GUID: 0406db5a14f94604a8c57ccfbc9f3b46
     m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Particles/ParticlesUnlit.shader
