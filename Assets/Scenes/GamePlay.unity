@@ -505,6 +505,7 @@ MonoBehaviour:
   TotalMoves: 0
   CurrrentLvl: 0
   TempLvlIndex: -1
+  TempLvlNum: -1
   CompletedTubes: 0
   IsHiddenLevel: 0
   CanPlay: 0
