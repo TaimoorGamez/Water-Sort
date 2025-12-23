@@ -98,7 +98,8 @@ namespace Core.Screen
             _tempRT.wrapMode = TextureWrapMode.Clamp;
             ScreenshotCamera.targetTexture = _tempRT;
             ScreenshotCamera.Render(); 
-            int currentLvl = LevelsManager.I.TempLvlIndex != -1 ? LevelsManager.I.TempLvlIndex : DBVariablesHolder.LvlNum.Value;
+            int currentLvlNum = LevelsManager.I.TempLvlNum != -1 ? LevelsManager.I.TempLvlNum : DBVariablesHolder.LvlNum.Value;
+            int currentLvlIndex = LevelsManager.I.TempLvlIndex != -1 ? LevelsManager.I.TempLvlIndex : DBVariablesHolder.LvlIndex.Value;
             yield return new WaitForSeconds(0.01f);
             // Create a new Texture2D
             Texture2D screenshot = new Texture2D(_tempRT.width, _tempRT.height, TextureFormat.RGB24, false);
@@ -114,7 +115,7 @@ namespace Core.Screen
             if (!Directory.Exists(directoryPath))
             { Directory.CreateDirectory(directoryPath); }
 
-            string filePath = Path.Combine(directoryPath, $"Painting_{currentLvl}.png");
+            string filePath = Path.Combine(directoryPath, $"Painting_{currentLvlNum}.png");
             File.WriteAllBytes(filePath, screenshot.EncodeToPNG());
             yield return new WaitForSeconds(2.5f);
 
@@ -129,14 +130,14 @@ namespace Core.Screen
 
             GameData starsData = LoadStars();
             yield return new WaitForSeconds(0.1f);
-            LevelData existingLevel = starsData.Levels.Find(l => l.LevelNumber == currentLvl);
+            LevelData existingLevel = starsData.Levels.Find(l => l.LevelNumber == currentLvlNum);
             if (existingLevel != null)
             {
                 existingLevel.Stars = LevelsManager.I.LevelStars; // Save max stars
             }
             else
             {
-                starsData.Levels.Add(new LevelData { LevelNumber = currentLvl, Stars = LevelsManager.I.LevelStars });
+                starsData.Levels.Add(new LevelData { LevelNumber = currentLvlNum, LevelIndex = currentLvlIndex, Stars = LevelsManager.I.LevelStars });
             }
 
             string json = JsonUtility.ToJson(starsData, true);

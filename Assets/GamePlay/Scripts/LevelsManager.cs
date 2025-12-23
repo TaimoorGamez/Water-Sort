@@ -22,7 +22,7 @@ namespace Core.GamePlay
         public Color32 CurrentColor;
         public TubeHandler Tube;
         public BowlColorHandler CurrentBowl;
-        public int MinLvlCount = 5, LevelStars = 3, TotalMoves, CurrrentLvl, TempLvlIndex = -1, CompletedTubes;
+        public int MinLvlCount = 5, LevelStars = 3, TotalMoves, CurrrentLvl, TempLvlIndex = -1, TempLvlNum = -1, CompletedTubes;
         public bool IsHiddenLevel = false, CanPlay = false, BtnOnceClicked = false, SortingCompleted, UsingAnyFeature = false, 
                     IsSwaping  = false, DoingUndo = false;
 
@@ -92,16 +92,16 @@ namespace Core.GamePlay
                 IsHiddenLevel = false;
             }
 
-            if (TempLvlIndex == -1)
+            if (TempLvlIndex != -1 && TempLvlNum != -1)
+            {
+                LoadAddressableLevels<SOColors>(_sortingLvlPath + TempLvlIndex);
+            }
+            else
             {
                 if (DBVariablesHolder.LvlIndex.Value < 5)
                     LoadAddressableLevels<GameObject>(_sortingLvlPath + DBVariablesHolder.LvlIndex.Value);
                 else
                     LoadAddressableLevels<SOColors>(_sortingLvlPath + DBVariablesHolder.LvlIndex.Value);
-            }
-            else
-            {
-                LoadAddressableLevels<SOColors>(_sortingLvlPath + TempLvlIndex);
             }
         }
 

@@ -61,7 +61,7 @@ namespace Core.Screen
                     {
                         yield return new WaitForSeconds(0.01f);
                         PaintingView newPainting = Instantiate(PaintingObj, Content);
-                        newPainting.InitPainting(texture, starsData.Levels[s].LevelNumber, starsData.Levels[s].Stars);
+                        newPainting.InitPainting(texture, starsData.Levels[s].LevelNumber, starsData.Levels[s].LevelIndex, starsData.Levels[s].Stars);
                     }
                 }
             }
