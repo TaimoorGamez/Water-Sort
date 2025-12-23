@@ -18,7 +18,7 @@ namespace Core.Events
         StartColoringEvent, ColorSelectedEvent, DestroyLevelEvent, InitLvlEvent,
         UpdateMovesEvent, RestartLevelEvent, ExtraTubeEvent,
         UpdateExtraTubeStatusEvent, RegisterMoveEvent, UndoEvent, UpdateUndoStatusEvent,
-        SwapColorsEvent, UpdateSwapStatusEvent, UpdatePowerBtnsUIEvent,
+        SwapColorsEvent, UpdateSwapStatusEvent, UpdatePowerBtnsUIEvent, CheckPluginStatus,
 
         //-------------------Sound Events-------------------
         BtnPressSfxEvent, UpdateMusicStateEvent, UpdateSoundStateEvent,

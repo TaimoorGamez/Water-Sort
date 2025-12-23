@@ -37,7 +37,7 @@ namespace Core.Plugins.Ads
 
         public static AdsManager I { get; private set; }
 
-        private void Start()
+        private void Awake()
         {
             if (I == null)
             {

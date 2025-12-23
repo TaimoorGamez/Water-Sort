@@ -7,13 +7,13 @@ namespace Core.Plugins.Firebase
 {
     public class FirebaseHandler : MonoBehaviour
     {
-        [HideInInspector] public bool IsInitialize = false;
+        [HideInInspector] public bool IsInitialize = false, IsRemoteFetched = false;
 
         string _deviceId="=";
 
         public static FirebaseHandler I { get; private set; }
 
-        private void Start()
+        private void Awake()
         {
             if (I == null)
             {
@@ -24,7 +24,6 @@ namespace Core.Plugins.Firebase
                 Destroy(gameObject);
                 return;
             }
-            InitPlugin();
         }
 
         public void InitPlugin()
@@ -80,6 +79,7 @@ namespace Core.Plugins.Firebase
 
                        string adJson = remoteConfig.GetValue("AdConfig").StringValue;
                        RemoteDataHolder.AdData = JsonUtility.FromJson<AdConfig>(adJson);
+                          IsRemoteFetched = true;
                    });
             }
 
