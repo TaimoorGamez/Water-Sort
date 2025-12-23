@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using Core.Events;
 
 namespace Core.States
 {
@@ -53,7 +54,8 @@ namespace Core.States
                 await Task.Delay(10);
                 if (statePath == MainMenuStatePath)
                 {
-                   await ClearMemoryRoutine();
+                    SimpleEventsHolder.CheckPluginStatus?.Invoke();
+                    await ClearMemoryRoutine();
                 }
             }
             else

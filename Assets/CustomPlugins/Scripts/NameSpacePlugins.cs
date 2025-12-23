@@ -43,7 +43,6 @@ namespace Core.Plugins
 
     public static class RemoteDataHolder
     {
-        public static bool IsInternetWorking = false;
         public static int MaxLevelsAvailable = 0;
         public static AdConfig AdData = new AdConfig();
     }
