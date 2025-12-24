@@ -1,17 +1,17 @@
-using Core.DB.Variables;
+using TMPro;
 using Core.Events;
-using Core.Plugins.Ads;
-using Core.Plugins.Firebase;
+using UnityEngine;
 using Core.Screen;
 using DG.Tweening;
+using Core.Plugins.Ads;
+using Core.DB.Variables;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
+using Core.Plugins.Firebase;
 using UnityEngine.Networking;
-using UnityEngine.ResourceManagement.AsyncOperations;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Core.Plugins
 {
@@ -43,26 +43,19 @@ namespace Core.Plugins
 
         IEnumerator Start()
         {
-            if (DBVariablesHolder.FFT.Value == 0)
+            yield return HasWorkingInternet(isOnline =>
             {
-                yield return HasWorkingInternet(isOnline =>
+                if (!isOnline)
                 {
-                    if (!isOnline)
-                    {
-                        InternetPanel.gameObject.SetActive(true);
-                        _checkRoutine = StartCoroutine(CheckInternetLoop());
-                    }
-                    else
-                    {
-                        ContinueGame();
-                    }
-                });
-            }
-            else
-            {
-                ContinueGame();
-                CheckAllPlugins();
-            }
+                    InternetPanel.gameObject.SetActive(true);
+                    _checkRoutine = StartCoroutine(CheckInternetLoop());
+                }
+                else
+                {
+                    ContinueGame();
+                    CheckAllPlugins();
+                }
+            });
         }
 
         void ContinueGame()
