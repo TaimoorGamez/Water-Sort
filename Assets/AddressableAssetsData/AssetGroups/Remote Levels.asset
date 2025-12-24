@@ -21,26 +21,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - remote_lvl
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3fa484a45f1b41a4184d4b5229914b1d
-    m_Address: Level/Sort/28
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - remote_lvl
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 45d9951fc3d3d924c8512b478f966717
     m_Address: Level/Sort/27
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - remote_lvl
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 716fc30dcd4bb0d469f8d0167c0da3a3
-    m_Address: Level/Coloring/28
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - remote_lvl
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 824947d8e9c168044926a67d548f2f0d
-    m_Address: Level/Reference/28
     m_ReadOnly: 0
     m_SerializedLabels:
     - remote_lvl

@@ -76,22 +76,38 @@ namespace Core.Plugins
 
         IEnumerator CheckInternetLoop()
         {
-            while (true)
+            bool isOnline = false;
+            while (!isOnline)
             {
-                yield return HasWorkingInternet(isOnline =>
+                yield return HasWorkingInternet(result =>
                 {
-                    if (isOnline)
-                    {
-                        InternetPanel.OnClose();
-                        ContinueGame();
-                    }
+                    isOnline = result;
                 });
 
                 yield return new WaitForSeconds(4);
             }
+
+            if(isOnline)
+            {
+                yield return LoadRemoteCatalogManually();
+                InternetPanel.gameObject.SetActive(false);
+                ContinueGame();
+            }
         }
 
-        public IEnumerator HasWorkingInternet(System.Action<bool> callback)
+        IEnumerator LoadRemoteCatalogManually()
+        {
+            string catalogUrl = "https://sort-paint-anime-art-puz-d825c.web.app/V3/Android/catalog_0.0.2.json";
+
+            var handle = Addressables.LoadContentCatalogAsync(
+                catalogUrl,
+                true   // auto release dependencies
+            );
+
+            yield return handle;
+        }
+
+        IEnumerator HasWorkingInternet(System.Action<bool> callback)
         {
             using (UnityWebRequest req =
                    UnityWebRequest.Head("https://www.google.com/generate_204"))

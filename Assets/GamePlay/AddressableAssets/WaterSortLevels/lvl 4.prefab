@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9139483090912197344}
   - component: {fileID: 455419571755994265}
   - component: {fileID: 6303286053532934385}
+  - component: {fileID: 3774849834965324418}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -104,6 +105,43 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3774849834965324418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3044361965994056459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 413addbc900e1d74da78ab06b0629697, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ColliderOne: {fileID: 0}
+  ColliderTwo: {fileID: 0}
+  ColliderThree: {fileID: 6938949045176832770}
+  ColliderFour: {fileID: 0}
+  ColliderFive: {fileID: 0}
+  FirstTube: {fileID: 3050210243956944741}
+  SecondTube: {fileID: 4740868265693934905}
+  ThirdTube: {fileID: 1445384012063738719}
+  ForthTube: {fileID: 7458619077447705021}
+  FifthTube: {fileID: 3666029037561699324}
+  SixthTube: {fileID: 6604872475992754143}
+  InfoTextObj: {fileID: 3044361965994056459}
+  SwapBtn: {fileID: 5023921638124432280}
+  CurrentColors:
+  - {r: 1, g: 0.7254902, b: 0.60784316, a: 1}
+  - {r: 0.078431375, g: 0.23529412, b: 0.54901963, a: 1}
+  - {r: 0.8627451, g: 0.078431375, b: 0.09803922, a: 1}
+  - {r: 0.078431375, g: 0.47058824, b: 0.05882353, a: 1}
+  IsSwipButton: 1
+  IsFirstTube: 0
+  IsLastTube: 0
+  BowlObj: {fileID: 1613508317186387605, guid: f2a0fcc19d7d3f54ca8d4d1cfb5cfbce, type: 3}
+  BowlParent: {fileID: 2336340366317475260}
+  Circle: {fileID: 7003740995287427641}
+  HandObj: {fileID: 7888940712742860631}
 --- !u!1 &3481265721292290033
 GameObject:
   m_ObjectHideFlags: 0
@@ -898,11 +936,11 @@ PrefabInstance:
     - target: {fileID: 4727839765463032159, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1117993485976406710}
+      objectReference: {fileID: 5888205564314834632}
     - target: {fileID: 4727839765463032159, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
-      objectReference: {fileID: 1659727352562815435}
+      objectReference: {fileID: 3774849834965324418}
     - target: {fileID: 4727839765463032159, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[4].m_Target
       value: 
@@ -919,10 +957,6 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 11400000, guid: 1814ade01c91ecb47b8d278a64449799, type: 2}
-    - target: {fileID: 4727839765463032159, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
-      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[3].m_Target
-      value: 
-      objectReference: {fileID: 1659727352562815435}
     - target: {fileID: 4727839765463032159, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[4].m_Target
       value: 
@@ -1061,19 +1095,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8512401302037105857, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 512353582190022526, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8512401302037105857, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1659727352562815435}
-    - targetCorrespondingSourceObject: {fileID: 8512401302037105857, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1117993485976406710}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
 --- !u!224 &3817217349117240788 stripped
 RectTransform:
@@ -1085,48 +1113,10 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8512401302037105857, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
   m_PrefabInstance: {fileID: 3718444965050754905}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1659727352562815435
+--- !u!114 &5888205564314834632 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5023921638124432280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 413addbc900e1d74da78ab06b0629697, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ColliderOne: {fileID: 0}
-  ColliderTwo: {fileID: 0}
-  ColliderThree: {fileID: 6938949045176832770}
-  ColliderFour: {fileID: 0}
-  ColliderFive: {fileID: 0}
-  FirstTube: {fileID: 3050210243956944741}
-  SecondTube: {fileID: 4740868265693934905}
-  ThirdTube: {fileID: 1445384012063738719}
-  ForthTube: {fileID: 7458619077447705021}
-  FifthTube: {fileID: 3666029037561699324}
-  SixthTube: {fileID: 6604872475992754143}
-  InfoTextObj: {fileID: 3044361965994056459}
-  SwapBtn: {fileID: 5023921638124432280}
-  CurrentColors:
-  - {r: 1, g: 0.7254902, b: 0.60784316, a: 1}
-  - {r: 0.078431375, g: 0.23529412, b: 0.54901963, a: 1}
-  - {r: 0.8627451, g: 0.078431375, b: 0.09803922, a: 1}
-  - {r: 0.078431375, g: 0.47058824, b: 0.05882353, a: 1}
-  IsSwipButton: 1
-  IsFirstTube: 0
-  IsLastTube: 0
-  BowlObj: {fileID: 1613508317186387605, guid: f2a0fcc19d7d3f54ca8d4d1cfb5cfbce, type: 3}
-  BowlParent: {fileID: 2336340366317475260}
-  Circle: {fileID: 7003740995287427641}
-  HandObj: {fileID: 7888940712742860631}
---- !u!114 &1117993485976406710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 7074462584732545425, guid: 260693063990a684ebc64bcfe567f39a, type: 3}
+  m_PrefabInstance: {fileID: 3718444965050754905}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5023921638124432280}
   m_Enabled: 1
