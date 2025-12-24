@@ -50,7 +50,7 @@ namespace Core.Screen
         {
             GameData starsData = LoadStars();
             yield return new WaitForSeconds(0.01f);
-            for(int s = LevelsManager.I.MinLvlCount; s < starsData.Levels.Count; s++)
+            for(int s = LevelsManager.I.MinLvlCount-1; s < starsData.Levels.Count; s++)
             {
                 string filePath = Path.Combine(_directoryPath, $"Painting_{starsData.Levels[s].LevelNumber}.png");
                 if (File.Exists(filePath))
