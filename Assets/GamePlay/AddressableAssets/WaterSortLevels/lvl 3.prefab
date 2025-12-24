@@ -203,8 +203,8 @@ MonoBehaviour:
   HandObj: {fileID: 8338699832152923797}
   TutorialCircle: {fileID: 651207136866335376}
   CurrentColors:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0.23529412, g: 0.05882353, b: 0.7647059, a: 1}
+  - {r: 0.98039216, g: 0.64705884, b: 0, a: 1}
+  - {r: 0.5294118, g: 0, b: 0.7058824, a: 1}
   - {r: 1, g: 0.7254902, b: 0.60784316, a: 1}
   BowlObj: {fileID: 1613508317186387605, guid: f2a0fcc19d7d3f54ca8d4d1cfb5cfbce, type: 3}
 --- !u!1 &5163768413923243326
