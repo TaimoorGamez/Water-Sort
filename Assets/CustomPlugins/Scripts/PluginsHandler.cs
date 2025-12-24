@@ -1,16 +1,17 @@
-using TMPro;
-using Core.Events;
-using Core.Screen;
-using UnityEngine;
-using DG.Tweening;
-using Core.Plugins.Ads;
 using Core.DB.Variables;
-using System.Collections;
+using Core.Events;
+using Core.Plugins.Ads;
 using Core.Plugins.Firebase;
-using UnityEngine.Networking;
+using Core.Screen;
+using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Networking;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.SceneManagement;
 
 namespace Core.Plugins
 {
@@ -89,22 +90,8 @@ namespace Core.Plugins
 
             if(isOnline)
             {
-                yield return LoadRemoteCatalogManually();
-                InternetPanel.gameObject.SetActive(false);
-                ContinueGame();
+                SceneManager.LoadScene(0);
             }
-        }
-
-        IEnumerator LoadRemoteCatalogManually()
-        {
-            string catalogUrl = "https://sort-paint-anime-art-puz-d825c.web.app/V3/Android/catalog_0.0.2.json";
-
-            var handle = Addressables.LoadContentCatalogAsync(
-                catalogUrl,
-                true   // auto release dependencies
-            );
-
-            yield return handle;
         }
 
         IEnumerator HasWorkingInternet(System.Action<bool> callback)

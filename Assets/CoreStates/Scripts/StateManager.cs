@@ -1,11 +1,11 @@
 using UnityEngine;
 using DG.Tweening;
+using Core.Events;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using Core.Events;
 
 namespace Core.States
 {
