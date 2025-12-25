@@ -53,7 +53,7 @@ MonoBehaviour:
   AdPlaying: 0
   CanAddMoves: 0
   CanMultiply: 0
-  CanDoubleReward: 0
+  CanDoubleDailyReward: 0
   CanSpin: 0
   CanCap: 0
   CanSpray: 0
@@ -74,9 +74,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb13ea63ff7d5c146a4e4b774fb42d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AdId: 
+  AdId: ca-app-pub-4669467096650508/9318810521
   TestId: ca-app-pub-3940256099942544/5224354917
-  IsTestAd: 1
+  IsTestAd: 0
 --- !u!114 &356498599268611393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c269c33bb5a284a40a238d0b90d8c267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AdId: 
+  AdId: ca-app-pub-4669467096650508/4066483842
   TestId: ca-app-pub-3940256099942544/1033173712
-  IsTestAd: 1
+  IsTestAd: 0
   AdLoading: {fileID: 8995857686039382670, guid: 8140dc3419c17a3449d97c31847861c3, type: 3}
