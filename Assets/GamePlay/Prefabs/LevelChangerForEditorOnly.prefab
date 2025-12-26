@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967030b6ff6e23743afd5f65b6ec9435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NextLvl: 25
+  NextLvl: 5
