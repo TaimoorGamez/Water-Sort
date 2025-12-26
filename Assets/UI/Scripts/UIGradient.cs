@@ -22,94 +22,111 @@ namespace Core.CustomUI
             Multiply
         }
 
-        [SerializeField]
-        private Gradient gradient = new Gradient();
-
-        [SerializeField]
-        private GradientType gradientType = GradientType.Vertical; // Default gradient type is Vertical
-
-        [SerializeField]
-        private BlendMode blendMode = BlendMode.Normal; // Default blend mode is Normal
+        [SerializeField] private Gradient gradient = new Gradient();
+        [SerializeField] private GradientType gradientType = GradientType.Vertical;
+        [SerializeField] private BlendMode blendMode = BlendMode.Normal;
 
         public override void ModifyMesh(VertexHelper vh)
         {
-            if (!IsActive() || vh.currentVertCount == 0)
+            if (!IsActive() || vh.currentVertCount == 0 || graphic == null)
                 return;
 
             Rect rect = graphic.rectTransform.rect;
 
+            // Safety: prevent divide-by-zero & invalid rect
+            if (rect.width <= 0f || rect.height <= 0f)
+                return;
+
             UIVertex vertex = new UIVertex();
+
             for (int i = 0; i < vh.currentVertCount; i++)
             {
                 vh.PopulateUIVertex(ref vertex, i);
 
-                // Calculate normalized position and clamp it to [0, 1]
-                float normalizedPosition = Mathf.Clamp(GetNormalizedPosition(vertex.position, rect), 0f, 1f);
+                float t = GetNormalizedPosition(vertex.position, rect);
+                t = Safe01(t);
 
-                // Apply gradient color with the chosen blend mode
-                vertex.color = ApplyBlendMode(vertex.color, gradient.Evaluate(normalizedPosition));
+                vertex.color = ApplyBlendMode(vertex.color, gradient.Evaluate(t));
                 vh.SetUIVertex(vertex, i);
             }
         }
 
-        // Method to calculate normalized position for each vertex based on gradient type
+        // ================= SAFE HELPERS =================
+
+        private float Safe01(float value)
+        {
+            if (float.IsNaN(value) || float.IsInfinity(value))
+                return 0f;
+
+            return Mathf.Clamp01(value);
+        }
+
         private float GetNormalizedPosition(Vector3 position, Rect rect)
         {
-            float normalizedPosition = 0f;
+            float value = 0f;
 
             switch (gradientType)
             {
                 case GradientType.Vertical:
-                    normalizedPosition = (position.y - rect.yMin) / rect.height;
+                    value = (position.y - rect.yMin) / rect.height;
                     break;
 
                 case GradientType.Horizontal:
-                    normalizedPosition = (position.x - rect.xMin) / rect.width;
+                    value = (position.x - rect.xMin) / rect.width;
                     break;
 
                 case GradientType.DiagonalLeftToRight:
-                    normalizedPosition = ((position.x - rect.xMin) + (position.y - rect.yMin)) / (rect.width + rect.height);
+                    value =
+                        ((position.x - rect.xMin) + (position.y - rect.yMin)) /
+                        (rect.width + rect.height);
                     break;
 
                 case GradientType.DiagonalRightToLeft:
-                    normalizedPosition = ((position.x - rect.xMax) + (position.y - rect.yMin)) / (rect.width + rect.height);
+                    value =
+                        ((rect.xMax - position.x) + (position.y - rect.yMin)) /
+                        (rect.width + rect.height);
                     break;
 
                 case GradientType.FromCenterToBoundaries:
-                    float centerX = rect.xMin + rect.width / 2;
-                    float centerY = rect.yMin + rect.height / 2;
-                    float distanceToCenter = Vector2.Distance(new Vector2(position.x, position.y), new Vector2(centerX, centerY));
-                    float maxDistanceToCenter = Mathf.Sqrt(Mathf.Pow(rect.width / 2, 2) + Mathf.Pow(rect.height / 2, 2));
-                    normalizedPosition = distanceToCenter / maxDistanceToCenter;
+                    Vector2 center = rect.center;
+                    float maxDistance =
+                        Mathf.Sqrt(rect.width * rect.width + rect.height * rect.height) * 0.5f;
+
+                    if (maxDistance <= 0f)
+                        return 0f;
+
+                    value = Vector2.Distance(position, center) / maxDistance;
                     break;
             }
 
-            return normalizedPosition;
+            return value;
         }
 
-        // Method to apply the selected blend mode to the gradient color
         private Color ApplyBlendMode(Color originalColor, Color gradientColor)
         {
             switch (blendMode)
             {
                 case BlendMode.Additive:
                     return originalColor + gradientColor;
+
                 case BlendMode.Multiply:
                     return originalColor * gradientColor;
+
                 case BlendMode.Normal:
                 default:
                     return gradientColor;
             }
         }
 
-        // Public properties to allow changing the gradient, type, and blend mode
+        // ================= PUBLIC API =================
+
         public Gradient Gradient
         {
             get => gradient;
             set
             {
                 gradient = value;
-                graphic.SetVerticesDirty();
+                graphic?.SetVerticesDirty();
             }
         }
 
@@ -119,7 +136,7 @@ namespace Core.CustomUI
             set
             {
                 gradientType = value;
-                graphic.SetVerticesDirty();
+                graphic?.SetVerticesDirty();
             }
         }
 
@@ -129,7 +146,7 @@ namespace Core.CustomUI
             set
             {
                 blendMode = value;
-                graphic.SetVerticesDirty();
+                graphic?.SetVerticesDirty();
             }
         }
     }

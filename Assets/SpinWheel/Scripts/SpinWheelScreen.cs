@@ -1,25 +1,23 @@
 using TMPro;
-using DG.Tweening;
-using Core.Events;
 using UnityEngine;
+using Core.Events;
+using DG.Tweening;
 using UnityEngine.UI;
 using Core.SpinWheel;
 using Core.DB.Variables;
+using Core.Plugins.Firebase;
 
 namespace Core.Screen
 {
     public class SpinWheelScreen : UiScreens, ISpinWheel
     {
-        [SerializeField] SOIntegerEvents SoundEffectEvent;
-        [SerializeField] SOEvents SpinEvent; 
-        [SerializeField] DBInt DailySpin;
         [SerializeField] GameObject SpinBtn, RvBtn, SpinNotification;
         [SerializeField] RectTransform SegmentParent, Shine, RewardPanel, Wheel;
         [SerializeField] SpinWheelSegment SegmentPrefab;
-        [SerializeField] SpinWheelData SpinWheelData;
         [SerializeField] Color RewardedColor;
         [SerializeField] Image RewardIcon;
         [SerializeField] TextMeshProUGUI RewardAmount;
+        [SerializeField] SpinWheelConfige[] SpinWheelRewards;
 
         float _segmentAngle, _spinDuration = 5f, _tweenDiration = 0.5f;
         bool _onceClicked = false;
@@ -27,8 +25,8 @@ namespace Core.Screen
 
         private void OnEnable()
         {
-            SpinEvent.EventHandler += RewardedSpin;
-            if (DailySpin.Value == 0)
+            SimpleEventsHolder.RewardSpinWheelEvent += RewardedSpin;
+            if (DBVariablesHolder.SpinAvailable.Value == 1)
             {
                 SpinBtn.SetActive(true);
                 RvBtn.SetActive(false);
@@ -46,7 +44,7 @@ namespace Core.Screen
 
         private void OnDisable()
         {
-            SpinEvent.EventHandler -= RewardedSpin;
+            SimpleEventsHolder.RewardSpinWheelEvent -= RewardedSpin;
         }
 
         void Start()
@@ -56,13 +54,13 @@ namespace Core.Screen
 
         void CreateWheelView()
         {
-            int rewardCount = SpinWheelData.SpinWheelRewards.Length;
+            int rewardCount = SpinWheelRewards.Length;
             _allSpinSegments = new SpinWheelSegment[rewardCount];
             _segmentAngle = 360f / rewardCount;
             float fillAmount = 1f / rewardCount;
             for (int i = 0; i < rewardCount; i++)
             {
-                SpinWheelConfige reward = SpinWheelData.SpinWheelRewards[i];
+                SpinWheelConfige reward = SpinWheelRewards[i];
                 SpinWheelSegment segment = Instantiate(SegmentPrefab, SegmentParent);
                 segment.transform.localRotation = Quaternion.Euler(0, 0, -i * _segmentAngle);
                 segment.Initialize(reward.Icon, reward.Amount, reward.SegmentColor, fillAmount);
@@ -89,17 +87,17 @@ namespace Core.Screen
         int GetWeightedRandomIndex()
         {
             float totalWeight = 0f;
-            int rewardCount = SpinWheelData.SpinWheelRewards.Length;
+            int rewardCount = SpinWheelRewards.Length;
 
             for (int i = 0; i < rewardCount; i++)
             {
-                totalWeight += SpinWheelData.SpinWheelRewards[i].Weight;
+                totalWeight += SpinWheelRewards[i].Weight;
             }
             float randomValue = Random.Range(0, totalWeight);
             float cumulative = 0f;
             for (int i = 0; i < rewardCount; i++)
             {
-                cumulative += SpinWheelData.SpinWheelRewards[i].Weight;
+                cumulative += SpinWheelRewards[i].Weight;
                 if (randomValue <= cumulative)
                     return i;
             }
@@ -115,48 +113,51 @@ namespace Core.Screen
             float finalAngle = (360f * 5) + targetAngle;
             SegmentParent.DOLocalRotate(new Vector3(0, 0, finalAngle), _spinDuration, RotateMode.FastBeyond360).SetEase(Ease.OutQuart).OnComplete(() =>
             {
-                SoundEffectEvent.InvokeSOEvent(3);
+                SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
                 Shine.DOScale(Vector3.one,_tweenDiration).SetEase(Ease.OutBack).OnComplete(()=>Shine.localScale = Vector3.zero).OnComplete(()=>{
                     Shine.localScale = Vector3.zero;
-                    RewardIcon.sprite = SpinWheelData.SpinWheelRewards[rewardIndex].Icon;
-                    RewardAmount.text = "+"+SpinWheelData.SpinWheelRewards[rewardIndex].Amount.ToString();
+                    RewardIcon.sprite = SpinWheelRewards[rewardIndex].Icon;
+                    RewardAmount.text = "+"+SpinWheelRewards[rewardIndex].Amount.ToString();
                     RewardPanel.DOScale(Vector3.one, _tweenDiration).SetEase(Ease.OutBack).OnComplete(() => {
                         Invoke(nameof(CloseRewardPanel), 1);
-                        _allSpinSegments[rewardIndex].ChangeGradient(SpinWheelData.SpinWheelRewards[rewardIndex].SegmentColor);
+                        _allSpinSegments[rewardIndex].ChangeGradient(SpinWheelRewards[rewardIndex].SegmentColor);
+                        FirebaseHandler.I?.LogEvent($"SpinW_Rwd_{SpinWheelRewards[rewardIndex].RewardName}");
                     });
-                    DailySpin.Value = 1;
+                    DBVariablesHolder.SpinAvailable.Value = 0;
                     SpinBtn.SetActive(false);
                     SpinNotification.SetActive(false);
                     RvBtn.SetActive(true);
-                    SpinWheelData.SpinWheelRewards[rewardIndex].ClaimReward();
+                    SpinWheelRewards[rewardIndex].ClaimReward();
                 });
                 _allSpinSegments[rewardIndex].ChangeGradient(RewardedColor);
             });
-            SoundEffectEvent.InvokeSOEvent(10);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(10);
         }
 
         void CloseRewardPanel()
         {
-            SoundEffectEvent.InvokeSOEvent(2);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             RewardPanel.DOScale(Vector3.zero, _transitionDuration/2).SetEase(Ease.InBack);
         }
 
         public override void OnOpen()
         {
-            SoundEffectEvent.InvokeSOEvent(3);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
             Body.DOAnchorPosX(0, _transitionDuration).SetEase(Ease.OutBack).OnComplete(() => {
-                SoundEffectEvent.InvokeSOEvent(5);
+                SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(5);
                 Wheel.DOScale(Vector3.one, _transitionDuration).SetEase(Ease.OutBack);
             });
+            FirebaseHandler.I?.LogEvent("SpinW_Open");
         }
 
         public override void OnClose()
         {
-            SoundEffectEvent.InvokeSOEvent(5);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(5);
             Wheel.DOScale(Vector3.zero, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => {
-                SoundEffectEvent.InvokeSOEvent(2);
+                SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
                 Body.DOAnchorPosX(-1500, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
             });
+            FirebaseHandler.I?.LogEvent("SpinW_Close");
         }
 
     }

@@ -1,18 +1,16 @@
-using System.IO;
-using DG.Tweening;
-using UnityEngine;
 using Core.Events;
 using Core.GamePlay;
-using Core.Variables;
-using UnityEngine.UI;
+using Core.Plugins.Firebase;
+using DG.Tweening;
 using System.Collections;
+using System.IO;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Core.Screen
 {
     public class GalleryScreen : UiScreens
     {
-        [SerializeField] SOIntegerEvents SoundEffectEvent;
-        [SerializeField] SOInterger MinLvlNum;
         [SerializeField] PaintingView PaintingObj;
         [SerializeField] RectTransform Content;
         [SerializeField] ScrollRect GalaryScroll;
@@ -52,7 +50,7 @@ namespace Core.Screen
         {
             GameData starsData = LoadStars();
             yield return new WaitForSeconds(0.01f);
-            for(int s = MinLvlNum.Value-1; s < starsData.Levels.Count; s++)
+            for(int s = LevelsManager.I.MinLvlCount-1; s < starsData.Levels.Count; s++)
             {
                 string filePath = Path.Combine(_directoryPath, $"Painting_{starsData.Levels[s].LevelNumber}.png");
                 if (File.Exists(filePath))
@@ -63,7 +61,7 @@ namespace Core.Screen
                     {
                         yield return new WaitForSeconds(0.01f);
                         PaintingView newPainting = Instantiate(PaintingObj, Content);
-                        newPainting.InitPainting(texture, starsData.Levels[s].LevelNumber, starsData.Levels[s].Stars);
+                        newPainting.InitPainting(texture, starsData.Levels[s].LevelNumber, starsData.Levels[s].LevelIndex, starsData.Levels[s].Stars);
                     }
                 }
             }
@@ -72,14 +70,16 @@ namespace Core.Screen
 
         public override void OnOpen()
         {
-            SoundEffectEvent.InvokeSOEvent(3);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
             Body.DOScale(1, _transitionDuration).SetEase(Ease.OutBack);
+            FirebaseHandler.I?.LogEvent("Glry_Open");
         }
 
         public override void OnClose()
         {
-            SoundEffectEvent.InvokeSOEvent(2);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             Body.DOScale(0, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
+            FirebaseHandler.I?.LogEvent("Glry_Close");
         }
     }
 }

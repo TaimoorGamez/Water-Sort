@@ -6,80 +6,79 @@ namespace Core.Sfx
 {
     public class SoundManager : MonoBehaviour
     {
-        [SerializeField] SOEvents OnOffBGMusic, OnOffSounds, PlayBtnClick, StopLoopSoundEffect, UpdateMusicStateEvent, UpdateSoundStateEvent;
-        [SerializeField] SOIntegerEvents SoundEffectEvent;
-        [SerializeField] DBInt Music, Sound;
         [SerializeField] AudioClip BgMusic, BtnClick;
-        [SerializeField] AudioClip[] EffectClips, LoopClips;
+        [SerializeField] AudioClip[] EffectClips;
 
-        AudioSource _bgSource = null, _btnSource = null, _effectSource = null, _loopSource = null;
-        float _bgVolume = 0.6f;
+        AudioSource _bgSource = null, _btnSource = null, _effectSource = null;
+        float _bgVolume = 0.35f;
 
         private void OnEnable()
         {
-            OnOffBGMusic.EventHandler += ChangeBGMusicState;
-            OnOffSounds.EventHandler += ChangeSoundState;
-            PlayBtnClick.EventHandler += PlayBtnSound;
-            SoundEffectEvent.EventHandler += PlaySoundEffect;
+            SimpleEventsHolder.UpdateMusicStateEvent += UpdateBGMusicState;
+            SimpleEventsHolder.UpdateSoundStateEvent += UpdateSoundState;
+            SimpleEventsHolder.BtnPressSfxEvent += PlayBtnSound;
+            SingleIntegerEventsHolder.SoundEffectEvent += PlaySoundEffect;
         }
 
         private void OnDisable()
         {
-            OnOffBGMusic.EventHandler -= ChangeBGMusicState;
-            OnOffSounds.EventHandler -= ChangeSoundState;
-            PlayBtnClick.EventHandler -= PlayBtnSound;
-            SoundEffectEvent.EventHandler -= PlaySoundEffect;
+            SimpleEventsHolder.UpdateMusicStateEvent -= UpdateBGMusicState;
+            SimpleEventsHolder.UpdateSoundStateEvent -= UpdateSoundState;
+            SimpleEventsHolder.BtnPressSfxEvent -= PlayBtnSound;
+            SingleIntegerEventsHolder.SoundEffectEvent -= PlaySoundEffect;
         }
 
         private void Start()
         {
-            if (Music.Value == 1)
-            {
-                CreateMusicSources();
-            }
-
-            if (Sound.Value == 1)
-            {
-                CreateSoundSources();
-            }
+            UpdateBGMusicState();
+            UpdateSoundState();
         }
 
-        void CreateMusicSources()
+        void UpdateBGMusicState()
         {
-            if (_bgSource == null)
+            if (DBVariablesHolder.Music.Value == 1)
             {
                 _bgSource = gameObject.AddComponent<AudioSource>();
                 PlayBGMusic();
             }
-        }
-
-        void ChangeBGMusicState()
-        {
-            if (Music.Value == 1)
+            else
             {
-                Music.Value = 0; 
                 if (_bgSource != null)
                 {
                     Destroy(_bgSource);
                 }
             }
-            else
-            {
-                Music.Value = 1;
-                CreateMusicSources();
-            }
-            UpdateMusicStateEvent.InvokeSOEvent();
         }
 
         void PlayBGMusic()
         {
-            if (Music.Value == 1)
+            if (DBVariablesHolder.Music.Value == 1)
             {
                 _bgSource.Stop();
                 _bgSource.volume = _bgVolume;
                 _bgSource.clip = BgMusic;
                 _bgSource.loop = true;
                 _bgSource.Play();
+            }
+        }
+
+        void UpdateSoundState()
+        {
+            if (DBVariablesHolder.Sound.Value == 1)
+            {
+                CreateSoundSources();
+            }
+            else
+            {
+                if (_btnSource != null)
+                {
+                    Destroy(_btnSource);
+                }
+
+                if (_effectSource != null)
+                {
+                    Destroy(_effectSource);
+                }
             }
         }
         void CreateSoundSources()
@@ -94,45 +93,11 @@ namespace Core.Sfx
             {
                 _effectSource = gameObject.AddComponent<AudioSource>();
             }
-
-            if (_loopSource == null)
-            {
-                _loopSource = gameObject.AddComponent<AudioSource>();
-                _loopSource.loop = true;
-            }
-        }
-
-        void ChangeSoundState()
-        {
-            if (Sound.Value == 1)
-            {
-                Sound.Value = 0;
-                if (_btnSource != null)
-                {
-                    Destroy(_btnSource);
-                }
-
-                if (_effectSource != null)
-                {
-                    Destroy(_effectSource);
-                }
-
-                if (_loopSource != null)
-                {
-                    Destroy(_loopSource);
-                }
-            }
-            else
-            {
-                Sound.Value = 1;
-                CreateSoundSources();
-            }
-            UpdateSoundStateEvent.InvokeSOEvent();
         }
 
         void PlayBtnSound()
         {
-            if (Sound.Value == 1)
+            if (DBVariablesHolder.Sound.Value == 1 && _btnSource != null)
             {
                 _btnSource.Play();
             }
@@ -140,9 +105,9 @@ namespace Core.Sfx
     
         void PlaySoundEffect(int effectNum)
         {
-            if (Sound.Value == 1)
+            if (DBVariablesHolder.Sound.Value == 1)
             {
-                if (_effectSource.isPlaying)
+                if (_effectSource!= null && _effectSource.isPlaying)
                 {
                     AudioSource tempAudioSource = gameObject.AddComponent<AudioSource>();
                     tempAudioSource.clip = EffectClips[effectNum];
@@ -153,7 +118,7 @@ namespace Core.Sfx
                     // Destroy the AudioSource after the sound has finished playing
                     Destroy(tempAudioSource, EffectClips[effectNum].length);
                 }
-                else
+                else if (_effectSource != null)
                 {
                     _effectSource.PlayOneShot(EffectClips[effectNum]);
                 }

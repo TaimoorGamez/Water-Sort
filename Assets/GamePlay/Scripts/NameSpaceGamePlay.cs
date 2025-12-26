@@ -21,6 +21,7 @@ namespace Core.GamePlay
     public class LevelData
     {
         public int LevelNumber;
+        public int LevelIndex;
         public int Stars;
     }
 

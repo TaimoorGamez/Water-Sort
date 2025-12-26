@@ -1,17 +1,16 @@
 using UnityEngine;
 using DG.Tweening;
-using Core.Events;
-using Core.GamePlay;
+using Core.Screen;
 using UnityEngine.UI;
 
 namespace Core.Store
 {
     public class ItemView : MonoBehaviour
     {
-        public ItemData MyData;
-
-        [SerializeField] protected SOIntegerEvents ChangeItemStatusEvent;
+        [SerializeField] protected StorageRoomView MyStorageRoom;
         [SerializeField] protected Image SelectionObj;
+        [SerializeField] protected Color32 SelectColor, UnselectColor;
+        [SerializeField] protected int ItemIndex;
 
         [SerializeField] Color32 SelectedImg, ActiveImg;
 
@@ -31,7 +30,6 @@ namespace Core.Store
         public virtual void ActiveSelectItem()
         {
             SelectionObj.DOColor(ActiveImg, _tweenTime);
-            MyData.IsPurchased = true;
         }
     }
 }

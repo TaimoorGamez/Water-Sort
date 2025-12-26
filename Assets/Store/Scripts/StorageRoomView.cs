@@ -1,64 +1,68 @@
 using TMPro;
 using Core.Store;
 using UnityEngine;
-using DG.Tweening;
 using Core.Events;
+using DG.Tweening;
 using Core.DB.Variables;
 using System.Collections;
+using Core.Plugins.Firebase;
+using System.Collections.Generic;
 
 namespace Core.Screen
 {
     public class StorageRoomView : MonoBehaviour
     {
-        [SerializeField] SOEvents BuyEvent;
-        [SerializeField] SOIntegerEvents ChangeItemStatusEvent;
-        [SerializeField] DBInt CurrentActiveItem;
         [SerializeField] ItemView[] RoomItems;
         [SerializeField] RectTransform Content, Viewport;
         [SerializeField] GameObject[] Buttons;
         [SerializeField] Transform ItemHolder;
         [SerializeField] TextMeshProUGUI VideoText;
-        [SerializeField] string ItemPath;
+        [SerializeField] string ItemName;
 
         int _selectedItem = -1;
         Coroutine _activationRotine;
         GameObject _currentItem;
+        Dictionary<int, GameObject> _itemContainer;
 
         private void OnEnable()
         {
-            BuyEvent.EventHandler += PurchaseByAd;
-            ChangeItemStatusEvent.EventHandler += ChangeItemStatus;
-            _selectedItem = CurrentActiveItem.Value;
+            StoreBuyEventsHandler.I.BindEvent(ItemName, PurchaseByAd);
+            _selectedItem = DBVariableDictionariesHolder.StoreActiveItems[ItemName].Value;
             _activationRotine = StartCoroutine(ActiveStorageRoom());
-            ChangeItemStatus(_selectedItem);
+            UpdateItemStatus(_selectedItem);
+            FirebaseHandler.I?.LogEvent($"ST_Open_{ItemName}");
         }
 
         private void OnDisable()
         {
-            BuyEvent.EventHandler -= PurchaseByAd;
-            ChangeItemStatusEvent.EventHandler -= ChangeItemStatus;
+            StoreBuyEventsHandler.I.UnBindEvent(ItemName, PurchaseByAd);
+            DOTween.Kill(this);
+            Content.DOKill();
             StopActiveRotines();
             if (_currentItem != null)
             {
+                _currentItem.transform.DOKill();
                 Destroy(_currentItem);
             }
             for (int i = 0; i < RoomItems.Length; i++)
             {
                 RoomItems[i].DOKill();
-                RoomItems[i].transform.localScale = Vector3.zero; // instead of tweening scale to 0 instantly
+                RoomItems[i].transform.localScale = Vector3.zero; 
                 RoomItems[i].gameObject.SetActive(false);
             }
         }
 
         IEnumerator ActiveStorageRoom()
         {
+            _itemContainer = StorageData.StoreItemsContainer[ItemName];
+
             for (int i = 0; i < RoomItems.Length; i++)
             {
                 RoomItems[i].gameObject.SetActive(true);
                 yield return new WaitForSeconds(0.1f);
             }
             ChangeActiveItem();
-            InitItem(CurrentActiveItem.Value);
+            InitItem(DBVariableDictionariesHolder.StoreActiveItems[ItemName].Value);
             yield return new WaitForSeconds(0.5f);
             float targetY = Content.rect.height - Viewport.rect.height;
             if (targetY > 200)
@@ -83,10 +87,10 @@ namespace Core.Screen
             {
                 Destroy(_currentItem);
             }
-            _currentItem = Instantiate(Resources.Load<GameObject>(ItemPath + RoomItems[item].MyData.ItemId), ItemHolder);
+            _currentItem = Instantiate(_itemContainer[item], ItemHolder);
         }
 
-        void ChangeItemStatus(int selectedItem)
+        public void UpdateItemStatus(int selectedItem)
         {
             _selectedItem = selectedItem;
             for (int i = 0; i < RoomItems.Length; i++)
@@ -95,21 +99,21 @@ namespace Core.Screen
                 {
                     RoomItems[i].SelectItem();
                     InitItem(i);
-                    if (i == CurrentActiveItem.Value)
+                    if (i == DBVariableDictionariesHolder.StoreActiveItems[ItemName].Value)
                     {
                         ChangeButton(0);
                     }
-                    else if (RoomItems[i].MyData.IsPurchased)
+                    else if (StorageData.AllItems[ItemName][i].IsPurchased)
                     {
                         ChangeButton(1);
                     }
                     else
                     {
                         ChangeButton(2);
-                        VideoText.text = RoomItems[_selectedItem].MyData.WatchedVideos + "/" + RoomItems[_selectedItem].MyData.TotalVideos;
+                        VideoText.text = StorageData.AllItems[ItemName][i].WatchedVideos + "/" + StorageData.AllItems[ItemName][i].TotalVideos;
                     }
                 }
-                else if (i == CurrentActiveItem.Value)
+                else if (i == DBVariableDictionariesHolder.StoreActiveItems[ItemName].Value)
                 {
                     RoomItems[i].ActiveSelectItem();
                 }
@@ -131,23 +135,24 @@ namespace Core.Screen
 
         public void ChangeActiveItem()
         {
-            RoomItems[CurrentActiveItem.Value].UnSelectItem();
+            RoomItems[DBVariableDictionariesHolder.StoreActiveItems[ItemName].Value].UnSelectItem();
             if (_selectedItem != -1)
             {
-                CurrentActiveItem.Value = _selectedItem;
-                RoomItems[CurrentActiveItem.Value].ActiveSelectItem();
+                DBVariableDictionariesHolder.StoreActiveItems[ItemName].Value = _selectedItem;
+                RoomItems[DBVariableDictionariesHolder.StoreActiveItems[ItemName].Value].ActiveSelectItem();
                 ChangeButton(0);
             }
         }
 
         void PurchaseByAd()
         {
-            RoomItems[_selectedItem].MyData.WatchedVideos += 1;
-            VideoText.text = RoomItems[_selectedItem].MyData.WatchedVideos + "/" + RoomItems[_selectedItem].MyData.TotalVideos;
-            if (RoomItems[_selectedItem].MyData.WatchedVideos >= RoomItems[_selectedItem].MyData.TotalVideos)
+            StorageData.AllItems[ItemName][_selectedItem].WatchedVideos += 1;
+            VideoText.text = StorageData.AllItems[ItemName][_selectedItem].WatchedVideos + "/" + StorageData.AllItems[ItemName][_selectedItem].TotalVideos;
+            if (StorageData.AllItems[ItemName][_selectedItem].WatchedVideos >= StorageData.AllItems[ItemName][_selectedItem].TotalVideos)
             {
-                RoomItems[_selectedItem].MyData.IsPurchased = true;
-                ChangeItemStatus(_selectedItem);
+                StorageData.AllItems[ItemName][_selectedItem].IsPurchased = true;
+                UpdateItemStatus(_selectedItem);
+                FirebaseHandler.I?.LogEvent($"ST_{ItemName}_item_{_selectedItem}");
             }
         }
     }

@@ -1,7 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
 using Core.Events;
-using Core.Variables;
 using System.Collections;
 using Core.GamePlay.Coloring;
 
@@ -9,9 +8,6 @@ namespace Core.GamePlay.WaterSort
 {
     public class WaterSortTutorialTwo : MonoBehaviour
     {
-        [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
-        [SerializeField] SOEvents StartColoringEvent;
-        [SerializeField] SOIntegerEvents SwitchProtectorEvent;
         [SerializeField] CapsuleCollider MyCollider, SecondCollider, ThirdCollider;
         [SerializeField] TubeHandler MyLiquid, OtherLiquid, ThirdLiquid;
         [SerializeField] GameObject InfoTextObj, UndoBtn;
@@ -28,17 +24,17 @@ namespace Core.GamePlay.WaterSort
         private void OnEnable()
         {
 
-            if (!IsUndoBtn && !ExtraTube)
+            if (IsUndoBtn)
             {
-                StartColoringEvent.EventHandler += ColoringPreparation;
+                SimpleEventsHolder.StartColoringEvent += ColoringPreparation;
             }
         }
 
         private void OnDisable()
         {
-            if (!IsUndoBtn && !ExtraTube)
+            if (IsUndoBtn)
             {
-                StartColoringEvent.EventHandler -= ColoringPreparation;
+                SimpleEventsHolder.StartColoringEvent -= ColoringPreparation;
             }
         }
 
@@ -66,15 +62,15 @@ namespace Core.GamePlay.WaterSort
                 OtherLiquid.SetColor(CurrentColors[_colorIndex]);
                 yield return new WaitForSeconds(0.1f);
             }
-            SwitchProtectorEvent.InvokeSOEvent(0);
+            SingleIntegerEventsHolder.SwitchProtectorEvent?.Invoke(0);
             MyCollider.enabled = true;
-            CanPlay.Value = 1;
+            LevelsManager.I.CanPlay = true;
             HandObj.gameObject.SetActive(true);
         }
 
         void OnMouseDown()
         {
-            if (CanPlay.Value != 1)
+            if (!LevelsManager.I.CanPlay)
                 return;
 
             if (ExtraTube && _isFirstClick)
@@ -102,6 +98,7 @@ namespace Core.GamePlay.WaterSort
                 SecondCollider.enabled = true;
                 ThirdCollider.enabled = true;
             }
+            SimpleEventsHolder.UndoEvent?.Invoke();
         }
 
         void ShowUndoBtn()
@@ -119,8 +116,7 @@ namespace Core.GamePlay.WaterSort
         {
             float tweenTime = 1;
             InfoTextObj.SetActive(false);
-            Destroy(UndoBtn.transform.parent.gameObject);
-            if (!IsUndoBtn && !ExtraTube)
+            if (IsUndoBtn)
             {
                 if (ThirdLiquid.WaterColors.Count > 0)
                 {
@@ -129,7 +125,7 @@ namespace Core.GamePlay.WaterSort
                     ThirdLiquid.transform.DOScale(_bowlScale, tweenTime);
                     ThirdLiquid.transform.DOLocalMove(_thirdBowlPos, tweenTime).OnKill(() =>
                     {
-                        BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
+                        BowlColorHandler colorBowl = Instantiate(BowlObj, ThirdLiquid.transform.parent);
                         colorBowl.transform.localPosition = ThirdLiquid.transform.localPosition;
                         colorBowl.SetColor(ThirdLiquid.CurrentColor);
                         Destroy(ThirdLiquid.gameObject, 0.2f);
@@ -147,7 +143,7 @@ namespace Core.GamePlay.WaterSort
                     OtherLiquid.transform.DOScale(_bowlScale, tweenTime);
                     OtherLiquid.transform.DOLocalMove(_otherBowlPos, tweenTime).OnKill(() =>
                     {
-                        BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
+                        BowlColorHandler colorBowl = Instantiate(BowlObj, OtherLiquid.transform.parent);
                         colorBowl.transform.localPosition = OtherLiquid.transform.localPosition;
                         colorBowl.SetColor(OtherLiquid.CurrentColor);
                         Destroy(OtherLiquid.gameObject, 0.2f);
@@ -165,7 +161,7 @@ namespace Core.GamePlay.WaterSort
                     MyLiquid.transform.DOScale(_bowlScale, tweenTime);
                     MyLiquid.transform.DOLocalMove(_firstBowlPos, tweenTime).OnKill(() =>
                     {
-                        BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
+                        BowlColorHandler colorBowl = Instantiate(BowlObj, MyLiquid.transform.parent);
                         colorBowl.transform.localPosition = MyLiquid.transform.localPosition;
                         colorBowl.SetColor(MyLiquid.CurrentColor);
                         Destroy(MyLiquid.gameObject, 0.2f);
@@ -175,8 +171,8 @@ namespace Core.GamePlay.WaterSort
                 {
                     Destroy(MyLiquid.gameObject);
                 }
+                //Destroy(transform.parent.gameObject, 2f);
             }
         }
-
     }
 }

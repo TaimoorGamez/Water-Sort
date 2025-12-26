@@ -1,32 +1,38 @@
 using Core.Store;
 using DG.Tweening;
-using UnityEngine;
 using Core.Events;
+using UnityEngine;
 using Core.Economy;
 using UnityEngine.UI;
 using Core.DB.Variables;
+using System.Threading.Tasks;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Core.Screen
 {
-    public class BoxRewardScreen : MonoBehaviour
+    public class BoxRewardScreen : UiScreens
     {
-        [SerializeField] SOIntegerEvents SoundEffectEvent;
-        [SerializeField] Currency CashCurrency;
-        [SerializeField] DBInt[] PowersData;
-        [SerializeField] ItemData[] StorItemsData;
-        [SerializeField] RectTransform Body;
         [SerializeField] RectTransform[] Cards, ItemHolders;
         [SerializeField] Sprite[] PowerSprites;
         [SerializeField] Image PowerImage;
 
         float _tweenTime = 0.5f, _unboxingTime = 1, _cardSize = 1.25f;
-        int _cardIndex = 0, _totalStoreItems = 18, _flamesLength = 4, _capsLength = 6;
+        int _cardIndex = 0, _spraysLength = 8, _capsLength = 6, _flamesLength = 4;
         Vector2 _cardPosition = new Vector2(0, -350);
-        string _flamesPath = "FlameStorage/Flame ", _capsPath = "CapStorage/Cap ", _spraysPath = "SprayStorage/Spray ";
+        string _flamesPath = "Store/Flame/", _capsPath = "Store/Cap/", _spraysPath = "Store/Spray/";
+        AsyncOperationHandle _itemHandle;
+        bool _itemReleaseInProgress = false;
 
         private void Start()
         {
-            Body.DOAnchorPosX(0, _tweenTime).SetEase(Ease.OutBack).OnComplete(()=> CardReward());
+            OnOpen();
+        }
+
+        public override void OnOpen()
+        {
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
+            Body.DOAnchorPosX(0, _tweenTime).SetEase(Ease.OutBack).OnComplete(() => CardReward());
         }
 
         void CardReward()
@@ -34,39 +40,62 @@ namespace Core.Screen
             switch (_cardIndex)
             {
                 case 0:
-                    int randomReward = Random.Range(0, _totalStoreItems);
-                    if (randomReward < _flamesLength)
+                    int randomItem = Random.Range(0, 3);
+                    int randomReward = -1;
+                    switch (randomItem)
                     {
-                        Instantiate(Resources.Load<GameObject>(_flamesPath + randomReward), ItemHolders[0]);
-                        PowerImage.sprite = PowerSprites[0];
-                        PowersData[0].Value += 1;
+                        case 0:
+                            randomReward = Random.Range(0, _flamesLength);
+                            LoadRewardItem(_flamesPath + randomReward);
+                            PowerImage.sprite = PowerSprites[0];
+                            DBVariableDictionariesHolder.PowersData[0].Value += 1;
+                            StorageData.AllItems[StorageData.FlameThrowersKey][randomReward].IsPurchased = true;
+                            break;
+
+                        case 1:
+                            randomReward = Random.Range(0, _capsLength);
+                            LoadRewardItem(_capsPath + randomReward);
+                            PowerImage.sprite = PowerSprites[1];
+                            DBVariableDictionariesHolder.PowersData[1].Value += 1;
+                            StorageData.AllItems[StorageData.CapsKey][randomReward].IsPurchased = true;
+                            break;
+
+                        case 2:
+                            randomReward = Random.Range(0, _spraysLength);
+                            LoadRewardItem(_spraysPath + randomReward);
+                            PowerImage.sprite = PowerSprites[2];
+                            DBVariableDictionariesHolder.PowersData[2].Value += 1;
+                            StorageData.AllItems[StorageData.SpraysKey][randomReward].IsPurchased = true;
+                            break;
                     }
-                    else if(randomReward < _capsLength+_flamesLength)
-                    {
-                        int capIndex = randomReward - _flamesLength;
-                        Instantiate(Resources.Load<GameObject>(_capsPath + capIndex), ItemHolders[0]);
-                        PowerImage.sprite = PowerSprites[1];
-                        PowersData[1].Value += 1;
-                    }
-                    else
-                    {
-                        int sprayIndex = randomReward - (_flamesLength +_capsLength);
-                        Instantiate(Resources.Load<GameObject>(_spraysPath + sprayIndex), ItemHolders[0]);
-                        PowerImage.sprite = PowerSprites[2];
-                        PowersData[2].Value += 1;
-                    }
-                    StorItemsData[randomReward].IsPurchased = true;
                     break;
                 case 2:
-                    CashCurrency.Amount += 300;
+                   CurrenciesHolder.CashCurrency.Amount += 300;
                     break;
             }
             StartUnBoxsing();
         }
 
+        async void LoadRewardItem(string path)
+        {
+            _itemHandle = Addressables.LoadAssetAsync<GameObject>(path);
+            await _itemHandle.Task;
+
+            if (_itemHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.Log($"Failed to load Addressable prefab at: {path}");
+                return;
+            }
+
+            GameObject itemObj = Instantiate(_itemHandle.Result as GameObject, ItemHolders[0]);
+            
+            await Task.Yield();
+            await Task.Yield();
+        }
+
         void StartUnBoxsing()
         {
-            SoundEffectEvent.InvokeSOEvent(3);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
             Cards[_cardIndex].DOAnchorPos(_cardPosition, _unboxingTime).SetEase(Ease.OutQuad);
             Cards[_cardIndex].DOScale(_cardSize, _unboxingTime).SetEase(Ease.OutBack);
             Cards[_cardIndex].DOLocalRotate(new Vector3(0, 360f, 0), _unboxingTime / 2, RotateMode.FastBeyond360)
@@ -90,8 +119,41 @@ namespace Core.Screen
             }
             else
             {
-                Body.DOAnchorPosX(1500, _tweenTime).SetEase(Ease.OutBack).OnComplete(() => gameObject.SetActive(false));
+                OnClose();
             }
         }
+
+        public override void OnClose()
+        {
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
+            Body.DOAnchorPosX(1500, _tweenTime).SetEase(Ease.OutBack).OnComplete(() => gameObject.SetActive(false));
+        }
+
+        private async void OnDisable()
+        {
+            await ReleaseItemHandleSafelyAsync();
+        }
+        async Task ReleaseItemHandleSafelyAsync()
+        {
+            if (_itemReleaseInProgress)
+                return;
+
+            _itemReleaseInProgress = true;
+
+            // wait for next frame (Unity safe point)
+            await Task.Yield();
+
+            if (_itemHandle.IsValid())
+            {
+                Addressables.Release(_itemHandle);
+                _itemHandle = default;
+            }
+
+            // optional extra frame (Android / scene safety)
+            await Task.Yield();
+
+            _itemReleaseInProgress = false;
+        }
+
     }
 }

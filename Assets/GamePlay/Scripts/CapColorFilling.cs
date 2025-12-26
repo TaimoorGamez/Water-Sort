@@ -13,7 +13,7 @@ namespace Core.GamePlay
             {
                 _propBlock.SetFloat("_ColorRange", value);
                 MySkin.SetPropertyBlock(_propBlock);
-            }, 1, 1);
+            }, 1, 1).SetLink(gameObject);
         }
     }
 }

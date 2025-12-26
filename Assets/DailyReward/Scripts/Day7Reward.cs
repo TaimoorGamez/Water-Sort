@@ -1,5 +1,4 @@
 using TMPro;
-using System;
 using UnityEngine;
 using Core.DB.Variables;
 
@@ -7,7 +6,6 @@ namespace Core.DailyReward
 {
     public class Day7Reward : DailyRewardHandler
     {
-        [SerializeField] DBInt RemainingTubes;
         [SerializeField] int TubeCounts;
         [SerializeField] TextMeshProUGUI[] TubesText;
 
@@ -25,34 +23,25 @@ namespace Core.DailyReward
         {
             base.UpdateUI();
             for (int i = 0; i < AmountText.Length; i++)
-{
-    AmountText[i].text = Amount.ToString();
-}
+            {
+                AmountText[i].text = Amount.ToString();
+            }
 
-for (int i = 0; i < TubesText.Length; i++)
-{
-    TubesText[i].text = TubeCounts.ToString();
-}
-
+            for (int i = 0; i < TubesText.Length; i++)
+            {
+                TubesText[i].text = TubeCounts.ToString();
+            }
         }
 
         protected override void OnClickBuyButton()
         {
             base.OnClickBuyButton();
-            RemainingTubes.Value += TubeCounts;
-            try
-            {
-                FBEvents.EarnCoinsEvent("Tube", Amount, "DailyReward");
-            }
-            catch (Exception e)
-            {
-                Debug.Log("***Exception " + e);
-            }
+            DBVariablesHolder.RemainingTubes.Value += TubeCounts;
         }
 
         protected override void GrantDoubleReward()
         {
-            RemainingTubes.Value += (TubeCounts * 2);
+            DBVariablesHolder.RemainingTubes.Value += (TubeCounts * 2);
             base.GrantDoubleReward();
         }
     }

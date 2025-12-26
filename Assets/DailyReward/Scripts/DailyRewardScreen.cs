@@ -1,15 +1,13 @@
+using Core.Events;
 using DG.Tweening;
 using UnityEngine;
-using Core.Events;
 using Core.DB.Variables;
+using Core.Plugins.Firebase;
 
 namespace Core.Screen
 {
     public class DailyRewardScreen : UiScreens
     {
-        [SerializeField] DBInt RewardClaimed;
-        [SerializeField] SOEvents UpDateState;
-        [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] GameObject ClaimBtnsObj, TimerTextObj;
         [SerializeField] RectTransform[] RewardItems;
         [SerializeField] RectTransform NiddleRotator;
@@ -19,13 +17,13 @@ namespace Core.Screen
 
         private void OnEnable()
         {
-            UpDateState.EventHandler += CheckViewState;
+            SimpleEventsHolder.UpDateDailyRewardState += CheckViewState;
             CheckViewState();
         }
 
         private void OnDisable()
         {
-            UpDateState.EventHandler -= CheckViewState;
+            SimpleEventsHolder.UpDateDailyRewardState -= CheckViewState;
 
             if (_niddleTween != null && _niddleTween.IsActive())
                 _niddleTween.Kill();
@@ -33,7 +31,7 @@ namespace Core.Screen
 
         private void CheckViewState()
         {
-            if (RewardClaimed.Value == 0)
+            if (DBVariablesHolder.RewardClaimed.Value == 0)
             {
                 ClaimBtnsObj.SetActive(true);
                 TimerTextObj.SetActive(false);
@@ -51,7 +49,7 @@ namespace Core.Screen
 
         public override void OnOpen()
         {
-            SoundEffectEvent.InvokeSOEvent(3);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
             Body.DOAnchorPosX(0, _transitionDuration).SetEase(Ease.OutBack).OnComplete(() =>
             {
                 for (int i = 0; i < RewardItems.Length; i++)
@@ -59,12 +57,14 @@ namespace Core.Screen
                     RewardItems[i].DOScale(Vector3.one, _transitionDuration).SetEase(Ease.OutBack);
                 }
             });
+            FirebaseHandler.I?.LogEvent("DR_Open");
         }
 
         public override void OnClose()
         {
-            SoundEffectEvent.InvokeSOEvent(2);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             Body.DOAnchorPosX(1500, _transitionDuration / 2).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
+            FirebaseHandler.I?.LogEvent("DR_Close");
         }
     }
 }

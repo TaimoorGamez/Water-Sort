@@ -5,20 +5,19 @@ namespace Core.GamePlay.Coloring
 {
     public class ColoringTutorial : MonoBehaviour
     {
-        [SerializeField] SOEvents StartColoringEvent, ColorSelectedEvent;
         [SerializeField] GameObject TutorialHand;
 
 
         private void OnEnable()
         {
-            StartColoringEvent.EventHandler += StartColoring;
-            ColorSelectedEvent.EventHandler += ColorSelected;
+            SimpleEventsHolder.StartColoringEvent += StartColoring;
+            SimpleEventsHolder.ColorSelectedEvent += ColorSelected;
         }
 
         private void OnDisable()
         {
-            StartColoringEvent.EventHandler -= StartColoring;
-            ColorSelectedEvent.EventHandler -= ColorSelected;
+            SimpleEventsHolder.StartColoringEvent -= StartColoring;
+            SimpleEventsHolder.ColorSelectedEvent -= ColorSelected;
         }
 
         void StartColoring()

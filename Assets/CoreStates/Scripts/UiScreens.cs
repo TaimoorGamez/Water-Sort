@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 namespace Core.Screen
@@ -14,7 +15,7 @@ namespace Core.Screen
 
         public virtual void OnClose()
         {
-            
+            DOTween.Kill(this);
         }
     }
 }

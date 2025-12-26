@@ -2,18 +2,18 @@ using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using Core.Events;
-using Core.Variables;
+using Core.States;
 using UnityEngine.UI;
 using Core.DB.Variables;
 using System.Collections;
+using System.Threading.Tasks;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Core.GamePlay.Coloring
 {
     public class DetailsHandler : MonoBehaviour
     {
-        [SerializeField] DBInt CurrentSpray, CurrentFlame, Sound;
-        [SerializeField] SOInterger LevelStars, DetailsApplied, CompleteStateIndex;
-        [SerializeField] SOIntegerEvents SoundEffectEvent, ActiveStateEvent;
         [SerializeField] RectTransform SprayCan, FlameThrower, ColoringParts;
         [SerializeField] AudioSource SpraySound, FlameSound;
         [SerializeField] Vector2Int VerticalRange, HorizontalRange;
@@ -26,7 +26,8 @@ namespace Core.GamePlay.Coloring
         [SerializeField] ParticleSystem StarParticles;
 
         float _speed = 5, _brushSize = 25, _preparationTime = 0.5f, _finalPos = 175, _detailFillingTime = 0.1f;
-        bool _canSpray = false, _effectCheck = false, _canShowNextBtn = true, _onceClicked = true, _canThrowFlame = false;
+        bool _canSpray = false, _effectCheck = false, _canShowNextBtn = true, _onceClicked = true, _canThrowFlame = false, 
+             _detailsApplied = false, _sprayFlameReleaseInProgress = false;
         Coroutine _movingRoutine;
         Camera _currentCamera;
         Texture2D _partTexture;
@@ -34,26 +35,75 @@ namespace Core.GamePlay.Coloring
         Color32[] _cloudPixles, _compoundPixels;
         const int _bubbleThreshold = 32;
         Color32 _fillColor = new Color32(0, 0, 0, 0);
-        string _sprayPath = "Sprays/Spray ", _flamePath = "Flames/Flame ";
+        string _sprayPath = "GamePlay/Spray/", _flamePath = "GamePlayFlame/";
         Animation _sprayAnimation;
+        AsyncOperationHandle _sprayHandle, _flameHandle;
 
-        private void OnDisable()
+        private async void OnDisable()
         {
-            DetailsApplied.Value = 0;
-               _canSpray = false;
+            _canSpray = false;
             _canThrowFlame = false;
             if (_movingRoutine != null)
             {
                 StopCoroutine(_movingRoutine);
                 _movingRoutine = null;
             }
+            await ReleaseSprayAndFlameHandlesSafelyAsync();
         }
+
+        async Task ReleaseSprayAndFlameHandlesSafelyAsync()
+        {
+            if (_sprayFlameReleaseInProgress)
+                return;
+
+            _sprayFlameReleaseInProgress = true;
+
+            // wait for next frame (Unity safe point)
+            await Task.Yield();
+
+            if (_sprayHandle.IsValid())
+            {
+                Addressables.Release(_sprayHandle);
+                _sprayHandle = default;
+            }
+
+            if (_flameHandle.IsValid())
+            {
+                Addressables.Release(_flameHandle);
+                _flameHandle = default;
+            }
+
+            // optional extra frame (Android / scene safety)
+            await Task.Yield();
+
+            _sprayFlameReleaseInProgress = false;
+        }
+
 
         private void Start()
         {
             _currentCamera = Camera.main;
-            _sprayAnimation = Instantiate(Resources.Load<Animation>(_sprayPath + CurrentSpray.Value),SprayCan);
+            LoadSprayObj(_sprayPath + DBVariablesHolder.CurrentActiveSpray.Value);
             Invoke(nameof(PrepareCompounD),0.1f);
+        }
+
+        async void LoadSprayObj(string path)
+        {
+            _sprayHandle = Addressables.LoadAssetAsync<GameObject>(path);
+            await _sprayHandle.Task;
+
+            if (_sprayHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.Log($"Failed to load Addressable prefab at: {path}");
+                return;
+            }
+
+            GameObject obj = Instantiate(_sprayHandle.Result as GameObject, SprayCan);
+            await Task.Yield();
+            await Task.Yield();
+            _sprayAnimation = obj.GetComponent<Animation>();
+
+            await Task.Yield();
         }
 
         public void OnNextBtnClick()
@@ -72,22 +122,22 @@ namespace Core.GamePlay.Coloring
                 TextHolder.SetActive(false);
                 NextBtn.SetActive(false);
 
-                if (DetailsApplied.Value == 0)
+                if (!_detailsApplied)
                 {
                     _canSpray = false;
                     SprayCan.gameObject.SetActive(false);
                     Details.gameObject.SetActive(true);
                     PrepareFlames();
                 }
-                else if (DetailsApplied.Value == 1)
+                else if (_detailsApplied)
                 {
                     _canThrowFlame = false;
                     FlameThrower.gameObject.SetActive(false);
                     Details.DOFillAmount(1, _detailFillingTime);
                     HideRemaingPixles();
-                    SoundEffectEvent.InvokeSOEvent(6);
+                    SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(6);
                     StarParticles.Play();
-                    ColoringParts.DOScale(1.5f, _preparationTime).SetEase(Ease.OutBack).OnComplete(() =>
+                    ColoringParts.DOScale(1.35f, _preparationTime).SetEase(Ease.OutBack).OnComplete(() =>
                     {
                         Invoke(nameof(LevelComplete), 2);
                     });
@@ -100,7 +150,7 @@ namespace Core.GamePlay.Coloring
             ColoringParts.DOScale(0.75f, _preparationTime);
             ColoringParts.DOAnchorPosY(_finalPos, _preparationTime).OnComplete(() =>
             {
-                ActiveStateEvent.InvokeSOEvent(CompleteStateIndex.Value);
+                StateManager.I.ActiveState(StateManager.I.LevelCompleteStatePath);
             });
         }
 
@@ -146,7 +196,7 @@ namespace Core.GamePlay.Coloring
                         _effectCheck = true;
                         BubbleParticle.SetActive(true);
                         _sprayAnimation.Play("SprayOn");
-                        if (Sound.Value == 1)
+                        if (DBVariablesHolder.Sound.Value == 1)
                             SpraySound.Play();
                     }
                 }
@@ -198,7 +248,7 @@ namespace Core.GamePlay.Coloring
             }
 
             _bubbleCounter++;
-            SoundEffectEvent.InvokeSOEvent(5);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(5);
             // Save the new position as the last applied position
             _lastAppliedCenterX = centerX;
             _lastAppliedCenterY = centerY;
@@ -267,7 +317,24 @@ namespace Core.GamePlay.Coloring
             _canShowNextBtn = true;
             _canThrowFlame = true;
             _movingRoutine = StartCoroutine(FlamesThrowingRoutine());
-            Instantiate(Resources.Load(_flamePath + CurrentFlame.Value), FlameThrower);
+            LoadFlameObj(_flamePath + DBVariablesHolder.CurrentActiveFlameThrower.Value);
+        }
+
+        async void LoadFlameObj(string path)
+        {
+            _flameHandle = Addressables.LoadAssetAsync<GameObject>(path);
+            await _flameHandle.Task;
+
+            if (_flameHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                Debug.Log($"Failed to load Addressable prefab at: {path}");
+                return;
+            }
+
+            GameObject flameObj = Instantiate(_flameHandle.Result as GameObject, FlameThrower);
+
+            await Task.Yield();
+            await Task.Yield();
         }
 
         IEnumerator FlamesThrowingRoutine()
@@ -286,7 +353,7 @@ namespace Core.GamePlay.Coloring
                     {
                         _effectCheck = true;
                         FlameParticles.SetActive(true);
-                        if (Sound.Value == 1)
+                        if (DBVariablesHolder.Sound.Value == 1)
                             FlameSound.Play();
                     }
                 }
@@ -377,7 +444,7 @@ namespace Core.GamePlay.Coloring
             {
                 _canShowNextBtn = false;
                 _onceClicked = false;
-                DetailsApplied.Value = 1;
+                _detailsApplied = true;
                 NextBtn.SetActive(true);
             }
         }

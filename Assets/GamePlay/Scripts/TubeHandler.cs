@@ -1,7 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
 using Core.Events;
-using Core.Variables;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -14,12 +13,6 @@ namespace Core.GamePlay.WaterSort
         public Color CurrentColor;
         public CapHandler TubeCap;
 
-        [SerializeField] SOIntegerEvents SoundEffectEvent, TaostMsgEvent;
-        [SerializeField] SOInterger DoingUndo, IsHiddenLevel, CompletedTubes, IsSwaping, CanPlay, UsingAnyFeature;
-        [SerializeField] UndoManager UndoManager;
-        [SerializeField] ColorSwiper SwapingManager;
-        [SerializeField] SOWaterTube OpenTube;
-        [SerializeField] SOEvents CheckCompleteEvent;
         [SerializeField] ParticleSystem WaveParticle, DropsParticle, CompleteParticle;
         [SerializeField] LineRenderer WaterLine;
         [SerializeField] Transform AnchorPos1, AnchorPos2;
@@ -66,32 +59,32 @@ namespace Core.GamePlay.WaterSort
 
         private void OnMouseDown()
         {
-            if (DoingUndo.Value == 0 && IsSwaping.Value == 0 && CanPlay.Value == 1)
+            if (!LevelsManager.I.DoingUndo && !LevelsManager.I.IsSwaping && LevelsManager.I.CanPlay)
             {
-                if (OpenTube.Tube == null && !IsBussy && !_isDrinkingWater)
+                if (LevelsManager.I.Tube == null && !IsBussy && !_isDrinkingWater)
                 {
                     if (WaterColors.Count > 0)
                     {
                         TubeState(true);
-                        OpenTube.Tube = this;
+                        LevelsManager.I.Tube = this;
                     }
                     else
                     {
-                        TaostMsgEvent.InvokeSOEvent(0);
+                        SingleIntegerEventsHolder.ShowToastEvent?.Invoke(0);
                     }
                 }
                 else
                 {
-                    if (OpenTube.Tube == this && !IsBussy)
+                    if (LevelsManager.I.Tube == this && !IsBussy)
                     {
-                        OpenTube.Tube = null;
+                        LevelsManager.I.Tube = null;
                         MoveBackIn();
                     }
                     else
                     {
-                        if (!IsBussy && OpenTube.Tube != null)
+                        if (!IsBussy && LevelsManager.I.Tube != null)
                         {
-                            _senderTube = OpenTube.Tube;
+                            _senderTube = LevelsManager.I.Tube;
                             if (WaterColors.Count < 1)
                             {
                                 DrinkWater();
@@ -104,25 +97,25 @@ namespace Core.GamePlay.WaterSort
                                 }
                                 else
                                 {
-                                    TaostMsgEvent.InvokeSOEvent(6);
-                                    OpenTube.Tube.MoveBackIn();
-                                    OpenTube.Tube = null;
+                                    SingleIntegerEventsHolder.ShowToastEvent?.Invoke(6);
+                                    LevelsManager.I.Tube.MoveBackIn();
+                                    LevelsManager.I.Tube = null;
                                 }
                             }
                             else
                             {
-                                TaostMsgEvent.InvokeSOEvent(7);
-                                OpenTube.Tube.MoveBackIn();
-                                OpenTube.Tube = null;
+                                SingleIntegerEventsHolder.ShowToastEvent?.Invoke(7);
+                                LevelsManager.I.Tube.MoveBackIn();
+                                LevelsManager.I.Tube = null;
                             }
                         }
                     }
                 }
             }
-            else if (IsSwaping.Value == 1 && CanPlay.Value == 1 && WaterColors.Count > 0)
+            else if (LevelsManager.I.IsSwaping && LevelsManager.I.CanPlay && WaterColors.Count > 0)
             {
-                SoundEffectEvent.InvokeSOEvent(0);
-                SwapingManager.AddTubeForSwaping(this);
+                SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(0);
+                LevelsManager.I.ColorSwaper.AddTubeForSwaping(this);
             }
         }
 
@@ -137,7 +130,7 @@ namespace Core.GamePlay.WaterSort
             IsBussy = true;
             _isDrinkingWater = true;
             _senderTube.IsBussy = true;
-            OpenTube.Tube = null;
+            LevelsManager.I.Tube = null;
             _drinkingRotine.Add(StartCoroutine(ChangingWater(_senderTube)));
         }
 
@@ -147,7 +140,7 @@ namespace Core.GamePlay.WaterSort
             _isDrinkingWater = true;
             senderTube.IsBussy = true;
             _colorsToUndo = liquidLayers;
-            OpenTube.Tube = null;
+            LevelsManager.I.Tube = null;
             _drinkingRotine.Add(StartCoroutine(ChangingWater(senderTube)));
         }
 
@@ -163,14 +156,14 @@ namespace Core.GamePlay.WaterSort
             senderTube.transform.DOMove(anchorPos.position, 0.1f);
             senderTube.transform.DORotate(anchorPos.eulerAngles, 0.1f).OnComplete(() =>
             {
-                if (WaterColors.Count < _totalLiquidLayers - 1 && DoingUndo.Value == 0)
+                if (WaterColors.Count < _totalLiquidLayers - 1 && !LevelsManager.I.DoingUndo)
                 {
                     int sameColors = 1;
                     for (int i = senderTube.WaterColors.Count - 1; i > 0; i--)
                     {
                         if (senderTube.WaterColors[i] == senderTube.WaterColors[i - 1])
                         {
-                            if (IsHiddenLevel.Value == 1)
+                            if (LevelsManager.I.IsHiddenLevel)
                             {
                                 if (!senderTube.GetHidenColor(i - 1))
                                     sameColors++;
@@ -199,15 +192,15 @@ namespace Core.GamePlay.WaterSort
                     }
                 }
 
-                if (DoingUndo.Value == 1)
+                if (LevelsManager.I.DoingUndo)
                 {
                     colorsToAdd = _colorsToUndo;
                 }
                 AddColor(senderTube.CurrentColor, colorsToAdd);
                 senderTube.RemoveColor(colorsToAdd);
-                if (DoingUndo.Value == 0)
+                if (!LevelsManager.I.DoingUndo)
                 {
-                    UndoManager.AddUndo(senderTube, this, colorsToAdd);
+                    LevelsManager.I.UndoManager.AddUndo(senderTube, this, colorsToAdd);
                 }
                 IsBussy = false;
             });
@@ -215,18 +208,18 @@ namespace Core.GamePlay.WaterSort
             WaterLine.gameObject.SetActive(false);
             senderTube.TubeState(false);
             yield return new WaitForSeconds(0.25f);
-            if (IsHiddenLevel.Value == 1)
+            if (LevelsManager.I.IsHiddenLevel)
             {
                 senderTube.RevelColour();
             }
             WaterAdded();
             yield return new WaitForSeconds(0.1f);
             senderTube.IsBussy = false;
-            if (DoingUndo.Value == 1)
+            if (LevelsManager.I.DoingUndo)
             {
                 yield return new WaitForSeconds(0.05f);
-                DoingUndo.Value = 0;
-                UsingAnyFeature.Value = 0;
+                LevelsManager.I.DoingUndo = false;
+                LevelsManager.I.UsingAnyFeature = false;
             }
         }
 
@@ -248,7 +241,7 @@ namespace Core.GamePlay.WaterSort
                 {
                     _alreadyAddedToCompleted = true;
                     TubeCollider.enabled = false;
-                    if (IsHiddenLevel.Value == 1)
+                    if (LevelsManager.I.IsHiddenLevel)
                     {
                         RevelFullTube();
                     }
@@ -260,12 +253,12 @@ namespace Core.GamePlay.WaterSort
         IEnumerator CelebrationOnComplete()
         {
             yield return new WaitForSeconds(0.5f);
-            SoundEffectEvent.InvokeSOEvent(4);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(4);
             CompleteParticle.Play();
             TubeCap.PlayCelebration(CurrentColor);
             yield return new WaitForSeconds(2f);
-            CompletedTubes.Value ++;
-            CheckCompleteEvent.InvokeSOEvent();
+            LevelsManager.I.CompletedTubes++;
+            SimpleEventsHolder.CheckCompleteEvent?.Invoke();
             if (_celebrationRotine != null)
             {
                 StopCoroutine(_celebrationRotine);
@@ -277,7 +270,7 @@ namespace Core.GamePlay.WaterSort
             if (_tubeCompleted && _alreadyAddedToCompleted)
             {
                 _tubeCompleted = false;
-                CompletedTubes.Value--;
+                LevelsManager.I.CompletedTubes--;
                 _alreadyAddedToCompleted = false;
                 TubeCollider.enabled = true;
                 TubeCap.HideCap();
@@ -322,9 +315,9 @@ namespace Core.GamePlay.WaterSort
         {
             if (state)
             {
-                SoundEffectEvent.InvokeSOEvent(0);
+                SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(0);
                 MyLiquid[WaterColors.Count-1].SetGlow(true);
-                if (IsHiddenLevel.Value != 1)
+                if (!LevelsManager.I.IsHiddenLevel)
                 {
                     for (int c = 1; c < WaterColors.Count; c++)
                     {
@@ -353,7 +346,7 @@ namespace Core.GamePlay.WaterSort
 
         void AddColor(Color currentColor, int layers)
         {
-            SoundEffectEvent.InvokeSOEvent(1);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(1);
             _propertyBlock.SetColor("_BaseColor", currentColor);
             WaterLine.SetPropertyBlock(_propertyBlock);
             _pM.startColor = currentColor;

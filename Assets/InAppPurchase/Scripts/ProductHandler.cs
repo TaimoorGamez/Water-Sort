@@ -5,7 +5,7 @@ namespace Core.Purchase
 {
     public class ProductHandler : MonoBehaviour
     {
-        [SerializeField] SOPurchase SoStore;
+        [SerializeField] InAppPurchase InAppPurchaser;
         [SerializeField] StoreProduct CurrentProdut;
         [SerializeField] TextMeshProUGUI priceText;
 
@@ -17,7 +17,7 @@ namespace Core.Purchase
         
         private void UpdatePriceValue()
         {
-            string currentPrice = SoStore.GetPrice(CurrentProdut.ProductID);
+            string currentPrice = InAppPurchaser.GetPrice(CurrentProdut.ProductID);
             if (currentPrice != " ")
             {
                 priceText.text = currentPrice;
@@ -26,7 +26,7 @@ namespace Core.Purchase
 
         public void OnClickBuyButton()
         {
-            SoStore.BuyProduct(CurrentProdut.ProductID);
+            InAppPurchaser.BuyProduct(CurrentProdut.ProductID);
         }
     }
 }

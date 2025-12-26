@@ -1,16 +1,11 @@
 using UnityEngine;
 using DG.Tweening;
 using Core.Events;
-using Core.Variables;
 
 namespace Core.GamePlay.Coloring
 {
     public class BowlColorHandler : MonoBehaviour
     {
-        [SerializeField] SOIntegerEvents SoundEffectEvent;
-        [SerializeField] SOEvents ColorSelectionEvent, HideColorBowlEvent; 
-        [SerializeField] SOColor CurrentColor;
-        [SerializeField] SOColorBowl CurrentBowl;
         [SerializeField] Renderer MySkin;
         [SerializeField] ParticleSystem WaveParticle;
 
@@ -20,12 +15,12 @@ namespace Core.GamePlay.Coloring
 
         private void OnEnable()
         {
-            HideColorBowlEvent.EventHandler += HideNow;
+            SimpleEventsHolder.HideColorBowlEvent += HideNow;
         }
 
         private void OnDisable()
         {
-            HideColorBowlEvent.EventHandler -= HideNow;
+            SimpleEventsHolder.HideColorBowlEvent -= HideNow;
         }
 
         public void SetColor(Color currentColor)
@@ -39,26 +34,26 @@ namespace Core.GamePlay.Coloring
         }
         private void OnMouseDown()
         {
-            if (CurrentBowl.Bowl == null)
+            if (LevelsManager.I.CurrentBowl == null)
             {
-                CurrentBowl.Bowl = this;
+                LevelsManager.I.CurrentBowl = this;
                 BowlState(true);
             }
             else
             {
-                CurrentBowl.Bowl.BowlState(false);
-                CurrentBowl.Bowl = this;
+                LevelsManager.I.CurrentBowl.BowlState(false);
+                LevelsManager.I.CurrentBowl = this;
                 BowlState(true);
             }
-            CurrentColor.Value = _bowlColor;
-            ColorSelectionEvent.InvokeSOEvent();
+            LevelsManager.I.CurrentColor = _bowlColor;
+            SimpleEventsHolder.ColorSelectedEvent?.Invoke();
         }
 
         public void BowlState(bool state)
         {
             if (state)
             {
-                SoundEffectEvent.InvokeSOEvent(0);
+                SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(0);
                 _propBlock.SetInteger("_Glow", 1);
                 transform.DOLocalMoveY(_orignalPos.y + 0.2f, 0.1f);
                 WaveParticle.Play();

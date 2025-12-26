@@ -51,6 +51,21 @@ namespace Core.Animations.DT
                 PlayAnimation();
             }
         }
+        public void StopAnimation()
+        {
+            // Stop coroutine
+            if (_animationsRotine != null)
+            {
+                StopCoroutine(_animationsRotine);
+                _animationsRotine = null;
+            }
+
+            // Stop all tweens
+            for (int i = 0; i < TweenAnimations.Length; i++)
+            {
+                TweenAnimations[i].CancleAnimation();   // Add this in SODOTween
+            }
+        }
 
         private void OnDisable()
         {

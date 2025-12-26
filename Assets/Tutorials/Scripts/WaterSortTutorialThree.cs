@@ -1,7 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
 using Core.Events;
-using Core.Variables;
 using System.Collections;
 using Core.GamePlay.Coloring;
 
@@ -9,11 +8,8 @@ namespace Core.GamePlay.WaterSort
 {
     public class WaterSortTutorialThree : MonoBehaviour
     {
-        [SerializeField] SOEvents StartColoringEvent;
-        [SerializeField] SOIntegerEvents SwitchProtectorEvent;
-        [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
         [SerializeField] TubeHandler FirstTube, SecondTube, ThirdTube, ForthTube, ExtraTube;
-        [SerializeField] GameObject InfoTextObj;
+        [SerializeField] GameObject InfoTextObj, TubeBtn;
         [SerializeField] Transform HandObj, TutorialCircle;
         [SerializeField] Color[] CurrentColors;
         [SerializeField] BowlColorHandler BowlObj;
@@ -25,12 +21,12 @@ namespace Core.GamePlay.WaterSort
 
         private void OnEnable()
         {
-            StartColoringEvent.EventHandler += ColoringPreparation;
+            SimpleEventsHolder.StartColoringEvent += ColoringPreparation;
         }
 
         private void OnDisable()
         {
-            StartColoringEvent.EventHandler -= ColoringPreparation;
+            SimpleEventsHolder.StartColoringEvent -= ColoringPreparation;
         }
 
         private void Start()
@@ -66,12 +62,12 @@ namespace Core.GamePlay.WaterSort
                 ThirdTube.SetColor(CurrentColors[_colorIndex]);
                 yield return new WaitForSeconds(0.1f);
             }
-            SwitchProtectorEvent.InvokeSOEvent(0);
-            CanPlay.Value = 1;
+            SingleIntegerEventsHolder.SwitchProtectorEvent?.Invoke(0);
+            LevelsManager.I.CanPlay = true;
             HandObj.gameObject.SetActive(true);
             TutorialCircle.gameObject.SetActive(true);
             TutorialCircle.DOScale(1, 1f).SetEase(Ease.Linear);
-            HandObj.DOLocalMove(_btnPosition, 1f).SetEase(Ease.InBack);
+            HandObj.DOLocalMove(_btnPosition, 1f).SetEase(Ease.InBack).OnComplete(()=>TubeBtn.SetActive(true));
         }
 
         void ColoringPreparation()

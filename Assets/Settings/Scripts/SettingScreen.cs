@@ -1,56 +1,63 @@
+using Core.Events;
 using DG.Tweening;
 using UnityEngine;
-using Core.Events;
-using Core.Variables;
 using Core.DB.Variables;
+using Core.Plugins.Firebase;
 
 namespace Core.Screen
 {
     public class SettingScreen : UiScreens
     {
-        [SerializeField] DBInt Music, Sound;
-        [SerializeField] SOEvents UpdateMusicStateEvent, UpdateSoundStateEvent;
-        [SerializeField] SOIntegerEvents DestroyStateEvent, SoundEffectEvent;
-        [SerializeField] SOInterger SettingStateIndex;
         [SerializeField] RectTransform MusicBtn, SoundBtn;
         [SerializeField] GameObject MusicOff, SoundOff;
 
         private void OnEnable()
         {
-            UpdateMusicStateEvent.EventHandler += UpdateMusicState;
-            UpdateSoundStateEvent.EventHandler += UpdateSoundState;
+            OnOpen();
         }
 
-        private void Start()
+        public override void OnOpen()
         {
-            UpdateMusicState();
-            UpdateSoundState();
+            UpdateMusicUI();
+            UpdateSoundUI();
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             MusicBtn.DOAnchorPosY(-150, _transitionDuration).SetEase(Ease.OutBack);
             SoundBtn.DOAnchorPosY(-240, _transitionDuration).SetEase(Ease.OutBack);
-            SoundEffectEvent.InvokeSOEvent(2);
+            FirebaseHandler.I?.LogEvent("Stg_Open");
         }
 
-        private void OnDisable()
+        public void ToggleMusic()
         {
-            UpdateMusicStateEvent.EventHandler -= UpdateMusicState;
-            UpdateSoundStateEvent.EventHandler -= UpdateSoundState;
+            DBVariablesHolder.Music.Value = DBVariablesHolder.Music.Value == 1 ? 0 : 1;
+            SimpleEventsHolder.UpdateMusicStateEvent?.Invoke();
+            UpdateMusicUI();
+            FirebaseHandler.I?.LogEvent($"Stg_Music_{DBVariablesHolder.Music.Value}");
         }
 
-        void UpdateMusicState()
+        public void ToggleSound()
         {
-            MusicOff.SetActive(Music.Value != 1);
+            DBVariablesHolder.Sound.Value = DBVariablesHolder.Sound.Value == 1 ? 0 : 1;
+            SimpleEventsHolder.UpdateSoundStateEvent?.Invoke();
+            UpdateSoundUI();
+            FirebaseHandler.I?.LogEvent($"Stg_Sound_{DBVariablesHolder.Sound.Value}");
         }
 
-        void UpdateSoundState()
+        void UpdateMusicUI()
         {
-            SoundOff.SetActive(Sound.Value != 1);
+            MusicOff.SetActive(DBVariablesHolder.Music.Value != 1);
+        }
+
+        void UpdateSoundUI()
+        {
+            SoundOff.SetActive(DBVariablesHolder.Sound.Value != 1);
         }
 
         public override void OnClose()
         {
             MusicBtn.DOAnchorPosY(-60, _transitionDuration).SetEase(Ease.InBack);
-            SoundBtn.DOAnchorPosY(-60, _transitionDuration).SetEase(Ease.InBack).OnComplete(()=>DestroyStateEvent.InvokeSOEvent(SettingStateIndex.Value));
-            SoundEffectEvent.InvokeSOEvent(2);
+            SoundBtn.DOAnchorPosY(-60, _transitionDuration).SetEase(Ease.InBack).OnComplete(()=>gameObject.SetActive(false));
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
+            FirebaseHandler.I?.LogEvent("Stg_Close");
         }
     }
 }

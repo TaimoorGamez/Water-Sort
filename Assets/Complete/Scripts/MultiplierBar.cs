@@ -1,15 +1,15 @@
 using TMPro;
 using DG.Tweening;
 using UnityEngine;
-using Core.Variables;
 using UnityEngine.UI;
 using System.Collections;
 
 namespace Core.Screen
 {
-    public class MultiplierBar : MonoBehaviour
+    public class MultiplierBar : UiScreens
     {
-        [SerializeField] SOInterger CurrentMultiplier;
+        public int CurrentMultiplier;
+
         [SerializeField] TextMeshProUGUI RvText;
         [SerializeField] RectTransform MovingTarget;
         [SerializeField] RectTransform[] MovingPoints;
@@ -23,7 +23,12 @@ namespace Core.Screen
 
         private void Start()
         {
-            _moveCoroutine = StartCoroutine(MoveToNextPoint());
+            OnOpen();
+        }
+
+        public override void OnOpen()
+        {
+            transform.DOScale(0.5f, _transitionDuration).SetEase(Ease.OutBack).OnComplete(() => _moveCoroutine = StartCoroutine(MoveToNextPoint()));
         }
 
         private IEnumerator MoveToNextPoint()
@@ -33,8 +38,8 @@ namespace Core.Screen
                 HighlightImg(GetShineIndex(_currentIndex));
                 _currentTween = MovingTarget.DOAnchorPosX(MovingPoints[_currentIndex].anchoredPosition.x, _durationPerStep).SetEase(Ease.Linear).OnComplete(() =>
                 {
-                    CurrentMultiplier.Value = GetMultipler(_currentIndex);
-                    RvText.text = CurrentMultiplier.Value.ToString() + "X";
+                    CurrentMultiplier = GetMultipler(_currentIndex);
+                    RvText.text = CurrentMultiplier.ToString() + "X";
                     if (_movingForward)
                     {
                         _currentIndex++;
@@ -129,7 +134,14 @@ namespace Core.Screen
             }
         }
 
-        public void StopMovement()
+        public override void OnClose()
+        {
+            base.OnClose();
+            StopMovement();
+            transform.DOScale(0,_transitionDuration).SetEase(Ease.InBack);
+        }
+
+        void StopMovement()
         {
             _canMove = false;
             if (_currentTween != null && _currentTween.IsActive())
@@ -145,7 +157,7 @@ namespace Core.Screen
 
         private void OnDisable()
         {
-            StopMovement();
+            DOTween.Kill(this);
         }
     }
 }

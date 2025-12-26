@@ -2,13 +2,18 @@ using UnityEngine;
 
 namespace Core.DailyTasks
 {
-    [System.Serializable]
     public class DailyTaskData
     {
-        [SerializeField] int TaskId;
-
-        public string Description;   
+        int TaskId;
+        public string Description;
         public int Goal;
+
+        public DailyTaskData(int taskId, string description, int goal)
+        {
+            TaskId = taskId;
+            Goal = goal;
+            Description = description;
+        }
 
         public int Progress
         {

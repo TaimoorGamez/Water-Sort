@@ -6,8 +6,6 @@ namespace Core.GamePlay.WaterSort
 {
     public class FlowerAnimation : CapAnimation
     {
-        [SerializeField] SOEvents StartColoringEvent;
-        [SerializeField] SOIntegerEvents SoundEffectEvent;
         [SerializeField] Renderer MySkin;
         [SerializeField] Texture MyTexture;
 
@@ -16,12 +14,12 @@ namespace Core.GamePlay.WaterSort
 
         private void OnEnable()
         {
-            StartColoringEvent.EventHandler += HideNow;
+            SimpleEventsHolder.StartColoringEvent += HideNow;
         }
 
         private void OnDisable()
         {
-            StartColoringEvent.EventHandler -= HideNow;
+            SimpleEventsHolder.StartColoringEvent -= HideNow;
         }
 
         public override void PlayCapAnimation(Color currentColor)
@@ -31,14 +29,14 @@ namespace Core.GamePlay.WaterSort
             _propBlock.SetTexture("_MainTex", MyTexture);
             _propBlock.SetFloat("_ColorRange", 0);
             MySkin.SetPropertyBlock(_propBlock); 
-            transform.DOLocalMoveY(0,0.2f).OnComplete(() =>
+            transform.DOLocalMoveY(0,0.2f).SetLink(gameObject).OnComplete(() =>
             {
-                SoundEffectEvent.InvokeSOEvent(9);
+                SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(9);
                 DOTween.To(() => 0f, value =>
                 {
                     _propBlock.SetFloat("_ColorRange", value);
                     MySkin.SetPropertyBlock(_propBlock);
-                }, _targetTransparency, _transparencyChangeDuration);
+                }, _targetTransparency, _transparencyChangeDuration).SetLink(gameObject);
             });
         }
 
