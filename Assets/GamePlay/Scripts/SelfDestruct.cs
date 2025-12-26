@@ -3,21 +3,29 @@ using Core.Events;
 
 public class SelfDestruct : MonoBehaviour
 {
-    [SerializeField] SOEvents SelfDestructionEvent;
-    [SerializeField] float BlasTime;
+    [SerializeField] float DelayTime;
+    [SerializeField] bool BlastOnStart = false;
 
     private void OnEnable()
     {
-        SelfDestructionEvent.EventHandler += BlastNow;
+        SimpleEventsHolder.SelfDestructionEvent += BlastNow;
     }
 
     private void OnDisable()
     {
-        SelfDestructionEvent.EventHandler -= BlastNow;
+        SimpleEventsHolder.SelfDestructionEvent -= BlastNow;
+    }
+
+    private void Start()
+    {
+        if (BlastOnStart)
+        {
+            BlastNow();
+        }
     }
 
     void BlastNow()
     {
-        Destroy(gameObject, BlasTime);
+        Destroy(gameObject, DelayTime);
     }
 }

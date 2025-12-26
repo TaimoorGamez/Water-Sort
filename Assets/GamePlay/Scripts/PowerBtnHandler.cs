@@ -1,18 +1,14 @@
 using TMPro;
-using UnityEngine;
 using Core.Events;
-using Core.Plugins;
+using UnityEngine;
 using Core.Economy;
+using Core.Plugins.Ads;
 using Core.DB.Variables;
 
 namespace Core.Screen
 {
     public class PowerBtnHandler : MonoBehaviour
     {
-        [SerializeField] AdHandler RewardedAd;
-        [SerializeField] DBInt RemaingPower;
-        [SerializeField] SOEvents PowerEvent, ChangePowerStatusEvent, RewardPowerEvent;
-        [SerializeField] Currency CashCurrency;
         [SerializeField] GameObject CounterObj, PriceObj, AdObj;
         [SerializeField] TextMeshProUGUI RemaingText;
         [SerializeField] int Price;
@@ -20,15 +16,18 @@ namespace Core.Screen
 
         private void OnEnable()
         {
-            RewardPowerEvent.EventHandler += RewardPower;
-            ChangePowerStatusEvent.EventHandler += ChangeStatus;
+            RewardPowerEventsHandler.I.BindEvent(PowerName, RewardPower);
+            UpdatePowerStatusEventsHandler.I.BindEvent(PowerName, ChangeStatus);
+            SimpleEventsHolder.UpdatePowerBtnsUIEvent += PowerStatus;
+
             PowerStatus();
         }
 
         private void OnDisable()
         {
-            ChangePowerStatusEvent.EventHandler -= ChangeStatus;
-            RewardPowerEvent.EventHandler -= RewardPower;
+            RewardPowerEventsHandler.I.UnBindEvent(PowerName, RewardPower);
+            UpdatePowerStatusEventsHandler.I.UnBindEvent(PowerName, ChangeStatus);
+            SimpleEventsHolder.UpdatePowerBtnsUIEvent -= PowerStatus;
         }
 
         void PowerStatus()
@@ -36,12 +35,12 @@ namespace Core.Screen
             CounterObj.SetActive(false);
             PriceObj.SetActive(false);
             AdObj.SetActive(false);
-            if (RemaingPower.Value > 0)
+            if (DBVariableDictionariesHolder.PowerStatusData[PowerName].Value > 0)
             {
-                RemaingText.text = RemaingPower.Value.ToString();
+                RemaingText.text = DBVariableDictionariesHolder.PowerStatusData[PowerName].Value.ToString();
                 CounterObj.SetActive(true);
             }
-            else if (CashCurrency.Amount >= Price)
+            else if (CurrenciesHolder.CashCurrency.Amount >= Price)
             {
                 PriceObj.SetActive(true);
             }
@@ -53,32 +52,32 @@ namespace Core.Screen
 
         void ChangeStatus()
         {
-            if (RemaingPower.Value > 0)
+            if (DBVariableDictionariesHolder.PowerStatusData[PowerName].Value > 0)
             {
-                RemaingPower.Value--;
+                DBVariableDictionariesHolder.PowerStatusData[PowerName].Value--;
             }
-            else if (CashCurrency.Amount >= Price)
+            else if (CurrenciesHolder.CashCurrency.Amount >= Price)
             {
-                CashCurrency.Amount-= Price;
+                CurrenciesHolder.CashCurrency.Amount -= Price;
             }
-            PowerStatus();
+            SimpleEventsHolder.UpdatePowerBtnsUIEvent?.Invoke();
         }
 
         public void OnClickPowerBtn()
         {
-            if (RemaingPower.Value > 0 || CashCurrency.Amount >= Price)
+            if (DBVariableDictionariesHolder.PowerStatusData[PowerName].Value > 0 || CurrenciesHolder.CashCurrency.Amount >= Price)
             {
-                PowerEvent.InvokeSOEvent();
+                PowerEventsHandler.I.TriggerEvent(PowerName);
             }
             else
             {
-                RewardedAd.ShowAd(PowerName);
+                AdsManager.I?.ShowRewardedAd(PowerName);
             }
         }
 
         void RewardPower()
         {
-            RemaingPower.Value++;
+            DBVariableDictionariesHolder.PowerStatusData[PowerName].Value++;
             PowerStatus();
         }
     }

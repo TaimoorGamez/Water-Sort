@@ -3,28 +3,21 @@ using Core.Events;
 
 namespace Core.ToastMsg
 {
-    [CreateAssetMenu(fileName = "ToastManager", menuName = "ScriptableObjects/Toast/Manager")]
-    public class ToastManager : ScriptableObject
+    public class ToastManager : MonoBehaviour
     {
-        [SerializeField] SOIntegerEvents ToastMsgEvent;
         [SerializeField] ToastScreen ToastMsgPrefab;
 
         ToastScreen _oldMsgScreen;
         int _oldMsgNum = -1;
-        bool _isInit = false;
 
-        public void InitToastMsg()
+        public void OnEnable()
         {
-            ToastMsgEvent.EventHandler += ShowToastMsg;
-            _isInit = true;
+            SingleIntegerEventsHolder.ShowToastEvent += ShowToastMsg;
         }
 
         private void OnDisable()
         {
-            if (_isInit)
-            {
-                ToastMsgEvent.EventHandler -= ShowToastMsg;
-            } 
+            SingleIntegerEventsHolder.ShowToastEvent -= ShowToastMsg;
         }
 
         void ShowToastMsg(int toastNum)

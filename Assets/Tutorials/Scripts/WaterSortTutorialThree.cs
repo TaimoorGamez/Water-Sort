@@ -1,7 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
 using Core.Events;
-using Core.Variables;
 using System.Collections;
 using Core.GamePlay.Coloring;
 
@@ -9,11 +8,8 @@ namespace Core.GamePlay.WaterSort
 {
     public class WaterSortTutorialThree : MonoBehaviour
     {
-        [SerializeField] SOEvents StartColoringEvent;
-        [SerializeField] SOIntegerEvents SwitchProtectorEvent;
-        [SerializeField] SOInterger CanPlay, LevelCompleteStateIndex;
         [SerializeField] TubeHandler FirstTube, SecondTube, ThirdTube, ForthTube, ExtraTube;
-        [SerializeField] GameObject InfoTextObj;
+        [SerializeField] GameObject InfoTextObj, TubeBtn;
         [SerializeField] Transform HandObj, TutorialCircle;
         [SerializeField] Color[] CurrentColors;
         [SerializeField] BowlColorHandler BowlObj;
@@ -25,12 +21,12 @@ namespace Core.GamePlay.WaterSort
 
         private void OnEnable()
         {
-            StartColoringEvent.EventHandler += ColoringPreparation;
+            SimpleEventsHolder.StartColoringEvent += ColoringPreparation;
         }
 
         private void OnDisable()
         {
-            StartColoringEvent.EventHandler -= ColoringPreparation;
+            SimpleEventsHolder.StartColoringEvent -= ColoringPreparation;
         }
 
         private void Start()
@@ -66,12 +62,12 @@ namespace Core.GamePlay.WaterSort
                 ThirdTube.SetColor(CurrentColors[_colorIndex]);
                 yield return new WaitForSeconds(0.1f);
             }
-            SwitchProtectorEvent.InvokeSOEvent(0);
-            CanPlay.Value = 1;
+            SingleIntegerEventsHolder.SwitchProtectorEvent?.Invoke(0);
+            LevelsManager.I.CanPlay = true;
             HandObj.gameObject.SetActive(true);
             TutorialCircle.gameObject.SetActive(true);
             TutorialCircle.DOScale(1, 1f).SetEase(Ease.Linear);
-            HandObj.DOLocalMove(_btnPosition, 1f).SetEase(Ease.InBack);
+            HandObj.DOLocalMove(_btnPosition, 1f).SetEase(Ease.InBack).OnComplete(()=>TubeBtn.SetActive(true));
         }
 
         void ColoringPreparation()
@@ -82,10 +78,8 @@ namespace Core.GamePlay.WaterSort
             {
                 FirstTube.TubeCap.gameObject.SetActive(false);
                 FirstTube.transform.DOKill();
-                Sequence firstSeq = DOTween.Sequence();
-                firstSeq.Join(FirstTube.transform.DOScale(_bowlScale, tweenTime));
-                firstSeq.Join(FirstTube.transform.DOLocalMove(_firstBowlPos, tweenTime));
-                firstSeq.OnComplete(() =>
+                FirstTube.transform.DOScale(_bowlScale, tweenTime);
+                FirstTube.transform.DOLocalMove(_firstBowlPos, tweenTime).OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
                     colorBowl.transform.localPosition = FirstTube.transform.localPosition;
@@ -103,10 +97,8 @@ namespace Core.GamePlay.WaterSort
             {
                 SecondTube.TubeCap.gameObject.SetActive(false);
                 SecondTube.transform.DOKill();
-                Sequence secondSeq = DOTween.Sequence();
-                secondSeq.Join(SecondTube.transform.DOScale(_bowlScale, tweenTime));
-                secondSeq.Join(SecondTube.transform.DOLocalMove(_secondBowlPos, tweenTime));
-                secondSeq.OnComplete(() =>
+                SecondTube.transform.DOScale(_bowlScale, tweenTime);
+                SecondTube.transform.DOLocalMove(_secondBowlPos, tweenTime).OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
                     colorBowl.transform.localPosition = SecondTube.transform.localPosition;
@@ -123,10 +115,8 @@ namespace Core.GamePlay.WaterSort
             {
                 ThirdTube.TubeCap.gameObject.SetActive(false);
                 ThirdTube.transform.DOKill();
-                Sequence thirdSeq = DOTween.Sequence();
-                thirdSeq.Join(ThirdTube.transform.DOScale(_bowlScale, tweenTime));
-                thirdSeq.Join(ThirdTube.transform.DOLocalMove(_thirdBowlPos, tweenTime));
-                thirdSeq.OnComplete(() =>
+                ThirdTube.transform.DOScale(_bowlScale, tweenTime);
+                ThirdTube.transform.DOLocalMove(_thirdBowlPos, tweenTime).OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
                     colorBowl.transform.localPosition = ThirdTube.transform.localPosition;
@@ -143,10 +133,8 @@ namespace Core.GamePlay.WaterSort
             {
                 ForthTube.TubeCap.gameObject.SetActive(false);
                 ForthTube.transform.DOKill();
-                Sequence forthSeq = DOTween.Sequence();
-                forthSeq.Join(ForthTube.transform.DOScale(_bowlScale, tweenTime));
-                forthSeq.Join(ForthTube.transform.DOLocalMove(_forthBowlPos, tweenTime));
-                forthSeq.OnComplete(() =>
+                ForthTube.transform.DOScale(_bowlScale, tweenTime);
+                ForthTube.transform.DOLocalMove(_forthBowlPos, tweenTime).OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
                     colorBowl.transform.localPosition = ForthTube.transform.localPosition;
@@ -163,10 +151,8 @@ namespace Core.GamePlay.WaterSort
             {
                 ExtraTube.TubeCap.gameObject.SetActive(false);
                 ExtraTube.transform.DOKill();
-                Sequence extraSeq = DOTween.Sequence();
-                extraSeq.Join(ExtraTube.transform.DOScale(_bowlScale, tweenTime));
-                extraSeq.Join(ExtraTube.transform.DOLocalMove(_extraBowlPos, tweenTime));
-                extraSeq.OnComplete(() =>
+                ExtraTube.transform.DOScale(_bowlScale, tweenTime);
+                ExtraTube.transform.DOLocalMove(_extraBowlPos, tweenTime).OnKill(() =>
                 {
                     BowlColorHandler colorBowl = Instantiate(BowlObj, transform.parent);
                     colorBowl.transform.localPosition = ExtraTube.transform.localPosition;

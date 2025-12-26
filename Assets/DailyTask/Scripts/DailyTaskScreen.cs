@@ -1,16 +1,14 @@
+using Core.Events;
 using DG.Tweening;
 using UnityEngine;
-using Core.Events;
 using Core.Economy;
 using Core.DailyTasks;
+using Core.Plugins.Firebase;
 
 namespace Core.Screen
 {
     public class DailyTaskScreen : UiScreens
     {
-        [SerializeField] Currency CashCurrency;
-        [SerializeField] SOIntegerEvents SoundEffectEvent;
-        [SerializeField] TaskManager CurrenTaskManager;
         [SerializeField] RectTransform BoxPanel, RewardFillBar;
         [SerializeField] TaskBar[] TaskBars;
         [SerializeField] RectTransform[] RewardImgs;
@@ -30,7 +28,7 @@ namespace Core.Screen
 
         void UpdateTasks()
         {
-            _activeTasks = CurrenTaskManager.GetActiveTasks();
+            _activeTasks = TasksManager.I.GetActiveTasks();
             int _completedTasks = 0;
             _taskClaimed = 0;
             for (int i = 0; i < TaskBars.Length; i++)
@@ -63,33 +61,36 @@ namespace Core.Screen
                 switch(_taskClaimed)
                 {
                     case 0:
-                        CashCurrency.Amount += 100;
+                        CurrenciesHolder.CashCurrency.Amount += 100;
                         break;
                     case 1:
-                        CashCurrency.Amount += 150;
+                        CurrenciesHolder.CashCurrency.Amount += 150;
                         break;
                     case 2:
-                        CashCurrency.Amount += 200;
+                        CurrenciesHolder.CashCurrency.Amount += 200;
                         break;
                     case 3:
                         BoxPanel.gameObject.SetActive(true);
                         break;
                 }
                 UpdateTasks();
+                FirebaseHandler.I?.LogEvent($"DT_Claim_{_taskClaimed}");
             }
         }
         public override void OnOpen()
         {
-            SoundEffectEvent.InvokeSOEvent(3);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
             Body.DOScale(0.9f, _transitionDuration).SetEase(Ease.OutBack);
+            FirebaseHandler.I?.LogEvent("DT_Open");
         }
         public override void OnClose()
         {
-            SoundEffectEvent.InvokeSOEvent(2);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             Body.DOScale(0, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => {
                 NotificationObj.SetActive(false);
                 gameObject.SetActive(false);
             });
+            FirebaseHandler.I?.LogEvent("DT_Close");
         }
     }
 }

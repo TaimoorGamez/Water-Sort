@@ -1,25 +1,19 @@
-using System;
+using Core.DB.Variables;
+using Core.Events;
+using Core.Plugins.Firebase;
 using DG.Tweening;
 using UnityEngine;
-using Core.Events;
-using Core.DB.Variables;
 
 namespace Core.Screen
 {
     public class RemoveAdsScreen : UiScreens
     {
-        [SerializeField] SOEvents AdsBlockerEvent;
-        [SerializeField] SOIntegerEvents SoundEffectEvent;
-        [SerializeField] DBInt AdBlocked;
-        [SerializeField] DBString AdBlockingTime;
         [SerializeField] GameObject RvBtn, TimerObj;
-
-        float _durationTweeing = 0.5f;
 
         void OnEnable()
         {
-            AdsBlockerEvent.EventHandler += BlockAdForTime;
-            if (AdBlocked.Value == 1)
+            SimpleEventsHolder.AdsBlockerEvent += BlockAdForTime;
+            if (DBVariablesHolder.AdBlocked.Value == 1)
             {
                 RvBtn.SetActive(false);
                 TimerObj.SetActive(true);
@@ -34,13 +28,11 @@ namespace Core.Screen
 
         void OnDisable()
         {
-            AdsBlockerEvent.EventHandler -= BlockAdForTime;
+            SimpleEventsHolder.AdsBlockerEvent -= BlockAdForTime;
         }
 
         void BlockAdForTime()
         {
-            AdBlocked.Value = 1;
-            AdBlockingTime.Value = DateTime.Now.ToString();
             RvBtn.SetActive(false);
             TimerObj.SetActive(true);
             OnClose();
@@ -48,14 +40,16 @@ namespace Core.Screen
 
         public override void OnOpen()
         {
-            SoundEffectEvent.InvokeSOEvent(3);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(3);
             Body.DOAnchorPosX(0, _transitionDuration).SetEase(Ease.OutBack);
+            FirebaseHandler.I?.LogEvent("ReAds_Open");
         }
 
         public override void OnClose()
         {
-            SoundEffectEvent.InvokeSOEvent(2);
+            SingleIntegerEventsHolder.SoundEffectEvent?.Invoke(2);
             Body.DOAnchorPosX(1500, _transitionDuration/2).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
+            FirebaseHandler.I?.LogEvent("ReAds_close");
         }
     }
 }

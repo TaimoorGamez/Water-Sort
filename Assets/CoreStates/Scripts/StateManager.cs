@@ -1,70 +1,130 @@
 using UnityEngine;
+using DG.Tweening;
 using Core.Events;
-using Core.Variables;
-using System.Collections;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Core.States
 {
     public class StateManager : MonoBehaviour
     {
-        [SerializeField] SOIntegerEvents ActiveStateEvent, DeactiveStateEvent, DestroyStateEvent;
-        [SerializeField] GameState[] AllStates;
-        [SerializeField] SOInterger MainMenuStateIndex, GamePlayStateIndex, LeveCompleteStateIndex;
+        public string SplashStatePath = "UI/State/SplashScreen", MainMenuStatePath = "UI/State/MainMenuScreen", 
+                      GamePlayStatePath = "UI/State/GamePlayScreen",PauseStatePath = "UI/State/PauseScreen", 
+                      LevelFailStatePath = "UI/State/FailScreen", LevelCompleteStatePath = "UI/State/CompleteScreen";
 
+        bool _isClearing = false, _stateReleaseInProgress = false;
         int _sceneCounter = 0, _maxSceneCount = 5;
+        Dictionary<string, GameObject> _loadedStates;
+        AsyncOperationHandle<GameObject> _statehandle;
 
-        private void OnEnable()
+        public static StateManager I { get; private set; }
+
+        private void Awake()
         {
-            ActiveStateEvent.EventHandler += ActiveeState;
-            DeactiveStateEvent.EventHandler += DeactiveState;
-            DestroyStateEvent.EventHandler += DestroyState;
-        }
-        private void OnDisable()
-        {
-            ActiveStateEvent.EventHandler -= ActiveeState;
-            DeactiveStateEvent.EventHandler -= DeactiveState;
-            DestroyStateEvent.EventHandler -= DestroyState;
+            if (I == null)
+            {
+                I = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
         }
 
         private void Start()
         {
-            AllStates[0].ActiveCurrentState(transform);
+            _loadedStates = new Dictionary<string, GameObject>();
+            ActiveState(SplashStatePath);
         }
 
-        void ActiveeState(int stateIndex)
+        public async void ActiveState(string statePath)
         {
-            AllStates[stateIndex].ActiveCurrentState(transform);
-            if (stateIndex == MainMenuStateIndex.Value)
+            await ReleaseStateHandleSafelyAsync();
+            await Task.Delay(10);
+            _statehandle = Addressables.LoadAssetAsync<GameObject>(statePath);
+            await _statehandle.Task;
+
+            if (_statehandle.Status == AsyncOperationStatus.Succeeded)
             {
-                StartCoroutine(ClearMemoryRoutine());
+                _loadedStates[statePath] = Instantiate(_statehandle.Result, transform);
+                await Task.Delay(10);
+                if (statePath == MainMenuStatePath)
+                {
+                    SimpleEventsHolder.CheckPluginStatus?.Invoke();
+                    await ClearMemoryRoutine();
+                }
+            }
+            else
+            {
+                Debug.Log("Failed to load AdsManager from Addressables");
+                Addressables.Release(_statehandle);
             }
         }
 
-        void DeactiveState(int stateIndex)
+        public void DestroyState(string statePath)
         {
-            AllStates[stateIndex].DeactiveState();
+            if (_loadedStates.TryGetValue(statePath, out GameObject state))
+            {
+                DOTween.Kill(state, complete: false);
+                DOTween.Kill(state.transform);
+
+                Destroy(state);
+                _loadedStates.Remove(statePath);
+            }
+        }
+        async Task ReleaseStateHandleSafelyAsync()
+        {
+            if (_stateReleaseInProgress)
+                return;
+
+            _stateReleaseInProgress = true;
+
+            // wait one frame – Unity safe point
+            await Task.Yield();
+
+            if (_statehandle.IsValid())
+            {
+                Addressables.Release(_statehandle);
+                _statehandle = default;
+            }
+
+            // optional extra frame (Android / scene safety)
+            await Task.Yield();
+
+            _stateReleaseInProgress = false;
         }
 
-        void DestroyState(int stateIndex)
-        {
-            AllStates[stateIndex].DestroyState();
-        }
 
-        IEnumerator ClearMemoryRoutine()
+        async Task ClearMemoryRoutine()
         {
-            DG.Tweening.DOTween.KillAll();
+            if (_isClearing)
+                return;
 
-            yield return Resources.UnloadUnusedAssets();
+            _isClearing = true;
 
             System.GC.Collect();
-            yield return null;
+            await Task.Yield();
+
+            try
+            {
+                Caching.ClearCache();
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log(e.ToString());
+            }
+            _isClearing = false;
 
             _sceneCounter++;
             if (_sceneCounter > _maxSceneCount)
             {
+                await ReleaseStateHandleSafelyAsync();
+                await Task.Yield();
                 SceneManager.LoadScene(0);
-                yield break;
             }
         }
     }

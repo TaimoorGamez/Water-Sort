@@ -5,12 +5,11 @@ namespace Core.Screen
 {
     public class DailyTaskNotificationHandler : MonoBehaviour
     {
-        [SerializeField] TaskManager CurrenTaskManager;
         [SerializeField] GameObject NotificationObj;
 
         private void OnEnable()
         {
-            DailyTaskData[] activeTasks = CurrenTaskManager.GetActiveTasks();
+            DailyTaskData[] activeTasks = TasksManager.I.GetActiveTasks();
             for (int i = 0; i < activeTasks.Length; i++)
             {
                 if (activeTasks[i].Progress >= activeTasks[i].Goal && activeTasks[i].TaskClaimed != 1)

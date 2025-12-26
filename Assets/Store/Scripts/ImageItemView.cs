@@ -5,12 +5,11 @@ using UnityEngine.UI;
 namespace Core.Store
 { public class ImageItemView : ItemView
     {
-        [SerializeField] Color32 SelectColor, UnselectColor;
         [SerializeField] Image ItemImg;
 
         public void OnClick()
         {
-            ChangeItemStatusEvent.InvokeSOEvent(MyData.ItemId);
+            MyStorageRoom.UpdateItemStatus(ItemIndex);
         }
 
         public override void UnSelectItem()

@@ -10,11 +10,17 @@ namespace Core.Animations.DT
 
         public override void PlayAnimation()
         {
-            _tween = TargetObj.transform.DORotate(TargetAction, Duration, RotMode);
+            if (TargetObj == null)
+                return;
+
+            _tween = TargetObj.transform.DORotate(TargetAction, Duration, RotMode).SetTarget(TargetObj).SetLink(TargetObj, LinkBehaviour.KillOnDestroy);
             base.PlayAnimation();
         }
         public override void ReseToDefault()
         {
+            if (TargetObj == null)
+                return;
+
             TargetObj.transform.eulerAngles = OriginalVallue;
         }
     }

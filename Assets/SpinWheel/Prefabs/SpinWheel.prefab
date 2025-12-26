@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 6e61ab4620023af44bb9f6cf38a232e3, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
+  m_Color: {r: 0.29411766, g: 0.5294118, b: 0.9411765, a: 0.39215687}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -469,22 +469,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a3c44c485f90947b7be2bb18f5133f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SoundEffectEvent: {fileID: 11400000, guid: 8c7e9b0d53d447b4896a67f3b26191b3, type: 2}
-  SpinEvent: {fileID: 11400000, guid: 0da667833518c34448e30050044c2c68, type: 2}
-  DailySpin: {fileID: 11400000, guid: bb77720219856cd489e9c9a6bb7d54c0, type: 2}
+  Body: {fileID: 5992491832964638918}
   SpinBtn: {fileID: 5370775561302987242}
   RvBtn: {fileID: 7338787099476382886}
   SpinNotification: {fileID: 0}
   SegmentParent: {fileID: 9000552268607645853}
   Shine: {fileID: 8945912994948764568}
   RewardPanel: {fileID: 8795339783823399777}
-  Body: {fileID: 5992491832964638918}
   Wheel: {fileID: 4703981586504006114}
   SegmentPrefab: {fileID: 7245321775489368684, guid: 2a0f66c327942f84eb0e26d71f851e7a, type: 3}
-  SpinWheelData: {fileID: 11400000, guid: a03610bcba2e3e6428617c9f47f648f7, type: 2}
   RewardedColor: {r: 0.8039216, g: 0, b: 1, a: 1}
   RewardIcon: {fileID: 5322431006906528003}
   RewardAmount: {fileID: 4448194516099583440}
+  SpinWheelRewards:
+  - RewardName: ExtraTube
+    SegmentColor: {r: 0.29411766, g: 0.5294118, b: 0.9411765, a: 1}
+    Icon: {fileID: 21300000, guid: 391d94d2e77bebe4aba38eadfdb0728c, type: 3}
+    Amount: 1
+    Weight: 2
+  - RewardName: Cash
+    SegmentColor: {r: 0.27450982, g: 0.19607843, b: 0.4509804, a: 1}
+    Icon: {fileID: 21300000, guid: 1f6201642f9c1ca4fb24320d7b0b9274, type: 3}
+    Amount: 200
+    Weight: 10
+  - RewardName: UndoColor
+    SegmentColor: {r: 0.29411766, g: 0.5294118, b: 0.9411765, a: 1}
+    Icon: {fileID: 21300000, guid: 235f995e698ae9d47aa41ef82d258278, type: 3}
+    Amount: 1
+    Weight: 20
+  - RewardName: SwapColor
+    SegmentColor: {r: 0.27450982, g: 0.19607843, b: 0.4509804, a: 1}
+    Icon: {fileID: 21300000, guid: faceefd1610daf54a9b91b355969fdcf, type: 3}
+    Amount: 1
+    Weight: 20
+  - RewardName: Cash
+    SegmentColor: {r: 0.29411766, g: 0.5294118, b: 0.9411765, a: 1}
+    Icon: {fileID: 21300000, guid: 1f6201642f9c1ca4fb24320d7b0b9274, type: 3}
+    Amount: 100
+    Weight: 35
+  - RewardName: Cash
+    SegmentColor: {r: 0.27450982, g: 0.19607843, b: 0.4509804, a: 1}
+    Icon: {fileID: 21300000, guid: 1f6201642f9c1ca4fb24320d7b0b9274, type: 3}
+    Amount: 50
+    Weight: 50
 --- !u!1 &8578488287979468093
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,6 +599,14 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 593230374942282580, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: Spin
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301091734208334152, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Spin
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301091734208334152, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
       value: Spin
       objectReference: {fileID: 0}
     - target: {fileID: 3872305477753702435, guid: 76d147589cff8a7448e5d2249b6511fc, type: 3}
@@ -911,6 +946,10 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
       value: Core.SpinWheel.SpinWheelScreen, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 7557473111223570516, guid: 0dd2edb2d3decd24ebe63737bb5f9401, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_StringArgument
+      value: SpinW_Close
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -939,7 +978,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2291653529909626621, guid: b81e6bca80f4d464b9a7066e1563d726, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2291653529909626621, guid: b81e6bca80f4d464b9a7066e1563d726, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -981,6 +1020,38 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 4775208833711610063, guid: 4b891c51647e4a544949dbb64ed68f18, type: 2}
+    - target: {fileID: 8058771160621569484, guid: b81e6bca80f4d464b9a7066e1563d726, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8058771160621569484, guid: b81e6bca80f4d464b9a7066e1563d726, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8058771160621569484, guid: b81e6bca80f4d464b9a7066e1563d726, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 3655065284400903652}
+    - target: {fileID: 8058771160621569484, guid: b81e6bca80f4d464b9a7066e1563d726, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8058771160621569484, guid: b81e6bca80f4d464b9a7066e1563d726, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: Spin
+      objectReference: {fileID: 0}
+    - target: {fileID: 8058771160621569484, guid: b81e6bca80f4d464b9a7066e1563d726, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: Core.Screen.SpinWheelScreen, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8058771160621569484, guid: b81e6bca80f4d464b9a7066e1563d726, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Spin
+      objectReference: {fileID: 0}
+    - target: {fileID: 8058771160621569484, guid: b81e6bca80f4d464b9a7066e1563d726, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8162122565025793776, guid: b81e6bca80f4d464b9a7066e1563d726, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

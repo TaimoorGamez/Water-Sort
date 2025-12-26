@@ -10,6 +10,10 @@
 # Keep Unity Ads
 -keep class com.unity3d.ads.** { *; }
 
+# Google Play Billing (IMPORTANT)
+-keep class com.android.billingclient.** { *; }
+-dontwarn com.android.billingclient.**
+
 # Prevent stripping of AndroidX
 -keep class androidx.** { *; }
 

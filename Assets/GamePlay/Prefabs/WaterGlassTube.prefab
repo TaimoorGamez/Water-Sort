@@ -344,7 +344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentCap: {fileID: 11400000, guid: 03ee6a9ec23765f4fa4a254ffb256dc1, type: 2}
-  CaPath: 'Caps/Cap '
+  CaPath: GamePlay/Cap/
 --- !u!1 &7262218371433431813
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,8 +1,7 @@
 using TMPro;
 using UnityEngine;
-using DG.Tweening;
 using Core.Events;
-using Core.Variables;
+using DG.Tweening;
 using Core.DB.Variables;
 using System.Collections;
 
@@ -10,11 +9,6 @@ namespace Core.GamePlay.Coloring
 {
     public class ColorFillingHandler : MonoBehaviour
     {
-        [SerializeField] DBInt Sound;
-        [SerializeField] SOColorBowl CurrentBowl;
-        [SerializeField] SOInterger LevelStars;
-        [SerializeField] SOEvents StartColoringEvent, ColorSelectedEvent, HideColorBowlEvent;
-        [SerializeField] SOColor CurrentColor;
         [SerializeField] ColorFilling[] ColoringPart;
         [SerializeField] RectTransform BrushTransform;
         [SerializeField] AudioSource BurshSound;
@@ -26,26 +20,26 @@ namespace Core.GamePlay.Coloring
         [SerializeField] ParticleSystem BrushParitcle;
 
         float _speed = 5, _brushSize = 20, _preparationTime = 1, _fillingCOmpletePercentage = 75;
-        bool _canColor = false, _coloringSound = false, _canShowNextBtn = true, _onceClicked = false, _isReseting = false;
+        bool _canColor = false, _coloringSound = false, _canShowNextBtn = true, _onceClicked = false, _isReseting = false, _startCutforthisPart = false;
         Coroutine _movingRoutine;
         RectTransform _coloringParTransform;
         Camera _currentCamera;
         Texture2D _partTexture;
-        int _paintingCounter = 0, _totalColorPixles = 1, _coloredPixlesCounter = 0;
+        int _paintingCounter = 0, _totalColorPixles = 1, _coloredPixlesCounter = 0, _previousColoredPixel = 0;
         Color32[] _partPixles;
         Color _whiteColor = Color.white;
         ParticleSystem.MainModule _pm;
 
         private void OnEnable()
         {
-            StartColoringEvent.EventHandler += StartColoring;
-            ColorSelectedEvent.EventHandler += ColorSelected;
+            SimpleEventsHolder.StartColoringEvent += StartColoring;
+            SimpleEventsHolder.ColorSelectedEvent += ColorSelected;
         }
 
         private void OnDisable()
         {
-            StartColoringEvent.EventHandler -= StartColoring;
-            ColorSelectedEvent.EventHandler -= ColorSelected;
+            SimpleEventsHolder.StartColoringEvent -= StartColoring;
+            SimpleEventsHolder.ColorSelectedEvent -= ColorSelected;
             _canColor = false;
             if (_movingRoutine != null)
             {
@@ -56,7 +50,7 @@ namespace Core.GamePlay.Coloring
 
         private void Start()
         {
-            LevelStars.Value = 3;
+            LevelsManager.I.LevelStars = 3;
             _currentCamera = Camera.main;
             _coloringParTransform = ColoringPart[_paintingCounter].transform as RectTransform;
             _pm = BrushParitcle.main;
@@ -81,7 +75,7 @@ namespace Core.GamePlay.Coloring
             if (!_isReseting && _paintingCounter < ColoringPart.Length)
             {
                 InfoText.text = InfoMsgs[1];
-                Color newColor = CurrentColor.Value;
+                Color newColor = LevelsManager.I.CurrentColor;
                 _pm.startColor = newColor;
                 if (_movingRoutine == null)
                 {
@@ -93,7 +87,7 @@ namespace Core.GamePlay.Coloring
             }
             else
             {
-                CurrentBowl.Bowl.BowlState(false);
+                LevelsManager.I.CurrentBowl.BowlState(false);
             }
         }
 
@@ -114,7 +108,7 @@ namespace Core.GamePlay.Coloring
                         _coloringSound = true;
                         BrushAnimtion.Play();
                         ResetButton.SetActive(true);
-                        if (Sound.Value == 1)
+                        if (DBVariablesHolder.Sound.Value == 1)
                             BurshSound.Play();
                     }
                 }
@@ -150,8 +144,16 @@ namespace Core.GamePlay.Coloring
                     BurshSound.Stop();
                     _coloringSound = false;
                     initialOffset = Vector2.zero;
-                    if(_canShowNextBtn)
+                    if (_canShowNextBtn)
                        TextHolder.SetActive(true);
+
+                    if (_coloredPixlesCounter > _previousColoredPixel && LevelsManager.I.LevelStars > 1 && !_startCutforthisPart
+                        && !LevelsManager.I.CurrentColor.Equals(ColoringPart[_paintingCounter].DefaultColor))
+                    {
+                        LevelsManager.I.LevelStars--;
+                        _startCutforthisPart = true;
+                    }
+                    _previousColoredPixel = _coloredPixlesCounter;
                 }
                 yield return null; // Yield until the next frame
             }
@@ -191,7 +193,7 @@ namespace Core.GamePlay.Coloring
                             float distSquared = (x - brushWidth / 2) * (x - brushWidth / 2) + (y - brushHeight / 2) * (y - brushHeight / 2);
                             if (distSquared <= _brushSize * _brushSize && _partPixles[compoundIndex] == _whiteColor)
                             {
-                                _partPixles[compoundIndex] = CurrentColor.Value;
+                                _partPixles[compoundIndex] = LevelsManager.I.CurrentColor;
                                 _coloredPixlesCounter++;
                             }
                         }
@@ -216,16 +218,22 @@ namespace Core.GamePlay.Coloring
         {
             if (_coloredPixlesCounter < _totalColorPixles)
             {
+                if (LevelsManager.I.LevelStars > 1 && !_startCutforthisPart && !LevelsManager.I.CurrentColor.Equals(ColoringPart[_paintingCounter].DefaultColor))
+                {
+                    LevelsManager.I.LevelStars--;
+                    _startCutforthisPart = true;
+                }
                 for (int p = 0; p < _partPixles.Length; p++)
                 {
                     if (_partPixles[p] == _whiteColor)
                     {
-                        _partPixles[p] = CurrentColor.Value;
+                        _partPixles[p] = LevelsManager.I.CurrentColor;
                     }
                 }
                 _partTexture.SetPixels32(_partPixles);
                 _partTexture.Apply();
             }
+            _paintingCounter++;
         }
 
         public void OnNextBtnClick()
@@ -233,7 +241,6 @@ namespace Core.GamePlay.Coloring
             if (!_onceClicked)
             {
                 _onceClicked = true;
-                _paintingCounter++;
                 _canColor = false;
                 TouchProtector.SetActive(true);
                 BrushTransform.gameObject.SetActive(false);
@@ -246,17 +253,14 @@ namespace Core.GamePlay.Coloring
                 NextBtn.SetActive(false);
                 ResetButton.SetActive(false);
                 FillRemaingPixles();
-                CurrentBowl.Bowl.BowlState(false);
+                LevelsManager.I.CurrentBowl.BowlState(false);
                 _coloredPixlesCounter = 0;
                 BurshSound.Stop();
-                if (LevelStars.Value > 2 && !CurrentColor.Value.Equals(ColoringPart[_paintingCounter - 1].DefaultColor))
-                {
-                    LevelStars.Value--;
-                }
 
                 if (_paintingCounter < ColoringPart.Length)
                 {
                     BrushTransform.DOAnchorPosX(175, 0.2f).SetEase(Ease.InBack);
+                    _startCutforthisPart = false;
                     _partTexture = ColoringPart[_paintingCounter].GetCurrenTexture();
                     _totalColorPixles = ColoringPart[_paintingCounter].GetColoredPixlesCount();
                     _partPixles = _partTexture.GetPixels32();
@@ -270,7 +274,7 @@ namespace Core.GamePlay.Coloring
                 }
                 else 
                 {
-                    HideColorBowlEvent.InvokeSOEvent();
+                    SimpleEventsHolder.HideColorBowlEvent?.Invoke();
                     DetailsHandler.SetActive(true);
                 }
             }
@@ -293,7 +297,7 @@ namespace Core.GamePlay.Coloring
                 TextHolder.SetActive(false);
                 NextBtn.SetActive(false);
                 ResetButton.SetActive(false);
-                CurrentBowl.Bowl.BowlState(false);
+                LevelsManager.I.CurrentBowl.BowlState(false);
                 _coloredPixlesCounter = 0;
                 BurshSound.Stop();
                 byte alphaThreshold = 50;
@@ -320,6 +324,11 @@ namespace Core.GamePlay.Coloring
             BrushTransform.gameObject.SetActive(true);
             TextHolder.SetActive(true);
             ColoringPart[_paintingCounter].MyAnimation.Play("CurrentColoringPart");
+            if (_startCutforthisPart && LevelsManager.I.LevelStars < 3)
+            {
+                LevelsManager.I.LevelStars++;
+                _startCutforthisPart = false;
+            }
         }
     }
 }

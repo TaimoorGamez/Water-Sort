@@ -4,7 +4,6 @@ namespace Core.Store
 {
     public class MeshItemView : ItemView
     {
-        [SerializeField] Color32 SelecteColor, UnselectColor;
         [SerializeField] Renderer MySkin;
         [SerializeField] Texture MyTexture;
 
@@ -20,7 +19,7 @@ namespace Core.Store
 
         public void OnClick()
         {
-            ChangeItemStatusEvent.InvokeSOEvent(MyData.ItemId);
+            MyStorageRoom.UpdateItemStatus(ItemIndex);
         }
 
         public override void UnSelectItem()
@@ -35,7 +34,7 @@ namespace Core.Store
         {
             _propBlock = new MaterialPropertyBlock();
             base.SelectItem();
-            _propBlock.SetColor("_BaseColor", SelecteColor);
+            _propBlock.SetColor("_BaseColor", SelectColor);
             MySkin.SetPropertyBlock(_propBlock);
         }
 
@@ -43,7 +42,7 @@ namespace Core.Store
         {
             _propBlock = new MaterialPropertyBlock();
             base.ActiveSelectItem();
-            _propBlock.SetColor("_BaseColor", SelecteColor);
+            _propBlock.SetColor("_BaseColor", SelectColor);
             MySkin.SetPropertyBlock(_propBlock);
         }
     }
