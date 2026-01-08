@@ -1,11 +1,11 @@
-using Core.Events;
-using Core.GamePlay;
-using Core.Plugins.Firebase;
-using DG.Tweening;
-using System.Collections;
 using System.IO;
 using UnityEngine;
+using Core.Events;
+using DG.Tweening;
+using Core.GamePlay;
 using UnityEngine.UI;
+using System.Collections;
+using Core.Plugins.Firebase;
 
 namespace Core.Screen
 {
@@ -14,6 +14,7 @@ namespace Core.Screen
         [SerializeField] PaintingView PaintingObj;
         [SerializeField] RectTransform Content;
         [SerializeField] ScrollRect GalaryScroll;
+        [SerializeField] LvlPreview CurrentPreview;
 
         string _starsDataPath, _directoryPath;
         Coroutine _paintingRotine;
@@ -61,7 +62,7 @@ namespace Core.Screen
                     {
                         yield return new WaitForSeconds(0.01f);
                         PaintingView newPainting = Instantiate(PaintingObj, Content);
-                        newPainting.InitPainting(texture, starsData.Levels[s].LevelNumber, starsData.Levels[s].LevelIndex, starsData.Levels[s].Stars);
+                        newPainting.InitPainting(texture, starsData.Levels[s].LevelNumber, starsData.Levels[s].LevelIndex, starsData.Levels[s].Stars, CurrentPreview);
                     }
                 }
             }

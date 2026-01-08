@@ -1,9 +1,5 @@
-using Core.Events;
-using Core.States;
 using UnityEngine;
-using Core.GamePlay;
 using UnityEngine.UI;
-using Core.Plugins.Firebase;
 
 namespace Core.Screen
 {
@@ -12,9 +8,10 @@ namespace Core.Screen
         [SerializeField] RawImage PaintingImg;
         [SerializeField] Image[] Stars;
 
-        int _currentLvlNum, _currentLvlIndex;
+        int _currentLvlNum, _currentLvlIndex, _starsCount;
+        LvlPreview _lvlPreview;
 
-        public void InitPainting(Texture paintingTex, int lvlNum, int lvlIndex, int paintingStars)
+        public void InitPainting(Texture paintingTex, int lvlNum, int lvlIndex, int paintingStars, LvlPreview lvlPreview)
         {
             PaintingImg.texture = paintingTex;
             for(int s = 0; s < paintingStars; s++)
@@ -24,16 +21,14 @@ namespace Core.Screen
             PaintingImg.enabled = true;
             _currentLvlNum = lvlNum;
             _currentLvlIndex = lvlIndex;
+            _starsCount = paintingStars;
+            _lvlPreview = lvlPreview;
         }
 
         public void GenerateCustomLvl()
         {
-            LevelsManager.I.TempLvlNum = _currentLvlNum;
-            LevelsManager.I.TempLvlIndex = _currentLvlIndex;
-            StateManager.I.ActiveState(StateManager.I.GamePlayStatePath);
-            StateManager.I.DestroyState(StateManager.I.MainMenuStatePath);
-            SimpleEventsHolder.InitLvlEvent?.Invoke();
-            FirebaseHandler.I?.LogEvent($"Glry_Lvl_{_currentLvlNum}");
+            _lvlPreview.LevelDetails(PaintingImg.mainTexture, _currentLvlNum, _currentLvlIndex, _starsCount);
+            _lvlPreview.gameObject.SetActive(true);
         }
     }
 }
