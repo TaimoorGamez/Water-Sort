@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Colors:
   - serializedVersion: 2
-    rgba: 4278205590
+    rgba: 4278190335
   - serializedVersion: 2
     rgba: 4293597440
   - serializedVersion: 2
@@ -22,6 +22,6 @@ MonoBehaviour:
   - serializedVersion: 2
     rgba: 4291334565
   - serializedVersion: 2
-    rgba: 4278190335
+    rgba: 4278222335
   - serializedVersion: 2
     rgba: 4281859840
