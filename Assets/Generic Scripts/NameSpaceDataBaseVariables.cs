@@ -106,7 +106,7 @@ namespace Core.DB.Variables
         public static DBInt RemaingUndo = new DBInt("RemaingUndo", 1);
         public static DBInt RemainingSwaps = new DBInt("RemainingSwaps", 1);
         public static DBInt RemainingTubes = new DBInt("RemainingTubes", 1);
-        public static DBInt MaxLvlCount = new DBInt("MaxLvlCount", 26);
+        public static DBInt MaxLvlCount = new DBInt("MaxLvlCount", 19);
 
     }
 

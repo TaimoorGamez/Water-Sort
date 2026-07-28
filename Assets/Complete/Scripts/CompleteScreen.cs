@@ -37,6 +37,7 @@ namespace Core.Screen
         GameObject _textObj;
         AsyncOperationHandle _txtHandle;
         RenderTexture _tempRT;
+        Color _starColor = Color.white;
 
         private void OnEnable()
         {
@@ -124,7 +125,7 @@ namespace Core.Screen
             Invoke(nameof(OnPanelVisible), _durationTweeing);
             for (int s = 0; s < LevelsManager.I.LevelStars; s++)
             {
-                StarsImg[s].color = Color.white;
+                StarsImg[s].color = _starColor;
             }
             yield return new WaitForSeconds(0.1f);
 

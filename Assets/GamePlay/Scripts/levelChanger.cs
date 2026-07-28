@@ -9,6 +9,6 @@ public class levelChanger : MonoBehaviour
     {
         DBVariablesHolder.LvlIndex.Value = NextLvl;
         DBVariablesHolder.LvlNum.Value = NextLvl;
-        DBVariablesHolder.MaxLvlCount.Value = NextLvl;
+        //DBVariablesHolder.MaxLvlCount.Value = NextLvl;
     }
 }
