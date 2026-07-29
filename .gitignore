@@ -74,4 +74,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 .idea/
 /.utmp
-/Assets/Firebase/Plugins
+/Assets/Firebase/Plugins/x86_64
+Assets/GoogleMobileAds/Mediation/UnityAds/Platforms/iOS.meta
+Assets/GoogleMobileAds/Mediation/UnityAds/Platforms/iOS/GoogleMobileAds.Mediation.UnityAds.iOS.asmdef.meta
